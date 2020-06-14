@@ -341,7 +341,8 @@ class CortegeFestival extends Component{
         >
           <SofCountdown 
             label={<FormattedMessage id='CortegeFestival.timeLeft' />}
-            toDate={new Date('2019-05-11T12:00:00')} />
+            toDate={new Date('2019-05-11T12:00:00')} 
+            countdownFinishCallback={() => this.setState({timerFinished: true})} />
         </HighlightedArea>
 
         <Grid className="base-outer-grid ">

@@ -42,12 +42,12 @@ import { Snackbar, SnackbarAction } from '@rmwc/snackbar';
 const pages = intl =>{
   return{
     '/':  Start,
-    [intl({id: 'Start.festivalTitle'})]: {
+    /*[intl({id: 'Start.festivalTitle'})]: {
       '/festival_schedule': ScheduleFestival,
       '/festival_area': AreaFestival,
       '/festival_cortege': CortegeFestival,
       '/festival_activities': EventFestival
-    },
+    },*/
     [intl({id: 'Start.aboutTitle'})]: {
       '/about_festival': Om,
       '/about_cortege': CortegeAbout,
@@ -55,7 +55,7 @@ const pages = intl =>{
       '/about_history': History,
     },
     //'/about': Om,
-    '/shop': Shop,
+    //'/shop': Shop,
     '/contact': Contact,
     //'/funkis': Funkis,
   }

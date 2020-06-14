@@ -66,22 +66,22 @@ class Start extends Component{
             {!this.props.isMobile ?
               <h2 style={{margin: '10px'}}>
                 <Link to='/shop' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.buyTicket' />
+                  <FormattedMessage id='Start.putte' />
                 </Link>
               </h2>
                 :
               <h4 style={{margin: '10px'}}>
                 <Link to='/shop' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.buyTicket' />
+                  <FormattedMessage id='Start.putte' />
                 </Link>
               </h4>
             }
           </GridCell>
-        </HighlightedArea>
+          </HighlightedArea>
 
         <Grid className="base-outer-grid ">
           <GridInner>
-            <GridCell phone="4" tablet="8" desktop='12' >
+            {/* <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
                 <FormattedMessage id='Start.festivalTitle' />
               </Header>
@@ -129,7 +129,7 @@ class Start extends Component{
                 desc={<FormattedMessage id='EventFestival.activitiesT'/>}
                 onClickProp={() => this.props.history.push('/festival_activities')}
               />
-            </GridCell>
+            </GridCell> */}
 
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>

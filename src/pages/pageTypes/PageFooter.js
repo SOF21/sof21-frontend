@@ -39,7 +39,7 @@ class PageFooter extends Component{
 
                 <GridCell phone='4' tablet='5' desktop='8'>
                   <h6>
-                      <b>&copy;Studentorkesterfestivalen, 2019</b>
+                      <b>&copy;Studentorkesterfestivalen, 2021</b>
                   </h6>
                 </GridCell>
                 <GridCell phone='4' tablet='3' desktop='4' className='page-footer-ra-text v-center'>

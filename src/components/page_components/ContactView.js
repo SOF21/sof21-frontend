@@ -66,7 +66,7 @@ class ContactsView extends Component{
 
     this.handleAllClick = this.handleAllClick.bind(this);
 
-    this.state = {collapsed: false};
+    this.state = {collapsed: true};
   }
 
   handleAllClick(){
