@@ -1,0 +1,45 @@
+.contact-card{
+    @include mdc-elevation(1);
+    display: block;
+
+    .mdc-list{
+        padding: 0;
+    }
+
+    .mdc-card__media{
+        float:left;
+    }
+
+    .mdc-list-item{
+        position: relative;
+        height: 56px;
+
+
+        .mdc-list-item__primary-text{
+            margin-top: -8px;
+        }
+
+        .rmwc-icon{
+            width: 32px;
+            height: 32px;
+            font-size: 32px;
+
+            @include user-select(none);
+        }
+    }
+
+}
+
+.avatar-graphic{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.contact-card-media{
+    background-repeat: space;
+        background-position: left 50% top -10px;
+    &.contact-card-mobile{
+        background-position: left 0% top 0px;
+    }
+}

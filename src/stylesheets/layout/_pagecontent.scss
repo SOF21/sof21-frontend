@@ -1,0 +1,142 @@
+.page{
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.administrative-page{
+    height: 100%;
+    width: 100%;
+    background: white;
+
+    @include mdc-elevation(8);
+    z-index: 1;
+}
+
+.base-page-content{
+    flex: 1 0 auto;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin max-width-minus-margin($device){
+    width: -moz-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    width: -webkit-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    width: -o-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    width: calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+}
+
+.base-outer-grid{
+    max-width: $page-grid-max-width;
+
+    margin: 0 map-get($outer-grid-margins, phone);
+    // TODO: Make into mixin
+    @include max-width-minus-margin(phone)
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        margin: 0 map-get($outer-grid-margins, tablet);
+        @include max-width-minus-margin(tablet)
+    }
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        margin: 0 map-get($outer-grid-margins, desktop);
+        @include max-width-minus-margin(desktop)
+    }
+
+    @include mdc-elevation(12);
+    background: white;
+    flex-grow: 1;
+    z-index: 2;
+
+    // Class for first grid in page, makes content slightly go over header image
+    &.base-outer-grid--first{
+        margin-top: map-get($outer-grid-margins, phone) * -2;
+        @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+            margin-top: map-get($outer-grid-margins, tablet) * -2;
+        }
+        @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+            margin-top: map-get($outer-grid-margins, desktop) * -2;
+        }
+    }
+
+    // Class for first grid in page, makes content slight go over footer
+    &.base-outer-grid--last{
+        margin-bottom: map-get($outer-grid-margins, phone);
+        @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+            margin-bottom: map-get($outer-grid-margins, tablet);
+        }
+        @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+            margin-bottom: map-get($outer-grid-margins, desktop);
+        }
+    }
+}
+
+
+.administrative-outer-grid{
+    width:100%;
+    max-width: $administrative-page-grid-max-width;
+
+    margin: 0;
+
+
+    background: white;
+    flex-grow: 1;
+    z-index: 2;
+
+    height: 100%;
+    display:flex;
+    align-items: stretch;
+}
+
+@mixin height-without-grid-margins($device){
+    min-height: -moz-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    min-height: -webkit-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    min-height: -o-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    min-height: calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+}
+@mixin width-without-grid-margins($device){
+    width: -moz-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    width: -webkit-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    width: -o-calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+    width: calc(100% - #{map-get($outer-grid-margins, $device) * 2});
+}
+
+.administrative-inner-grid{
+    width:100%;
+}
+
+.header-space{
+    height: 100px;
+}
+
+@mixin remove-top-padding($device){
+    margin: -moz-calc(100% - #{map-get($outer-grid-margins, $device) * 2}) 0px;
+    margin: -webkit-calc(100% - #{map-get($outer-grid-margins, $device) * 2}) 0px;
+    margin: -o-calc(100% - #{map-get($outer-grid-margins, $device) * 2}) 0px;
+    margin: calc(100% - #{map-get($outer-grid-margins, $device) * 2}) 0px;
+}
+
+.account-desktop-menu{
+    margin:  0 - map-get($outer-grid-margins, desktop) 0px;
+    @include mdc-elevation(4);
+
+    .mdc-list{
+        padding: 0px
+    }
+
+    .mdc-list-item{
+        padding-left: 4px;
+        height: 60px;
+        cursor: pointer;
+    }
+
+    .rmwc-icon{
+        margin-right: 16px;
+        height: 28px;
+    }
+
+    a{
+        color: black;
+        text-decoration: none;
+    }
+}

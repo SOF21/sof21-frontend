@@ -1,0 +1,35 @@
+%cortege-image-base{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    width: 100%;
+
+    @extend .mdc-elevation-transition;
+    transition: transform 0.1s ease-in-out; 
+    @include mdc-elevation(0);
+    transform: scale(1);
+    &:hover{
+        @include mdc-elevation(4);
+        transform: scale(1.007);
+    }
+}
+
+.cortege-image{
+    @extend %cortege-image-base;
+    padding-top: 56.25%;
+}
+
+.cortege-image-square-tablet{
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        padding-top: 100%;
+    }
+}
+
+.cortege-image-square-desktop{
+    @extend %cortege-image-base;
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        padding-top: 100%;
+    }
+}
+

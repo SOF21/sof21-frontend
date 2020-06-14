@@ -1,0 +1,46 @@
+%highlighted-area-base {
+    color: white;
+    @include mdc-elevation(8);
+    z-index: 3;
+    
+    width: 100%;
+    max-width: 880px;
+    flex-grow: 1;
+
+    padding: 8px;
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        padding: map-get($mdc-layout-grid-default-margin, tablet);
+    }
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        padding: map-get($mdc-layout-grid-default-margin, desktop);
+    }
+}
+
+.highlighted-area-red{
+    @extend %highlighted-area-base;
+    background: $sofRed;
+}
+
+.highlighted-area-green{
+    @extend %highlighted-area-base;
+    background: $sofGreen;
+}
+
+.highlighted-area-yellow{
+    @extend %highlighted-area-base;
+    background: $sofYellow;
+}
+
+.highlighted-area-inner{
+    min-height: 80px;
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        min-height: 96px;
+    }
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        min-height: 120px;
+    }
+}
+
+.grid-gap-8{
+    grid-gap: 8px;
+}

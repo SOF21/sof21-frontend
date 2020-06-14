@@ -1,0 +1,70 @@
+.liu-login-button{
+    background-color: $liuBlue !important;
+}
+
+.login-popup-surface{
+    width: 80vw;
+    max-width: 512px;
+
+    .mdc-button{
+        width:100%;
+    }
+
+    .mdc-text-field{
+        width:100%;
+        .mdc-floating-label{
+            &:after{
+                content: '';
+            }
+        }
+    }
+}
+
+
+.mobile-account-modal{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 0%;
+    max-height: 100vh;
+    background-color: white;
+    color: black;
+    z-index: 10;
+    overflow: hidden;
+    @include mdc-elevation(12);
+
+    .mdc-button{
+        width:100%;
+    }
+
+    .mdc-text-field{
+        width:100%;
+        .mdc-floating-label{
+            &:after{
+                content: '';
+            }
+        }
+    }
+}
+
+.mobile-account-scrim{
+    position:fixed;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9;
+    background-color: rgba(0,0,0,0.5);
+}
+
+
+.account-popup-image{
+    width: 200px;
+    padding-top: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: $primary;
+
+    border-radius: 50%;
+
+}

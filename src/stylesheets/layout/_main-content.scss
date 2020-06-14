@@ -1,0 +1,22 @@
+
+.main-content{
+  margin: auto; /* Adjusts margin to place content in center */
+  width: 800px;
+  height: 400px;
+  font-family: Arial;
+  animation-name: fadeload;
+  animation-duration: 2s;
+
+  display: flex;
+  flex-direction: row;
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  @keyframes fadeload {
+    from {opacity: 0  }
+    to {opacity: 1 }
+  }
+
+}

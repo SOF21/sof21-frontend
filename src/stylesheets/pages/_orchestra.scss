@@ -1,0 +1,78 @@
+.account-orchestra{
+    .mdc-text-field{
+        width:100%;
+    }
+
+    .mdc-button{
+        min-height: 36px;
+        width:100%;
+        @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+            height: 56px;
+        }
+    }
+}
+.account-orchestra-signup{
+    .mdc-text-field{
+        width:100%;
+    }
+
+    .mdc-select{
+        width:100%;
+    }
+
+    .mdc-list{
+        width:100%;
+    }
+
+    .mdc-floating-label{
+        font-size: 0.65rem;
+        @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+            font-size: 1rem;
+        }
+
+        &--float-above{
+            font-size: 1rem;
+        }
+        -webkit-transition: font-size 0.2s; /* Safari */
+        transition: font-size 0.2s;
+    }
+
+    .rmwc-data-table{
+        width: 100%;
+    }
+
+    .rmwc-data-table__content{
+        width: 100%;
+    }
+
+
+    tr{
+        td{
+            &:nth-child(3){
+                display: none;
+                @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+                    display: table-cell;
+                }
+            }
+        }
+        th{
+            &:nth-child(3){
+                display: none;
+                @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+                    display: table-cell;
+                }
+            }
+        }
+    }
+}
+
+.addKr{
+    &:after{
+        content: ' kr'
+    }
+}
+.addSek{
+    &:after{
+        content: ' SEK'
+    }
+}

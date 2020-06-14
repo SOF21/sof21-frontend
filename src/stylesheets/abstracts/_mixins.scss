@@ -1,0 +1,6 @@
+@mixin user-select($prop){
+    -webkit-user-select: $prop;
+    -moz-user-select: $prop;
+    -ms-user-select: $prop;
+    user-select: $prop; 
+}

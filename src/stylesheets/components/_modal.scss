@@ -1,0 +1,45 @@
+.modal-frame{
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: none;
+    background: rgba(255, 0, 0, 0.8);
+    z-index:10;
+}
+
+.modal-container{
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    display: none;
+    z-index:11;
+
+    pointer-events: none;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-exit-button{
+    z-index: 12;
+    position: absolute;
+    color: white;
+    top: 0;
+    right: 0;
+    @include mdc-icon-button-size(36px);
+    cursor: pointer;
+    pointer-events: auto;
+
+    .rmwc-icon{
+        font-size: 36px;
+    }
+}

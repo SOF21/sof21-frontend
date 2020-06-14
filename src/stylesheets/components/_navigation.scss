@@ -1,0 +1,223 @@
+.mdc-top-app-bar{
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+    width: 100vw;
+
+    background-color: rgba(0,0,0,0);
+
+    &.mdc-top-app-bar--fixed-scrolled{
+        background-color: $sofRed;
+        margin-bottom: 20px;
+
+        .nav-link-container{
+            -webkit-transition: background-color 200ms linear;
+            -ms-transition: background-color 200ms linear;
+            transition: background-color 200ms linear;
+            position: relative;
+
+            .nav-button:first-child{
+                position: relative;
+                z-index: 4;
+                box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.14);
+            }
+            .nav-button:not(:first-child){
+                position: relative;
+                background-color: #E00;
+                z-index: 3;
+            }
+        }
+    }
+}
+
+.mdc-top-app-bar__title{
+}
+
+.mdc-top-app-bar__section--align-end{
+    padding-right: 0;
+}
+
+.nav-link-container{
+    align-self: flex-start;
+    margin-top: -8px;
+    overflow: hidden;
+}
+
+.nav-button{
+    padding: 8px 12px 8px 12px;
+    height: 48px;
+    width:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+
+    &:hover{
+    }
+
+    &:link{
+        color: white;
+        text-decoration:none;
+    }
+
+    &:visited{
+        color: white;
+        text-decoration:none;
+    }
+
+    &:active{
+        color: white;
+        text-decoration:none;
+    }
+
+}
+
+.nav-lang-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-right:8px;
+
+
+    border-radius: 50px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+
+    &.mdc-ripple-upgraded{
+        &:before{
+            opacity: 0 !important;
+        }
+    }
+}
+
+.nav-lang-text{
+    padding-left: 12px;
+    width: 72px;
+    white-space: nowrap;
+    text-align:left;
+    font-weight: bold;
+    z-index:3;
+}
+.nav-lang-icon{
+    width: 48px;
+    padding: 4px;
+    padding-right: 12px;
+    z-index:4;
+
+    webkit-filter: drop-shadow( 0px 2px 3px rgba(0, 0, 0, .4));
+    filter: drop-shadow( 0px 2px 3px rgba(0, 0, 0, .4));
+
+
+    cursor: pointer;
+}
+
+
+.nav-drawer{
+    background-color: $sofRed;
+    border-left-width:0 !important;
+    font-size:large;
+    color: white;
+
+    .mdc-list{
+        margin: 0;
+        padding: 0;
+
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .mdc-list-item{
+        color: white;
+        margin:0 !important;
+
+        flex-grow: 1;
+
+        padding: 8px 16px;
+        border-radius: 0;
+        font-size:large;
+
+        cursor: pointer;
+        font-weight: bold;
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none; 
+
+        &.list-centered{
+            justify-content: center;
+        }
+
+        &.mdc-ripple-upgraded--background-focused{
+            &:before{
+                opacity: 0 !important;
+            }
+
+            &:hover{
+                &:before{
+                    opacity: 0.06 !important;
+                }
+            }
+
+        }
+
+        .mdc-list-item__meta{
+            margin-left: auto;
+            margin-right: 0;
+
+            color: white;
+        }
+
+        .mdc-list-item__secondary-text{
+            margin-left: 1px
+        }
+
+    }
+
+
+    .list-selected{
+        background-color: darken($sofRed, 15%);
+        &:before{
+            opacity: 0 !important;
+        }
+    }
+
+    .nav-language-list-item{
+        img{
+            height: 100%;
+        }
+    }
+
+    .rmwc-icon{
+        max-height: 52px;
+    }
+
+}
+
+.mdc-top-app-bar{
+    //Remove clicking on hamburger menu (gives text popup)
+    .rmwc-icon{
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none; 
+    }
+}
+

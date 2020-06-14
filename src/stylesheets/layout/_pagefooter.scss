@@ -1,0 +1,61 @@
+.page-footer-margin{
+    flex-grow: 10000000; // Take all available space if page is too small, so header doesn't
+}
+
+.page-footer{
+    color: white;
+    background: $primary;
+    
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.page-footer-content{
+    max-width: $page-grid-max-width;
+    flex-grow: 1;
+
+
+    margin: 0px map-get($outer-grid-margins, phone);
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        margin: 0px map-get($outer-grid-margins, tablet);
+    }
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        margin: 0px map-get($outer-grid-margins, desktop);
+    }
+
+    h5{
+        margin: 0px;
+    }
+
+    h6{
+        margin: 0px;
+    }
+}
+
+.page-footer-ra-text{
+    text-align: left;
+    justify-content: flex-start;
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        text-align: right;
+        justify-content: flex-end;
+    }
+}
+
+.fa-ripple{
+    display: table;
+    margin-left: -15%;
+    padding: 15%;
+    color: white !important;
+    
+    svg{
+        display: table-row;
+    }
+}
+

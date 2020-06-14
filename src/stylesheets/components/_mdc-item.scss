@@ -1,0 +1,56 @@
+.mdc-item-uninteractive{
+    &:hover{
+        &:before{
+            opacity: 0 !important;
+        }
+    }
+
+    &:active{
+        &:after{
+            opacity: 0 !important;
+        }
+    }
+
+    &:focus{
+        &:before{
+            opacity: 0 !important;
+        }
+    }
+}
+
+.mdc-item-no-hover{
+    &:hover{
+        &:before{
+            opacity: 0 !important;
+        }
+    }
+}
+
+.mdc-item-no-active{
+    &:active{
+        &:after{
+            opacity: 0 !important;
+        }
+    }
+}
+
+.mdc-item-no-focus{
+    &:focus{
+        &:before{
+            opacity: 0 !important;
+        }
+    }
+}
+
+.mdc-item-only-hover{
+    &:active{
+        &:after{
+            opacity: 0 !important;
+        }
+    }
+    &:focus{
+        &:before{
+            opacity: 0 !important;
+        }
+    }
+}

@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+   color: $sofGreen;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:visited{
+    color: $sofGreen;
+  }
+  &:active{
+    color: $sofGreen;
+  }
+}
+
+.cite{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.1rem;
+    font-style: italic;
+
+}
+
+
+.hide-mobile-tablet{
+  @media (max-width: mdc-layout-grid-breakpoint-max(tablet)) {
+    display: none !important;
+  }
+}
+
+.hide-mobile{
+  @media (max-width: mdc-layout-grid-breakpoint-max(phone)) {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @media not all and (max-width: mdc-layout-grid-breakpoint-max(tablet)) {
+    display: none !important;
+  }
+}
+
+.h-center{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.v-center{
+    display: flex;
+    align-items: center;
+}   
+
+.select-all{
+    @include user-select(all);
+}
+
+.select-none{
+    @include user-select(none);
+}
+
+.full-width-table{
+    width: 100%;
+
+    table{
+        width: 100%;
+        table-layout: fixed;
+
+        tr{
+            width: 100%;
+
+            td{
+                word-wrap: break-word;
+                white-space: initial;
+            }
+        }
+    }
+}
+.strike-through{
+    color: #aaa;
+}
+
+// Fix text field colors
+.mdc-text-field--focused:not(.mdc-text-field--disabled) {
+    .mdc-floating-label{
+        color: var(--mdc-theme-secondary);
+    }
+    .mdc-line-ripple{
+        background-color: var(--mdc-theme-secondary);
+    }
+}
+
+.mdc-select--focused:not(.mdc-select--disabled) {
+    .mdc-floating-label{
+        color: var(--mdc-theme-secondary) !important;
+    }
+    .mdc-line-ripple{
+        background-color: var(--mdc-theme-secondary) !important;
+    }
+}
+
+.mdc-text-field:not(.mdc-text-field--disabled) {
+    .mdc-line-ripple{
+        background-color: var(--mdc-theme-secondary);
+    }
+}
+
+.mdc-select:not(.mdc-select--disabled){
+    .mdc-line-ripple{
+        background-color: var(--mdc-theme-secondary) !important;
+    }
+}
+
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) {
+    .mdc-floating-label{
+        color: var(--mdc-theme-primary);
+    }
+    .mdc-line-ripple{
+        background-color: var(--mdc-theme-primary);
+    }
+}
+
+.mdc-select--invalid:not(.mdc-select--disabled){
+    .mdc-floating-label{
+        color: var(--mdc-theme-primary) !important;
+    }
+    .mdc-line-ripple{
+        background-color: var(--mdc-theme-primary) !important;
+    }
+}

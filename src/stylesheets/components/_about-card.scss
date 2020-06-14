@@ -1,0 +1,26 @@
+.about-card{
+
+    .fading-desc{
+        max-height: 128px;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        position:relative;
+
+        span{
+            &:before{
+                content:'';
+            }
+        }
+    }
+    .fading-bot{
+        width:100%;
+        position:absolute;
+        left:0;
+        bottom: 16px;
+        padding: 60px 0px;
+        background-image: -moz-linear-gradient(to bottom, rgba(255,255,255, 0), rgba(255,255,255, 255));
+        background-image: -webkit-linear-gradient(to bottom, rgba(255,255,255, 0), rgba(255,255,255, 255));
+        background-image: linear-gradient(to bottom, rgba(255,255,255, 0), rgba(255,255,255, 255));
+
+    }
+}

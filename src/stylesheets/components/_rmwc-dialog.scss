@@ -1,0 +1,5 @@
+.unclickable-scrim-dialog{
+    .mdc-dialog__scrim{
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,49 @@
+.rmwc-table-uninteractive{
+    .rmwc-data-table__row{
+        &:hover{
+            .rmwc-data-table__cell{
+                &:before{
+                    opacity: 0 !important;
+                }
+            }
+        }
+    }
+}
+
+.rmwc-table-full-width{
+    width: 100%;
+
+    .rmwc-data-table__content{
+        width: 100%;
+    }
+}
+
+.rmwc-table-price-summary{
+    &.rmwc-data-table{
+        width: 100%;
+    }
+
+    .rmwc-data-table__content{
+        width: 100%;
+    }
+
+
+    tr{
+        td{
+            &:nth-child(3){
+                display: none;
+                @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+                    display: table-cell;
+                }
+            }
+        }
+        th{
+            &:nth-child(3){
+                display: none;
+                @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+                    display: table-cell;
+                }
+            }
+        }
+    }
+}

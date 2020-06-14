@@ -1,0 +1,96 @@
+//This is probably not where you would want this class, but there is no other cart related one
+.cart-button{
+    position: relative;
+
+    .cart-amount{
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        line-height:20px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 0.7rem;
+
+        background: #FF0000;
+        border-radius: 20px;
+        @include mdc-elevation(2);
+    }
+}
+
+.cart-upper-grid{
+    z-index: 2;
+    position: relative;
+}
+
+.cart-middle-grid{
+    z-index: 1;
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+.cart-cell{
+    overflow-y: auto;
+    max-height: 50vh;
+    -webkit-overflow-scrolling: touch;
+}
+.cart-item-card{
+    @include mdc-elevation(2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    padding: 16px 0px;
+    margin: 0px 5px;
+
+    .mdc-list{
+        padding: 0px;
+        flex: 0 0 auto;
+    }
+    .product-list{
+        flex: 1 0 auto;
+       // width: 20%; 
+    }
+
+    .amount { 
+        font-size: .875rem;
+    }
+
+    .mdc-card__media{
+        width: 56px;
+        height: 56px;
+        flex-grow: 0;
+        flex-shrink: 0;  
+    }
+
+    .mdc-text-field{
+        margin: 8px;
+        flex: 0 0 72px;
+    }
+
+    .mdc-icon-button{
+        font-size: .875rem;
+    }
+
+    .mdc-list-item{
+        position: auto;
+        height: 40px;
+
+        .mdc-list-item__primary-text{
+            margin-top: -8px;
+        }
+
+        .rmwc-icon{
+            width: 32px;
+            height: 32px;
+            font-size: 32px;
+
+            @include user-select(none);
+        }
+    }
+}

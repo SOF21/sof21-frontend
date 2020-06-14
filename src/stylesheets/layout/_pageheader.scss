@@ -1,0 +1,128 @@
+.base-page-header{
+    min-height: 30vh;
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        min-height: 40vh;
+    }
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        min-height: 50vh;
+    }
+    position: relative;
+
+    display:flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+}
+
+.administrative-page-header{
+    @extend .base-page-header;
+
+    min-height: 0vh;
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        min-height: 0vh;
+    }
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        min-height: 40vh;
+    }
+}
+
+.base-page-header-image{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+
+    background: $secondary;
+
+    .base-page-header-image-left-dots{
+        position: absolute;
+        left: 0;
+        height: 100%;
+        transform: rotate(180deg);
+    }
+
+    .base-page-header-image-right-dots{
+        position: absolute;
+        right: 0;
+        height: 100%;
+    }
+}
+
+.base-page-header-yellow{
+    background: $sofYellow;
+}
+
+.base-page-header-red{
+    background: $primary !important;
+}
+
+.base-page-header-content{
+    position: relative;
+    width: 100%;
+
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.base-page-header-title{
+    flex: 1 0 auto;
+
+    overflow: hidden;
+
+    max-width: $page-grid-max-width - (map-get($outer-grid-margins, phone) + map-get($mdc-layout-grid-default-margin, phone) * 2);
+    width: calc(100% - 24px*2);
+    padding: 0px map-get($outer-grid-margins, phone) + map-get($mdc-layout-grid-default-margin, phone);
+    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+        padding: 0px map-get($outer-grid-margins, tablet) + map-get($mdc-layout-grid-default-margin, tablet);
+        width: calc(100% - 32px*2); //TODO: remove hard coded values
+    }
+    @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+        padding: 0px map-get($outer-grid-margins, desktop) + map-get($mdc-layout-grid-default-margin, desktop);
+        width: calc(100% - 48px*2); //TODO: remove hard coded values
+    }
+
+    color: white;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    h1{
+        line-height: 3.5rem;
+        font-size: 3em;
+        margin: map-get($outer-grid-margins, phone) * 3 0px;
+        text-shadow: 2px 2px rgba(0,0,0,0.2);
+
+        @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+            line-height: 5rem;
+            font-size: 5em;
+            margin: map-get($outer-grid-margins, tablet) * 3 0px;
+            text-shadow: 3px 3px rgba(0,0,0,0.2);
+        }
+
+        @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+            line-height: 6rem;
+            font-size: 6em;
+            margin: map-get($outer-grid-margins, desktop) * 3 0px;
+            text-shadow: 4px 4px rgba(0,0,0,0.2);
+        }
+
+        margin-top: 0 !important;
+
+    }
+}
+
+.administrative-page-header-title{
+    @extend .base-page-header-title;
+
+    max-width: $administrative-page-grid-max-width - (map-get($outer-grid-margins, phone) + map-get($mdc-layout-grid-default-margin, phone) * 2);
+}
+
+.administrative-tabs{
+    width: 100%;
+
+    a{
+        text-decoration: none;
+    }
+
+}
