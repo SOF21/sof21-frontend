@@ -75,7 +75,7 @@ class Contact extends Component{
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12'>
               <TextField
-                outline
+                outline="true"
                 type='search'
                 withLeadingIcon="search"
                 label={this.props.intl.formatMessage({id: 'Contact.search'})}
