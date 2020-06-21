@@ -55,6 +55,7 @@ class Start extends Component{
               <img 
                 className='full-width-grid-image'
                 src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/start/header2.png'
+                alt='The SOF logo next to the date of the festival'
               />
             </GridCell>
           </GridInner>
@@ -65,7 +66,7 @@ class Start extends Component{
           <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
             {!this.props.isMobile ?
               <h2 style={{margin: '10px'}}>
-                <Link to='/shop' style={{color: 'white'}}>
+                <Link to='#' style={{color: 'white'}}>
                   <FormattedMessage id='Start.putte' />
                 </Link>
               </h2>
@@ -168,18 +169,7 @@ class Start extends Component{
                 onClickProp={() => this.props.history.push('/about_history')}
               />
             </GridCell>
-            <GridCell phone="4" tablet="8" desktop='12' className='h-center'>
-              <span>
-                <a 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  href='https://www.tsreklam.se' 
-                >
-                  www.tsreklam.se
-                </a> sponsrade våra tygpåsar med tryck.
-              </span>
-            </GridCell>
-          </GridInner>
+            </GridInner>
         </Grid>
       </React.Fragment>
     );

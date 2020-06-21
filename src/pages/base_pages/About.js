@@ -110,29 +110,6 @@ class About extends Component{
                   id="About.p1"
                 />
               </p>
-            </GridCell>
-          </GridInner>
-        </Grid>
-
-        <HighlightedArea className='countdown-inner' color='green'>
-            {!this.props.isMobile ?
-              <h2 style={{margin: '10px'}}>
-                <Link to='/shop' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.buyTicket' />
-                </Link>
-              </h2>
-                :
-              <h4 style={{margin: '10px'}}>
-                <Link to='/shop' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.buyTicket' />
-                </Link>
-              </h4>
-            }
-        </HighlightedArea>
-
-        <Grid className="base-outer-grid ">
-          <GridInner className='grid-gap-8'>
-            <GridCell phone="4" tablet="8" desktop='12'>
               <p>
                 <FormattedMessage
                   id="About.p2"
@@ -202,10 +179,26 @@ class About extends Component{
                 />
               </h3>
             </GridCell>
-
           </GridInner>
         </Grid>
-      </React.Fragment>
+
+       {/*  <HighlightedArea className='countdown-inner' color='green'>
+            {!this.props.isMobile ?
+              <h2 style={{margin: '10px'}}>
+                <Link to='/shop' style={{color: 'white'}}>
+                  <FormattedMessage id='Start.buyTicket' />
+                </Link>
+              </h2>
+                :
+              <h4 style={{margin: '10px'}}>
+                <Link to='/shop' style={{color: 'white'}}>
+                  <FormattedMessage id='Start.buyTicket' />
+                </Link>
+              </h4>
+            }
+        </HighlightedArea> */}
+
+       </React.Fragment>
     );
   }
 }
