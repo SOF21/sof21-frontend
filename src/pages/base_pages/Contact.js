@@ -75,10 +75,12 @@ class Contact extends Component{
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12'>
               <TextField
-                fullwidth
+                outline
                 type='search'
-                placeholder={this.props.intl.formatMessage({id: 'Contact.search'})}
+                withLeadingIcon="search"
+                label={this.props.intl.formatMessage({id: 'Contact.search'})}
                 onChange={ e => this.setState({searchField: e.target.value})}
+                style={{width:'100%'}}
               />        
             </GridCell>
               <GridCell phone="4" tablet="8" desktop='12'>
