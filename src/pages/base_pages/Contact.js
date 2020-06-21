@@ -3,44 +3,51 @@ import React, { Component } from 'react';
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
 import { ListDivider } from '@rmwc/list';
 
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
+
+import { TextField } from '@rmwc/textfield'
 
 import ContactView from '../../components/page_components/ContactView';
 import ContactCard from '../../components/page_components/ContactCard';
 import Header from '../../components/page_components/NiceHeader';
 
 const generalContact = [
-  {name: 'Elin Norberg', title: 'General', email: 'sof-general', image: ''},
+  {name: 'Elin Norberg', title: 'General', email: 'sof-general', image: '', id: 1},
 ];
 
 const festivalContacts = [
-  {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: ''},
-  {name: 'Emma Green', title: 'Servering', email: 'servering', image: ''},
-  {name: 'Jesper Andersson', title: 'Område - Festival', email: 'omrade-festival', image: ''},
-  {name: 'Kasper Landgren', title: 'Område - Uppbyggnad', email: 'omrade-uppbyggnad', image: ''},
-  {name: 'Sara Wågman', title: 'Personal', email: 'personal', image: ''},
-  {name: 'Joel H Nilsson', title: 'Orkester', email: 'orkester', image: ''},
-  {name: 'Daniel Pysander', title: 'Kårtege', email: 'kartege', image: ''},
+  {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: '', id: 2},
+  {name: 'Emma Green', title: 'Servering', email: 'servering', image: '', id: 3},
+  {name: 'Jesper Andersson', title: 'Område - Festival', email: 'omrade-festival', image: '', id: 4},
+  {name: 'Kasper Landgren', title: 'Område - Uppbyggnad', email: 'omrade-uppbyggnad', image: '', id: 5},
+  {name: 'Sara Wågman', title: 'Personal', email: 'personal', image: '', id: 6},
+  {name: 'Joel H Nilsson', title: 'Orkester', email: 'orkester', image: '', id: 7},
+  {name: 'Daniel Pysander', title: 'Kårtege', email: 'kartege', image: '', id: 8},
 ];
 
 const commContacts = [
-  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: ''},
-  {name: 'Michelle Krejci', title: 'IT', email: 'it', image: ''},
-  {name: 'Ester Brandås', title: 'Samarbete', email: 'samarbete', image: ''},
-  {name: 'Didrik Florhed', title: 'Marknadsföring', email: 'marknadsforing', image: ''},
-  {name: 'Ylva Bröms', title: 'Art Director', email: 'ad', image: ''},
-  {name: 'Hanna Emanuelsson', title: 'Event', email: 'event', image: ''},
+  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '', id: 9},
+  {name: 'Michelle Krejci', title: 'IT', email: 'it', image: '', id: 10},
+  {name: 'Ester Brandås', title: 'Samarbete', email: 'samarbete', image: '', id: 11},
+  {name: 'Didrik Florhed', title: 'Marknadsföring', email: 'marknadsforing', image: '', id: 12},
+  {name: 'Ylva Bröms', title: 'Art Director', email: 'ad', image: '', id: 13},
+  {name: 'Hanna Emanuelsson', title: 'Event', email: 'event', image: '', id: 14},
 ];
 
 const managmentContacts = [
-  {name: 'Gustaf Udd', title: 'Vise General', email: 'vicegeneral', image: ''},
-  {name: 'Erik Edeskog', title: 'Säkerhet', email: 'sakerhet', image: ''},
-  {name: 'Sara Höglund', title: 'Riks-SMASK', email: 'rikssmask', image: ''},
-  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: ''},
-  {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: ''},
+  {name: 'Gustaf Udd', title: 'Vice General', email: 'vicegeneral', image: '', id: 15},
+  {name: 'Erik Edeskog', title: 'Säkerhet', email: 'sakerhet', image: '', id: 16},
+  {name: 'Sara Höglund', title: 'Riks-SMASK', email: 'rikssmask', image: '', id: 17},
+  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '', id: 18},
+  {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: '', id: 19},
 ];
 
 class Contact extends Component{
+  constructor(props) {
+    super(props)
+
+    this.state = { searchField: ""}
+  }
 
   static pageTitle(){
     return <FormattedMessage id='Contact.title' />
@@ -50,12 +57,30 @@ class Contact extends Component{
     return <FormattedMessage id='Contact.navTitle' />
   }
 
+  filteredContacts(arr){
+    const { searchField } = this.state
+    return arr.filter(contact => 
+      (contact.name.toLowerCase().includes(searchField.toLowerCase()) || 
+      contact.title.toLowerCase().includes(searchField.toLowerCase())));
+  }
+
   render() {
+    const { searchField } = this.state
+    const searching = (searchField.length !== 0)
+    console.log(searching)
 
     return(
       <React.Fragment>
         <Grid className="base-outer-grid base-outer-grid--first">
           <GridInner>
+            <GridCell phone="4" tablet="8" desktop='12'>
+              <TextField
+                fullwidth
+                type='search'
+                placeholder={this.props.intl.formatMessage({id: 'Contact.search'})}
+                onChange={ e => this.setState({searchField: e.target.value})}
+              />        
+            </GridCell>
               <GridCell phone="4" tablet="8" desktop='12'>
                 <Header style={{width: '100%'}}>
                   General 
@@ -77,21 +102,24 @@ class Contact extends Component{
             <GridCell phone="4" tablet="8" desktop='12'>
               <ContactView 
                 title='Ledning' 
-                contacts={managmentContacts} 
+                contacts={this.filteredContacts(managmentContacts)}
+                searching={searching} 
                 isMobile={this.props.isMobile} />
             </GridCell>
 
             <GridCell phone="4" tablet="8" desktop='12'>
               <ContactView 
                 title='Festival' 
-                contacts={festivalContacts} 
+                contacts={this.filteredContacts(festivalContacts)} 
+                searching={searching} 
                 isMobile={this.props.isMobile} />
             </GridCell>
 
             <GridCell phone="4" tablet="8" desktop='12'>
               <ContactView 
                 title='Kommunikation' 
-                contacts={commContacts} 
+                contacts={this.filteredContacts(commContacts)} 
+                searching={searching} 
                 isMobile={this.props.isMobile} />
             </GridCell>
 
@@ -102,4 +130,4 @@ class Contact extends Component{
   }
 }
 
-export default Contact;
+export default injectIntl(Contact)
