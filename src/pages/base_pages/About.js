@@ -210,4 +210,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(withRouter(injectIntl(About, { withRef: true })));
+export default connect(mapStateToProps)(withRouter(injectIntl(About, { forwardRef: true })));

@@ -291,4 +291,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(injectIntl(Funkis, { withRef: true }));
+export default connect(mapStateToProps)(injectIntl(Funkis, { forwardRef: true }));

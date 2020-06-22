@@ -7,6 +7,7 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 
 import { TextField } from '@rmwc/textfield'
 
+import SearchField from '../../components/page_components/SearchField'
 import ContactView from '../../components/page_components/ContactView';
 import ContactCard from '../../components/page_components/ContactCard';
 import Header from '../../components/page_components/NiceHeader';
@@ -74,14 +75,9 @@ class Contact extends Component{
         <Grid className="base-outer-grid base-outer-grid--first">
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12'>
-              <TextField
-                outline="true"
-                type='search'
-                withLeadingIcon="search"
-                label={this.props.intl.formatMessage({id: 'Contact.search'})}
-                onChange={ e => this.setState({searchField: e.target.value})}
-                style={{width:'100%'}}
-              />        
+              <SearchField
+                handleChange={e => this.setState({searchField: e.target.value})}
+              />       
             </GridCell>
               <GridCell phone="4" tablet="8" desktop='12'>
                 <Header style={{width: '100%'}}>

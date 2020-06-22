@@ -77,4 +77,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, {fetchProducts, addProductToCart})(withRouter(injectIntl(Shop, { withRef: true })));
+export default connect(mapStateToProps, {fetchProducts, addProductToCart})(withRouter(injectIntl(Shop, { forwardRef: true })));
