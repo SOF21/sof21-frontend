@@ -45,4 +45,4 @@ class NotFound extends Component{
   }
 }
 
-export default withRouter(injectIntl(NotFound, { withRef: true }));
+export default withRouter(injectIntl(NotFound, { forwardRef: true }));

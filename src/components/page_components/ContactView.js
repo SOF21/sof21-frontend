@@ -73,14 +73,24 @@ class ContactsView extends Component{
     console.log('click');
   }
 
+  collapse(searching, collapsed) {
+    if(searching) {
+      return 'open'
+    } else {
+      return collapsed ? 'collapsed' : 'open'
+    }
+    
+  }
+
   render(){
     const contactCards = this.props.contacts.map((contact) =>
-      <PosedCollapsableGridCell tablet='4' phone='4' desktop='6' >
+      <PosedCollapsableGridCell key={contact.id} tablet='4' phone='4' desktop='6' >
         <ContactCard 
           name={contact.name} 
           title={contact.title} 
           email={contact.email} 
           image={contact.image}
+          id={contact.id}
           clickable
           allClickCallback={() => this.handleAllClick()}
         />
@@ -109,7 +119,7 @@ class ContactsView extends Component{
           </Ripple>
 
           <GridCell phone="4" tablet="8" desktop='12' className='h-align'>
-            <PosedCollapsableGridInner pose={this.state.collapsed ? 'collapsed' : 'open'}>
+            <PosedCollapsableGridInner pose={this.collapse(this.props.searching, this.state.collapsed)}>
               {contactCards}
             </PosedCollapsableGridInner>
           </GridCell>

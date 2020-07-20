@@ -90,4 +90,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {pushCart})(withRouter(injectIntl(Shop, { withRef: true })));
+export default connect(mapStateToProps, {pushCart})(withRouter(injectIntl(Shop, { forwardRef: true })));
