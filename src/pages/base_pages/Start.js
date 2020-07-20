@@ -49,7 +49,7 @@ class Start extends Component{
 
     return(
       <React.Fragment>
-        <Grid className="base-outer-grid base-outer-grid--first" style={{paddingBottom: '8px'}}>
+        <Grid className="base-outer-grid base-outer-grid--first" style={{paddingBottom: '1.5rem'}}>
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12' >
               <img 
@@ -58,31 +58,9 @@ class Start extends Component{
                 alt='The SOF logo next to the date of the festival'
               />
             </GridCell>
-          </GridInner>
-        </Grid>
-
-        <HighlightedArea className='countdown-inner' color='green'
-        >
-          <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
-            {!this.props.isMobile ?
-              <h2 style={{margin: '10px'}}>
-                <Link to='#' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.putte' />
-                </Link>
-              </h2>
-                :
-              <h4 style={{margin: '10px'}}>
-                <Link to='/shop' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.putte' />
-                </Link>
-              </h4>
-            }
-          </GridCell>
-          </HighlightedArea>
-
-        <Grid className="base-outer-grid ">
-          <GridInner>
-            {/* <GridCell phone="4" tablet="8" desktop='12' >
+            {/*  THIS YEARS FESTIVAL
+            
+            <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
                 <FormattedMessage id='Start.festivalTitle' />
               </Header>
@@ -169,8 +147,28 @@ class Start extends Component{
                 onClickProp={() => this.props.history.push('/about_history')}
               />
             </GridCell>
-            </GridInner>
+          </GridInner>
         </Grid>
+
+        {/* <HighlightedArea className='countdown-inner' color='green'
+        >
+          <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
+            {!this.props.isMobile ?
+              <h2 style={{margin: '10px'}}>
+                <Link to='#' style={{color: 'white'}}>
+                  <FormattedMessage id='Start.putte' />
+                </Link>
+              </h2>
+                :
+              <h4 style={{margin: '10px'}}>
+                <Link to='/shop' style={{color: 'white'}}>
+                  <FormattedMessage id='Start.putte' />
+                </Link>
+              </h4>
+            }
+          </GridCell>
+          </HighlightedArea> */}
+
       </React.Fragment>
     );
   }
