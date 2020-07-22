@@ -30,7 +30,7 @@ export default class BasePageHeader extends Component{
         <div className='base-page-header'>
           <TopAppBarFixedAdjust/>
           <PosedHeaderImage className={imageClass}>
-            <img 
+            {/* <img 
               async='on'
               className='base-page-header-image-left-dots' 
               src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/layout/header-hero-edge.png'
@@ -41,7 +41,7 @@ export default class BasePageHeader extends Component{
               className='base-page-header-image-right-dots' 
               src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/layout/header-hero-edge.png'
               alt=''
-            />
+            /> */}
           </PosedHeaderImage>
           <PosedHeaderTitle className='base-page-header-content'>
             <div className='base-page-header-title'>

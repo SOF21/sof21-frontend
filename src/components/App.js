@@ -108,12 +108,12 @@ class App extends React.PureComponent {
 
           <img
             className='app-sof-logo'
-            src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/layout/sof_19_logo_stor.png'
+            src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/SOF_logga_kvadratisk_vit.png'
             alt=''
           />
           <ThemeProvider options={{
-            primary: '#FF0000',
-            secondary: '#0c726f'
+            primary: '#C20E1A',
+            secondary: '#EF6079'
           }}
             style={{height: '100%'}}
           >

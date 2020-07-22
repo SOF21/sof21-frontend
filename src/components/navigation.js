@@ -253,12 +253,12 @@ class DesktopTopAppBar extends React.PureComponent{
             <TopAppBarSection alignStart >
               <TopAppBarTitle
                 className='v-center'
-                style={{paddingLeft: '0', paddingRight: '32px', margin: '0'}}
+                style={{paddingTop: 'px', paddingLeft: '0', paddingRight: '32px', margin: '0'}}
               >
                 <img
-                  src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/layout/sof19_logo.png'
-                  alt='SOF19'
-                  style={{width: '200px', cursor: 'pointer'}}
+                  src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/SOF-logga_liggande_vit.png'
+                  alt='SOF21'
+                  style={{width: '180px', cursor: 'pointer'}}
                   onClick={() => this.props.history.push('/')}
                 />
               </TopAppBarTitle>
@@ -563,9 +563,9 @@ class MobileTopAppBar extends React.PureComponent{
             <TopAppBarSection alignStart >
               <TopAppBarTitle className='v-center' style={{padding: '0'}}>
                 <img
-                  src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/layout/sof19_logo.png'
-                  alt='SOF19'
-                  style={{width: '160px', cursor: 'pointer'}}
+                  src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/SOF-logga_liggande_vit.png'
+                  alt='SOF20'
+                  style={{width: '150px', cursor: 'pointer'}}
                   onClick={() => this.props.history.push('/')}
                 />
               </TopAppBarTitle>

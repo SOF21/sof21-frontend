@@ -1,11 +1,11 @@
 .base-page-header{
     min-height: 30vh;
-    @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+    /* @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
         min-height: 40vh;
     }
     @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
-        min-height: 50vh;
-    }
+        min-height: 45vh;
+    } */
     position: relative;
 
     display:flex;
@@ -31,7 +31,7 @@
     top: 0;
     position: absolute;
 
-    background: $secondary;
+     background: $test;
 
     .base-page-header-image-left-dots{
         position: absolute;
