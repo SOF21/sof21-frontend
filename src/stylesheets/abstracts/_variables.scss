@@ -1,12 +1,12 @@
 $sofRed: #C20E1A;
 $primary: #C20E1A;
 
-$sofPink: #EF6079;
-$secondary: #EF6079;
-
 $sofYellow: #F1CC0D;
+$secondary: #F1CC0D;
 
-$test: linear-gradient($sofPink, $sofRed);
+$sofPink: #EF6079;
+
+$test: linear-gradient($sofYellow, $sofRed);
 
 $liuBlue: #00b9e7;
 
