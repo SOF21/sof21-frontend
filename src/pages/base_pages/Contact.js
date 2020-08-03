@@ -68,7 +68,6 @@ class Contact extends Component{
   render() {
     const { searchField } = this.state
     const searching = (searchField.length !== 0)
-    console.log(searching)
 
     return(
       <React.Fragment>
