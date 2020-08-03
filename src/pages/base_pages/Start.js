@@ -150,7 +150,7 @@ class Start extends Component{
           </GridInner>
         </Grid>
 
-        {/* <HighlightedArea className='countdown-inner' color='green'
+        {/* <HighlightedArea className='countdown-inner' color='yellow'
         >
           <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
             {!this.props.isMobile ?

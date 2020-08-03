@@ -182,7 +182,7 @@ class About extends Component{
           </GridInner>
         </Grid>
 
-       {/*  <HighlightedArea className='countdown-inner' color='green'>
+       {/*  <HighlightedArea className='countdown-inner' color='yellow'>
             {!this.props.isMobile ?
               <h2 style={{margin: '10px'}}>
                 <Link to='/shop' style={{color: 'white'}}>

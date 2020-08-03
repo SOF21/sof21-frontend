@@ -6,8 +6,8 @@ class HighlightedArea extends Component {
 
   render(){
     var areaCname = 'highlighted-area-red';
-    if(this.props.color === 'green'){
-      areaCname = 'highlighted-area-green';
+    if(this.props.color === 'pink'){
+      areaCname = 'highlighted-area-pink';
     }else if(this.props.color ==='yellow'){
       areaCname = 'highlighted-area-yellow';
     }

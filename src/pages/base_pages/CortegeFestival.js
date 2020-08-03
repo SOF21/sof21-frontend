@@ -337,7 +337,7 @@ class CortegeFestival extends Component{
           </GridInner>
         </Grid>
 
-        <HighlightedArea className='countdown-inner' color='green'
+        <HighlightedArea className='countdown-inner' color='yellow'
         >
           <SofCountdown 
             label={<FormattedMessage id='CortegeFestival.timeLeft' />}

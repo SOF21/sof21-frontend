@@ -17,19 +17,11 @@ const PosedHeaderImage= posed.div({
 export default class BasePageHeader extends Component{
 
   render() {
-    var imageClass = '';
-    if(this.props.color === 'Red'){
-      imageClass = 'base-page-header-image base-page-header-red';
-    } else if (this.props.color === 'Yellow'){
-      imageClass = 'base-page-header-image base-page-header-yellow';
-    } else{
-      imageClass = 'base-page-header-image';
-    }
     return(
       <React.Fragment>
         <div className='base-page-header'>
           <TopAppBarFixedAdjust/>
-          <PosedHeaderImage className={imageClass}>
+          <PosedHeaderImage className='base-page-header-image'>
             {/* <img 
               async='on'
               className='base-page-header-image-left-dots' 
