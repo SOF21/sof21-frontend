@@ -52,11 +52,11 @@ class Start extends Component{
         <Grid className="base-outer-grid base-outer-grid--first" style={{paddingBottom: '1.5rem'}}>
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12' >
-              <img 
+              {/* <img 
                 className='full-width-grid-image'
                 src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/start/header2.png'
                 alt='The SOF logo next to the date of the festival'
-              />
+              /> */}
             </GridCell>
             {/*  THIS YEARS FESTIVAL
             
