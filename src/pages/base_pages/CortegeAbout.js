@@ -8,6 +8,7 @@ import ImageModal from '../../components/page_components/ImageModal';
 import { FormattedMessage, injectIntl } from 'react-intl'
 
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
+import { Button } from '@rmwc/button';
 import { Ripple } from '@rmwc/ripple';
 import { ListDivider } from '@rmwc/list';
 import { SimpleDataTable } from '@rmwc/data-table';
@@ -116,40 +117,6 @@ class CortegeAbout extends Component{
                 <FormattedMessage id='CortegeAbout.Info1' />
               </p>
             </GridCell>
-          </GridInner>
-        </Grid>
-
-        <HighlightedArea className='countdown-inner' color='green'
-        >
-          <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
-            <h3 style={{margin: '10px'}}>
-              <FormattedMessage id='CortegeAbout.themeText' />
-            </h3>
-          </GridCell>
-          <GridCell phone='4' tablet='8' desktop='12' >
-            <ListDivider/>
-          </GridCell>
-          <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
-            <h2 style={{margin: '10px'}}>
-              <b> <FormattedMessage id='CortegeAbout.theme' /> </b>
-            </h2>
-          </GridCell>
-          {/*(!this.state.timerFinished) ?
-              <GridCell span='12'>
-                <Button
-                  raised
-                  style={{width: '100%'}}
-                  onClick={() => this.setState({toDate: new Date(Date.now() + 2000)})} 
-                > 
-                  Press to test timer 
-                </Button>
-              </GridCell>
-              : ''
-              */}
-        </HighlightedArea>
-
-        <Grid className="base-outer-grid ">
-          <GridInner className='grid-gap-8'>
             <GridCell phone="4" tablet="8" desktop='12'>
               <Header>
                 <FormattedMessage id='CortegeAbout.h1' />
@@ -218,6 +185,24 @@ class CortegeAbout extends Component{
             </GridCell>
           </GridInner>
         </Grid>
+
+       {/*  <HighlightedArea className='countdown-inner' color='yellow'
+        >
+          <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
+            <h3 style={{margin: '10px'}}>
+              <FormattedMessage id='CortegeAbout.themeText' />
+            </h3>
+          </GridCell>
+          <GridCell phone='4' tablet='8' desktop='12' >
+            <ListDivider/>
+          </GridCell>
+          <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
+            <h2 style={{margin: '10px'}}>
+              <b> <FormattedMessage id='CortegeAbout.theme' /> </b>
+            </h2>
+          </GridCell>
+        </HighlightedArea> */}
+
       </React.Fragment>
     );
   }

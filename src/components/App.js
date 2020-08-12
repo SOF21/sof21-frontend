@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from './navigation';
 import PageRouter from './PageRouter';
 import {ThemeProvider} from '@rmwc/theme';
-import { IntlProvider} from 'react-intl';
+import {IntlProvider} from 'react-intl';
 import strings from '../locale/index';
 import PropTypes from 'prop-types';
 import Start from '../pages/base_pages/Start';
@@ -108,12 +108,12 @@ class App extends React.PureComponent {
 
           <img
             className='app-sof-logo'
-            src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/layout/sof_19_logo_stor.png'
-            alt=''
+            src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/SOF_logga_kvadratisk_vit.png'
+            alt='SOF21 kvadratisk logga'
           />
           <ThemeProvider options={{
-            primary: '#FF0000',
-            secondary: '#0c726f'
+            primary: '#C20E1A',
+            secondary: '#F1CC0D'
           }}
             style={{height: '100%'}}
           >

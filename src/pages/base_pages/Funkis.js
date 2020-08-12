@@ -57,6 +57,7 @@ class Funkis extends Component{
               <img
                 className='full-width-grid-image'
                 src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/funkis/Funkis-helhalg.jpg'
+                alt=''
               />
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12'>
@@ -79,7 +80,7 @@ class Funkis extends Component{
             </GridCell>
           </GridInner>
         </Grid>
-        <HighlightedArea className='countdown-inner' color='green'
+        <HighlightedArea className='countdown-inner' color='yellow'
         >
           {(!this.state.timerFinished) ?
             <SofCountdown

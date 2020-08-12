@@ -21,14 +21,14 @@
     background: $sofRed;
 }
 
-.highlighted-area-green{
-    @extend %highlighted-area-base;
-    background: $sofGreen;
-}
-
 .highlighted-area-yellow{
     @extend %highlighted-area-base;
     background: $sofYellow;
+}
+
+.highlighted-area-pink{
+    @extend %highlighted-area-base;
+    background: $sofPink;
 }
 
 .highlighted-area-inner{
