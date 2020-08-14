@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useIntl } from 'react-intl'
 
-import { TextField } from 'rmwc/TextField'
+import { TextField } from '@rmwc/textfield'
 
 const SearchField = ({handleChange}) => {
     const intl = useIntl()

@@ -81,7 +81,7 @@ class LoginForm extends Component{
               </Button>
             </GridCell>
 
-            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+            {/* <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
               <p style={{margin: '0px', lineHeight: '1rem', fontSize: '0.8rem'}}>
                 {this.props.intl.formatMessage({id :'Login.LiuLoginDisclaimer'})}
                 <a
@@ -157,7 +157,7 @@ class LoginForm extends Component{
                   </Form>
                 )}
               />
-            </GridCell>
+            </GridCell> */}
       </React.Fragment>
     );
   }
