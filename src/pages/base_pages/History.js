@@ -8,15 +8,15 @@ import { Ripple } from '@rmwc/ripple';
 
 const images = [
   {
-    original: 'http://www.lysator.liu.se/sof/sof2003/albumbilder/sof1999/lordag/Guldbrallor.jpg',
+    original: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Bilder/Guldbrallor.jpg',
     description: '',
   },
   {
-    original: 'http://www.lysator.liu.se/sof/sof2003/albumbilder/sof2001/lordag/Bild003.jpg',
+    original: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Bilder/Bild003.jpg',
     description: '',
   },
   {
-    original: 'http://www.lysator.liu.se/sof/sof2003/albumbilder/sof1999/kartege/Kartegeclowner.jpg',
+    original: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Bilder/Kartegeclowner.jpg',
     description: '',
   }
 ]
