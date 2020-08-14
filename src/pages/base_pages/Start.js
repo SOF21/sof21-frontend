@@ -22,7 +22,7 @@ const eventIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pa
 const festivalAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/festival_about/festival1.jpg';
 const cortegeAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/cortege_about/cortege1.jpg';
 const orchestraAboutIm =  'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/orchestra_about/orkester1.jpg';
-const HistoryIm = 'http://www.lysator.liu.se/sof/sof2003/albumbilder/sof1999/lordag/Guldbrallor.jpg';
+const HistoryIm = 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Bilder/Guldbrallor.jpg';
 
 class Start extends Component{
     constructor(props){
