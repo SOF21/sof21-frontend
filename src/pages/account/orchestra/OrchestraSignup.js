@@ -99,7 +99,7 @@ class OrchestraSignup extends Component{
           <h5> <FormattedMessage id='OrchestraMemReg.registerTo' /> <b>{signupOrchestra.orchestra.name}</b> </h5>
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-          <h6 style={{marginTop: '-40px'}}> <b> <FormattedMessage id='OrchestraMemReg.closed' /> </b> </h6>
+          {/* <h6 style={{marginTop: '-40px'}}> <b> <FormattedMessage id='OrchestraMemReg.closed' /> </b> </h6> */}
         </GridCell> 
         <GridCell desktop='12' tablet='8' phone='4'>
           <MemRegType 
