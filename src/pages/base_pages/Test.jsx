@@ -20,7 +20,7 @@ const contactEmilia = {name: 'Emilia Edman', title: 'Personal', email: 'personal
 const contactSofia = {name: 'Sofia Hagel', title: 'Samordnare Kommunikation', email: 'kommunikation', image:'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/Pictures/Committee_Profile/aappelknyckaren.jpg'};
 
 
-class Putte extends Component{
+class Test extends Component{
 
   constructor(props) {
     super(props);
@@ -39,11 +39,11 @@ class Putte extends Component{
   }
 
   static pageTitle(){
-    return <FormattedMessage id='Putte.title' />
+    return <FormattedMessage id='Funkis.title' />
   }
 
   static pageNavTitle(){
-    return <FormattedMessage id='Putte.title' />
+    return <FormattedMessage id='Funkis.title' />
   }
 
   render() {
@@ -56,26 +56,26 @@ class Putte extends Component{
             <GridCell phone="4" tablet="8" desktop='12'>
               <img
                 className='full-width-grid-image'
-                src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/funkis/Putte-helhalg.jpg'
+                src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/funkis/Funkis-helhalg.jpg'
                 alt=''
               />
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12'>
               <h2 style={{marginTop: '16px'}}>
-                <FormattedMessage id='Putte.t1' />
+                <FormattedMessage id='Funkis.t1' />
               </h2>
               {this.props.lang === 'en' ? <b> This page is not available in english, sorry! </b> : null }
               <p>
-                <FormattedMessage id='Putte.p1' />
+                <FormattedMessage id='Funkis.p1' />
               </p>
               <p>
-                <FormattedMessage id='Putte.p2' />
+                <FormattedMessage id='Funkis.p2' />
               </p>
               <p>
-                <FormattedMessage id='Putte.p3' />
+                <FormattedMessage id='Funkis.p3' />
               </p>
               <p>
-                <FormattedMessage id='Putte.obs' />
+                <FormattedMessage id='Funkis.obs' />
               </p>
             </GridCell>
           </GridInner>
@@ -84,13 +84,13 @@ class Putte extends Component{
         >
           {(!this.state.timerFinished) ?
             <SofCountdown
-              label={<FormattedMessage id='Putte.timeLeft' />}
+              label={<FormattedMessage id='Funkis.timeLeft' />}
               toDate={this.state.toDate}
               countdownFinishCallback={() => this.setState({timerFinished: true})}
             /> :
             <GridCell phone="4" tablet="8" desktop='12' className='h-center'>
               <h4 style={{margin: '0'}}>
-                <FormattedMessage id='Putte.extended'/>
+                <FormattedMessage id='Funkis.extended'/>
               </h4>
             </GridCell>
           }
@@ -103,7 +103,7 @@ class Putte extends Component{
               onClick={this.handleFormClick}
               style={{width: '100%'}}
             >
-              <FormattedMessage id='Putte.register' />
+              <FormattedMessage id='Funkis.register' />
             </Button>
           </GridCell>
             {/* (!this.state.timerFinished) ?
@@ -123,7 +123,7 @@ class Putte extends Component{
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12'>
               <p>
-                <FormattedMessage id='Putte.p4' />
+                <FormattedMessage id='Funkis.p4' />
               </p>
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6'>
@@ -146,135 +146,135 @@ class Putte extends Component{
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12'>
               <h2>
-                <FormattedMessage id='Putte.t2' />
+                <FormattedMessage id='Funkis.t2' />
               </h2>
               <p>
-                <FormattedMessage id='Putte.p5' />
+                <FormattedMessage id='Funkis.p5' />
               </p>
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12'>
               <h2>
-                <FormattedMessage id='Putte.t3' />
+                <FormattedMessage id='Funkis.t3' />
               </h2>
               <p>
-                <FormattedMessage id='Putte.p6' />
+                <FormattedMessage id='Funkis.p6' />
               </p>
             </GridCell>
 
             <GridCell phone="4" tablet="8" desktop='12'>
               <h4 style={{margin: '0px'}}>
-                <FormattedMessage id='Putte.festivalTitle' />
+                <FormattedMessage id='Funkis.festivalTitle' />
               </h4>
               <p>
-                <FormattedMessage id='Putte.festival' />
+                <FormattedMessage id='Funkis.festival' />
               </p>
               <GridInner>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.festivalFunkTitle' />
+                    <FormattedMessage id='Funkis.festivalFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.festivalFunk' />
+                    <FormattedMessage id='Funkis.festivalFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.foodFunkTitle' />
+                    <FormattedMessage id='Funkis.foodFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.foodFunk' />
+                    <FormattedMessage id='Funkis.foodFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.entryFunkTitle' />
+                    <FormattedMessage id='Funkis.entryFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.entryFunk' />
+                    <FormattedMessage id='Funkis.entryFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.chaffFunkTitle' />
+                    <FormattedMessage id='Funkis.chaffFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.chaffFunk' />
+                    <FormattedMessage id='Funkis.chaffFunk' />
                   </p>
                 </GridCell>
               </GridInner>
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12'>
               <h4 style={{margin: '0px'}}>
-                <FormattedMessage id='Putte.orchestraTitle' />
+                <FormattedMessage id='Funkis.orchestraTitle' />
               </h4>
               <p>
-                <FormattedMessage id='Putte.orchestra' />
+                <FormattedMessage id='Funkis.orchestra' />
               </p>
               <GridInner>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.orchFunkTitle' />
+                    <FormattedMessage id='Funkis.orchFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.orchFunk' />
+                    <FormattedMessage id='Funkis.orchFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.sceneFunkTitle' />
+                    <FormattedMessage id='Funkis.sceneFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.sceneFunk' />
+                    <FormattedMessage id='Funkis.sceneFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.livingFunkTitle' />
+                    <FormattedMessage id='Funkis.livingFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.livingFunk' />
+                    <FormattedMessage id='Funkis.livingFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.cortegeFunkTitle' />
+                    <FormattedMessage id='Funkis.cortegeFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.cortegeFunk' />
+                    <FormattedMessage id='Funkis.cortegeFunk' />
                   </p>
                 </GridCell>
               </GridInner>
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12'>
               <h4 style={{margin: '0px'}}>
-                <FormattedMessage id='Putte.buildTitle' />
+                <FormattedMessage id='Funkis.buildTitle' />
               </h4>
               <p>
-                <FormattedMessage id='Putte.build' />
+                <FormattedMessage id='Funkis.build' />
               </p>
               <GridInner>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.buildFunkTitle' />
+                    <FormattedMessage id='Funkis.buildFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.buildFunk' />
+                    <FormattedMessage id='Funkis.buildFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.tearFunkTitle' />
+                    <FormattedMessage id='Funkis.tearFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.tearFunk' />
+                    <FormattedMessage id='Funkis.tearFunk' />
                   </p>
                 </GridCell>
                 <GridCell phone="4" tablet="4" desktop='6'>
                   <h6 style={{margin: '0px'}}>
-                    <FormattedMessage id='Putte.nightFunkTitle' />
+                    <FormattedMessage id='Funkis.nightFunkTitle' />
                   </h6>
                   <p>
-                    <FormattedMessage id='Putte.nightFunk' />
+                    <FormattedMessage id='Funkis.nightFunk' />
                   </p>
                 </GridCell>
               </GridInner>
@@ -292,4 +292,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(injectIntl(Putte, { forwardRef: true }));
+export default connect(mapStateToProps)(injectIntl(Test, { forwardRef: true }));

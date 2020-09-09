@@ -19,8 +19,10 @@ import History from '../pages/base_pages/History';
 
 import Contact from '../pages/base_pages/Contact';
 import Funkis from '../pages/base_pages/Funkis';
-import Putte from '../pages/base_pages/Putte'
+import Putte from '../pages/Putte/Putte'
 import Shop from '../pages/base_pages/Shop';
+
+import Test from '../pages/base_pages/Test'
 
 import { connect } from 'react-redux';
 import { setLocaleAndStore } from '../actions/locale';
@@ -38,7 +40,6 @@ import {
 } from '@rmwc/dialog';
 
 import { Snackbar, SnackbarAction } from '@rmwc/snackbar';
-
 
 const pages = intl =>{
   return{
