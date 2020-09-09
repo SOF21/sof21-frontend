@@ -15,18 +15,18 @@ const contactSara = { name: 'Sara Wågman', title: 'Personalansvarig', email: 'p
 const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/Pictures/Committee_Profile/aappelknyckaren.jpg' };
 
 export const committees = {
-    economy: {title: 'Putte.economy.title', text: 'Putte.economy', path: '/economy', spots: ['vice', 'tickets']},
-    security: {title: 'Putte.security.title', text: 'Putte.security', path: '/security', spots: ['vice']},
-    services: {title: 'Putte.services.title', text: 'Putte.services', path: '/services', spots: ['vice', 'festival', 'staff', 'bar']},
-    cooperation: {title: 'Putte.cooperation.title', text: 'Putte.cooperation', path: '/cooperation', spots: ['vice', 'spons']},
-    staff: {title: 'Putte.staff.title', text: 'Putte.staff', path: '/staff', spots: ['vice', 'schedule', 'funkis']},
-    orchestra: {title: 'Putte.orchestra.title', text: 'Putte.orchestra', path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'living']},
-    premises: {title: 'Putte.premises.title', text: 'Putte.premises', path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity']},
-    marketing: {title: 'Putte.marketing.title', text: 'Putte.marketing', path: '/marketing', spots: ['vice', 'fotoFilm', 'pr']},
-    parade: {title: 'Putte.parade.title', text: 'Putte.parade', path: '/parade', spots: ['vice', 'locale', 'material', 'train']},
-    it: {title: 'Putte.it.title', text: 'Putte.it', path: '/it', spots: ['vice', 'frontend']},
-    event: {title: 'Putte.eventTitle', text: 'Putte.event', path: '/event', spots: ['vice', 'sittings', 'town']},
-    artDirector: {title: 'Putte.artDirectorTitle', text: 'Putte.artDirector', path: '/art_director', spots: ['vice', 'creation', 'print']}
+    economy: {path: '/economy', spots: ['vice', 'tickets']},
+    security: {path: '/security', spots: ['vice']},
+    services: {path: '/services', spots: ['vice', 'festival', 'staff', 'bar']},
+    cooperation: {path: '/cooperation', spots: ['vice', 'spons']},
+    staff: {path: '/staff', spots: ['vice', 'schedule', 'funkis']},
+    orchestra: {path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'living']},
+    premises: {path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity']},
+    marketing: {path: '/marketing', spots: ['vice', 'fotoFilm', 'pr']},
+    parade: {path: '/parade', spots: ['vice', 'locale', 'material', 'train']},
+    it: {path: '/it', spots: ['vice', 'frontend']},
+    event: {path: '/event', spots: ['vice', 'sittings', 'town']},
+    artDirector: {path: '/art_director', spots: ['vice', 'creation', 'print']}
 }
 
 class Putte extends Component {
@@ -60,7 +60,7 @@ class Putte extends Component {
     render() {
         const mappedCommittees = Object.keys(committees).map( key => {
             return(
-                <GridCell phone="4" tablet="8" desktop='6' key={committees[key].title}>
+                <GridCell phone="4" tablet="8" desktop='12' key={committees[key].title}>
                     <h4 style={{ margin: '0px' }}>
                         <FormattedMessage id={'Putte.'.concat(key, '.title')} />
                     </h4>
