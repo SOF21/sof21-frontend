@@ -19,6 +19,7 @@ import History from '../pages/base_pages/History';
 
 import Contact from '../pages/base_pages/Contact';
 import Funkis from '../pages/base_pages/Funkis';
+import Putte from '../pages/base_pages/Putte'
 import Shop from '../pages/base_pages/Shop';
 
 import { connect } from 'react-redux';
@@ -57,6 +58,7 @@ const pages = intl =>{
     //'/about': Om,
     //'/shop': Shop,
     '/contact': Contact,
+    '/putte': Putte,
     //'/funkis': Funkis,
   }
 };
