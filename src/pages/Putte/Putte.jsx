@@ -79,14 +79,11 @@ class Putte extends Component {
                         <GridCell phone="4" tablet="8" desktop='12'>
                             <img
                                 className='full-width-grid-image'
-                                src='https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/funkis/Putte-helhalg.jpg'
+                                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/FB-puttecover.png'
                                 alt=''
                             />
                         </GridCell>
                         <GridCell phone="4" tablet="8" desktop='12'>
-                            <h2 style={{ marginTop: '16px' }}>
-                                <FormattedMessage id='Putte.t1' />
-                            </h2>
                             {this.props.lang === 'en' ? <b> This page is not available in english, sorry! </b> : null}
                             <p>
                                 <FormattedMessage id='Putte.p1' />
