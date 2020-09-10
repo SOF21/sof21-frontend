@@ -11,8 +11,8 @@ import { ListDivider } from '@rmwc/list';
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
-const contactSara = { name: 'Sara Wågman', title: 'Personalansvarig', email: 'personal', image: 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/Pictures/Committee_Profile/hejsan.jpg' };
-const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/Pictures/Committee_Profile/aappelknyckaren.jpg' };
+const contactSara = { name: 'Sara Wågman', title: 'Personalansvarig', email: 'personal', image: '' };
+const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '' };
 
 export const committees = {
     economy: {path: '/economy', spots: ['vice', 'tickets']},
@@ -20,7 +20,7 @@ export const committees = {
     services: {path: '/services', spots: ['vice', 'festival', 'staff', 'bar']},
     cooperation: {path: '/cooperation', spots: ['vice', 'spons']},
     staff: {path: '/staff', spots: ['vice', 'schedule', 'funkis']},
-    orchestra: {path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'living']},
+    orchestra: {path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'housing']},
     premises: {path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity']},
     marketing: {path: '/marketing', spots: ['vice', 'fotoFilm', 'pr']},
     parade: {path: '/parade', spots: ['vice', 'locale', 'material', 'train']},
