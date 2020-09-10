@@ -41,9 +41,8 @@ class Committee extends Component {
 
     render() {
         var result = this.props.spots.map(element => {
-            console.log(element);
             return (
-            <GridCell phone="4" tablet="8" desktop='12'>
+            <GridCell phone="4" tablet="8" desktop='12' key={element}>
                 <h4 style={{ margin: '0px' }}>
                     <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element)}/>
                 </h4>

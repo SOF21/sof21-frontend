@@ -6,9 +6,9 @@ import Account from '../pages/account/Account';
 import Checkout from '../pages/base_pages/Checkout';
 import VerifyLiuLogin from './account/VerifyLiuLogin';
 import NotFound from '../pages/base_pages/NotFound';
-import Committee from '../pages/Putte/Committee'
+import Committee from '../pages/base_pages/Committee'
 
-import { committees } from '../pages/Putte/Putte'
+import { committees } from '../pages/base_pages/Putte'
 
 import { Switch, Route, withRouter } from 'react-router-dom'
 

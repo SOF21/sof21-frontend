@@ -45,10 +45,6 @@ class Putte extends Component {
         this.setState({ formOpen: false });
     }
 
-    handleFormClick = () => {
-        window.open('https://podio.com/webforms/21551423/1499537', '_blank');
-    }
-
     static pageTitle() {
         return <FormattedMessage id='Putte.title' />
     }
@@ -60,7 +56,7 @@ class Putte extends Component {
     render() {
         const mappedCommittees = Object.keys(committees).map( key => {
             return(
-                <GridCell phone="4" tablet="8" desktop='12' key={committees[key].title}>
+                <GridCell phone="4" tablet="8" desktop='12' key={key}>
                     <h4 style={{ margin: '0px' }}>
                         <FormattedMessage id={'Putte.'.concat(key, '.title')} />
                     </h4>
@@ -112,7 +108,7 @@ class Putte extends Component {
                         <GridCell phone="4" tablet="8" desktop='12' >
                             <Button
                                 raised
-                                onClick={this.handleFormClick}
+                                onClick={() => window.open('https://podio.com/webforms/21551423/1499537')}
                                 style={{ width: '100%', marginBottom: '5px'}}
                             >
                                 <FormattedMessage id='Putte.register' />
@@ -128,7 +124,7 @@ class Putte extends Component {
                         :
                         ''
                     }
-                    {(!this.state.timerFinished) ?
+                    {/* {(!this.state.timerFinished) ?
                         <GridCell span='12'>
                             <Button
                                 raised
@@ -139,7 +135,7 @@ class Putte extends Component {
                             </Button>
                         </GridCell>
                         : ''
-                    }
+                    } */}
                 </HighlightedArea>
                 <Grid className="base-outer-grid ">
                     <GridInner>
