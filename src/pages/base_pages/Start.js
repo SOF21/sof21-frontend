@@ -54,7 +54,7 @@ class Start extends Component{
             <GridCell phone="4" tablet="8" desktop='12' >
               <img 
                 className='full-width-grid-image'
-                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Header-hemsida-04.png'
+                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Header-hemsida-vit.png'
                 alt='The SOF logo next to the date of the festival'
               />
             </GridCell>
