@@ -37,7 +37,7 @@ class Putte extends Component {
 
         this.state = {
             formOpen: false, formLoading: true,
-            timerFinished: false, toDate: new Date('2020-09-20T23:59:59')
+            timerFinished: false, toDate: new Date('2020-09-27T23:59:59')
         }
     };
 

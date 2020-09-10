@@ -58,7 +58,7 @@ class Committee extends Component {
                 <Grid className="base-outer-grid ">
                     <GridInner>
                         <GridCell phone="4" tablet="8" desktop='12'>
-                            <h2 style={{ marginBottom: '10px', marginTop: '10px'}}>
+                            <h2 style={{ marginBottom: '10px', marginTop: '10px'}} className="h-center">
                                 <FormattedMessage id={'Putte.'.concat(this.props.committee, '.title')}/>
                             </h2>
                         </GridCell>
