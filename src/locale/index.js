@@ -14,6 +14,7 @@ import orchestra from './Orchestra';
 import prices from './Prices';
 import account from './Account';
 import funkis from './Funkis';
+import putte from './Putte';
 import notFound from './404';
 import shop from './Shop';
 import checkout from './Checkout';
@@ -43,6 +44,7 @@ export default {
         ...prices.sv,
         ...account.sv,
         ...funkis.sv,
+        ...putte.sv,
         ...notFound.sv,
         ...shop.sv,
         ...checkout.sv,
@@ -71,6 +73,7 @@ export default {
         ...prices.en,
         ...account.en,
         ...funkis.en,
+        ...putte.en,
         ...notFound.en,
         ...shop.en,
         ...checkout.en,

@@ -6,11 +6,14 @@ import Account from '../pages/account/Account';
 import Checkout from '../pages/base_pages/Checkout';
 import VerifyLiuLogin from './account/VerifyLiuLogin';
 import NotFound from '../pages/base_pages/NotFound';
+import Committee from '../pages/base_pages/Committee'
+
+import { committees } from '../pages/base_pages/Putte'
 
 import { Switch, Route, withRouter } from 'react-router-dom'
 
-import {PrivateRoute } from '../components/admin/PermissionHandler'
-import posed, {PoseGroup} from 'react-pose';
+import { PrivateRoute } from '../components/admin/PermissionHandler'
+import posed, { PoseGroup } from 'react-pose';
 
 import { openDialog} from '../actions/dialog';
 import { connect } from 'react-redux';
@@ -19,6 +22,21 @@ import { injectIntl } from 'react-intl';
 var qs = require('qs');
 
 //import { FormattedMessage, injectIntl } from 'react-intl'
+
+const utskottPages = {
+    '/economy':  Committee,
+    '/security': Committee,
+    '/services': Committee,
+    '/cooperation': Committee,
+    '/staff': Committee,
+    '/orchestra': Committee,
+    '/premises': Committee,
+    '/marketing': Committee,
+    '/parade': Committee,
+    '/it': Committee,
+    '/event': Committee,
+    '/art_director': Committee,
+};
 
 const pageSwitchDelay = 600;
 
@@ -110,7 +128,24 @@ class PageRouter extends React.Component{
         );
       }
     });
-    navRoutes = flatten(navRoutes);
+    navRoutes = flatten(navRoutes)
+    var utskottRoutes = Object.keys(committees).map((key) => {
+        return(
+          <Route
+            exact 
+            path = {committees[key].path}
+            render={(props) => (
+              <BasePage
+                content={Committee}
+              >
+                <Committee {...props} committee={key} spots={committees[key].spots} email={committees[key].email} isMobile={this.props.isMobile} />
+              </BasePage>
+            )}
+            key = {key}
+          />
+        );
+      
+    });
 
     return(
     <Route
@@ -129,6 +164,7 @@ class PageRouter extends React.Component{
 
                 <PosedPage  className='page-content'>*/}
             <Switch location={location}>
+              {utskottRoutes}
               {navRoutes}
               <Route
                 exact
