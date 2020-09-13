@@ -83,7 +83,7 @@ class Putte extends Component {
                         <GridCell phone="4" tablet="8" desktop='12'>
                             {this.props.lang === 'en' ? <b> This page is not available in english, sorry! </b> : null}
                             <h4 style={{ margin: '0px', fontWeight: '700' }}>
-                                Vad innebär det att i Putte i SOF?
+                                Vad innebär det att vara Putte i SOF?
                             </h4>
                             <p>
                                 <FormattedMessage id='Putte.p1' />
