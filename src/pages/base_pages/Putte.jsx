@@ -15,18 +15,18 @@ const contactSara = { name: 'Sara Wågman', title: 'Personalansvarig', email: 'p
 const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '' };
 
 export const committees = {
-    economy: {email: 'vicegeneral', path: '/economy', spots: ['vice', 'tickets']},
-    security: {email: 'sakerhet', path: '/security', spots: ['vice']},
-    services: {email: 'servering', path: '/services', spots: ['vice', 'festival', 'staff', 'bar']},
-    cooperation: {email: 'samarbete', path: '/cooperation', spots: ['vice', 'spons']},
-    staff: {email: 'personal', path: '/staff', spots: ['vice', 'schedule', 'funkis']},
-    orchestra: {email: 'orkester', path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'housing']},
-    premises: {email: 'omrade-festival(omrade-uppbyggnad', path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity']},
-    marketing: {email: 'marknadsforing', path: '/marketing', spots: ['vice', 'fotoFilm', 'pr']},
-    parade: {email: 'kartege', path: '/parade', spots: ['vice', 'locale', 'material', 'train']},
-    it: {email: 'it', path: '/it', spots: ['vice', 'frontend']},
-    event: {email: 'event', path: '/event', spots: ['vice', 'sittings', 'town']},
-    artDirector: {email: 'ad', path: '/art_director', spots: ['vice', 'creation', 'print']}
+    economy: { email: 'vicegeneral', path: '/economy', spots: ['vice', 'tickets'] },
+    security: { email: 'sakerhet', path: '/security', spots: ['vice'] },
+    services: { email: 'servering', path: '/services', spots: ['vice', 'festival', 'staff', 'bar'] },
+    cooperation: { email: 'samarbete', path: '/cooperation', spots: ['vice', 'spons'] },
+    staff: { email: 'personal', path: '/staff', spots: ['vice', 'schedule', 'funkis'] },
+    orchestra: { email: 'orkester', path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'housing'] },
+    premises: { email: 'omrade-festival(omrade-uppbyggnad', path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity'] },
+    marketing: { email: 'marknadsforing', path: '/marketing', spots: ['vice', 'fotoFilm', 'pr'] },
+    parade: { email: 'kartege', path: '/parade', spots: ['vice', 'locale', 'material', 'train'] },
+    it: { email: 'it', path: '/it', spots: ['vice', 'frontend'] },
+    event: { email: 'event', path: '/event', spots: ['vice', 'sittings', 'town'] },
+    artDirector: { email: 'ad', path: '/art_director', spots: ['vice', 'creation', 'print'] }
 }
 
 class Putte extends Component {
@@ -54,20 +54,27 @@ class Putte extends Component {
     }
 
     render() {
-        const mappedCommittees = Object.keys(committees).map( key => {
-            return(
+        const mappedCommittees = Object.keys(committees).map(key => {
+            return (
                 <GridCell phone="4" tablet="8" desktop='12' key={key}>
-                    <h4 style={{ margin: '0px', wordWrap: 'break-word' }}>
-                        <FormattedMessage id={'Putte.'.concat(key, '.title')} />
-                    </h4>
+                    {!this.props.isMobile ?
+                        <h4 style={{ margin: '0' }}>
+                            <FormattedMessage id={'Putte.'.concat(key, '.title')} />
+                        </h4>
+                        :
+                        <h5 style={{ margin: '0' }}>
+                            <FormattedMessage id={'Putte.'.concat(key, '.title')} />
+                        </h5>
+                    }
                     <p>
                         <FormattedMessage id={'Putte.'.concat(key, '.text')} />
                     </p>
                     <Button onClick={() => this.props.history.push(committees[key].path)}>
-                        <FormattedMessage id='Putte.readmore'/>
+                        <FormattedMessage id='Putte.readmore' />
                     </Button>
                 </GridCell>
-            )})
+            )
+        })
         return (
             <React.Fragment>
                 <Grid className="base-outer-grid base-outer-grid--first">
@@ -77,7 +84,7 @@ class Putte extends Component {
                                 className='full-width-grid-image'
                                 src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/Hero-putte-1920px-01_margin.png'
                                 alt=''
-                                
+
                             />
                         </GridCell>
                         <GridCell phone="4" tablet="8" desktop='12'>
@@ -113,7 +120,7 @@ class Putte extends Component {
                             <Button
                                 raised
                                 onClick={() => window.open('https://podio.com/webforms/21551423/1499537')}
-                                style={{ width: '100%', marginBottom: '5px'}}
+                                style={{ width: '100%', marginBottom: '5px' }}
                             >
                                 <FormattedMessage id='Putte.register' />
                             </Button>
@@ -161,7 +168,7 @@ class Putte extends Component {
                                 clickable
                             />
                         </GridCell>
-                        {mappedCommittees}     
+                        {mappedCommittees}
                     </GridInner>
                 </Grid>
 

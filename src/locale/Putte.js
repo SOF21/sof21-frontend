@@ -39,7 +39,7 @@ export default {
     
         'Putte.cooperation.title': 'Samarbetsutskottet',
         'Putte.cooperation.text': 'Tycker du att världens fetaste festival låter som den bästa idén någonsin? Skulle du vilja göra SOF21s budget omöjlig att spräcka genom att flörta med företag och knyta nya kontakter? Då välkomnar jag dig varmt till Samarbetsutskottet, där vi med list och charm kommer lyckas fixa den coolaste, godaste och mest chockerande sponsen!',
-        'Putte.cooperation.vice': 'Vice Samarbete',
+        'Putte.cooperation.vice': 'Vice Samarbetesansvarig',
         'Putte.cooperation.vice.desc': 'Har du en önskan om att bli en mästare på möten, casha in stålar och göra SOF21s budget lika stor som Coachellas? Då vill jag ha med dig i mitt team! Som Vice Samarbete kommer du agera Samarbetsansvarigs högra hand och tillsammans arbeta för att både locka finansiella samarbetspartners och hitta på otroliga idéer för sponsring.',
         'Putte.cooperation.spons': 'Sponsputte',
         'Putte.cooperation.spons.desc': 'Blir du varm i kroppen av att få dina idéer att bli till verklighet? Anser du också att gratis är gott? Då vill jag ha dig som Sponsputte! Din uppgift är, att med charm och inställningen att du kan förföra vilket företag som helst, hitta givaways och priser för lunchtävlingar, goodiebags till funkisar och sponsrat material till festivalområdet. Du kommer vara spindeln i nätet mellan SOF-organisationen och näringslivet för att se till att alla utskott får den bästa möjliga sponsen.',
@@ -79,7 +79,7 @@ export default {
 
         'Putte.marketing.title': 'Marknadsföringsutskottet',
         'Putte.marketing.text': 'Vad är poängen med en festival om ingen vet att den finns? Marknadsföringsutskottet passar dig som är kreativ, gillar projektarbete och sprudlar av idéer som du bara måste få utlopp för. Utskottets huvudsakliga ansvar är att planera och genomföra festivalens olika marknadsföringsperioder. Här har man har stora möjligheter att sätta sin alldeles egen prägel på marknadsföringen då utformningen av innehåll och genomförande är helt upp till oss. Genom att arbeta med sociala medier, foto/film och diverse merchandise kommer vi se till att SOF21 blir en festival som inte går att missa! Är marketing och PR något som får det att pirra i magen på dig? SÖK i så fall Marknadsföringsutskottet!',
-        'Putte.marketing.vice': 'Vice Marknadsföring',
+        'Putte.marketing.vice': 'Vice Marknadsföringsansvarig',
         'Putte.marketing.vice.desc': 'Som Vice Marknadsföring kommer du agera som biträdande Marknadsföringsansvarig vid behov likväl avbelasta resterande i utskottet och stötta med tankar och idéer. Du kommer också ansvara över planering och schemaläggning av fysisk marknadsföring så som monterpass och andra roliga aktiviteter.',
         'Putte.marketing.fotoFilm': 'Foto- & filmputte',
         'Putte.marketing.fotoFilm.desc': 'Som Foto- & filmputte bär du ansvaret för planerandet och verkställandet av foto- & filmproduktionen för SOF, vare sig det är du eller någon du ansvarar över som håller i utrustningen. Om du hellre är den som står bakom kameran än framför, och har visionen att skapa en aftermovie utom dess like, är denna post för dig!',
@@ -99,7 +99,7 @@ export default {
 
         'Putte.it.title': 'IT-utskottet',
         'Putte.it.text': 'Vill du se till att SOF har den bästa tänkbara hemsidan?  Brinner du för webbutveckling? Eller bara programmering i allmänhet? Då är IT-utskottet platsen för dig! I utskottet kommer vi ansvara för SOFs hemsida och se till att den är både attraktiv och funktionell! ',
-        'Putte.it.vice': 'Vice IT',
+        'Putte.it.vice': 'Vice IT-ansvarig',
         'Putte.it.vice.desc': 'Som Vice IT kommer du att agera biträdande IT-ansvarig vid behov och representera IT-utskottet när IT inte kan. Du kommer även att ansvara för att backend-delen av hemsidan, som är byggd i Ruby on Rails, fungerar som den ska och fortsätta vidareutveckla den.',
         'Putte.it.frontend': 'Frontend-putte',
         'Putte.it.frontend.desc': 'Som Frontend-putte kommer du att ansvara för att frontend:en av hemsidan fungerar och fortsätta att utveckla den vidare. Den är skriven i React och är en single-page application.',
