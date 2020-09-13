@@ -17,7 +17,7 @@ const generalContact = [
 ];
 
 const festivalContacts = [
-  {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: '', id: 2},
+  {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Julia.png', id: 2},
   {name: 'Emma Green', title: 'Serveringsansvarig', email: 'servering', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Emma.png', id: 3},
   {name: 'Jesper Andersson', title: 'Områdesansvarig - Festival', email: 'omrade-festival', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Jesper.png', id: 4},
   {name: 'Kasper Landgren', title: 'Områdesansvarig - Uppbyggnad', email: 'omrade-uppbyggnad', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Kasper.png', id: 5},
