@@ -42,14 +42,20 @@ class Committee extends Component {
     render() {
         var result = this.props.spots.map(element => {
             return (
-            <GridCell phone="4" tablet="8" desktop='12' key={element}>
-                <h4 style={{ margin: '0px'}}>
-                    <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element)}/>
-                </h4>
-                <p style={{marginBottom: '0'}}>
-                    <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element, '.desc')}/>
-                </p>
-            </GridCell>)
+                <GridCell phone="4" tablet="8" desktop='12' key={element}>
+                    {!this.props.isMobile ?
+                                <h4 style={{ margin: '0' }}>
+                                    <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element)} />
+                                </h4>
+                                :
+                                <h6 style={{ margin: '0' }}>
+                                    <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element)} />
+                                </h6>
+                            }
+                    <p style={{ marginBottom: '0' }}>
+                        <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element, '.desc')} />
+                    </p>
+                </GridCell>)
         })
         return (
             <React.Fragment>
@@ -57,14 +63,20 @@ class Committee extends Component {
                 <Grid className="base-outer-grid ">
                     <GridInner>
                         <GridCell phone="4" tablet="8" desktop='12'>
-                            <h2 style={{ marginBottom: '10px', marginTop: '10px', wordWrap: 'break-word', textAlign: 'center'}}>
-                                <FormattedMessage id={'Putte.'.concat(this.props.committee, '.title')}/>
-                            </h2>
+                            {!this.props.isMobile ?
+                                <h2 style={{ margin: '10px' }} className='h-center'>
+                                    <FormattedMessage id={'Putte.'.concat(this.props.committee, '.title')} />
+                                </h2>
+                                :
+                                <h4 style={{ margin: '10px' }} className='h-center'>
+                                    <FormattedMessage id={'Putte.'.concat(this.props.committee, '.title')} className='h-center'/>
+                                </h4>
+                            }
                         </GridCell>
                         <GridCell phone="4" tablet="8" desktop='12'>
                             <Button
                                 onClick={() => window.open('https://podio.com/webforms/21551423/1499537')}
-                                style={{ width: '100%'}}
+                                style={{ width: '100%' }}
                                 ripple={false}
                             >
                                 <FormattedMessage id='Putte.register' />
@@ -78,9 +90,9 @@ class Committee extends Component {
                         </GridCell>
                         {result}
                         <GridCell phone="4" tablet="8" desktop='12'>
-                            <p style={{ margin: '0'}}>Frågor? Hör då av dig till {this.props.email}@sof.lintek.nu</p>
+                            <p style={{ margin: '0' }}>Frågor? Hör då av dig till {this.props.email}@sof.lintek.nu</p>
                             <Button onClick={() => this.props.history.push('/putte')}>
-                                <FormattedMessage id='Putte.back'/>
+                                <FormattedMessage id='Putte.back' />
                             </Button>
                         </GridCell>
                     </GridInner>

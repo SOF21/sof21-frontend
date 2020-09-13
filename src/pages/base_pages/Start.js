@@ -9,7 +9,7 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
 
-import { Button} from '@rmwc/button';
+import { Button } from '@rmwc/button';
 
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
@@ -21,44 +21,47 @@ const eventIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pa
 
 const festivalAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/festival_about/festival1.jpg';
 const cortegeAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/cortege_about/cortege1.jpg';
-const orchestraAboutIm =  'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/orchestra_about/orkester1.jpg';
+const orchestraAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/orchestra_about/orkester1.jpg';
 const HistoryIm = 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Bilder/Guldbrallor.jpg';
 
-class Start extends Component{
-    constructor(props){
-      super(props)
+class Start extends Component {
+  constructor(props) {
+    super(props)
 
-      this.onTimerFinish = this.onTimerFinish.bind(this);
+    this.onTimerFinish = this.onTimerFinish.bind(this);
 
-      this.state = {timerFinished: false, toDate: new Date('2019-01-21T00:00:00')};
-    }
+    this.state = { timerFinished: false, toDate: new Date('2019-01-21T00:00:00') };
+  }
 
-  static pageTitle(){
+  static pageTitle() {
     return <FormattedMessage id='Start.title' />
   }
 
-  static pageNavTitle(){
+  static pageNavTitle() {
     return <FormattedMessage id='Start.navTitle' />
   }
 
-  onTimerFinish(){
-    this.setState({timerFinished: true});
+  onTimerFinish() {
+    this.setState({ timerFinished: true });
   }
 
   render() {
 
-    return(
+    return (
       <React.Fragment>
-        <Grid className="base-outer-grid base-outer-grid--first" style={{paddingBottom: '1.5rem'}}>
+        <Grid className="base-outer-grid base-outer-grid--first" style={{ paddingBottom: '1.5rem' }}>
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12' >
-              <img 
+              <img
                 className='full-width-grid-image'
-                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Header-hemsida-vit.png'
+                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/Hero-putte-1920px-01_margin.png'
                 alt='The SOF logo next to the date of the festival'
               />
             </GridCell>
-            {/*  THIS YEARS FESTIVAL
+          </GridInner>
+        </Grid>
+
+        {/*  THIS YEARS FESTIVAL
             
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
@@ -109,6 +112,27 @@ class Start extends Component{
                 onClickProp={() => this.props.history.push('/festival_activities')}
               />
             </GridCell> */}
+        <HighlightedArea className='countdown-inner' color='yellow'
+        >
+          <GridCell phone="4" tablet="8" desktop='12' className='h-center'>
+            {!this.props.isMobile ?
+              <h2 style={{ margin: '10px' }}>
+                <Link to='/putte' style={{ color: 'white' }}>
+                  <FormattedMessage id='Start.putte' />
+                </Link>
+              </h2>
+              :
+              <h4 style={{ margin: '10px' }}>
+                <Link to='/putte' style={{ color: 'white' }}>
+                  <FormattedMessage id='Start.putte' />
+                </Link>
+              </h4>
+            }
+          </GridCell>
+        </HighlightedArea>
+
+        <Grid className="base-outer-grid">
+          <GridInner>
 
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
@@ -116,60 +140,41 @@ class Start extends Component{
               </Header>
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
-                background={festivalAboutIm} 
-                title={<FormattedMessage id='About.navTitle'/>}
-                desc={<FormattedMessage id='About.p1'/>}
-                onClickProp={()=>this.props.history.push('/about_festival')}
+              <AboutCard
+                background={festivalAboutIm}
+                title={<FormattedMessage id='About.navTitle' />}
+                desc={<FormattedMessage id='About.p1' />}
+                onClickProp={() => this.props.history.push('/about_festival')}
               />
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
+              <AboutCard
                 background={cortegeAboutIm}
-                title={<FormattedMessage id='CortegeAbout.navTitle'/>}
-                desc={<FormattedMessage id='CortegeAbout.p1'/>}
-                onClickProp={()=>this.props.history.push('/about_cortege')}
+                title={<FormattedMessage id='CortegeAbout.navTitle' />}
+                desc={<FormattedMessage id='CortegeAbout.p1' />}
+                onClickProp={() => this.props.history.push('/about_cortege')}
               />
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
+              <AboutCard
                 background={orchestraAboutIm}
-                title={<FormattedMessage id='OrchestraAbout.navTitle'/>}
-                desc={<FormattedMessage id='OrchestraAbout.p1'/>}
-                onClickProp={() =>this.props.history.push('/about_orchestra')}
+                title={<FormattedMessage id='OrchestraAbout.navTitle' />}
+                desc={<FormattedMessage id='OrchestraAbout.p1' />}
+                onClickProp={() => this.props.history.push('/about_orchestra')}
               />
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
+              <AboutCard
                 background={HistoryIm}
-                title={<FormattedMessage id='History.navTitle'/>}
-                desc={<FormattedMessage id='History.historyParagraph1'/>}
+                title={<FormattedMessage id='History.navTitle' />}
+                desc={<FormattedMessage id='History.historyParagraph1' />}
                 onClickProp={() => this.props.history.push('/about_history')}
               />
             </GridCell>
           </GridInner>
-        </Grid>
+        </Grid >
 
-        {/* <HighlightedArea className='countdown-inner' color='yellow'
-        >
-          <GridCell phone="4" tablet="8" desktop='12' className = 'h-center'>
-            {!this.props.isMobile ?
-              <h2 style={{margin: '10px'}}>
-                <Link to='#' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.putte' />
-                </Link>
-              </h2>
-                :
-              <h4 style={{margin: '10px'}}>
-                <Link to='/shop' style={{color: 'white'}}>
-                  <FormattedMessage id='Start.putte' />
-                </Link>
-              </h4>
-            }
-          </GridCell>
-          </HighlightedArea> */}
-
-      </React.Fragment>
+      </React.Fragment >
     );
   }
 }
