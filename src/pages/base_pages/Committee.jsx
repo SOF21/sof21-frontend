@@ -43,10 +43,10 @@ class Committee extends Component {
         var result = this.props.spots.map(element => {
             return (
             <GridCell phone="4" tablet="8" desktop='12' key={element}>
-                <h4 style={{ margin: '0px' }}>
+                <h4 style={{ margin: '0px'}}>
                     <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element)}/>
                 </h4>
-                <p>
+                <p style={{marginBottom: '0'}}>
                     <FormattedMessage id={'Putte.'.concat(this.props.committee, '.', element, '.desc')}/>
                 </p>
             </GridCell>)
@@ -57,7 +57,7 @@ class Committee extends Component {
                 <Grid className="base-outer-grid ">
                     <GridInner>
                         <GridCell phone="4" tablet="8" desktop='12'>
-                            <h2 style={{ marginBottom: '10px', marginTop: '10px'}} className="h-center">
+                            <h2 style={{ marginBottom: '10px', marginTop: '10px', wordWrap: 'break-word', textAlign: 'center'}}>
                                 <FormattedMessage id={'Putte.'.concat(this.props.committee, '.title')}/>
                             </h2>
                         </GridCell>
@@ -78,6 +78,7 @@ class Committee extends Component {
                         </GridCell>
                         {result}
                         <GridCell phone="4" tablet="8" desktop='12'>
+                            <p style={{ margin: '0'}}>Frågor? Hör då av dig till {this.props.email}@sof.lintek.nu</p>
                             <Button onClick={() => this.props.history.push('/putte')}>
                                 <FormattedMessage id='Putte.back'/>
                             </Button>

@@ -11,22 +11,22 @@ import { ListDivider } from '@rmwc/list';
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
-const contactSara = { name: 'Sara Wågman', title: 'Personalansvarig', email: 'personal', image: '' };
+const contactSara = { name: 'Sara Wågman', title: 'Personalansvarig', email: 'personal', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/SaraW.png' };
 const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '' };
 
 export const committees = {
-    economy: {path: '/economy', spots: ['vice', 'tickets']},
-    security: {path: '/security', spots: ['vice']},
-    services: {path: '/services', spots: ['vice', 'festival', 'staff', 'bar']},
-    cooperation: {path: '/cooperation', spots: ['vice', 'spons']},
-    staff: {path: '/staff', spots: ['vice', 'schedule', 'funkis']},
-    orchestra: {path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'housing']},
-    premises: {path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity']},
-    marketing: {path: '/marketing', spots: ['vice', 'fotoFilm', 'pr']},
-    parade: {path: '/parade', spots: ['vice', 'locale', 'material', 'train']},
-    it: {path: '/it', spots: ['vice', 'frontend']},
-    event: {path: '/event', spots: ['vice', 'sittings', 'town']},
-    artDirector: {path: '/art_director', spots: ['vice', 'creation', 'print']}
+    economy: {email: 'vicegeneral', path: '/economy', spots: ['vice', 'tickets']},
+    security: {email: 'sakerhet', path: '/security', spots: ['vice']},
+    services: {email: 'servering', path: '/services', spots: ['vice', 'festival', 'staff', 'bar']},
+    cooperation: {email: 'samarbete', path: '/cooperation', spots: ['vice', 'spons']},
+    staff: {email: 'personal', path: '/staff', spots: ['vice', 'schedule', 'funkis']},
+    orchestra: {email: 'orkester', path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'housing']},
+    premises: {email: 'omrade-festival(omrade-uppbyggnad', path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity']},
+    marketing: {email: 'marknadsforing', path: '/marketing', spots: ['vice', 'fotoFilm', 'pr']},
+    parade: {email: 'kartege', path: '/parade', spots: ['vice', 'locale', 'material', 'train']},
+    it: {email: 'it', path: '/it', spots: ['vice', 'frontend']},
+    event: {email: 'event', path: '/event', spots: ['vice', 'sittings', 'town']},
+    artDirector: {email: 'ad', path: '/art_director', spots: ['vice', 'creation', 'print']}
 }
 
 class Putte extends Component {
@@ -57,7 +57,7 @@ class Putte extends Component {
         const mappedCommittees = Object.keys(committees).map( key => {
             return(
                 <GridCell phone="4" tablet="8" desktop='12' key={key}>
-                    <h4 style={{ margin: '0px' }}>
+                    <h4 style={{ margin: '0px', wordWrap: 'break-word' }}>
                         <FormattedMessage id={'Putte.'.concat(key, '.title')} />
                     </h4>
                     <p>
@@ -75,12 +75,16 @@ class Putte extends Component {
                         <GridCell phone="4" tablet="8" desktop='12'>
                             <img
                                 className='full-width-grid-image'
-                                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/FB-puttecover.png'
+                                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/Hero-putte-1920px-01_margin.png'
                                 alt=''
+                                
                             />
                         </GridCell>
                         <GridCell phone="4" tablet="8" desktop='12'>
                             {this.props.lang === 'en' ? <b> This page is not available in english, sorry! </b> : null}
+                            <h4 style={{ margin: '0px', fontWeight: '700' }}>
+                                Vad innebär det att i Putte i SOF?
+                            </h4>
                             <p>
                                 <FormattedMessage id='Putte.p1' />
                             </p>

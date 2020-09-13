@@ -130,7 +130,6 @@ class PageRouter extends React.Component{
     });
     navRoutes = flatten(navRoutes)
     var utskottRoutes = Object.keys(committees).map((key) => {
-      const PageComp = Committee;
         return(
           <Route
             exact 
@@ -139,7 +138,7 @@ class PageRouter extends React.Component{
               <BasePage
                 content={Committee}
               >
-                <Committee {...props} committee={key} spots={committees[key].spots} isMobile={this.props.isMobile} />
+                <Committee {...props} committee={key} spots={committees[key].spots} email={committees[key].email} isMobile={this.props.isMobile} />
               </BasePage>
             )}
             key = {key}
