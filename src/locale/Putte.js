@@ -1,9 +1,9 @@
 export default {
     'sv': {
-        'Putte.nowOpen': 'Putteanmälan är nu öppen',
+        'Putte.nowOpen': 'Putteansökan är nu öppen',
         'Putte.click': 'Läs mer',
-        'Putte.title': 'Putte​anmälan',
-        'Putte.extended': 'Putteanmälan är fortfarande öppen',
+        'Putte.title': 'Putte​ansökan',
+        'Putte.extended': 'Putteansökan är fortfarande öppen',
         'Putte.t1': 'Sök putte till SOF21',
         'Putte.p1': 'Att vara Putte innebär att du blir en del av SOF-organisationen, och vad är då SOF? Jo, Studentorkesterfestivalen - SOF är Sveriges största studentarrangerade festival och har anor från 1973, då SOF arrangerades för första gången. SOF är ett tredagarsevent  som anordnas av LinTek och går av stapeln ojämna år i Linköping (och i Uppsala jämna år, då under namnet STORK). SOF riktar sig både till studenter och icke-studenter. Dessa tre fullspäckade festivaldagar är fyllda av underhållning i form av orkesterspelningar, en Kårtege genom stan (som under SOF19 hade 50 000 åskådare!), mat & dryck samt aktiviteter och hejdundrande fester! Varje år besöks SOF av tusentals studenter och hundratals orkestermedlemmar från hela vårt avlånga land, resterande länder i norden och delar av norra Europa. SOF är en festival för alla!',
         'Putte.p2': 'Som Putte blir du en del av SOF-organisationen genom att sitta med i ett utskott tillsammans med en ansvarig person från kommittén och utskottets andra Puttar. Som Putte jobbar man mycket praktiskt genom att vara med och planera samt utföra det operativa arbete som krävs för att SOF21 ska kunna gå att genomföra. Det finns 12 olika utskott som kommer att jobba med allt från Marknadsföring och IT till Kårtege och Servering, plus allt däremellan! Du kommer garanterat att hitta något som passar dig. Du hittar mer information om de olika utskotten och deras arbetsuppgifter nedan.',
@@ -126,10 +126,10 @@ export default {
     },
 
     'en': {
-        'Putte.nowOpen': 'Putteanmälan är nu öppen',
+        'Putte.nowOpen': 'Putteansökan är nu öppen',
         'Putte.click': 'Läs mer',
-        'Putte.title': 'Putte​anmälan',
-        'Putte.extended': 'Putteanmälan är fortfarande öppen',
+        'Putte.title': 'Putte​ansökan',
+        'Putte.extended': 'Putteansökan är fortfarande öppen',
         'Putte.t1': 'Sök putte till SOF21',
         'Putte.p1': 'Att vara Putte innebär att du blir en del av SOF-organisationen, och vad är då SOF? Jo, Studentorkesterfestivalen - SOF är Sveriges största studentarrangerade festival och har anor från 1973, då SOF arrangerades för första gången. SOF är ett tredagarsevent  som anordnas av LinTek och går av stapeln ojämna år i Linköping (och i Uppsala jämna år, då under namnet STORK). SOF riktar sig både till studenter och icke-studenter. Dessa tre fullspäckade festivaldagar är fyllda av underhållning i form av orkesterspelningar, en Kårtege genom stan (som under SOF19 hade 50 000 åskådare!), mat & dryck samt aktiviteter och hejdundrande fester! Varje år besöks SOF av tusentals studenter och hundratals orkestermedlemmar från hela vårt avlånga land, resterande länder i norden och delar av norra Europa. SOF är en festival för alla!',
         'Putte.p2': 'Som Putte blir du en del av SOF-organisationen genom att sitta med i ett utskott tillsammans med en ansvarig person från kommittén och utskottets andra Puttar. Som Putte jobbar man mycket praktiskt genom att vara med och planera samt utföra det operativa arbete som krävs för att SOF21 ska kunna gå att genomföra. Det finns 12 olika utskott som kommer att jobba med allt från Marknadsföring och IT till Kårtege och Servering, plus allt däremellan! Du kommer garanterat att hitta något som passar dig. Du hittar mer information om de olika utskotten och deras arbetsuppgifter nedan.',

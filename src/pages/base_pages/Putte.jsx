@@ -12,7 +12,7 @@ import { Grid, GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
 const contactSara = { name: 'Sara Wågman', title: 'Personalansvarig', email: 'personal', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/SaraW.png' };
-const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '' };
+const contactJulia = { name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Julia.png' };
 
 export const committees = {
     economy: { email: 'vicegeneral', path: '/economy', spots: ['vice', 'tickets'] },
@@ -180,10 +180,10 @@ class Putte extends Component {
                         </GridCell>
                         <GridCell phone="4" tablet="4" desktop='6'>
                             <ContactCard
-                                name={contactIngrid.name}
-                                title={contactIngrid.title}
-                                email={contactIngrid.email}
-                                image={contactIngrid.image}
+                                name={contactJulia.name}
+                                title={contactJulia.title}
+                                email={contactJulia.email}
+                                image={contactJulia.image}
                                 clickable
                             />
                         </GridCell>
