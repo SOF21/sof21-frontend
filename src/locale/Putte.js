@@ -13,6 +13,8 @@ export default {
         'Putte.nominate': 'Klicka här för att nominera någon',
         'Putte.readmore': 'Läs om posterna här',
         'Putte.back': 'Tillbaka',
+        'Putte.rek.p1': 'Om du är nyfiken på vår SOF-familj och har frågor så kan du kontakta ansvarig i respektive utskott. Deras e-postadresser hittar du längst ned i utskotts- och postbeskrivningarna. Om du har generella frågor om rekryteringen eller ansökningen i allmänhet kan du kontakta personal@sof.lintek.nu!',
+        'Putte.rek.p2': 'Utöver det kommer vi under vecka 39 ha en monter där ni kan hälsa på oss och prata lite om SOF-organisationen samt ställa eventuella frågor. ',
 
         'Putte.economy.title': 'Ekonomiutskottet',
         'Putte.economy.text': "Är 'Spara och Slösa' ditt favoritminne från grundskolan? Har du mer än hälften av gångerna koll på vad som är vad av 'debit' och 'kredit'? Gillar du att säga 'ja', men älskar att säga 'nej'? Om du så relaterar det minsta till något av påståendena så kan ekonomiutskottet vara just din grej. Ekonomiutskottets uppgift är oförvånande nog att ansvara för projektets och organisationens ekonomiska välmående. Utskottet arbetar aktivt med budgetbalanseringar, faktureringar och ekonomiska samtal mot hela organisationens alla utskott vilket ger en unik position i att få vara delaktig i organisationens alla delar. Välkommen är du som lever för struktur, ordning och reda och som vill ha lite ekonomi på det hela!",

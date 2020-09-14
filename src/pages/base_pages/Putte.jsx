@@ -150,6 +150,25 @@ class Putte extends Component {
                 </HighlightedArea>
                 <Grid className="base-outer-grid ">
                     <GridInner>
+                        <GridCell phone="4" tablet="8" desktop='12'>
+                            <p>
+                                <FormattedMessage id="Putte.rek.p1" />
+                            </p>
+                            <p>
+                                <FormattedMessage id="Putte.rek.p2" />
+                            </p>
+                            <p className="h-center" style={{ flexDirection: 'column' }}>
+                                Följande datum finner ni oss: <br/><br/>
+
+                                <b>NORRKÖPING (mellan Campushusen)</b>
+                                måndag 21/9: 09:00-13:00 <br/>
+                                tisdag 22/9: 09:00-13:00 <br/><br/>
+
+                                <b>LINKÖPING (Blå Havet)</b>
+                                onsdag 23/9: 09:00-15:00 <br/>
+                                torsdag 24/9: 09:00-15:00
+                           </p>
+                        </GridCell>
                         <GridCell phone="4" tablet="4" desktop='6'>
                             <ContactCard
                                 name={contactSara.name}
