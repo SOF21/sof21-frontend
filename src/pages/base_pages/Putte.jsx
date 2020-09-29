@@ -21,7 +21,7 @@ export const committees = {
     cooperation: { email: 'samarbete', path: '/cooperation', spots: ['vice', 'spons'] },
     staff: { email: 'personal', path: '/staff', spots: ['vice', 'schedule', 'funkis'] },
     orchestra: { email: 'orkester', path: '/orchestra', spots: ['vice', 'scene', 'logistics', 'housing'] },
-    premises: { email: 'omrade-festival(omrade-uppbyggnad', path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity'] },
+    premises: { email: 'omrade-festival/omrade-uppbyggnad', path: '/premises', spots: ['custodian', 'electrics', 'wifi', 'decor', 'activity'] },
     marketing: { email: 'marknadsforing', path: '/marketing', spots: ['vice', 'fotoFilm', 'pr'] },
     parade: { email: 'kartege', path: '/parade', spots: ['vice', 'locale', 'material', 'train'] },
     it: { email: 'it', path: '/it', spots: ['vice', 'frontend'] },

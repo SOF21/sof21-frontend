@@ -49,17 +49,17 @@ class Start extends Component {
 
     return (
       <React.Fragment>
-        <Grid className="base-outer-grid base-outer-grid--first" style={{ paddingBottom: '1.5rem' }}>
+        {/* <Grid className="base-outer-grid base-outer-grid--first" style={{ paddingBottom: '1.5rem' }}>
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12' >
               <img
                 className='full-width-grid-image'
-                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/Hero-putte-1920px-01_margin.png'
+                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Header-hemsida-vit.png'
                 alt='The SOF logo next to the date of the festival'
               />
             </GridCell>
           </GridInner>
-        </Grid>
+        </Grid> */}
 
         {/*  THIS YEARS FESTIVAL
             
@@ -112,7 +112,7 @@ class Start extends Component {
                 onClickProp={() => this.props.history.push('/festival_activities')}
               />
             </GridCell> */}
-        <HighlightedArea className='countdown-inner' color='yellow'
+        {/* <HighlightedArea className='countdown-inner' color='yellow'
         >
           <GridCell phone="4" tablet="8" desktop='12' className='h-center'>
             {!this.props.isMobile ?
@@ -129,11 +129,17 @@ class Start extends Component {
               </h4>
             }
           </GridCell>
-        </HighlightedArea>
+        </HighlightedArea> */}
 
         <Grid className="base-outer-grid">
           <GridInner>
-
+            <GridCell phone="4" tablet="8" desktop='12' >
+              <img
+                className='full-width-grid-image'
+                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Header-hemsida-vit.png'
+                alt='The SOF logo next to the date of the festival'
+              />
+            </GridCell>
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
                 <FormattedMessage id='Start.moreInfo' />
