@@ -101,22 +101,8 @@ class Putte extends Component {
                         </GridCell>
                     </GridInner>
                 </Grid>
-                <HighlightedArea className='countdown-inner' color='yellow'
-                >
-                    {(!this.state.timerFinished) ?
-                        <SofCountdown
-                            label={<FormattedMessage id='Putte.timeLeft' />}
-                            toDate={this.state.toDate}
-                            countdownFinishCallback={() => this.setState({ timerFinished: true })}
-                        /> :
-                        <GridCell phone="4" tablet="8" desktop='12' className='h-center'>
-                            <h4 style={{ margin: '0' }}>
-                                <FormattedMessage id='Putte.closed' />
-                            </h4>
-                        </GridCell>
-                    }
-                    {(!this.state.timerFinished) ?
-                        <GridCell phone="4" tablet="8" desktop='12' >
+                <HighlightedArea className='countdown-inner' color='yellow'>
+                     <GridCell phone="4" tablet="8" desktop='12' >
                             <Button
                                 raised
                                 onClick={() => window.open('https://podio.com/webforms/21551423/1499537')}
@@ -132,21 +118,6 @@ class Putte extends Component {
                                 <FormattedMessage id='Putte.nominate' />
                             </Button>
                         </GridCell>
-                        :
-                        ''
-                    }
-                    {/* {(!this.state.timerFinished) ?
-                        <GridCell span='12'>
-                            <Button
-                                raised
-                                style={{ width: '100%' }}
-                                onClick={() => this.setState({ toDate: new Date(Date.now() + 2000) })}
-                            >
-                                Press to test timer
-                            </Button>
-                        </GridCell>
-                        : ''
-                    } */}
                 </HighlightedArea>
                 <Grid className="base-outer-grid ">
                     <GridInner>
