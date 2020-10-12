@@ -21,23 +21,6 @@ import { injectIntl } from 'react-intl';
 
 var qs = require('qs');
 
-//import { FormattedMessage, injectIntl } from 'react-intl'
-
-const utskottPages = {
-    '/economy':  Committee,
-    '/security': Committee,
-    '/services': Committee,
-    '/cooperation': Committee,
-    '/staff': Committee,
-    '/orchestra': Committee,
-    '/premises': Committee,
-    '/marketing': Committee,
-    '/parade': Committee,
-    '/it': Committee,
-    '/event': Committee,
-    '/art_director': Committee,
-};
-
 const pageSwitchDelay = 600;
 
 const PosedRoutesContainer = posed.div({
@@ -53,20 +36,6 @@ const PosedRoutesContainer = posed.div({
     delay: pageSwitchDelay,
   },
 });
-
-// TODO: solve this way more elegantly
-
-const flatten = function(arr, result = []) {
-  for (let i = 0, length = arr.length; i < length; i++) {
-    const value = arr[i];
-    if (Array.isArray(value)) {
-      flatten(value, result);
-    } else {
-      result.push(value);
-    }
-  }
-  return result;
-};
 
 class PageRouter extends React.Component{
 
@@ -128,8 +97,10 @@ class PageRouter extends React.Component{
         );
       }
     });
-    navRoutes = flatten(navRoutes)
-    var utskottRoutes = Object.keys(committees).map((key) => {
+    navRoutes = navRoutes.flat(3)
+
+    //creating routes for all committees 
+    const committeeRoutes = Object.keys(committees).map((key) => {
         return(
           <Route
             exact 
@@ -158,13 +129,8 @@ class PageRouter extends React.Component{
               initialPose='exit'
               className='page'
             >
-                          {/*<PageHeader
-                title={this.props.pages[location.pathname].pageTitle()}
-              />
-
-                <PosedPage  className='page-content'>*/}
             <Switch location={location}>
-              {utskottRoutes}
+              {/* {committeeRoutes} */}
               {navRoutes}
               <Route
                 exact
@@ -205,9 +171,6 @@ class PageRouter extends React.Component{
               />
               {/* TODO: Add empty route for 404 handling */}
             </Switch>
-             {/* </PosedPage>
-
-            <PageFooter/>*/}
           </PosedRoutesContainer>
         </PoseGroup>
         );

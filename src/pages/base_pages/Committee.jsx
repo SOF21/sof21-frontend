@@ -40,7 +40,7 @@ class Committee extends Component {
     }
 
     render() {
-        var result = this.props.spots.map(element => {
+        var mappedCommitee = this.props.spots.map(element => {
             return (
                 <GridCell phone="4" tablet="8" desktop='12' key={element}>
                     {!this.props.isMobile ?
@@ -88,7 +88,7 @@ class Committee extends Component {
                                 <FormattedMessage id='Putte.nominate' />
                             </Button>
                         </GridCell>
-                        {result}
+                        {mappedCommitee}
                         <GridCell phone="4" tablet="8" desktop='12'>
                             <p style={{ margin: '0' }}>Frågor? Hör då av dig till {this.props.email}@sof.lintek.nu</p>
                             <Button onClick={() => this.props.history.push('/putte')}>

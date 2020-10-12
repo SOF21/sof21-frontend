@@ -34,10 +34,10 @@
 .highlighted-area-inner{
     min-height: 80px;
     @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
-        min-height: 96px;
+        // min-height: 96px;
     }
     @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
-        min-height: 120px;
+        // min-height: 120px;
     }
 }
 
