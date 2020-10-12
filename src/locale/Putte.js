@@ -76,7 +76,7 @@ export default {
         'Putte.premises.wifi.desc': 'Som Nätverksputte kommer du att ansvara för nätverket på området. Du kommer att planera så att nätverksåtgången på området är tillräcklig. Det innebär att säkerställa att alla kassor, datorer och andra nätverksenheter på området har kontinuerlig internetuppkoppling samt beräkna allt material som kommer behövas för att säkerställa det. Känns det som en värdig utmaning för dig så är Nätverksputte en post för dig!',
         'Putte.premises.activity': 'Aktivitetsputte',
         'Putte.premises.activity.desc': 'Som Aktivitetsputte kommer du att ansvara för aktiviteter och attraktioner på området. Det innebär att ta fram och jämföra olika förslag på aktiviteter, ta fram listor på nödvändigt material samt att verkställa aktiviteten. Tidigare år har vi haft arkadspel, hinderbanor och annat kul. Är du idérik och en mästare på att planera är Aktivitetsputte en post för dig!',
-        'Putte.premises.decor': 'Dekorputte (2 st)',
+        'Putte.premises.decor': 'Dekorputte (1 st)',
         'Putte.premises.decor.desc': 'Som Dekorputte kommer du tillsammans med en annan Dekorputte att ansvara för områdets dekor. Det betyder att ni tillsammans kommer planera och skapa det material som ska dekorera området. Det är bara fantasin som sätter gränser för hur området ska dekoreras, men ni bör även vara lyhörda för att uppfylla önskemål från de övriga utskotten inom SOF. Är du kreativ, idérik och har ett öga för detaljer är Dekorputte en post för dig!',
 
         'Putte.marketing.title': 'Marknadsföringsutskottet',
