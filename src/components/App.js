@@ -22,8 +22,6 @@ import Funkis from '../pages/base_pages/Funkis';
 import Putte from '../pages/base_pages/Putte'
 import Shop from '../pages/base_pages/Shop';
 
-import Test from '../pages/base_pages/Test'
-
 import { connect } from 'react-redux';
 import { setLocaleAndStore } from '../actions/locale';
 import { setMobile } from '../actions/mobile';
