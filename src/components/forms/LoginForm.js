@@ -94,7 +94,7 @@ class LoginForm extends Component{
                 </a>
               </p>
             </GridCell>
-            {/* <GridCell desktop='12' tablet='8' phone='4'>
+            <GridCell desktop='12' tablet='8' phone='4'>
               <Formik
                 initialValues={{email: '', password: ''}}
                 validationSchema={Yup.object().shape({
@@ -157,7 +157,7 @@ class LoginForm extends Component{
                   </Form>
                 )}
               />
-            </GridCell> */}
+            </GridCell>
       </React.Fragment>
     );
   }
