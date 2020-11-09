@@ -112,6 +112,19 @@ export class UNCMobileCartPopup extends Component {
   setPopupState = (state) => {
     this.props.setShopPopupOpen(state);
   }
+
+  componentDidMount() {
+    this.props.history.push('/', null)
+  }
+
+  componentDidUpdate() {
+    if (this.props.history.action === 'POP') {
+      this.props.setShopPopupOpen(false);
+      window.history.go(1)
+      this.props.history.push(this.props.history.location.path, null)
+    }
+  }
+
   render(){
     var cartAmt = 0;
     if (!this.props.cartLoading && Object.keys(this.props.cart).length > 0){
