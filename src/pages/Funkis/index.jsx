@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 
 import { GridCell, Grid } from '@rmwc/grid';
-import { Select } from '@rmwc/select'
+import { Select } from '@rmwc/select';
+import { Button } from '@rmwc/button';
+import { Formik, Form} from 'formik';
+import * as Yup from 'yup';
 
 import FormTextInput from '../../components/forms/components/FormTextInput';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 // TODO: Replace, this is not nice.
 const funkisPositions = ['God', 'Pleb', 'General', 'Nattvakt']; 
@@ -25,172 +28,293 @@ const initialInput = {
   funkisOne: '',
   funkisTwo: '',
   funkisThree: '',
+  firstPrefferedDate: '',
+  secondPrefferedDate: '',
+  thirdPrefferedDate: '',
+  shirtSize: '',
+  allergies: '',
+  otherAllergy: '',
 }
 
-
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.name' />
+  ),
+  liuid: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.liuid' />
+  ),
+  mail: Yup.string().email().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.mail' />
+  ),
+  phonenumber: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.phonenumber' />
+  ),
+  address: Yup.string(),
+  postcode: '',
+  city: Yup.string(),
+  //funkisOne: '',
+  //funkisTwo: '',
+  //funkisThree: '',
+  //firstPrefferedDate: '',
+  //secondPrefferedDate: '',
+  //thirdPrefferedDate: '',
+  //shirtSize: '',
+  //allergies: '',
+  otherAllergy: Yup.string(),
+})
 
 const FunkisComponent = () => {
 
-  const [input, setInput] = useState(initialInput)
-  const [errors, setErrors] = useState(initialInput)
-
-  const validate = ({name, value}) => {
-    // TODO: Add validation and set error message
+  const onSubmit = () => {
+    console.log("test");
+    return
   }
 
-  const setFieldValue = (e) => {
-    const {name, value} = e.target;
-    validate({name, value})
-    setInput({
-      ...input,
-      [name]: value,
-    });
-    console.log(input);
-  }
-
-  const {funkisOne, funkisTwo, funkisThree, firstPrefferedDate, secondPrefferedDate, allergies} = input;
   return ( // TODO: Add errormessages for inputs
     <>
-      <Grid>
+      <Formik
+      initialValues={initialInput}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+      >
+        {({
+         values,
+         isValid,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         isSubmitting,
+       }) => (
+         <Form className='funkis-form'>
+        <Grid base-outer-grid base-outer-grid--first>
         <GridCell desktop='12' tablet='8' phone='4'>
-          <h2><FormattedMessage id='funkis.recruitment.header'/></h2>
-        </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4'>
-          <h2><FormattedMessage id='funkis.recruitment.info'/></h2>
+          <h6 className='funkis-info'><FormattedMessage id='Funkis.recruitment.info'/></h6>
         </GridCell>
         <GridCell desktop='6' tablet='8' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.name' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.name' />}
+            name='name'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.name}
+            error={errors.name}
+            value={values.name}
           />
         </GridCell>
         <GridCell desktop='6' tablet='8' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.liuid' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.liuid' />}
+            name='liuid'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.liuid}
+            error={errors.liuid}
+            value={values.liuid}
           />
         </GridCell>
         <GridCell desktop='6' tablet='8' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.mail' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.mail' />}
+            name='mail'
+            type='email'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.mail}
+            error={errors.mail}
+            value={values.mail}
           />
         </GridCell>
         <GridCell desktop='6' tablet='8' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.phonenumber' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.phonenumber' />}
+            name='phonenumber'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.phonenumber}
+            error={errors.phonenumber}
+            value={values.phonenumber}
           />
         </GridCell>
         <GridCell desktop='6' tablet='8' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.addres' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.address' />}
+            name='address'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.address}
+            error={errors.address}
+            value={values.address}
           />
         </GridCell>
         <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.postcode' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.postcode' />}
+            name='postcode'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.postcode}
+            error={errors.postcode}
+            value={values.postcode}
           />
         </GridCell>
         <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.city' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.city' />}
+            name='city'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.city}
+            error={errors.city}
+            value={values.city}
           />
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.funkisOne' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.funkisOne' />}
             name='funkisOne'
-            onChange={setFieldValue}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.funkisOne}
+            error={errors.funkisOne}
+            value={values.funkisOne}
             options={funkisPositions}
           />
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.funkifunkisTwo' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.funkisTwo' />}
             name='funkisTwo'
-            onChange={setFieldValue}
-            options={funkisPositions.filter((val) => funkisOne !== val)}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.funkisTwo}
+            error={errors.funkisTwo}
+            value={values.funkisTwo}
+            options={funkisPositions.filter((val) => values.funkisOne !== val)}
           />
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.funkisThree' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.funkisThree' />}
             name='funkisThree'
-            onChange={setFieldValue}
-            options={funkisPositions.filter((val) => (funkisOne !== val && funkisTwo !== val))}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.funkisThree}
+            error={errors.funkisThree}
+            value={values.funkisThree}
+            options={funkisPositions.filter((val) => (values.funkisOne !== val && values.funkisTwo !== val))}
           />
         </GridCell>
 
-        {[funkisOne, funkisTwo, funkisThree].includes("Nattvakt")  && <GridCell desktop='6' tablet='4' phone='4'>
+        {[values.funkisOne, values.funkisTwo, values.funkisThree].includes("Nattvakt")  && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.requestedPartner' />}
-            onChange={setFieldValue}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.requestedPartner' />}
+            name='requestedPartner'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.requestedPartner}
+            error={errors.requestedPartner}
+            value={values.requestedPartner}
           />
         </GridCell>}
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.firstPrefferedDate' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.firstPrefferedDate' />}
             name='firstPrefferedDate'
-            onChange={setFieldValue}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.firstPrefferedDate}
+            error={errors.firstPrefferedDate}
+            value={values.firstPrefferedDate}
             options={workDates}
           />
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.secondPrefferedDate' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.secondPrefferedDate' />}
             name='secondPrefferedDate'
-            onChange={setFieldValue}
-            options={workDates.filter((val) => ![firstPrefferedDate].includes(val))}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.secondPrefferedDate}
+            error={errors.secondPrefferedDate}
+            value={values.secondPrefferedDate}
+            options={workDates.filter((val) => ![values.firstPrefferedDate].includes(val))}
           />
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.thirdPrefferedDate' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.thirdPrefferedDate' />}
             name='thirdPrefferedDate'
-            onChange={setFieldValue}
-            options={workDates.filter((val) => ![firstPrefferedDate, secondPrefferedDate].includes(val))}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.thirdPrefferedDate}
+            error={errors.thirdPrefferedDate}
+            value={values.thirdPrefferedDate}
+            options={workDates.filter((val) => ![values.firstPrefferedDate, values.secondPrefferedDate].includes(val))}
           />
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.shirtSize' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.shirtSize' />}
             name='shirtSize'
-            onChange={setFieldValue}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.shirtSize}
+            error={errors.shirtSize}
+            value={values.shirtSize}
             options={shirtSizes}
           />
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
           <Select 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.allergies' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.allergies' />}
             name='allergies'
-            onChange={setFieldValue}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.allergies}
+            error={errors.allergies}
+            value={values.allergies}
             options={availableAllergies}
           />
         </GridCell>
 
-        {allergies === 'Other'  && <GridCell desktop='6' tablet='4' phone='4'>
+        {values.allergies === 'Other'  && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='funkis.recruitment.fieldLabels.otherAllergy' />}
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.otherAllergy' />}
             name='otherAllergy'
-            onChange={setFieldValue}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.otherAllergy}
+            error={errors.otherAllergy}
+            value={values.otherAllergy}
           />
         </GridCell>}
 
+        <GridCell desktop='12' tablet='8' phone='4'>
+          <Button raised type='submit' disabled= { isSubmitting || !isValid
+          }>
+            <FormattedMessage id='Funkis.recruitment.submit'/>
+          </Button>
+        </GridCell>
+        {errors.error && <GridCell desktop='12' tablet='8' phone='4'> {errors.error}</GridCell>}
       </Grid>
+      </Form>
+      )}
+      </Formik>
     </>
   );
 }
 
-export default FunkisComponent
+FunkisComponent.pageTitle = () => {
+  return "TESTAR"
+}
+
+export default injectIntl(FunkisComponent)
