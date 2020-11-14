@@ -43,7 +43,36 @@ export default {
     'Funkis.tearFunkTitle': 'Rivfunkis',
     'Funkis.tearFunk': 'Har du en fallenhet för att sabba, demolera och allmänt röja? Som rivfunkis får du chansen att få utlopp för ditt förödelsebehov! Riv ner allt från barer till boende!', 
     'Funkis.nightFunkTitle': 'Nattvakt',
-    'Funkis.nightFunk': 'Är du något av en nattuggla? Hjälp oss vaka över SOFs eminenta område!', 
+    'Funkis.nightFunk': 'Är du något av en nattuggla? Hjälp oss vaka över SOFs eminenta område!',
+
+    'Funkis.recruitment.header': 'Funkis ansökan',
+    'Funkis.recruitment.info': 'Här kan du ansöka om att bli Funkis på SOF21',
+
+    'Funkis.recruitment.submit': 'Ansök',
+
+    'Funkis.recruitment.fieldLabels.name': 'Namn',
+    'Funkis.recruitment.fieldLabels.liuid': 'LiU ID',
+    'Funkis.recruitment.fieldLabels.mail': 'E-mail',
+    'Funkis.recruitment.fieldLabels.phonenumber': 'Telefon',
+    'Funkis.recruitment.fieldLabels.address': 'Address',
+    'Funkis.recruitment.fieldLabels.postcode': 'Postnummer',
+    'Funkis.recruitment.fieldLabels.city': 'Stad',
+    'Funkis.recruitment.fieldLabels.funkisOne': 'Funkisalternativ 1',
+    'Funkis.recruitment.fieldLabels.funkisTwo': 'Funkisalternativ 2',
+    'Funkis.recruitment.fieldLabels.funkisThree': 'Funkisalternativ 3',
+    'Funkis.recruitment.fieldLabels.requestedPartner': 'Önskad nattvaktspartner',
+    'Funkis.recruitment.fieldLabels.firstPrefferedDate': 'Första föredragna datum',
+    'Funkis.recruitment.fieldLabels.secondPrefferedDate': 'Andra föredragna datum',
+    'Funkis.recruitment.fieldLabels.thirdPrefferedDate': 'Tredje föredragna datum',
+    'Funkis.recruitment.fieldLabels.shirtSize': 'T-Shirt storlek',
+    'Funkis.recruitment.fieldLabels.allergies': ' Allergier',
+    'Funkis.recruitment.fieldLabels.otherAllergy': 'Övriga allergier',
+
+    'Funkis.recruitment.errors.req.name': 'Du måste ange ditt namn',
+    'Funkis.recruitment.errors.req.liuid': 'Du måste ange ditt liu-id',
+    'Funkis.recruitment.errors.req.mail': 'Du måste ange din e-mail',
+    'Funkis.recruitment.errors.req.phonenumber': 'Du måste ange ditt telefonnummer',
+    
   },
 
   'en' : {

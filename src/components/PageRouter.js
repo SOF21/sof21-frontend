@@ -4,6 +4,7 @@ import BasePage from '../pages/pageTypes/BasePage';
 
 import Account from '../pages/account/Account';
 import Funkis from '../pages/Funkis';
+
 import Checkout from '../pages/base_pages/Checkout';
 import VerifyLiuLogin from './account/VerifyLiuLogin';
 import NotFound from '../pages/base_pages/NotFound';
@@ -163,8 +164,14 @@ class PageRouter extends React.Component{
               <Route
                 exact
                 path={'/funkis'}
+                title={'Funkis ansökan'}
                 render={props => (
-                  <Funkis {...props}/>
+                  <BasePage
+                    title='Funkis ansökan'
+                  >
+                    <Funkis {...props}/>
+                  </BasePage>
+                  
                 )}
                 key={'/funkis'}
               />

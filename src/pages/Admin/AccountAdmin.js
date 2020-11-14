@@ -5,6 +5,7 @@ import PermissionModifier from './../../components/admin/PermissionModifier';
 import TicketPickup from '../../components/admin/TicketPickup';
 import { AdminPriv, isAdmin } from '../../components/admin/PermissionHandler';
 import SoldSeparately from '../../components/admin/SoldSeparately';
+import FunkisAdmin from '../Admin/funkis'
 import {  GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
@@ -169,6 +170,17 @@ class AccountAdmin extends Component{
             );
           }}
           key = {'/admin/soldseparately'}
+        />
+        <PrivateRoute
+          admin
+          exact
+          path='/account/admin/funkisar'
+          render={(props) => {
+            return(
+              <FunkisAdmin />
+            );
+          }}
+          key = {'/admin/funkisar'}
         />
         <Route
           path = '/account/admin/permissiondenied'
