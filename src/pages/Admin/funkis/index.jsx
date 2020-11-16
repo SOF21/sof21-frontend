@@ -18,71 +18,31 @@ import {
 import { Checkbox } from '@rmwc/checkbox'
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
-import * as Yup from 'yup';
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 
-// TODO: Replace, this is not nice.
-const funkisPositions = ['God', 'Pleb', 'General', 'Nattvakt']; 
-const workDates = ["1/1", "2/2", "3/3", "4/4"];
-const shirtSizes = ["S", "M", "L", "XL"];
-const availableAllergies = ["Gluten", "Laktos", "Other"];
-
-
-const initialInput = {
-  name: '',
-  liuid: '',
-  mail: '',
-  phonenumber: '',
-  address: '',
-  postcode: '',
-  city: '',
-  funkisOne: '',
-  funkisTwo: '',
-  funkisThree: '',
-  firstPrefferedDate: '',
-  secondPrefferedDate: '',
-  thirdPrefferedDate: '',
-  shirtSize: '',
-  allergies: '',
-  otherAllergy: '',
-}
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(
-    <FormattedMessage id='Funkis.recruitment.errors.req.name' />
-  ),
-  liuid: Yup.string().required(
-    <FormattedMessage id='Funkis.recruitment.errors.req.liuid' />
-  ),
-  mail: Yup.string().email().required(
-    <FormattedMessage id='Funkis.recruitment.errors.req.mail' />
-  ),
-  phonenumber: Yup.string().required(
-    <FormattedMessage id='Funkis.recruitment.errors.req.phonenumber' />
-  ),
-  address: Yup.string(),
-  postcode: '',
-  city: Yup.string(),
-  //funkisOne: '',
-  //funkisTwo: '',
-  //funkisThree: '',
-  //firstPrefferedDate: '',
-  //secondPrefferedDate: '',
-  //thirdPrefferedDate: '',
-  //shirtSize: '',
-  //allergies: '',
-  otherAllergy: Yup.string(),
-})
-
 // TODO: Bryt ut till intl
 
+
+const defaultFunkis = {
+  name:'',
+  liuid:'',
+  email: '',
+  funkisAlts: [],
+  funkisDays: [],
+  selectedFunkisDays : {
+    0: true,
+    1: false,
+    2: false,
+  },
+  selectedFunkisAlt: '',
+}
 
 // TODO: Lägg till faktiskt data, kolla strukturen, namn
 const testFunkisar = [
   {
     name:'Test Testsson',
-    liuid:'test123',
+    liuid:'teste123',
     email: 'test123@student.liu.se',
     funkisAlts: [
       'Natt',
@@ -93,22 +53,158 @@ const testFunkisar = [
       '5/5',
       '6/5',
       '7/5',
-    ]
+    ],
+    selectedFunkisDays : {
+      0: true,
+      1: true,
+      2: false,
+    },
+    selectedFunkisAlt: 'Natt',
+  },
+  {
+    name:'Test Testsson2',
+    liuid:'teste666',
+    email: 'teste666@student.liu.se',
+    funkisAlts: [
+      'Natt',
+      'Funis1',
+      'Troll',
+    ],
+    funkisDays: [
+      '4/5',
+      '2/5',
+      '7/5',
+    ],
+    selectedFunkisDays : {
+      0: false,
+      1: false,
+      2: true,
+    },
+    selectedFunkisAlt: 'Funis1',
   }
 ]
+
+const FunkisDayItem = ({
+  date,
+  onClick,
+  checked,
+  index,
+}) => {
+return (
+  <ListItem onClick={onClick} id={`funkis-day-alt-${index}`}>
+    <ListItemGraphic icon={<Checkbox checked={checked}/>}/>
+    {date}
+  </ListItem>
+);
+}
+
+const FunkisAdminRow = ({
+  funkis,
+}) => {
+
+  const [funkisData, setFunkisData] = useState(defaultFunkis)
+
+  useEffect(() => {
+    setFunkisData(funkis);
+  }, [funkis])
+
+
+  const onSave = () => {
+    console.log("testSave");
+    return;
+  }
+
+  const onChange = (e) => {
+    const { target: { id, value } } = e;
+    switch(id) { // Could change IDs and just have them map to statenames
+      case 'funkisType':
+        setFunkisData({
+          ...funkisData,
+          'selectedFunkisAlt': value,
+        });
+        break;
+      case 'funkisDay':
+        setFunkisData({
+          ...funkisData,
+          'selectedFunkisDays': value,
+        });
+        break;
+    default:
+        break;
+    }
+    console.log("testChange");
+    return
+  }
+  
+  const {
+    name,
+    liuid,
+    email,
+    funkisAlts,
+    funkisDays,
+    selectedFunkisDays,
+    selectedFunkisAlt,
+  } = funkisData;
+
+  return(
+    <DataTableRow>
+      <DataTableCell>
+        {name}
+      </DataTableCell>
+      <DataTableCell>
+        {liuid}
+      </DataTableCell>
+      <DataTableCell>
+        {email}
+      </DataTableCell>
+      <DataTableCell>
+        <Select
+          id='funkisType'
+          options={funkisAlts}
+          value={selectedFunkisAlt}
+          placeholder='Funkistyp' 
+          onChange={onChange}
+        />
+      </DataTableCell>
+      <DataTableCell>
+      <List>
+        {
+        funkisDays.map((date, index) => {
+          return (
+            <FunkisDayItem
+              date={date}
+              index={index}
+              checked={selectedFunkisDays[index]} 
+              onClick={() => {
+                setFunkisData({
+                  ...funkisData,
+                  selectedFunkisDays: {
+                    ...selectedFunkisDays,
+                    [index]: !selectedFunkisDays[index],
+                  }
+                })
+              }
+            }
+            />
+          );
+        })
+        }        
+      </List>
+      </DataTableCell>
+      <DataTableCell>
+        <Button onClick={onSave} raised>
+          Spara 
+        </Button>
+      </DataTableCell>
+    </DataTableRow>
+  );
+}
 
 const FunkisAdminComponent = ({
   funkisar = testFunkisar
 }) => {
 
-  const onSave = () => {
-    console.log("test");
-    return
-  }
-
-  
-
-  return ( // TODO: Add errormessages for inputs
+  return ( // TODO: Fix in-line text
     <>
       <Grid base-outer-grid base-outer-grid--first>
         <DataTable>
@@ -126,36 +222,7 @@ const FunkisAdminComponent = ({
             <DataTableBody>
               {funkisar.map((f) => {
                 return (
-                  <DataTableRow>
-                    <DataTableCell>
-                      {f.name}
-                    </DataTableCell>
-                    <DataTableCell>
-                      {f.liuid}
-                    </DataTableCell>
-                    <DataTableCell>
-                      {f.email}
-                    </DataTableCell>
-                    <DataTableCell>
-                      <Select options={f.funkisAlts} placeholder='Funkis dagar' />
-                    </DataTableCell>
-                    <DataTableCell>
-                    <List>
-                      {
-                      f.funkisDays.map((d) => {
-                        return (
-                          <FunkisDayItem date={d} />
-                        );
-                      })
-                      }        
-                    </List>
-                    </DataTableCell>
-                    <DataTableCell>
-                      <Button onClick={() => {onSave()}} raised>
-                        Spara
-                      </Button>
-                    </DataTableCell>
-                  </DataTableRow>
+                  <FunkisAdminRow funkis={f}/>
                 );
               }
               )}
@@ -164,19 +231,6 @@ const FunkisAdminComponent = ({
         </DataTable>  
       </Grid>
     </>
-  );
-}
-
-const FunkisDayItem = ({
-    date,
-    onClick,
-    checked,
-  }) => {
-  return (
-    <ListItem onClick={() => {onClick()}}>
-      <ListItemGraphic icon={<Checkbox checked={checked}/>}/>
-      {date}
-    </ListItem>
   );
 }
 
