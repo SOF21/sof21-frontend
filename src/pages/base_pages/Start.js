@@ -6,11 +6,11 @@ import AboutCard from '../../components/page_components/AboutCard';
 import Header from '../../components/page_components/NiceHeader';
 
 import { FormattedMessage, injectIntl } from 'react-intl'
-
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
-
 import { Button } from '@rmwc/button';
-
+import Feed from "react-instagram-authless-feed"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
@@ -139,6 +139,16 @@ class Start extends Component {
                 src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Header-hemsida-vit.png'
                 alt='The SOF logo next to the date of the festival'
               />
+            </GridCell>
+            <GridCell phone="4" tablet="8" desktop='12' >
+              <Header>
+                <FormattedMessage id='Start.instagram' />
+                &nbsp;
+                <FontAwesomeIcon icon={faInstagram} />
+              </Header>
+            </GridCell>
+            <GridCell phone="4" tablet="8" desktop='12' >
+              <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>

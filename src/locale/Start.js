@@ -9,6 +9,7 @@ export default {
     'Start.putte': 'Sugen på att att söka putte? Läs mer om det här',
     'Start.funkis': 'Vill du ha en GRATIS helhelgsbiljett (värde 400kr) samt massa andra godsaker? Då kan du söka funkis och jobba 6-8 timmar och få allt detta. Vill du veta mer?',
     'Start.funkisButton': 'Klicka då HÄR!',
+    'Start.instagram' : 'Instagram - senaste nytt',
   },
 
   'en' : {
@@ -21,5 +22,6 @@ export default {
     'Start.putte': 'Would you like to apply to be a putte? Read more about it here.',
     'Start.funkis': 'Vill du ha en GRATIS helhelgsbiljett (värde 400kr) samt massa andra godsaker? Då kan du söka funkis och jobba 6-8 timmar och få allt detta. Vill du veta mer?',
     'Start.funkisButton': 'Klicka då HÄR!',
+    'Start.instagram' : 'Instagram - latest images',
   }
 };
