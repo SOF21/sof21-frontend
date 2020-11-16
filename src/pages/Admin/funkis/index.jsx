@@ -30,7 +30,7 @@ const defaultFunkis = {
   email: '',
   funkisAlts: [],
   funkisDays: [],
-  selectedFunkisDays : {
+  selectedFunkisDays : { // Maybe make this a list instead? Appending/removing dates
     0: true,
     1: false,
     2: false,
@@ -114,7 +114,7 @@ const FunkisAdminRow = ({
     return;
   }
 
-  const onChange = (e) => {
+  const onChange = (e) => { // TODO: It might be that we need to store this in Redux.
     const { target: { id, value } } = e;
     switch(id) { // Could change IDs and just have them map to statenames
       case 'funkisType':
@@ -145,7 +145,7 @@ const FunkisAdminRow = ({
     selectedFunkisDays,
     selectedFunkisAlt,
   } = funkisData;
-
+  // TODO: Move select and list to separate modal instead. Accessed by clicking the item
   return(
     <DataTableRow>
       <DataTableCell>
@@ -175,7 +175,7 @@ const FunkisAdminRow = ({
               date={date}
               index={index}
               checked={selectedFunkisDays[index]} 
-              onClick={() => {
+              onClick={() => { // Don't want to lose context of index
                 setFunkisData({
                   ...funkisData,
                   selectedFunkisDays: {
