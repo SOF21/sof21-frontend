@@ -144,7 +144,14 @@ class Start extends Component {
               <Header>
                 <FormattedMessage id='Start.instagram' />
                 &nbsp;
-                <FontAwesomeIcon icon={faInstagram} />
+                <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href="https://www.instagram.com/studentorkesterfestivalen/" 
+                  style={{color: "black"}}
+                >
+                  <FontAwesomeIcon icon={faInstagram}/>
+                </a>
               </Header>
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12' >
