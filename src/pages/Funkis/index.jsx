@@ -1,10 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import { connect } from "react-redux";
 
 import { GridCell, Grid } from '@rmwc/grid';
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
+import { Dialog } from '@rmwc/dialog';
 import { Formik, Form} from 'formik';
+import Modal from '../../components/page_components/Modal';
 import * as Yup from 'yup';
+
+import { sendFunkisApplication } from '../../actions/funkis'
 
 import FormTextInput from '../../components/forms/components/FormTextInput';
 
@@ -63,15 +68,28 @@ const validationSchema = Yup.object().shape({
   otherAllergy: Yup.string(),
 })
 
-const FunkisComponent = () => {
+const FunkisComponent = ({
+  loading,
+  sendFunkisApplication,
+  history
+}) => {
 
   const onSubmit = () => {
-    console.log("test");
+    sendFunkisApplication()
+      .then(() => {
+        history.push('/test')
+      })
+    
     return
   }
 
   return ( // TODO: Add errormessages for inputs
     <>
+      <Dialog 
+        open={loading}
+      >
+        <h2> Vi skickar din ansökan. Vänta! :)</h2>
+      </Dialog>
       <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
@@ -313,8 +331,12 @@ const FunkisComponent = () => {
   );
 }
 
-FunkisComponent.pageTitle = () => {
-  return "TESTAR"
-}
+const mapStateToProps = state => ({
+  loading: state.funkis.loading
+});
 
-export default injectIntl(FunkisComponent)
+const mapDispatchToProps = dispatch => ({
+  sendFunkisApplication: () => dispatch(sendFunkisApplication())
+})
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisComponent))
