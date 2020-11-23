@@ -29,12 +29,7 @@ const defaultFunkis = {
   liuid:'',
   email: '',
   funkisAlts: [],
-  funkisDays: [],
-  selectedFunkisDays : { // Maybe make this a list instead? Appending/removing dates
-    0: true,
-    1: false,
-    2: false,
-  },
+  funkisDays: {},
   selectedFunkisAlt: '',
 }
 
@@ -49,15 +44,19 @@ const testFunkisar = [
       'Funis1',
       'Troll',
     ],
-    funkisDays: [
-      '5/5',
-      '6/5',
-      '7/5',
-    ],
-    selectedFunkisDays : {
-      0: true,
-      1: true,
-      2: false,
+    funkisDays: {
+      1: {
+        selected: false,
+        day: '4/5',
+      },
+      2: {
+        selected: true,
+        day: '5/5',
+      },
+      3: {
+        selected: false,
+        day: '6/5',
+      },
     },
     selectedFunkisAlt: 'Natt',
   },
@@ -65,21 +64,25 @@ const testFunkisar = [
     name:'Test Testsson2',
     liuid:'teste666',
     email: 'teste666@student.liu.se',
+    funkisDays: {
+      1: {
+        selected: false,
+        day: '4/5',
+      },
+      2: {
+        selected: false,
+        day: '5/5',
+      },
+      3: {
+        selected: true,
+        day: '6/5',
+      },
+    },
     funkisAlts: [
       'Natt',
       'Funis1',
       'Troll',
     ],
-    funkisDays: [
-      '4/5',
-      '2/5',
-      '7/5',
-    ],
-    selectedFunkisDays : {
-      0: false,
-      1: false,
-      2: true,
-    },
     selectedFunkisAlt: 'Funis1',
   }
 ]
@@ -110,7 +113,7 @@ const FunkisAdminRow = ({
 
 
   const onSave = () => {
-    console.log("testSave");
+    console.log(funkisData);
     return;
   }
 
@@ -142,7 +145,6 @@ const FunkisAdminRow = ({
     email,
     funkisAlts,
     funkisDays,
-    selectedFunkisDays,
     selectedFunkisAlt,
   } = funkisData;
   // TODO: Move select and list to separate modal instead. Accessed by clicking the item
@@ -169,18 +171,22 @@ const FunkisAdminRow = ({
       <DataTableCell>
       <List>
         {
-        funkisDays.map((date, index) => {
+        Object.keys(funkisDays).map((key, index) => {
+          const {selected, day} = funkisDays[key];
           return (
             <FunkisDayItem
-              date={date}
+              date={day}
               index={index}
-              checked={selectedFunkisDays[index]} 
-              onClick={() => { // Don't want to lose context of index
+              checked={selected} 
+              onClick={() => { // Don't want to lose context of key
                 setFunkisData({
                   ...funkisData,
-                  selectedFunkisDays: {
-                    ...selectedFunkisDays,
-                    [index]: !selectedFunkisDays[index],
+                  funkisDays: {
+                    ...funkisDays,
+                    [key]: {
+                      ...funkisDays[key],
+                      selected: !funkisDays[key].selected
+                    },
                   }
                 })
               }
@@ -206,7 +212,6 @@ const FunkisAdminComponent = ({
 
   return ( // TODO: Fix in-line text
     <>
-      <Grid base-outer-grid base-outer-grid--first>
         <DataTable>
           <DataTableContent>
             <DataTableHead>
@@ -229,7 +234,6 @@ const FunkisAdminComponent = ({
             </DataTableBody>
           </DataTableContent>  
         </DataTable>  
-      </Grid>
     </>
   );
 }
