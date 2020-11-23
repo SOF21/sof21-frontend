@@ -142,23 +142,6 @@ class Start extends Component {
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
-                <FormattedMessage id='Start.instagram' />
-                &nbsp;
-                <a 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  href="https://www.instagram.com/studentorkesterfestivalen/" 
-                  style={{color: "black"}}
-                >
-                  <FontAwesomeIcon icon={faInstagram}/>
-                </a>
-              </Header>
-            </GridCell>
-            <GridCell phone="4" tablet="8" desktop='12' >
-              <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
-            </GridCell>
-            <GridCell phone="4" tablet="8" desktop='12' >
-              <Header>
                 <FormattedMessage id='Start.moreInfo' />
               </Header>
             </GridCell>
@@ -193,6 +176,23 @@ class Start extends Component {
                 desc={<FormattedMessage id='History.historyParagraph1' />}
                 onClickProp={() => this.props.history.push('/about_history')}
               />
+            </GridCell>
+            <GridCell phone="4" tablet="8" desktop='12' >
+              <Header>
+                <FormattedMessage id='Start.instagram' />
+                &nbsp;
+                <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href="https://www.instagram.com/studentorkesterfestivalen/" 
+                  style={{color: "black"}}
+                >
+                  <FontAwesomeIcon icon={faInstagram}/>
+                </a>
+              </Header>
+            </GridCell>
+            <GridCell phone="4" tablet="8" desktop='12' >
+              <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
             </GridCell>
           </GridInner>
         </Grid >
