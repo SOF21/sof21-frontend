@@ -27,19 +27,19 @@ const festivalContacts = [
 ];
 
 const commContacts = [
-  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '', id: 9},
+  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Ingrid.png', id: 9},
   {name: 'Michelle Krejci', title: 'IT-ansvarig', email: 'it', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Michelle.png', id: 10},
   {name: 'Ester Brandås', title: 'Samarbetesansvarig', email: 'samarbete', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Ester.png', id: 11},
   {name: 'Didrik Florhed', title: 'Marknadsföringsansvarig', email: 'marknadsforing', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Didrik.png', id: 12},
   {name: 'Ylva Bröms', title: 'Art Director', email: 'ad', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Ylva.png', id: 13},
-  {name: 'Hanna Emanuelsson', title: 'Eventansvarig', email: 'event', image: '', id: 14},
+  {name: 'Hanna Emanuelsson', title: 'Eventansvarig', email: 'event', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Hanna.png', id: 14},
 ];
 
 const managmentContacts = [
   {name: 'Gustaf Udd', title: 'Vice General med ekonomiansvar', email: 'vicegeneral', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Gustaf.png', id: 15},
   {name: 'Erik Edeskog', title: 'Säkerhetsansvarig', email: 'sakerhet', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Erik.png', id: 16},
   {name: 'Sara Höglund', title: 'Riks-SMASK', email: 'rikssmask', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/SaraH.png', id: 17},
-  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: '', id: 18},
+  {name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Ingrid.png', id: 18},
   {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Julia.png', id: 19},
 ];
 

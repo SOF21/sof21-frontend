@@ -86,7 +86,16 @@ const MobileAccountScrim = posed.div({
 export class UNCMobileAccountPopup extends Component {
 
   setPopupState = (state) => {
-    this.props.setAccountPopupOpen(state);
+      this.props.setAccountPopupOpen(state);
+  }
+
+  componentDidUpdate() {
+    window.onpopstate = e => { 
+      if(this.props.isOpen) {
+        this.props.setAccountPopupOpen(false);
+        window.history.go(1)
+      }
+    }
   }
 
   render(){
@@ -245,7 +254,6 @@ class UNCAccount extends Component{
   componentDidMount(){
     getUserUuid()
     .then( response =>{
-      console.log(response);
       this.setState({uuid: response.data.uuid});
     })
   }
