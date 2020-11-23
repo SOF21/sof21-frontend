@@ -6,11 +6,11 @@ import AboutCard from '../../components/page_components/AboutCard';
 import Header from '../../components/page_components/NiceHeader';
 
 import { FormattedMessage, injectIntl } from 'react-intl'
-
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
-
 import { Button } from '@rmwc/button';
-
+import Feed from "react-instagram-authless-feed"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
@@ -176,6 +176,23 @@ class Start extends Component {
                 desc={<FormattedMessage id='History.historyParagraph1' />}
                 onClickProp={() => this.props.history.push('/about_history')}
               />
+            </GridCell>
+            <GridCell phone="4" tablet="8" desktop='12' >
+              <Header>
+                <FormattedMessage id='Start.instagram' />
+                &nbsp;
+                <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href="https://www.instagram.com/studentorkesterfestivalen/" 
+                  style={{color: "black"}}
+                >
+                  <FontAwesomeIcon icon={faInstagram}/>
+                </a>
+              </Header>
+            </GridCell>
+            <GridCell phone="4" tablet="8" desktop='12' >
+              <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
             </GridCell>
           </GridInner>
         </Grid >
