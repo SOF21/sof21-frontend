@@ -92,14 +92,71 @@ export const getFunkisarFailuren = ({err}) => ({
   payload: err
 });
 
+
+const testFunkisar = [
+  {
+    name:'Test Testsson',
+    liuid:'teste123',
+    email: 'test123@student.liu.se',
+    funkisAlts: [
+      'Natt',
+      'Funis1',
+      'Troll',
+    ],
+    funkisDays: {
+      1: {
+        selected: false,
+        day: '4/5',
+      },
+      2: {
+        selected: true,
+        day: '5/5',
+      },
+      3: {
+        selected: false,
+        day: '6/5',
+      },
+    },
+    selectedFunkisAlt: 'Natt',
+  },
+  {
+    name:'Test Testsson2',
+    liuid:'teste666',
+    email: 'teste666@student.liu.se',
+    funkisDays: {
+      1: {
+        selected: false,
+        day: '4/5',
+      },
+      2: {
+        selected: false,
+        day: '5/5',
+      },
+      3: {
+        selected: true,
+        day: '6/5',
+      },
+    },
+    funkisAlts: [
+      'Natt',
+      'Funis1',
+      'Troll',
+    ],
+    selectedFunkisAlt: 'Funis1',
+  }
+]
+
 export const getFunkisar = () => {
   return async dispatch => {
     dispatch(getFunkisarBegin())
-    api.post('/funkis/update/update') // TODO: UPDATE
+    /*api.post('/funkis/update/update') // TODO: UPDATE
       .then((res) => res.json) 
       .then((json) => {
         dispatch(getFunkisarSuccess(json.funkisar))
       })
       .catch((err) => dispatch(setFunkisTypeFailure()))
-  }
-};
+  }*/
+  await new Promise(r => setTimeout(r, 2000))
+  dispatch(getFunkisarSuccess(testFunkisar))
+}
+}

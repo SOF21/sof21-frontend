@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import { connect } from 'react-redux';
 import { GridCell, Grid } from '@rmwc/grid';
 import { 
   DataTable,
@@ -14,12 +14,14 @@ import {
   List, 
   ListItem,
   ListItemGraphic,
-} from '@rmwc/list'
-import { Checkbox } from '@rmwc/checkbox'
+} from '@rmwc/list';
+import { Checkbox } from '@rmwc/checkbox';
+import { Dialog } from '@rmwc/dialog';
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
 
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { getFunkisar } from '../../../actions/funkis';
 
 // TODO: Bryt ut till intl
 
@@ -32,60 +34,6 @@ const defaultFunkis = {
   funkisDays: {},
   selectedFunkisAlt: '',
 }
-
-// TODO: Lägg till faktiskt data, kolla strukturen, namn
-const testFunkisar = [
-  {
-    name:'Test Testsson',
-    liuid:'teste123',
-    email: 'test123@student.liu.se',
-    funkisAlts: [
-      'Natt',
-      'Funis1',
-      'Troll',
-    ],
-    funkisDays: {
-      1: {
-        selected: false,
-        day: '4/5',
-      },
-      2: {
-        selected: true,
-        day: '5/5',
-      },
-      3: {
-        selected: false,
-        day: '6/5',
-      },
-    },
-    selectedFunkisAlt: 'Natt',
-  },
-  {
-    name:'Test Testsson2',
-    liuid:'teste666',
-    email: 'teste666@student.liu.se',
-    funkisDays: {
-      1: {
-        selected: false,
-        day: '4/5',
-      },
-      2: {
-        selected: false,
-        day: '5/5',
-      },
-      3: {
-        selected: true,
-        day: '6/5',
-      },
-    },
-    funkisAlts: [
-      'Natt',
-      'Funis1',
-      'Troll',
-    ],
-    selectedFunkisAlt: 'Funis1',
-  }
-]
 
 const FunkisDayItem = ({
   date,
@@ -207,11 +155,22 @@ const FunkisAdminRow = ({
 }
 
 const FunkisAdminComponent = ({
-  funkisar = testFunkisar
+  funkisar,
+  loading,
+  getFunkisar
 }) => {
+
+  useEffect(() => {
+    getFunkisar();
+  }, [getFunkisar])
 
   return ( // TODO: Fix in-line text
     <>
+      <Dialog 
+        open={loading}
+      >
+        <h2> Vi skickar din ansökan. Vänta! :)</h2>
+      </Dialog>
         <DataTable>
           <DataTableContent>
             <DataTableHead>
@@ -238,4 +197,13 @@ const FunkisAdminComponent = ({
   );
 }
 
-export default injectIntl(FunkisAdminComponent)
+const mapStateToProps = (state) => ({
+  funkisar: state.funkis.funkisar,
+  loading: state.funkis.loading
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getFunkisar: () => dispatch(getFunkisar())
+})
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisAdminComponent))
