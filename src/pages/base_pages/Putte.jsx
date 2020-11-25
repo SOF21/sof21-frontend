@@ -102,8 +102,9 @@ class Putte extends Component {
                     <GridInner>
                         <GridCell phone="4" tablet="8" desktop='12'>
                             <img
-                                className='full-width-grid-image'
-                                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/Hero-putte-1920px-01_margin.png'
+                                className='h-center'
+                                style={{width:'100%'}}
+                                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Putterek/AD+_+Best%C3%A4llningar+_+Putterekrytering+2.0+_+Digitalt+_+Omslagsbild.png'
                                 alt=''
                             />
                         </GridCell>
