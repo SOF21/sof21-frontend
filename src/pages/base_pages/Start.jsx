@@ -6,13 +6,14 @@ import AboutCard from '../../components/page_components/AboutCard';
 import Header from '../../components/page_components/NiceHeader';
 
 import { FormattedMessage, injectIntl } from 'react-intl'
-
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
-
 import { Button } from '@rmwc/button';
-
+import Feed from "react-instagram-authless-feed"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { isSafari } from 'react-device-detect';
 
 const scheduleIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/schedule_festival/schedule1.jpg';
 const areaIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/area_festival/Map_small.png';
@@ -46,6 +47,9 @@ class Start extends Component {
   }
 
   render() {
+    // Firefox 1.0+
+    const isFirefox = typeof InstallTrigger !== 'undefined';
+    var is_safari = navigator.userAgent.indexOf("Safari") > -1;
 
     return (
       <React.Fragment>
@@ -177,6 +181,28 @@ class Start extends Component {
                 onClickProp={() => this.props.history.push('/about_history')}
               />
             </GridCell>
+            {!isFirefox && !isSafari && 
+              <GridCell phone="4" tablet="8" desktop='12' >
+                <Header>
+                  <FormattedMessage id='Start.instagram' />
+                  &nbsp;
+                  <a 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    href="https://www.instagram.com/studentorkesterfestivalen/" 
+                    style={{color: "black"}}
+                  >
+                    <FontAwesomeIcon icon={faInstagram}/>
+                  </a>
+                </Header>
+              </GridCell>
+            }
+            {!isFirefox && !isSafari &&
+             <GridCell phone="4" tablet="8" desktop='12' >
+               <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
+             </GridCell>
+            }
+           
           </GridInner>
         </Grid >
 
