@@ -198,6 +198,7 @@ class AccountAdmin extends Component{
         />
         <PrivateRoute
           admin
+          requiredAccess={2}
           exact
           path='/account/admin/funkisar'
           render={(props) => {
@@ -273,6 +274,13 @@ class UNCBaseAdminPage extends Component{
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/soldseparately')}> Biljetter utanför hemsidan </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+
+          {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
+            <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/funkisar')}> Hantera funkisar </Button>
             : null
           }
         </GridCell>

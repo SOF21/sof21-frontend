@@ -16,12 +16,22 @@ import {
   ListItemGraphic,
 } from '@rmwc/list';
 import { Checkbox } from '@rmwc/checkbox';
-import { Dialog } from '@rmwc/dialog';
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogButton
+} from '@rmwc/dialog';
+
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { getFunkisar } from '../../../actions/funkis';
+import { 
+  getFunkisar,
+  updateFunkis,
+ } from '../../../actions/funkis';
 
 // TODO: Bryt ut till intl
 
@@ -33,6 +43,7 @@ const defaultFunkis = {
   funkisAlts: [],
   funkisDays: {},
   selectedFunkisAlt: '',
+  modified: false,
 }
 
 const FunkisDayItem = ({
@@ -51,6 +62,7 @@ return (
 
 const FunkisAdminRow = ({
   funkis,
+  onClick,
 }) => {
 
   const [funkisData, setFunkisData] = useState(defaultFunkis)
@@ -58,46 +70,16 @@ const FunkisAdminRow = ({
   useEffect(() => {
     setFunkisData(funkis);
   }, [funkis])
-
-
-  const onSave = () => {
-    console.log(funkisData);
-    return;
-  }
-
-  const onChange = (e) => { // TODO: It might be that we need to store this in Redux.
-    const { target: { id, value } } = e;
-    switch(id) { // Could change IDs and just have them map to statenames
-      case 'funkisType':
-        setFunkisData({
-          ...funkisData,
-          'selectedFunkisAlt': value,
-        });
-        break;
-      case 'funkisDay':
-        setFunkisData({
-          ...funkisData,
-          'selectedFunkisDays': value,
-        });
-        break;
-    default:
-        break;
-    }
-    console.log("testChange");
-    return
-  }
   
   const {
     name,
     liuid,
     email,
-    funkisAlts,
-    funkisDays,
     selectedFunkisAlt,
   } = funkisData;
   // TODO: Move select and list to separate modal instead. Accessed by clicking the item
   return(
-    <DataTableRow>
+    <DataTableRow onClick={onClick}>
       <DataTableCell>
         {name}
       </DataTableCell>
@@ -108,47 +90,7 @@ const FunkisAdminRow = ({
         {email}
       </DataTableCell>
       <DataTableCell>
-        <Select
-          id='funkisType'
-          options={funkisAlts}
-          value={selectedFunkisAlt}
-          placeholder='Funkistyp' 
-          onChange={onChange}
-        />
-      </DataTableCell>
-      <DataTableCell>
-      <List>
-        {
-        Object.keys(funkisDays).map((key, index) => {
-          const {selected, day} = funkisDays[key];
-          return (
-            <FunkisDayItem
-              date={day}
-              index={index}
-              checked={selected} 
-              onClick={() => { // Don't want to lose context of key
-                setFunkisData({
-                  ...funkisData,
-                  funkisDays: {
-                    ...funkisDays,
-                    [key]: {
-                      ...funkisDays[key],
-                      selected: !funkisDays[key].selected
-                    },
-                  }
-                })
-              }
-            }
-            />
-          );
-        })
-        }        
-      </List>
-      </DataTableCell>
-      <DataTableCell>
-        <Button onClick={onSave} raised>
-          Spara 
-        </Button>
+        {selectedFunkisAlt}
       </DataTableCell>
     </DataTableRow>
   );
@@ -157,42 +99,156 @@ const FunkisAdminRow = ({
 const FunkisAdminComponent = ({
   funkisar,
   loading,
-  getFunkisar
+  getFunkisar,
+  updateFunkis
 }) => {
 
   useEffect(() => {
     getFunkisar();
   }, [getFunkisar])
 
+  const [funkisModalOpen, setFunkisModalOpen] = useState(false);
+  const [activeFunkis, setActiveFunkis] = useState(defaultFunkis);
+
+  const handleDialogExit = (e) => {
+    setFunkisModalOpen(false)
+    switch(e.detail.action) {
+      case 'save':
+        const {modified, ...rest} = activeFunkis
+        updateFunkis(rest)
+        console.log(rest)
+        // TODO: Save, should be a redux action here...
+        break;
+      default:
+        break;
+    }
+  }
+
+  const onChange = (e) => { // TODO: It might be that we need to store this in Redux.
+    const { target: { id, value } } = e;
+    switch(id) { // Could change IDs and just have them map to statenames
+      case 'funkisType':
+        setActiveFunkis({
+          ...activeFunkis,
+          modified: true,
+          'selectedFunkisAlt': value,
+        });
+        break;
+      case 'funkisDay':
+        setActiveFunkis({
+          ...activeFunkis,
+          modified: true,
+          'selectedFunkisDays': value,
+        });
+        break;
+    default:
+        break;
+    }
+    console.log("testChange");
+    return
+  }
+
+
+  const {
+    name,
+    liuid,
+    email,
+    funkisAlts,
+    funkisDays,
+    selectedFunkisAlt,
+    modified,
+  } = activeFunkis;
+
   return ( // TODO: Fix in-line text
-    <>
-      <Dialog 
-        open={loading}
+    <>  
+      <Dialog
+        onClose={handleDialogExit}
+        open={funkisModalOpen}
       >
-        <h2> Vi skickar din ansökan. Vänta! :)</h2>
-      </Dialog>
-        <DataTable>
-          <DataTableContent>
-            <DataTableHead>
-              <DataTableRow>
-                <DataTableHeadCell>Namn</DataTableHeadCell>
-                <DataTableHeadCell>LiU-ID</DataTableHeadCell>
-                <DataTableHeadCell>E-mail</DataTableHeadCell>
-                <DataTableHeadCell>Funkis-typ</DataTableHeadCell>
-                <DataTableHeadCell>Funkis-dagar</DataTableHeadCell>
-                <DataTableHeadCell>Spara</DataTableHeadCell>
-              </DataTableRow>
-            </DataTableHead>
-            <DataTableBody>
-              {funkisar.map((f) => {
+        <DialogTitle>Ändra funkis: {name}</DialogTitle>
+        <DialogContent>
+        <Grid className='funkisInfo'>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            {name}
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            {liuid}
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            {email}
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <List>
+              {
+              Object.keys(funkisDays).map((key, index) => {
+                const {selected, day} = funkisDays[key];
                 return (
-                  <FunkisAdminRow funkis={f}/>
+                  <FunkisDayItem
+                    date={day}
+                    index={index}
+                    checked={selected} 
+                    onClick={() => { // Don't want to lose context of key
+                    setActiveFunkis({
+                        ...activeFunkis,
+                        modified: true,
+                        funkisDays: {
+                          ...funkisDays,
+                          [key]: {
+                            ...funkisDays[key],
+                            selected: !funkisDays[key].selected
+                          },
+                        }
+                      })
+                    }
+                  }
+                  />
                 );
-              }
-              )}
-            </DataTableBody>
-          </DataTableContent>  
-        </DataTable>  
+              })
+              }        
+            </List>
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <Select
+              id='funkisType'
+              options={funkisAlts}
+              value={selectedFunkisAlt}
+              placeholder='Funkistyp' 
+              onChange={onChange}
+            />
+          </GridCell>
+        </Grid>
+        </DialogContent>
+        <DialogActions>
+          <DialogButton action="close">Avbryt</DialogButton>
+          <DialogButton action="save" raised disabled={!modified}>Spara</DialogButton>
+        </DialogActions>
+      </Dialog>
+      <DataTable>
+        <DataTableContent>
+          <DataTableHead>
+            <DataTableRow>
+              <DataTableHeadCell>Namn</DataTableHeadCell>
+              <DataTableHeadCell>LiU-ID</DataTableHeadCell>
+              <DataTableHeadCell>E-mail</DataTableHeadCell>
+              <DataTableHeadCell>Funkis-typ</DataTableHeadCell>
+            </DataTableRow>
+          </DataTableHead>
+          <DataTableBody>
+            {funkisar.map((f) => {
+              return (
+                <FunkisAdminRow
+                  funkis={f}
+                  onClick={() => {
+                    setActiveFunkis(f);
+                    setFunkisModalOpen(true);
+                  }}
+                />
+              );
+            }
+            )}
+          </DataTableBody>
+        </DataTableContent>  
+      </DataTable>  
     </>
   );
 }
@@ -203,7 +259,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getFunkisar: () => dispatch(getFunkisar())
+  getFunkisar: () => dispatch(getFunkisar()),
+  updateFunkis: (funkis) => dispatch(updateFunkis(funkis))
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisAdminComponent))
