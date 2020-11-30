@@ -2,6 +2,7 @@ import {
   SEND_FUNKIS_APP,
   SET_FUNKIS_TYPE,
   GET_FUNKISAR,
+  UPDATE_FUNKIS
 } from '../actions/funkis'
 
 const initialState = {
@@ -33,6 +34,16 @@ const funkisReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         funkisar,
+      }
+    case UPDATE_FUNKIS:
+      const funkis = action.payload;
+      console.log(funkis)
+      return {
+        ...state,
+        funkisar: [
+          ...state.funkisar.filter(f => f.liuid !== funkis.liuid),
+          funkis
+        ]
       }
 		default: 
 			return state;

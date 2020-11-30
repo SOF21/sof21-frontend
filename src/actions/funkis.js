@@ -67,7 +67,7 @@ export const updateFunkisType = ({ // TODO: UPDATE
       .then(() => {
         dispatch(setFunkisTypSuccess())
       })
-      .catch((err) => dispatch(setFunkisTypeFailure()))
+      .catch((err) => dispatch(setFunkisTypeFailure(err)))
   }
 };
 
@@ -160,3 +160,10 @@ export const getFunkisar = () => {
   dispatch(getFunkisarSuccess(testFunkisar))
 }
 }
+
+export const UPDATE_FUNKIS = `${funkisActionBase}UPDATE_FUNKIS`;
+
+export const updateFunkis = (funkis) => ({
+  type: UPDATE_FUNKIS,
+  payload: funkis
+});
