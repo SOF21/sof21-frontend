@@ -257,8 +257,9 @@ class UNCAccount extends Component{
     .then( response =>{
       if (process.env.NODE_ENV === 'development') {
         console.log(response)
+      } else if (process.env.NODE_ENV === 'production') {
+        LogRocket.identify(response.data.uuid)
       }
-      LogRocket.identify(response.data.uuid)
       this.setState({uuid: response.data.uuid});
     })
   }
