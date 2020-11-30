@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './App'
+import LogRocket from 'logrocket'
 
+LogRocket.init('jhsg24/sof21');
 const modalRoot = document.createElement('div');
 modalRoot.setAttribute('id', 'modal-root');
 document.body.append(modalRoot);
