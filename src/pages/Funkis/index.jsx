@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 
-import { GridCell, Grid } from '@rmwc/grid';
+import { GridCell, Grid, GridInner } from '@rmwc/grid';
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
 import { Dialog } from '@rmwc/dialog';
 import { Formik, Form} from 'formik';
+import { Checkbox } from '@rmwc/checkbox';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 import Modal from '../../components/page_components/Modal';
 import * as Yup from 'yup';
 
-import { sendFunkisApplication } from '../../actions/funkis'
+import { sendFunkisApplication, getFunkisTypes } from '../../actions/funkis'
 
 import FormTextInput from '../../components/forms/components/FormTextInput';
 
 import { FormattedMessage, injectIntl } from 'react-intl';
+import FormCheckbox from '../../components/forms/components/FormCheckbox';
+import LoadButton from '../../components/forms/components/LoadButton';
 
 // TODO: Replace, this is not nice.
-const funkisPositions = ['God', 'Pleb', 'General', 'Nattvakt']; 
+const noPref = 'Ingen';
 const workDates = ["1/1", "2/2", "3/3", "4/4"];
 const shirtSizes = ["S", "M", "L", "XL"];
-const availableAllergies = ["Gluten", "Laktos", "Other"];
+const availableAllergies = {
+  none: 'Ingen',
+  gluten: 'Gluten',
+  laktos: 'Laktos',
+  both: 'Gluten & Laktos',
+  other: 'Annat',
+};
 
 
 const initialInput = {
@@ -39,6 +49,8 @@ const initialInput = {
   shirtSize: '',
   allergies: '',
   otherAllergy: '',
+  gdpr: false,
+  liuCard: '',
 }
 
 const validationSchema = Yup.object().shape({
@@ -47,50 +59,84 @@ const validationSchema = Yup.object().shape({
   ),
   liuid: Yup.string().required(
     <FormattedMessage id='Funkis.recruitment.errors.req.liuid' />
-  ),
-  mail: Yup.string().email().required(
+  ).matches(/[A-ö]{5}\d{3}/, 'Du måste ange ett giltlig LiuID'),
+  mail: Yup.string().email(
+    <FormattedMessage id='Funkis.recruitment.errors.req.mail' />
+  ).required(
     <FormattedMessage id='Funkis.recruitment.errors.req.mail' />
   ),
   phonenumber: Yup.string().required(
     <FormattedMessage id='Funkis.recruitment.errors.req.phonenumber' />
   ),
-  address: Yup.string(),
-  postcode: '',
-  city: Yup.string(),
-  //funkisOne: '',
-  //funkisTwo: '',
-  //funkisThree: '',
-  //firstPrefferedDate: '',
-  //secondPrefferedDate: '',
-  //thirdPrefferedDate: '',
-  //shirtSize: '',
-  //allergies: '',
-  otherAllergy: Yup.string(),
+  address: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.address' />
+  ),
+  postcode: Yup.number().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.postcode' />
+  ),
+  city: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.city' />
+  ),
+  shirtSize: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.address' />
+  ),
+  funkisOne: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.address' /> 
+  ),
+  otherAllergy: Yup.string().when('allergies',
+  {
+    is: availableAllergies.other,
+    then: Yup.string().required(
+      <FormattedMessage id='Funkis.recruitment.errors.req.otherAllergy' />
+    )
+  }),
+  gdpr: Yup.bool().oneOf([true], 
+      <FormattedMessage id='Funkis.recruitment.errors.req.gdpr' />
+    ),
+  liuCard: Yup.string().required(
+    <FormattedMessage id='Funkis.recruitment.errors.req.liuCard' />
+  ),
 })
 
 const FunkisComponent = ({
   loading,
   sendFunkisApplication,
-  history
+  history,
+  funkisPositions,
+  getFunkisType,
+  success,
 }) => {
 
-  const onSubmit = () => {
-    sendFunkisApplication()
-      .then(() => {
-        history.push('/test')
-      })
-    
-    return
-  }
 
+  useEffect(() => {
+    getFunkisType();
+  }, [getFunkisType])
+
+  const onSubmit = (values) => {
+    sendFunkisApplication(values);
+  }
   return ( // TODO: Add errormessages for inputs
     <>
-      <Dialog 
-        open={loading}
-      >
-        <h2> Vi skickar din ansökan. Vänta! :)</h2>
-      </Dialog>
-      <Formik
+      {loading &&
+      <GridInner className='h-center v-center' style={{height: '100%'}}>
+          <ScaleLoader
+            loading={true}
+            color={'red'}
+          />
+      </GridInner>
+      }
+      {!loading && success && 
+      <GridInner>
+        <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
+              <p>
+                Din ansökan är nu skickad!
+              </p>
+              <p>
+                Du kommer att få ett mail om du blir tilldelad en plats!
+              </p>
+            </GridCell>
+      </GridInner>}
+      {!loading && !success && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -103,9 +149,17 @@ const FunkisComponent = ({
          handleChange,
          handleBlur,
          isSubmitting,
+         handleSubmit,
        }) => (
-         <Form className='funkis-form'>
-        <Grid base-outer-grid base-outer-grid--first>
+         <Form 
+          className='funkis-form'
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+         >
+        {console.log(success)}
+        <GridInner base-outer-grid base-outer-grid--first>
         <GridCell desktop='12' tablet='8' phone='4'>
           <h6 className='funkis-info'><FormattedMessage id='Funkis.recruitment.info'/></h6>
         </GridCell>
@@ -129,6 +183,17 @@ const FunkisComponent = ({
             touched={touched.liuid}
             error={errors.liuid}
             value={values.liuid}
+          />
+        </GridCell>
+        <GridCell desktop='6' tablet='4' phone='4'>
+          <FormTextInput 
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.liuCard' />}
+            name='liuCard'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.liuCard}
+            error={errors.liuCard}
+            value={values.liuCard}
           />
         </GridCell>
         <GridCell desktop='6' tablet='8' phone='4'>
@@ -197,7 +262,7 @@ const FunkisComponent = ({
             touched={touched.funkisOne}
             error={errors.funkisOne}
             value={values.funkisOne}
-            options={funkisPositions}
+            options={Object.values(funkisPositions)}
           />
         </GridCell>
 
@@ -210,7 +275,7 @@ const FunkisComponent = ({
             touched={touched.funkisTwo}
             error={errors.funkisTwo}
             value={values.funkisTwo}
-            options={funkisPositions.filter((val) => values.funkisOne !== val)}
+            options={[noPref, ...Object.values(funkisPositions).filter((val) => values.funkisOne !== val)]}
           />
         </GridCell>
 
@@ -223,11 +288,11 @@ const FunkisComponent = ({
             touched={touched.funkisThree}
             error={errors.funkisThree}
             value={values.funkisThree}
-            options={funkisPositions.filter((val) => (values.funkisOne !== val && values.funkisTwo !== val))}
+            options={[noPref, ...Object.values(funkisPositions).filter((val) => (values.funkisOne !== val && values.funkisTwo !== val))]}
           />
         </GridCell>
 
-        {[values.funkisOne, values.funkisTwo, values.funkisThree].includes("Nattvakt")  && <GridCell desktop='6' tablet='4' phone='4'>
+        {[values.funkisOne, values.funkisTwo, values.funkisThree].includes(funkisPositions.nattvakt)  && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
             label={<FormattedMessage id='Funkis.recruitment.fieldLabels.requestedPartner' />}
             name='requestedPartner'
@@ -300,11 +365,11 @@ const FunkisComponent = ({
             touched={touched.allergies}
             error={errors.allergies}
             value={values.allergies}
-            options={availableAllergies}
+            options={Object.values(availableAllergies)}
           />
         </GridCell>
 
-        {values.allergies === 'Other'  && <GridCell desktop='6' tablet='4' phone='4'>
+        {values.allergies === availableAllergies.other  && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
             label={<FormattedMessage id='Funkis.recruitment.fieldLabels.otherAllergy' />}
             name='otherAllergy'
@@ -317,26 +382,42 @@ const FunkisComponent = ({
         </GridCell>}
 
         <GridCell desktop='12' tablet='8' phone='4'>
-          <Button raised type='submit' disabled= { isSubmitting || !isValid
+          <FormCheckbox 
+            label='Jag godkänner att mina personuppgifter sparas enligt LinTeks blabla'
+            name='gdpr'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.gdpr}
+            error={errors.gdpr}
+            value={values.gdpr}
+          />
+        </GridCell>
+        {console.log(errors)}
+        <GridCell desktop='12' tablet='8' phone='4'>
+          <LoadButton loading={isSubmitting || loading} type='submit' raised disabled= { isSubmitting
           }>
             <FormattedMessage id='Funkis.recruitment.submit'/>
-          </Button>
+          </LoadButton>
         </GridCell>
+        
         {errors.error && <GridCell desktop='12' tablet='8' phone='4'> {errors.error}</GridCell>}
-      </Grid>
+      </GridInner>
       </Form>
       )}
-      </Formik>
+      </Formik>}
     </>
   );
 }
 
 const mapStateToProps = state => ({
-  loading: state.funkis.loading
+  loading: state.funkis.loading,
+  funkisPositions: state.funkis.positions,
+  success: state.funkis.success,
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendFunkisApplication: () => dispatch(sendFunkisApplication())
+  sendFunkisApplication: (values) => dispatch(sendFunkisApplication(values)),
+  getFunkisType: () => dispatch(getFunkisTypes()),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisComponent))

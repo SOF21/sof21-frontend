@@ -18,6 +18,7 @@ import {
 import { Checkbox } from '@rmwc/checkbox';
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
+import { TextField, TextFieldIcon } from '@rmwc/textfield';
 
 import {
   Dialog,
@@ -109,6 +110,7 @@ const FunkisAdminComponent = ({
 
   const [funkisModalOpen, setFunkisModalOpen] = useState(false);
   const [activeFunkis, setActiveFunkis] = useState(defaultFunkis);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleDialogExit = (e) => {
     setFunkisModalOpen(false)
@@ -116,12 +118,16 @@ const FunkisAdminComponent = ({
       case 'save':
         const {modified, ...rest} = activeFunkis
         updateFunkis(rest)
-        console.log(rest)
         // TODO: Save, should be a redux action here...
         break;
       default:
         break;
     }
+  }
+
+  const handleSearch = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term.toLowerCase());
   }
 
   const onChange = (e) => { // TODO: It might be that we need to store this in Redux.
@@ -144,7 +150,6 @@ const FunkisAdminComponent = ({
     default:
         break;
     }
-    console.log("testChange");
     return
   }
 
@@ -160,7 +165,7 @@ const FunkisAdminComponent = ({
   } = activeFunkis;
 
   return ( // TODO: Fix in-line text
-    <>  
+    <>
       <Dialog
         onClose={handleDialogExit}
         open={funkisModalOpen}
@@ -178,6 +183,15 @@ const FunkisAdminComponent = ({
             {email}
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
+            <Select
+              id='funkisType'
+              options={funkisAlts}
+              value={selectedFunkisAlt}
+              placeholder='Funkistyp' 
+              onChange={onChange}
+            />
+          </GridCell>
+          {selectedFunkisAlt && <GridCell desktop='12' tablet='8' phone='4'>
             <List>
               {
               Object.keys(funkisDays).map((key, index) => {
@@ -206,16 +220,7 @@ const FunkisAdminComponent = ({
               })
               }        
             </List>
-          </GridCell>
-          <GridCell desktop='12' tablet='8' phone='4'>
-            <Select
-              id='funkisType'
-              options={funkisAlts}
-              value={selectedFunkisAlt}
-              placeholder='Funkistyp' 
-              onChange={onChange}
-            />
-          </GridCell>
+          </GridCell>}
         </Grid>
         </DialogContent>
         <DialogActions>
@@ -223,32 +228,44 @@ const FunkisAdminComponent = ({
           <DialogButton action="save" raised disabled={!modified}>Spara</DialogButton>
         </DialogActions>
       </Dialog>
-      <DataTable>
-        <DataTableContent>
-          <DataTableHead>
-            <DataTableRow>
-              <DataTableHeadCell>Namn</DataTableHeadCell>
-              <DataTableHeadCell>LiU-ID</DataTableHeadCell>
-              <DataTableHeadCell>E-mail</DataTableHeadCell>
-              <DataTableHeadCell>Funkis-typ</DataTableHeadCell>
-            </DataTableRow>
-          </DataTableHead>
-          <DataTableBody>
-            {funkisar.map((f) => {
-              return (
-                <FunkisAdminRow
-                  funkis={f}
-                  onClick={() => {
-                    setActiveFunkis(f);
-                    setFunkisModalOpen(true);
-                  }}
-                />
-              );
-            }
-            )}
-          </DataTableBody>
-        </DataTableContent>  
-      </DataTable>  
+      <Grid>
+      <GridCell desktop='12' tablet='8' phone='4'>
+        <TextField withLeadingIcon='search' label='Sök' id='searchBar'onChange={handleSearch}/>
+      </GridCell>
+      <GridCell desktop='12' tablet='8' phone='4'>
+        <DataTable>
+          <DataTableContent>
+            <DataTableHead>
+              <DataTableRow>
+                <DataTableHeadCell>Namn</DataTableHeadCell>
+                <DataTableHeadCell>LiU-ID</DataTableHeadCell>
+                <DataTableHeadCell>E-mail</DataTableHeadCell>
+                <DataTableHeadCell>Funkis-typ</DataTableHeadCell>
+              </DataTableRow>
+            </DataTableHead>
+            <DataTableBody>
+              {funkisar.map((f) => {
+                for(const key in {name, email, liuid}) {
+                  if(f[key].toLowerCase().includes(searchTerm)) {
+                    return (
+                      <FunkisAdminRow
+                        funkis={f}
+                        onClick={() => {
+                          setActiveFunkis(f);
+                          setFunkisModalOpen(true);
+                        }}
+                      />
+                    );
+                  }
+                }
+              }
+              )}
+            </DataTableBody>
+          </DataTableContent>  
+        </DataTable>  
+      </GridCell>
+      </Grid>
+      
     </>
   );
 }
