@@ -162,20 +162,6 @@ class PageRouter extends React.Component{
                 key = '/account/'
               />
               <Route
-                exact
-                path={'/funkis'}
-                title={'Funkis ansökan'}
-                render={props => (
-                  <BasePage
-                    title='Funkis ansökan'
-                  >
-                    <Funkis {...props}/>
-                  </BasePage>
-                  
-                )}
-                key={'/funkis'}
-              />
-              <Route
                 render={(props) =>(
                   <BasePage
                     content={NotFound}

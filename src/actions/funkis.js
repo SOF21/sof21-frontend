@@ -23,16 +23,48 @@ export const sendFunkisAppFailure = ({err}) => ({
   payload: err
 });
 
-export const sendFunkisApplication = () => { // TODO: UPDATE
+export const sendFunkisApplication = ({
+  name,
+  liuid,
+  mail,
+  phonenumber,
+  address,
+  city,
+  postcode,
+  funkisOne,
+  funkisTwo,
+  funkisThree,
+  firstPrefferedDate,
+  secondPrefferedDate,
+  thirdPrefferedDate,
+  shirtSize,
+  allergies,
+  otherAllergy,
+  gdpr,
+  liuCard
+}) => { // TODO: UPDATE
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
-    /*return api.post('funkis/application')
+    return api.post('funkis', {
+      item: {
+        name,
+        liu_id: liuid,
+        mail,
+        phone_number: phonenumber,
+        post_address: `${address} ${postcode} ${city}`,
+        tshirt_size: shirtSize,
+        allergies,
+        allergies_other: otherAllergy,
+        gdpr,
+        liu_card: liuCard,
+      }
+    })
       .then(() => {
         dispatch(sendFunkisAppSuccess());
       })
-      .catch(err => dispatch(SEND_FUNKIS_APP.FAILURE(err)));*/
-    await new Promise(r => setTimeout(r, 2000))
-    dispatch(sendFunkisAppSuccess())
+      .catch(err => dispatch(sendFunkisAppFailure(err)));
+    /*await new Promise(r => setTimeout(r, 2000))
+    dispatch(sendFunkisAppSuccess())*/
   }
 };
 
@@ -71,6 +103,54 @@ export const updateFunkisType = ({ // TODO: UPDATE
   }
 };
 
+
+
+export const GET_FUNKIS_TYPES = {
+  BEGIN: `${funkisActionBase}GET_FUNKIS_TYPES_BEGIN`,
+  FAILURE: `${funkisActionBase}GET_FUNKIS_TYPES_FAILURE`,
+  SUCCESS: `${funkisActionBase}GET_FUNKIS_TYPES_SUCCESS`,
+};
+
+export const getFunkisTypesBegin = () => ({
+  type: GET_FUNKIS_TYPES.BEGIN,
+  payload: {}
+});
+
+export const getFunkisTypesSuccess = (positions) => ({
+  type: GET_FUNKIS_TYPES.SUCCESS,
+  payload: {positions}
+});
+
+export const getFunkisTypesFailure = ({err}) => ({
+  type: GET_FUNKIS_TYPES.FAILURE,
+  payload: err
+});
+
+
+const positions = {
+  god: 'God',
+  pleb: 'Pleb',
+  general: 'General',
+  nattvakt: 'Nattvakt',
+};
+
+
+export const getFunkisTypes = () => {
+  return async dispatch => {
+    dispatch(getFunkisTypesBegin())
+    /*api.post('/funkis/update/update') // TODO: UPDATE
+      .then((res) => res.json) 
+      .then((json) => {
+        dispatch(getFunkisarSuccess(json.funkisar))
+      })
+      .catch((err) => dispatch(getFunkisTypesFailure(err)))
+  }*/
+  await new Promise(r => setTimeout(r, 2000))
+  dispatch(getFunkisTypesSuccess(positions))
+}
+}
+
+
 export const GET_FUNKISAR = {
   BEGIN: `${funkisActionBase}GET_FUNKISAR_BEGIN`,
   FAILURE: `${funkisActionBase}GET_FUNKISAR_FAILURE`,
@@ -87,7 +167,7 @@ export const getFunkisarSuccess = (funkisar) => ({
   payload: {funkisar}
 });
 
-export const getFunkisarFailuren = ({err}) => ({
+export const getFunkisarFailure = ({err}) => ({
   type: GET_FUNKISAR.FAILURE,
   payload: err
 });
@@ -117,7 +197,7 @@ const testFunkisar = [
         day: '6/5',
       },
     },
-    selectedFunkisAlt: 'Natt',
+    selectedFunkisAlt: '',
   },
   {
     name:'Test Testsson2',
