@@ -96,6 +96,13 @@ const validationSchema = Yup.object().shape({
   liuCard: Yup.string().required(
     <FormattedMessage id='Funkis.recruitment.errors.req.liuCard' />
   ),
+  extra: Yup.bool(),
+  extraDesc: Yup.string().when('extra', {
+    is: true,
+    then: Yup.string().required(
+      <FormattedMessage id='Funkis.recruitment.errors.req.extraDesc' />
+    )
+  })
 })
 
 const FunkisComponent = ({
@@ -378,6 +385,32 @@ const FunkisComponent = ({
             touched={touched.otherAllergy}
             error={errors.otherAllergy}
             value={values.otherAllergy}
+          />
+        </GridCell>}
+
+        <GridCell desktop='12' tablet='8' phone='4'>
+          <FormCheckbox 
+            label='Finns det något du önskar att personerna som kommer jobba närmast dig under festivalen vet om vad gäller eventuella sjukdomar/allergener? Exempel kan vara diabetes, vanligt förekommande medvetslösheter eller liknande'
+            name='extra'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.extra}
+            error={errors.extra}
+            value={values.extra}
+          />
+        </GridCell>
+
+        {values.extra && <GridCell desktop='12' tablet='8' phone='4'>
+          <FormTextInput 
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.extraDesc' />}
+            name='extraDesc'
+            textarea
+            fullwidth
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.extraDesc}
+            error={errors.extraDesc}
+            value={values.extraDesc}
           />
         </GridCell>}
 
