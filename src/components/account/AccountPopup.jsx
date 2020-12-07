@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import LogRocket from 'logrocket'
+
 import LoginForm from '../forms/LoginForm';
 import RegisterForm from '../forms/RegisterForm';
 import ResetPassEmail from '../forms/ResetPassEmail';
@@ -29,7 +31,6 @@ import { FormattedMessage } from 'react-intl';
 import { IconButton } from '@rmwc/icon-button';
 
 import QRCode from "qrcode.react";
-
 
 const mapStateToProps = state => ({
   loggedIn: state.reduxTokenAuth.currentUser.isSignedIn,
@@ -254,6 +255,11 @@ class UNCAccount extends Component{
   componentDidMount(){
     getUserUuid()
     .then( response =>{
+      if (process.env.NODE_ENV === 'development') {
+        console.log(response)
+      } else if (process.env.NODE_ENV === 'production') {
+        LogRocket.identify(response.data.uuid)
+      }
       this.setState({uuid: response.data.uuid});
     })
   }

@@ -4,6 +4,12 @@ import { createLogger } from 'redux-logger'
 import rootReducer from './reducers'
 
 const loggerMiddleware = createLogger()
+let middleware = [];
+if (process.env.NODE_ENV === 'development') {
+  middleware = [...middleware, thunkMiddleware, loggerMiddleware];
+} else {
+  middleware = [...middleware, thunkMiddleware];
+}
 
 const initialState = {
   reduxTokenAuth: {
@@ -27,6 +33,6 @@ export default function configureStore() {
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunkMiddleware, loggerMiddleware)
+    applyMiddleware(...middleware)
   )
 }
