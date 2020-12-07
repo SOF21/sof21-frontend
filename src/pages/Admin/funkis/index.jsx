@@ -18,7 +18,7 @@ import {
 import { Checkbox } from '@rmwc/checkbox';
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
-import { TextField, TextFieldIcon } from '@rmwc/textfield';
+import { TextField } from '@rmwc/textfield';
 
 import {
   Dialog,
@@ -45,6 +45,7 @@ const defaultFunkis = {
   funkisDays: {},
   selectedFunkisAlt: '',
   modified: false,
+  markedAsDone: false,
 }
 
 const FunkisDayItem = ({
@@ -77,10 +78,11 @@ const FunkisAdminRow = ({
     liuid,
     email,
     selectedFunkisAlt,
+    markedAsDone,
   } = funkisData;
   // TODO: Move select and list to separate modal instead. Accessed by clicking the item
   return(
-    <DataTableRow onClick={onClick}>
+    <DataTableRow onClick={onClick} className={markedAsDone? 'done' : ''}>
       <DataTableCell>
         {name}
       </DataTableCell>
@@ -92,6 +94,9 @@ const FunkisAdminRow = ({
       </DataTableCell>
       <DataTableCell>
         {selectedFunkisAlt}
+      </DataTableCell>
+      <DataTableCell>
+        {markedAsDone}
       </DataTableCell>
     </DataTableRow>
   );
@@ -147,6 +152,13 @@ const FunkisAdminComponent = ({
           'selectedFunkisDays': value,
         });
         break;
+      case 'markAsDone':
+        setActiveFunkis({
+          ...activeFunkis,
+          modified: true,
+          markedAsDone: !activeFunkis.markedAsDone,
+        })
+        break;
     default:
         break;
     }
@@ -162,6 +174,7 @@ const FunkisAdminComponent = ({
     funkisDays,
     selectedFunkisAlt,
     modified,
+    markedAsDone,
   } = activeFunkis;
 
   return ( // TODO: Fix in-line text
@@ -191,36 +204,48 @@ const FunkisAdminComponent = ({
               onChange={onChange}
             />
           </GridCell>
-          {selectedFunkisAlt && <GridCell desktop='12' tablet='8' phone='4'>
-            <List>
-              {
-              Object.keys(funkisDays).map((key, index) => {
-                const {selected, day} = funkisDays[key];
-                return (
-                  <FunkisDayItem
-                    date={day}
-                    index={index}
-                    checked={selected} 
-                    onClick={() => { // Don't want to lose context of key
-                    setActiveFunkis({
-                        ...activeFunkis,
-                        modified: true,
-                        funkisDays: {
-                          ...funkisDays,
-                          [key]: {
-                            ...funkisDays[key],
-                            selected: !funkisDays[key].selected
-                          },
-                        }
-                      })
+          {selectedFunkisAlt && 
+            <GridCell desktop='12' tablet='8' phone='4'>
+              <List>
+                {
+                Object.keys(funkisDays).map((key, index) => {
+                  const {selected, day} = funkisDays[key];
+                  return (
+                    <FunkisDayItem
+                      date={day}
+                      index={index}
+                      checked={selected} 
+                      onClick={() => { // Don't want to lose context of key
+                      setActiveFunkis({
+                          ...activeFunkis,
+                          modified: true,
+                          funkisDays: {
+                            ...funkisDays,
+                            [key]: {
+                              ...funkisDays[key],
+                              selected: !funkisDays[key].selected
+                            },
+                          }
+                        })
+                      }
                     }
-                  }
-                  />
-                );
-              })
-              }        
-            </List>
-          </GridCell>}
+                    />
+                  );
+                })
+                }        
+              </List>
+            </GridCell>
+          }
+          {selectedFunkisAlt && funkisDays && 
+            <GridCell desktop='12' tablet='8' phone='4'>
+              <Checkbox
+                id='markAsDone'
+                onChange={onChange}
+                checked={markedAsDone}
+                label='Markera som klar'
+              />
+            </GridCell>
+          }
         </Grid>
         </DialogContent>
         <DialogActions>
