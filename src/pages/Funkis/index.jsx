@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 
-import { GridCell, Grid, GridInner } from '@rmwc/grid';
+import { GridCell, GridInner } from '@rmwc/grid';
 import { Select } from '@rmwc/select';
-import { Button } from '@rmwc/button';
-import { Dialog } from '@rmwc/dialog';
 import { Formik, Form} from 'formik';
-import { Checkbox } from '@rmwc/checkbox';
 import ScaleLoader from 'react-spinners/ScaleLoader';
-import Modal from '../../components/page_components/Modal';
 import * as Yup from 'yup';
 
 import { sendFunkisApplication, getFunkisTypes } from '../../actions/funkis'
@@ -108,23 +104,36 @@ const validationSchema = Yup.object().shape({
 const FunkisComponent = ({
   loading,
   sendFunkisApplication,
-  history,
   funkisPositions,
-  getFunkisType,
+  getFunkisTypes,
   success,
+  error,
 }) => {
 
 
   useEffect(() => {
-    getFunkisType();
-  }, [getFunkisType])
+    getFunkisTypes();
+  }, [getFunkisTypes])
 
   const onSubmit = (values) => {
     sendFunkisApplication(values);
   }
   return ( // TODO: Add errormessages for inputs
     <>
-      {loading &&
+      {error && !loading && <GridInner>
+        <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
+          <p>
+            Något gick väldigt snett hos oss!
+          </p>
+          <p>
+            Du är välkommen att höra av dig till support med felmeddelande:
+          </p>
+          <p>
+            {error}
+          </p>
+        </GridCell>
+      </GridInner>}
+      {!error && loading &&
       <GridInner className='h-center v-center' style={{height: '100%'}}>
           <ScaleLoader
             loading={true}
@@ -132,25 +141,24 @@ const FunkisComponent = ({
           />
       </GridInner>
       }
-      {!loading && success && 
+      {!error & !loading && success && 
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
-              <p>
-                Din ansökan är nu skickad!
-              </p>
-              <p>
-                Du kommer att få ett mail om du blir tilldelad en plats!
-              </p>
-            </GridCell>
+          <p>
+            Din ansökan är nu skickad!
+          </p>
+          <p>
+            Du kommer att få ett mail om du blir tilldelad en plats!
+          </p>
+        </GridCell>
       </GridInner>}
-      {!loading && !success && <Formik
+      {!loading && !success && !error && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       >
         {({
          values,
-         isValid,
          errors,
          touched,
          handleChange,
@@ -165,7 +173,6 @@ const FunkisComponent = ({
             handleSubmit();
           }}
          >
-        {console.log(success)}
         <GridInner base-outer-grid base-outer-grid--first>
         <GridCell desktop='12' tablet='8' phone='4'>
           <h6 className='funkis-info'><FormattedMessage id='Funkis.recruitment.info'/></h6>
@@ -446,11 +453,12 @@ const mapStateToProps = state => ({
   loading: state.funkis.loading,
   funkisPositions: state.funkis.positions,
   success: state.funkis.success,
+  error: state.funkis.error,
 });
 
 const mapDispatchToProps = dispatch => ({
   sendFunkisApplication: (values) => dispatch(sendFunkisApplication(values)),
-  getFunkisType: () => dispatch(getFunkisTypes()),
+  getFunkisTypes: () => dispatch(getFunkisTypes()),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisComponent))

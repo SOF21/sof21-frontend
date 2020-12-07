@@ -198,6 +198,7 @@ const testFunkisar = [
       },
     },
     selectedFunkisAlt: '',
+    markedAsDone: false,
   },
   {
     name:'Test Testsson2',
@@ -223,6 +224,7 @@ const testFunkisar = [
       'Troll',
     ],
     selectedFunkisAlt: 'Funis1',
+    markedAsDone: true,
   }
 ]
 
