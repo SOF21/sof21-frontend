@@ -57,6 +57,12 @@ export const sendFunkisApplication = ({
         allergies_other: otherAllergy,
         gdpr,
         liu_card: liuCard,
+        first_post_id: funkisOne,
+        second_post_id: funkisTwo,
+        third_post_id: funkisThree,
+        first_day: firstPrefferedDate,
+        second_day: secondPrefferedDate,
+        third_day: thirdPrefferedDate,
       }
     })
       .then(() => {
@@ -111,9 +117,9 @@ export const GET_FUNKIS_TYPES = {
   SUCCESS: `${funkisActionBase}GET_FUNKIS_TYPES_SUCCESS`,
 };
 
-export const getFunkisTypesBegin = () => ({
+export const getFunkisTypesBegin = (data) => ({
   type: GET_FUNKIS_TYPES.BEGIN,
-  payload: {}
+  payload: {positions: data}
 });
 
 export const getFunkisTypesSuccess = (positions) => ({
@@ -127,28 +133,51 @@ export const getFunkisTypesFailure = ({err}) => ({
 });
 
 
-const positions = {
-  god: 'God',
-  pleb: 'Pleb',
-  general: 'General',
-  nattvakt: 'Nattvakt',
-};
-
-
 export const getFunkisTypes = () => {
   return async dispatch => {
     dispatch(getFunkisTypesBegin())
-    /*api.post('/funkis/update/update') // TODO: UPDATE
-      .then((res) => res.json) 
-      .then((json) => {
-        dispatch(getFunkisarSuccess(json.funkisar))
-      })
+    api.get('funkis_category') // TODO: UPDATE
+      .then((json) => dispatch(getFunkisTypesSuccess(json.data)))
       .catch((err) => dispatch(getFunkisTypesFailure(err)))
-  }*/
-  await new Promise(r => setTimeout(r, 2000))
-  dispatch(getFunkisTypesSuccess(positions))
+  }
 }
+
+
+
+export const GET_FUNKIS_TIME_SLOTS = {
+  BEGIN: `${funkisActionBase}GET_FUNKIS_TIME_SLOTS_BEGIN`,
+  FAILURE: `${funkisActionBase}GET_FUNKIS_TIME_SLOTS_FAILURE`,
+  SUCCESS: `${funkisActionBase}GET_FUNKIS_TIME_SLOTS_SUCCESS`,
+};
+
+export const getFunkisTimeSlotsBegin = () => ({
+  type: GET_FUNKIS_TIME_SLOTS.BEGIN,
+  payload: {}
+});
+
+export const getFunkisTimeSlotsSuccess = (timeslots) => ({
+  type: GET_FUNKIS_TIME_SLOTS.SUCCESS,
+  payload: {timeslots}
+});
+
+export const getFunkisTimeSlotsFailure = (err) => ({
+  type: GET_FUNKIS_TIME_SLOTS.FAILURE,
+  payload: err
+});
+
+export const getFunkisTimeSlots = () => {
+  return async dispatch => {
+    dispatch(getFunkisTimeSlotsBegin())
+    api.get('funkis_timeslots') // TODO: UPDATE
+      .then((json) => {
+        console.log("ASDASD")
+        dispatch(getFunkisTimeSlotsSuccess(json.data))
+      })
+      .catch((err) => dispatch(getFunkisTimeSlotsFailure(err)))
+  }
 }
+
+
 
 
 export const GET_FUNKISAR = {
@@ -211,11 +240,11 @@ const testFunkisar = [
       },
       2: {
         selected: false,
-        day: '5/5',
+        day: '15/4',
       },
       3: {
         selected: true,
-        day: '6/5',
+        day: '14/4',
       },
     },
     funkisAlts: [
@@ -223,7 +252,7 @@ const testFunkisar = [
       'Funis1',
       'Troll',
     ],
-    selectedFunkisAlt: 'Funis1',
+    selectedFunkisAlt: '1',
     markedAsDone: true,
   }
 ]

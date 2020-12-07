@@ -276,7 +276,7 @@ const FunkisComponent = ({
             touched={touched.funkisOne}
             error={errors.funkisOne}
             value={values.funkisOne}
-            options={Object.values(funkisPositions)}
+            options={funkisPositions}
           />
         </GridCell>
 
@@ -289,7 +289,7 @@ const FunkisComponent = ({
             touched={touched.funkisTwo}
             error={errors.funkisTwo}
             value={values.funkisTwo}
-            options={[noPref, ...Object.values(funkisPositions).filter((val) => values.funkisOne !== val)]}
+            options={Object.fromEntries(Object.entries(funkisPositions).filter(([k, v]) => k !== values.funkisOne))}
           />
         </GridCell>
 
@@ -302,11 +302,11 @@ const FunkisComponent = ({
             touched={touched.funkisThree}
             error={errors.funkisThree}
             value={values.funkisThree}
-            options={[noPref, ...Object.values(funkisPositions).filter((val) => (values.funkisOne !== val && values.funkisTwo !== val))]}
+            options={Object.fromEntries(Object.entries(funkisPositions).filter(([k, v]) => k !== values.funkisOne && k !== values.funkisTwo))}
           />
         </GridCell>
 
-        {[values.funkisOne, values.funkisTwo, values.funkisThree].includes(funkisPositions.nattvakt)  && <GridCell desktop='6' tablet='4' phone='4'>
+        { [funkisPositions[values.funkisOne], funkisPositions[values.funkisTwo], funkisPositions[values.funkisThree]].includes(funkisPositions.nattvakt)  && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
             label={<FormattedMessage id='Funkis.recruitment.fieldLabels.requestedPartner' />}
             name='requestedPartner'
@@ -432,7 +432,7 @@ const FunkisComponent = ({
             value={values.gdpr}
           />
         </GridCell>
-        {console.log(errors)}
+        {console.log(values)}
         <GridCell desktop='12' tablet='8' phone='4'>
           <LoadButton loading={isSubmitting || loading} type='submit' raised disabled= { isSubmitting
           }>

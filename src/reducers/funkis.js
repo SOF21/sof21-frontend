@@ -4,13 +4,16 @@ import {
   GET_FUNKISAR,
   UPDATE_FUNKIS,
   GET_FUNKIS_TYPES,
+  GET_FUNKIS_TIME_SLOTS,
 } from '../actions/funkis'
 
 const initialState = {
   loading: true,
   success: false,
   error: {},
+  positions: {},
   funkisar: [],
+  timeslots: {}
 }
 
 const funkisReducer = (state = initialState, action) => {
@@ -48,28 +51,61 @@ const funkisReducer = (state = initialState, action) => {
           funkis
         ].sort(f => f.liuid)
       }
-
     case GET_FUNKIS_TYPES.BEGIN:
       return {
         ...state,
         loading: true,
         error: null,
       }
-
     case GET_FUNKIS_TYPES.SUCCESS:
       const {positions} = action.payload;
-      console.log(positions)
+      const newPost = positions.reduce((obj, curr) => ({
+        ...obj,
+        [curr.id]: curr.title
+      }), {})
       return {
         ...state,
-        positions,
+        positions: newPost,
         loading: false,
       }
     case GET_FUNKIS_TYPES.FAILURE:
-      const error = action.payload;
+      const {error} = action.payload;
       return {
         ...state,
         loading: false,
         error,
+      }
+    case GET_FUNKIS_TIME_SLOTS.BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      }
+    case GET_FUNKIS_TIME_SLOTS.SUCCESS:
+      const {timeslots} = action.payload;
+      const newSlots = timeslots.reduce((obj, curr) => {
+        return {
+          ...obj,
+          [curr.funkis_category_id]: {
+            [curr.id]: {
+              start: new Date(curr.start_time),
+              end: new Date(curr.end_time),
+              id: curr.id
+            },
+            ...obj[curr.funkis_category_id]
+          }
+        }
+      }, {})
+      return {
+        ...state,
+        timeslots: newSlots,
+        loading: false,
+      }
+    case GET_FUNKIS_TIME_SLOTS.FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
       }
 		default: 
 			return state;
