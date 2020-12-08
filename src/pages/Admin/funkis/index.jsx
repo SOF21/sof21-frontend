@@ -216,7 +216,7 @@ const FunkisAdminComponent = ({
             <GridCell desktop='12' tablet='8' phone='4'>
               <List>
                 {
-                Object.keys(funkisTimeSlots).map((key, index) => {
+                funkisTimeSlots && Object.keys(funkisTimeSlots).map((key, index) => {
                   const {start, end, id} = funkisTimeSlots[key];
                   const selected = selectedTimeSlots.includes(id);
                   const updatedSelectedTimeSlot = selected? [...selectedTimeSlots.filter(i => i !== id)] : [...selectedTimeSlots, id];
@@ -286,10 +286,10 @@ const FunkisAdminComponent = ({
                           selectedFunkisAlt: positions[f.selectedFunkisAlt]
                         }}
                         onClick={() => {
-                          const ft = Object.fromEntries(Object.entries(timeslots[f.selectedFunkisAlt]).filter(([k, t]) => [...Object.values(f.funkisDays).map(p => p.day)].includes(`${t.start.getDate()}/${t.start.getMonth()}`)));
+                          const ft = timeslots[f.selectedFunkisAlt] && Object.fromEntries(Object.entries(timeslots[f.selectedFunkisAlt]).filter(([k, t]) => [...Object.values(f.funkisDays).map(p => p.day)].includes(`${t.start.getDate()}/${t.start.getMonth()}`)));
                           setActiveFunkis({
                             ...f,
-                            funkisTimeSlots: Object.keys(ft).reduce((obj, t) => ( {
+                            funkisTimeSlots: timeslots[f.selectedFunkisAlt] && Object.keys(ft).reduce((obj, t) => ( {
                               ...obj,
                               [ft[t].id]: {
                               id: ft[t].id,
