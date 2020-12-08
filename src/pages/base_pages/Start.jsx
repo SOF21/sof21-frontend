@@ -8,7 +8,7 @@ import Header from '../../components/page_components/NiceHeader';
 import { FormattedMessage, injectIntl } from 'react-intl'
 import { Grid, GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
-import Feed from "react-instagram-authless-feed"
+//import Feed from "react-instagram-authless-feed"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { Link, withRouter } from 'react-router-dom'
@@ -197,11 +197,11 @@ class Start extends Component {
                 </Header>
               </GridCell>
             }
-            {!isFirefox && !isSafari &&
+            {/* {!isFirefox && !isSafari &&
              <GridCell phone="4" tablet="8" desktop='12' >
                <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
              </GridCell>
-            }
+            } */}
            
           </GridInner>
         </Grid >
