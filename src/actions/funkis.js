@@ -208,9 +208,8 @@ const testFunkisar = [
     liuid:'teste123',
     email: 'test123@student.liu.se',
     funkisAlts: [
-      'Natt',
-      'Funis1',
-      'Troll',
+      '1',
+      '2',
     ],
     funkisDays: {
       1: {
@@ -228,6 +227,7 @@ const testFunkisar = [
     },
     selectedFunkisAlt: '',
     markedAsDone: false,
+    selectedTimeSlots: [],
   },
   {
     name:'Test Testsson2',
@@ -248,12 +248,12 @@ const testFunkisar = [
       },
     },
     funkisAlts: [
-      'Natt',
-      'Funis1',
-      'Troll',
+      '1',
+      '2',  
     ],
     selectedFunkisAlt: '1',
     markedAsDone: true,
+    selectedTimeSlots: [1],
   }
 ]
 

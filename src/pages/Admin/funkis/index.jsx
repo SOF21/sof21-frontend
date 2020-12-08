@@ -32,6 +32,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { 
   getFunkisar,
   getFunkisTimeSlots,
+  getFunkisTypes,
   updateFunkis,
  } from '../../../actions/funkis';
 
@@ -48,6 +49,7 @@ const defaultFunkis = {
   modified: false,
   markedAsDone: false,
   funkisTimeSlots: {},
+  selectedTimeSlots: [],
 }
 
 const FunkisDayItem = ({
@@ -111,12 +113,15 @@ const FunkisAdminComponent = ({
   updateFunkis,
   timeslots,
   getFunkisTimeSlots,
+  getFunkisTypes,
+  positions,
 }) => {
 
   useEffect(() => {
     getFunkisar();
     getFunkisTimeSlots();
-  }, [getFunkisar, getFunkisTimeSlots])
+    getFunkisTypes();
+  }, [getFunkisar, getFunkisTimeSlots, getFunkisTypes])
 
   const [funkisModalOpen, setFunkisModalOpen] = useState(false);
   const [activeFunkis, setActiveFunkis] = useState(defaultFunkis);
@@ -126,7 +131,7 @@ const FunkisAdminComponent = ({
     setFunkisModalOpen(false)
     switch(e.detail.action) {
       case 'save':
-        const {modified, funkisTimeSlots, ...rest} = activeFunkis
+        const {modified, ...rest} = activeFunkis
         //updateTimeSlots()
         updateFunkis(rest)
         // TODO: Save, should be a redux action here...
@@ -174,6 +179,7 @@ const FunkisAdminComponent = ({
     modified,
     markedAsDone,
     funkisTimeSlots,
+    selectedTimeSlots
   } = activeFunkis;
 
   return ( // TODO: Fix in-line text
@@ -197,7 +203,10 @@ const FunkisAdminComponent = ({
           <GridCell desktop='12' tablet='8' phone='4'>
             <Select
               id='funkisType'
-              options={funkisAlts}
+              options={funkisAlts.reduce((obj, alt) => ({
+                ...obj,
+                [alt]: positions[alt]
+              }), {})}
               value={selectedFunkisAlt}
               placeholder='Funkistyp' 
               onChange={onChange}
@@ -208,8 +217,9 @@ const FunkisAdminComponent = ({
               <List>
                 {
                 Object.keys(funkisTimeSlots).map((key, index) => {
-                  const {selected, start, end, id} = funkisTimeSlots[key];
-                  console.log(start);
+                  const {start, end, id} = funkisTimeSlots[key];
+                  const selected = selectedTimeSlots.includes(id);
+                  const updatedSelectedTimeSlot = selected? [...selectedTimeSlots.filter(i => i !== id)] : [...selectedTimeSlots, id];
                   return (
                     <FunkisDayItem
                       timeSpan={`${start} - ${end}`}
@@ -219,13 +229,7 @@ const FunkisAdminComponent = ({
                       setActiveFunkis({
                           ...activeFunkis,
                           modified: true,
-                          funkisTimeSlots: {
-                            ...funkisTimeSlots,
-                            [id]: {
-                              ...funkisTimeSlots[id],
-                              selected: !funkisTimeSlots[id].selected
-                            },
-                          }
+                          selectedTimeSlots: updatedSelectedTimeSlot,
                         })
                       }
                     }
@@ -274,11 +278,13 @@ const FunkisAdminComponent = ({
               {funkisar.map((f) => {
                 for(const key in {name, email, liuid}) {
                   if(f[key].toLowerCase().includes(searchTerm)) {
-                    const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};    
-                    console.log(timeslots[f.selectedFunkisAlt])             
+                    const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};        
                     return (
                       <FunkisAdminRow
-                        funkis={f}
+                        funkis={{
+                          ...f,
+                          selectedFunkisAlt: positions[f.selectedFunkisAlt]
+                        }}
                         onClick={() => {
                           const ft = Object.fromEntries(Object.entries(timeslots[f.selectedFunkisAlt]).filter(([k, t]) => [...Object.values(f.funkisDays).map(p => p.day)].includes(`${t.start.getDate()}/${t.start.getMonth()}`)));
                           setActiveFunkis({
@@ -289,7 +295,6 @@ const FunkisAdminComponent = ({
                               id: ft[t].id,
                               start: ft[t].start.toLocaleString('sv', options),
                               end: ft[t].end.toLocaleString('sv', options),
-                              selected: false,
                             }}), {})
                           });
                           setFunkisModalOpen(true);
@@ -315,12 +320,14 @@ const mapStateToProps = (state) => ({
   funkisar: state.funkis.funkisar,
   loading: state.funkis.loading,
   timeslots: state.funkis.timeslots,
+  positions: state.funkis.positions,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   getFunkisar: () => dispatch(getFunkisar()),
   updateFunkis: (funkis) => dispatch(updateFunkis(funkis)),
   getFunkisTimeSlots: () => dispatch(getFunkisTimeSlots()),
+  getFunkisTypes: () => dispatch(getFunkisTypes()),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisAdminComponent))
