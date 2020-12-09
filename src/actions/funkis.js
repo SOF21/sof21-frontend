@@ -18,7 +18,7 @@ export const sendFunkisAppSuccess = () => ({
   payload: {}
 });
 
-export const sendFunkisAppFailure = ({err}) => ({
+export const sendFunkisAppFailure = (err) => ({
   type: SEND_FUNKIS_APP.FAILURE,
   payload: err
 });

@@ -18,18 +18,29 @@ const initialState = {
 
 const funkisReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case SEND_FUNKIS_APP.BEGIN:
+		case SEND_FUNKIS_APP.BEGIN: {
       return {
         ...state,
         success: false,
         loading: true,
       }
-		case SEND_FUNKIS_APP.SUCCESS:
+    }
+		case SEND_FUNKIS_APP.SUCCESS: {
 			return {
         ...state,
         success: true,
         loading: false,
       }
+    }
+    case SEND_FUNKIS_APP.FAILURE: {
+      const error = action.payload;
+      return {
+        ...state,
+        success: false,
+        loading: false,
+        error,
+      }
+    }
     case GET_FUNKISAR.BEGIN:
       return {
         ...state,
@@ -68,13 +79,14 @@ const funkisReducer = (state = initialState, action) => {
         positions: newPost,
         loading: false,
       }
-    case GET_FUNKIS_TYPES.FAILURE:
+    case GET_FUNKIS_TYPES.FAILURE: {
       const {error} = action.payload;
       return {
         ...state,
         loading: false,
         error,
       }
+    }
     case GET_FUNKIS_TIME_SLOTS.BEGIN:
       return {
         ...state,
