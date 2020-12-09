@@ -110,7 +110,7 @@ class Profile extends Component{
                 initialValues={{liuIDCode: ''}}
                 validationSchema={Yup.object().shape({
                   liuIDCode: Yup.string()
-                    .test('len', <FormattedMessage id='Account.10numbers'/>, val => (
+                    .test('len', <FormattedMessage id='Account.code10numbers'/>, val => (
                       val.length === 10
                     ))
                     .required(<FormattedMessage id='Account.badCode'/>),

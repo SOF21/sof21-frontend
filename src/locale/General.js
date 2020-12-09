@@ -1,13 +1,13 @@
 export default {
   sv: {
     General: {
-      '404': "Sidan kunde inte hittas",
+      404: "Sidan kunde inte hittas",
     },
   },
 
   en: {
     General: {
-      '404': "Page not found",
+      404: "Page not found",
     },
   }
 };

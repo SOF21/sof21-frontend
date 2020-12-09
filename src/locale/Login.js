@@ -17,7 +17,7 @@ export default {
     },
     ForgotPass: {
       emailNotFound: "Emailen kunde inte hittas",
-      'forgotPass?': "Glömt ditt lösenord?",
+      forgotPass: "Glömt ditt lösenord?",
       reset: "Återställ lösenord",
       passReset: "Lösenord återställt",
       emailSent: "Ett mejl med instruktioner kommer skickas till den givna emailen inom några minuter.",
@@ -49,7 +49,7 @@ export default {
     },
     ForgotPass: {
       emailNotFound: "Email not found",
-      'forgotPass?': "Forgot your password?",
+      forgotPass: "Forgot your password?",
       reset: "Reset password",
       passReset: "Password reset",
       emailSent: "An email with reset instructions will be sent to the given email adress withing a couple of minutes.",
