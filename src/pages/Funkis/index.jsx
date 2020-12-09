@@ -120,7 +120,7 @@ const FunkisComponent = ({
   }
   return ( // TODO: Add errormessages for inputs
     <>
-      {error && !loading && <GridInner>
+      {!loading && error && <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <p>
             Något gick väldigt snett hos oss!
@@ -129,11 +129,12 @@ const FunkisComponent = ({
             Du är välkommen att höra av dig till support med felmeddelande:
           </p>
           <p>
-            {error}
+            {error.message}
+            {console.log(error.message)}
           </p>
         </GridCell>
       </GridInner>}
-      {!error && loading &&
+      {loading && !error &&
       <GridInner className='h-center v-center' style={{height: '100%'}}>
           <ScaleLoader
             loading={true}
@@ -141,7 +142,7 @@ const FunkisComponent = ({
           />
       </GridInner>
       }
-      {!error & !loading && success && 
+      {!loading && success && !error && 
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <p>

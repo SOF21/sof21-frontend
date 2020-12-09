@@ -225,7 +225,7 @@ const FunkisAdminComponent = ({
                       timeSpan={`${start} - ${end}`}
                       index={index}
                       checked={selected} 
-                      onClick={() => { // Don't want to lose context of key
+                      onClick={() => {
                       setActiveFunkis({
                           ...activeFunkis,
                           modified: true,
