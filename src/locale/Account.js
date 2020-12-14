@@ -4,6 +4,7 @@ export default {
       profile: "Profil",
       account: "Konto",
       orchestra: "Orkester",
+      cortege: "Kårtege",
       admin: "Admin",
       welcomeToProfile: "Välkommen till din profil! Här kan du använda din personliga QR-kod för att hämta ut dina köpta prylar, samt kolla vad du har gjort för köp från oss.",
       liuAdd: "Eller varför inte lägga in din LiU-korts-kod för att kunna blippa vid biljettuthämtningen. Hur fett?!",

@@ -68,6 +68,7 @@ class AdministrativePageHeader extends Component{
                 <Tab tag={Link} to='/account/account'> <FormattedMessage id='Account.account' /> </Tab>
                 <Tab tag={Link} to='/account/purchases'> <FormattedMessage id='Account.purchases' /> </Tab>
                 <Tab tag={Link} to='/account/orchestra'> <FormattedMessage id='Account.orchestra' /> </Tab>
+                <Tab tag={Link} to='/account/cortege'> <FormattedMessage id='Account.cortege' /> </Tab>
                 {isAnyAdmin(this.props.adminPriv) ? <Tab tag={Link} to='/account/admin'> Admin </Tab> : null}
               </TabBar>
             </ThemeProvider>

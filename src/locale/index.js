@@ -27,6 +27,7 @@ import cortegeFestival from './CortegeFestival';
 import areaFestival from './AreaFestival';
 import eventFestival from './EventFestival';
 import scheduleFestival from './ScheduleFestival';
+import cortege from './Cortege';
 
 export default {
     'sv': flatten({...about.sv,
@@ -57,6 +58,7 @@ export default {
         ...areaFestival.sv,
         ...eventFestival.sv,
         ...scheduleFestival.sv,
+        ...cortege.sv,
       }),
     'en': flatten({...about.en,
         ...countdown.en,
@@ -86,5 +88,6 @@ export default {
         ...areaFestival.en,
         ...eventFestival.en,
         ...scheduleFestival.en,
+        ...cortege.en,
     })
 };
