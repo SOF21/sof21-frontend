@@ -1,15 +1,19 @@
 export default {
-  'sv': {
-    'Countdown.days' : "DAGAR",
-    'Countdown.hours' : "TIMMAR",
-    'Countdown.minutes' : "MINUTER", 
-    'Countdown.seconds' : "SEKUNDER" 
+  sv: {
+    Countdown: {
+      days: 'DAGAR',
+      hours: 'TIMMAR',
+      minutes: 'MINUTER',
+      seconds: 'SEKUNDER',
+    },
   },
 
-  'en' : {
-    'Countdown.days' : "DAYS",
-    'Countdown.hours' : "HOURS",
-    'Countdown.minutes' : "MINUTES", 
-    'Countdown.seconds' : "SECONDS" 
+  en: {
+    Countdown: {
+      days: 'DAYS',
+      hours: 'HOURS',
+      minutes: 'MINUTES',
+      seconds: 'SECONDS',
+    }
   }
 };

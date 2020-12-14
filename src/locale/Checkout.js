@@ -1,19 +1,23 @@
 export default {
-  'sv': {
-    'Checkout.title': "Kassa",
-    'Checkout.navTitle': "Kassa",
-    'Checkout.code': "Rabattkod",
-    'Checkout.useCode': "Använd",
-    'Checkout.codeUse': "Rabattkod använd",
-    'Checkout.codeReq': "Skriv in kod",
+  sv: {
+    Checkout: {
+      title: "Kassa",
+      navTitle: "Kassa",
+      code: "Rabattkod",
+      useCode: "Använd",
+      codeUse: "Rabattkod använd",
+      codeReq: "Skriv in kod"
+    }
   },
 
-  'en' : {
-    'Checkout.title': "Checkout",
-    'Checkout.navTitle': "Checkout",
-    'Checkout.code': "Discount code",
-    'Checkout.useCode': "Use code",
-    'Checkout.codeUse': "Discount used",
-    'Checkout.codeReq': "Enter code",
+  en: {
+    Checkout: {
+      title: "Checkout",
+      navTitle: "Checkout",
+      code: "Discount code",
+      useCode: "Use code",
+      codeUse: "Discount used",
+      codeReq: "Enter code"
+    }
   }
 };
