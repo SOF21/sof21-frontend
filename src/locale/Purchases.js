@@ -1,9 +1,13 @@
 export default {
-  'sv': {
-    'Purchases.purchases' : 'Dina köp',
+  sv: {
+    Purchases: {
+      purchases: "Dina köp"
+    }
   },
 
-  'en' : {
-    'Purchases.purchases' : 'Your purchases',
+  en: {
+    Purchases: {
+      purchases: "Your purchases"
+    }
   }
 };

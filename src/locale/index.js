@@ -1,3 +1,4 @@
+import flatten from 'flat';
 import about from './About';
 import countdown from './SofCountdown';
 import history from './History';
@@ -28,7 +29,7 @@ import eventFestival from './EventFestival';
 import scheduleFestival from './ScheduleFestival';
 
 export default {
-    'sv': {...about.sv,
+    'sv': flatten({...about.sv,
         ...countdown.sv,
         ...history.sv,
         ...contact.sv,
@@ -56,8 +57,8 @@ export default {
         ...areaFestival.sv,
         ...eventFestival.sv,
         ...scheduleFestival.sv,
-      },
-    'en': {...about.en,
+      }),
+    'en': flatten({...about.en,
         ...countdown.en,
         ...history.en,
         ...contact.en,
@@ -85,5 +86,5 @@ export default {
         ...areaFestival.en,
         ...eventFestival.en,
         ...scheduleFestival.en,
-    }
+    })
 };

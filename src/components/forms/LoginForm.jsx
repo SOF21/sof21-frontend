@@ -150,7 +150,7 @@ class LoginForm extends Component{
                           disabled={isSubmitting}
                           style={{width: '50%', justifySelf: 'flex-start', marginTop: '4%'}}
                           onClick={() => this.handleClickForgotPass()}>
-                          <FormattedMessage id='ForgotPass.forgotPass?'/>
+                          <FormattedMessage id='ForgotPass.forgotPass'/>
                         </Button>
                       </GridCell>
                     </GridInner>

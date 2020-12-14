@@ -448,7 +448,7 @@ class OrchestraMemReg extends Component{
 
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
-                          label={<FormattedMessage id='OrchestraMemReg.25orMore'/>}
+                          label={<FormattedMessage id='OrchestraMemReg.attended25orMore'/>}
                           value={values.twoFive}
                           field='twoFive'
                           onChange={setFieldValue}

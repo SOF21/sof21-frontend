@@ -29,7 +29,7 @@ export const committees = {
     artDirector: { email: 'ad', path: '/art_director', spots: ['vice', 'creation', 'print'] }
 }
 
-const vacantAssigmments = ['cooperation.vice', 'premises.electrics', 'premises.custodian', 'premises.wifi', 'parade.locale', 'orchestra.housing', 'event.vice']
+const vacantAssigmments = [['cooperation', 'vice'], ['premises', 'electrics'], ['premises', 'wifi'], ['parade', 'locale'], ['orchestra', 'housing'], ['event', 'town']]
 
 class Putte extends Component {
 
@@ -80,21 +80,23 @@ class Putte extends Component {
         })
         // creating 'paragraphs' for all vacant assignments
         const mappedVacantAssigments = vacantAssigmments.map(element => {
-            return (
-                <GridCell phone="4" tablet="8" desktop='12' key={element}>
-                    {!this.props.isMobile ?
-                        <h4 style={{ margin: '0' }}>
-                            <FormattedMessage id={`Putte.${element}`} />
-                        </h4>
-                        :
-                        <h6 style={{ margin: '0' }}>
-                            <FormattedMessage id={`Putte.${element}`} />
-                        </h6>
-                    }
-                    <p style={{ marginBottom: '0' }}>
-                        <FormattedMessage id={`Putte.${element}.desc`} />
-                    </p>
-                </GridCell>)
+                return (
+                   
+                    <GridCell phone="4" tablet="8" desktop='12' key={element}>
+                        {!this.props.isMobile ?
+                            <h4 style={{ margin: '0' }}>
+                                <FormattedMessage id={`Putte.${element[0]}.${element[1]}`} />
+                            </h4>
+                            :
+                            <h6 style={{ margin: '0' }}>
+                                <FormattedMessage id={`Putte.${element[0]}.${element[1]}`} />
+                            </h6>
+                        }
+                        <p style={{ marginBottom: '0' }}>
+                            <FormattedMessage id={`Putte.${element[0]}.text`} />
+                        </p>
+                        {console.log(element)}
+                    </GridCell>)
         })
         return (
             <React.Fragment>
