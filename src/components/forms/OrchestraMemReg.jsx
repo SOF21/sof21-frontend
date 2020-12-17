@@ -380,8 +380,6 @@ class OrchestraMemReg extends Component{
                       />
                     </GridCell> : null}
 
-
-
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
                         label={<FormattedMessage id='OrchestraMemReg.instrumentSize'/>}
