@@ -8,11 +8,13 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 import * as Yup from 'yup';
 
 import FormTextInput from '../../../components/forms/components/FormTextInput';
+import FormCheckbox from '../../../components/forms/components/FormCheckbox';
 import InformativeInputWrapper from '../../../components/forms/components/InformativeInputWrapper';
 
 
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
 import LoadButton from '../../../components/forms/components/LoadButton';
+import { sendCortegeApplication } from '../../../actions/cortege';
 
 const buildTypes = {
   macro: 'Macrobygge',
@@ -29,6 +31,8 @@ const initialInput = {
   contribMotivation: '',
   themeMotivation: '',
   amountPartaking: '',
+  image: '',
+  gdpr: false,
 }
 
 const validationSchema = Yup.object().shape({
@@ -57,6 +61,17 @@ const validationSchema = Yup.object().shape({
   ),
   amountPartaking: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.amountPartaking' />
+  ),
+  image: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.image' />
+  ),
+  /*electricity: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.electricity' />
+  ),*/
+  gdpr: Yup.bool().required(
+    <FormattedMessage id='Cortege.form.errors.req.gdpr' />
+  ).oneOf([true], 
+    <FormattedMessage id='Cortege.form.errors.illFormed.gdpr' />
   )
 })
 
@@ -64,11 +79,15 @@ const CortegeComponent = ({
   loading,
   success,
   error,
+  submitCortegeApplication,
 }) => {
 
   const onSubmit = (values) => {
-    console.log(values);
+    submitCortegeApplication(values);
   }
+
+  const intl = useIntl();
+
   return ( // TODO: Add errormessages for inputs
     <>
       {!loading && error && <GridInner>
@@ -217,6 +236,21 @@ const CortegeComponent = ({
         </GridCell>
         <GridCell desktop='12' tablet='4' phone='4'>
           <InformativeInputWrapper
+            infoText={<FormattedMessage id='Cortege.form.info.image' />}
+          >
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.image' />}
+              name='image'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.image}
+              error={errors.image}
+              value={values.image}
+            /> 
+          </InformativeInputWrapper>
+        </GridCell>
+        <GridCell desktop='12' tablet='4' phone='4'>
+          <InformativeInputWrapper
             infoText={<FormattedMessage id='Cortege.form.info.themeMotivation' />}
           >
             <FormTextInput 
@@ -245,6 +279,21 @@ const CortegeComponent = ({
             />
           </InformativeInputWrapper>         
         </GridCell>
+        <GridCell desktop='12' tablet='4' phone='4'>
+          <InformativeInputWrapper
+            infoText={<FormattedMessage id='Cortege.form.info.gdpr' />}
+          >
+            <FormCheckbox 
+              label={intl.formatMessage({id: 'Cortege.form.fieldLabels.gdpr'})}
+              name='gdpr'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.gdpr}
+              error={errors.gdpr}
+              value={values.gdpr}
+            />
+          </InformativeInputWrapper>         
+        </GridCell>
         {console.log(values)}
         <GridCell desktop='12' tablet='8' phone='4'>
           <LoadButton loading={isSubmitting || loading} type='submit' raised disabled= { isSubmitting
@@ -269,6 +318,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  submitCortegeApplication: (values) => dispatch(sendCortegeApplication(values))
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(CortegeComponent))

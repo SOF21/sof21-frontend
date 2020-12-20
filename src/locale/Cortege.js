@@ -26,6 +26,7 @@ export default {
           contribMotivation: "Beskriv ert bidrag så gott ni kan! Beskriv inte bara hur bidraget ser ut utan även hur ni tänkt klä ut er och eventuellt spexa.",
           themeMotivation: "Beskriv hur och varför ni anser att erat bidrag är kopplat till årets tema: \"Livet som ung\".",
           amountPartaking: "Hur många tror ni att ni kommer bli? Detta är inte ett bindande antal, utan är bara till för att vi ska få en uppfattning om hur många ni är.",
+          gdpr: "Information samlas in av LinTek, som även är personuppgiftsansvarig. Syftet för behandlingen av dina personuppgifter är att kunna genomföra Kårtegen under SOF19 och lagringsperioden är t.o.m. 31/7 2019. Information som ej är personrelaterad kommer att lagras för framtida SOFs användning. Samtycket är giltigt under lagringsperioden. Du har rätt att när som helst ta tillbaka ditt samtycke. Du har rätt att kontakta oss om du vill ha ut information om de uppgifter vi har om dig, för att begära rättelse, överföring eller för att begära att vi begränsar behandlingen, för att göra invändningar eller begära radering av dina uppgifter. Kontakta kartege-bygg@sof.lintek.nu för att göra detta.",
         },
         fieldLabels: {
           groupName: "Gruppnamn",
@@ -36,6 +37,7 @@ export default {
           contribMotivation: "Beskrivning",
           themeMotivation: "Tema motivation",
           amountPartaking: "Antal deltagare",
+          gdpr: "Jag samtycker till ovanstående",
         },
         errors: {
           req: {
