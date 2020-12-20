@@ -46,22 +46,39 @@ const funkisReducer = (state = initialState, action) => {
         ...state,
         loading: true,
       }
-    case GET_FUNKISAR.SUCCESS:
+    case GET_FUNKISAR.SUCCESS: {
       const {payload: {funkisar}} = action;
       return {
         ...state,
         loading: false,
         funkisar: funkisar.sort(f => f.liuid),
       }
-    case UPDATE_FUNKIS:
+    }
+    case UPDATE_FUNKIS.BEGIN: {
       const funkis = action.payload;
       return {
         ...state,
         funkisar: [
           ...state.funkisar.filter(f => f.liuid !== funkis.liuid),
           funkis
-        ].sort(f => f.liuid)
+        ].sort(f => f.liuid),
+        loading: true,
       }
+    }
+    case UPDATE_FUNKIS.SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
+    case UPDATE_FUNKIS.FAILURE: {
+      const error = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error
+      }
+    }
     case GET_FUNKIS_TYPES.BEGIN:
       return {
         ...state,
@@ -95,16 +112,20 @@ const funkisReducer = (state = initialState, action) => {
       }
     case GET_FUNKIS_TIME_SLOTS.SUCCESS:
       const {timeslots} = action.payload;
+      const options = {day: 'numeric', month: 'numeric'};
       const newSlots = timeslots.reduce((obj, curr) => {
         return {
           ...obj,
           [curr.funkis_category_id]: {
-            [curr.id]: {
-              start: new Date(curr.start_time),
-              end: new Date(curr.end_time),
-              id: curr.id
-            },
-            ...obj[curr.funkis_category_id]
+            ...obj[curr.funkis_category_id],
+            [new Date(curr.start_time).toLocaleDateString(options)] : {
+              ...({} || obj[curr.funkis_category_id][new Date(curr.start_time).toLocaleDateString(options)]),
+              [curr.id]: {
+                  start: new Date(curr.start_time),
+                  end: new Date(curr.end_time),
+                  id: curr.id
+              }
+            }            
           }
         }
       }, {})
