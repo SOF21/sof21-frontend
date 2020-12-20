@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { GridCell, Grid } from '@rmwc/grid';
+import { GridCell, Grid, GridInner } from '@rmwc/grid';
 import { 
   DataTable,
   DataTableBody,
@@ -35,6 +35,7 @@ import {
   getFunkisTypes,
   updateFunkis,
  } from '../../../actions/funkis';
+import { ScaleLoader } from 'react-spinners';
 
 // TODO: Bryt ut till intl
 
@@ -99,9 +100,6 @@ const FunkisAdminRow = ({
       <DataTableCell>
         {selectedFunkisAlt}
       </DataTableCell>
-      <DataTableCell>
-        {markedAsDone}
-      </DataTableCell>
     </DataTableRow>
   );
 }
@@ -126,9 +124,11 @@ const FunkisAdminComponent = ({
   const [funkisModalOpen, setFunkisModalOpen] = useState(false);
   const [activeFunkis, setActiveFunkis] = useState(defaultFunkis);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDay, setSelectedDay] = useState('');
 
   const handleDialogExit = (e) => {
     setFunkisModalOpen(false)
+    e.preventDefault();
     switch(e.detail.action) {
       case 'save':
         const {modified, ...rest} = activeFunkis
@@ -153,7 +153,7 @@ const FunkisAdminComponent = ({
         setActiveFunkis({
           ...activeFunkis,
           modified: true,
-          'selectedFunkisAlt': value,
+          selectedFunkisAlt: value,
         });
         break;
       case 'markAsDone':
@@ -162,6 +162,9 @@ const FunkisAdminComponent = ({
           modified: true,
           markedAsDone: !activeFunkis.markedAsDone,
         })
+        break;
+      case 'funkisDay':
+        setSelectedDay(value);
         break;
     default:
         break;
@@ -174,16 +177,31 @@ const FunkisAdminComponent = ({
     liuid,
     email,
     funkisAlts,
-    funkisDays,
     selectedFunkisAlt,
     modified,
     markedAsDone,
-    funkisTimeSlots,
-    selectedTimeSlots
+    selectedTimeSlots,
+    tshirtSize,
+    workFriend,
+    postAddress,
+    allergy,
+    allergyOther,
+    preferedDates,
   } = activeFunkis;
 
+  const funkisTimeSlots = timeslots[selectedFunkisAlt]
+
   return ( // TODO: Fix in-line text
-    <> {!loading &&
+    <>
+    {loading &&
+      <GridInner className='h-center v-center' style={{height: '100%'}}>
+          <ScaleLoader
+            loading={true}
+            color={'red'}
+          />
+      </GridInner>
+    }
+    {!loading && activeFunkis !== defaultFunkis &&
       <Dialog
         onClose={handleDialogExit}
         open={funkisModalOpen}
@@ -201,6 +219,26 @@ const FunkisAdminComponent = ({
             {email}
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
+            {tshirtSize}
+          </GridCell>
+          {workFriend && <GridCell desktop='12' tablet='8' phone='4'>
+            {workFriend}
+          </GridCell>}
+          <GridCell desktop='12' tablet='8' phone='4'>
+            {postAddress}
+          </GridCell>
+          {allergy && <GridCell desktop='12' tablet='8' phone='4'>
+            {workFriend}
+          </GridCell>}
+          {allergy && allergyOther && <GridCell desktop='12' tablet='8' phone='4'>
+            {workFriend}
+          </GridCell>}
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <List>
+              {preferedDates.filter(d => d !== null).map(d => <ListItem>{d}</ListItem>)}
+            </List>
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
             <Select
               id='funkisType'
               options={funkisAlts.reduce((obj, alt) => ({
@@ -208,21 +246,32 @@ const FunkisAdminComponent = ({
                 [alt]: positions[alt]
               }), {})}
               value={selectedFunkisAlt}
-              placeholder='Funkistyp' 
               onChange={onChange}
             />
           </GridCell>
-          {selectedFunkisAlt && 
+          {selectedFunkisAlt && <GridCell desktop='12' tablet='8' phone='4'>
+            <Select
+              id='funkisDay'
+              options={Object.keys(funkisTimeSlots).reduce((obj, date) => ({
+                ...obj,
+                [date]: date
+              }), {})}
+              value={selectedDay}
+              onChange={onChange}
+            />
+          </GridCell>}
+          {selectedFunkisAlt && selectedDay &&
             <GridCell desktop='12' tablet='8' phone='4'>
               <List>
                 {
-                funkisTimeSlots && Object.keys(funkisTimeSlots).map((key, index) => {
-                  const {start, end, id} = funkisTimeSlots[key];
+                funkisTimeSlots && Object.keys(funkisTimeSlots[selectedDay]).map((key, index) => {
+                  const options = {hour:'numeric', minute:'numeric'};
+                  const {start, end, id} = funkisTimeSlots[selectedDay][key];
                   const selected = selectedTimeSlots.includes(id);
                   const updatedSelectedTimeSlot = selected? [...selectedTimeSlots.filter(i => i !== id)] : [...selectedTimeSlots, id];
                   return (
                     <FunkisDayItem
-                      timeSpan={`${start} - ${end}`}
+                      timeSpan={`${new Intl.DateTimeFormat('sv', options).format(start)} - ${new Intl.DateTimeFormat('sv', options).format(end)}`}
                       index={index}
                       checked={selected} 
                       onClick={() => {
@@ -240,7 +289,7 @@ const FunkisAdminComponent = ({
               </List>
             </GridCell>
           }
-          {selectedFunkisAlt && funkisDays && 
+          {selectedFunkisAlt && selectedTimeSlots.length > 0 && 
             <GridCell desktop='12' tablet='8' phone='4'>
               <Checkbox
                 id='markAsDone'
@@ -278,24 +327,15 @@ const FunkisAdminComponent = ({
               {funkisar.map((f) => {
                 for(const key in {name, email, liuid}) {
                   if(f[key].toLowerCase().includes(searchTerm)) {
-                    const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};        
+                    const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};     
                     return (
                       <FunkisAdminRow
                         funkis={{
                           ...f,
-                          selectedFunkisAlt: positions[f.selectedFunkisAlt]
                         }}
                         onClick={() => {
-                          const ft = timeslots[f.selectedFunkisAlt] && Object.fromEntries(Object.entries(timeslots[f.selectedFunkisAlt]).filter(([k, t]) => [...Object.values(f.funkisDays).map(p => p.day)].includes(`${t.start.getDate()}/${t.start.getMonth()}`)));
                           setActiveFunkis({
                             ...f,
-                            funkisTimeSlots: timeslots[f.selectedFunkisAlt] && Object.keys(ft).reduce((obj, t) => ( {
-                              ...obj,
-                              [ft[t].id]: {
-                              id: ft[t].id,
-                              start: ft[t].start.toLocaleString('sv', options),
-                              end: ft[t].end.toLocaleString('sv', options),
-                            }}), {})
                           });
                           setFunkisModalOpen(true);
                         }}

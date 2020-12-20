@@ -74,43 +74,6 @@ export const sendFunkisApplication = ({
   }
 };
 
-export const SET_FUNKIS_TYPE = {
-  BEGIN: `${funkisActionBase}UPDATE_FUNKIS_BEGIN`,
-  FAILURE: `${funkisActionBase}UPDATE_FUNKIS_FAILURE`,
-  SUCCESS: `${funkisActionBase}UPDATE_FUNKIS_SUCCESS`,
-};
-
-export const setFunkisTypeBegin = () => ({
-  type: SET_FUNKIS_TYPE.BEGIN,
-  payload: {}
-});
-
-export const setFunkisTypSuccess = () => ({
-  type: SET_FUNKIS_TYPE.SUCCESS,
-  payload: {}
-});
-
-export const setFunkisTypeFailure = ({err}) => ({
-  type: SET_FUNKIS_TYPE.FAILURE,
-  payload: err
-});
-
-export const updateFunkisType = ({ // TODO: UPDATE
-  id,
-  funkisType,
-}) => {
-  return async dispatch => {
-    dispatch(SET_FUNKIS_TYPE.BEGIN)
-    api.post('/funkis/update/update') 
-      .then(() => {
-        dispatch(setFunkisTypSuccess())
-      })
-      .catch((err) => dispatch(setFunkisTypeFailure(err)))
-  }
-};
-
-
-
 export const GET_FUNKIS_TYPES = {
   BEGIN: `${funkisActionBase}GET_FUNKIS_TYPES_BEGIN`,
   FAILURE: `${funkisActionBase}GET_FUNKIS_TYPES_FAILURE`,
@@ -170,7 +133,6 @@ export const getFunkisTimeSlots = () => {
     dispatch(getFunkisTimeSlotsBegin())
     api.get('funkis_timeslots') // TODO: UPDATE
       .then((json) => {
-        console.log("ASDASD")
         dispatch(getFunkisTimeSlotsSuccess(json.data))
       })
       .catch((err) => dispatch(getFunkisTimeSlotsFailure(err)))
@@ -196,7 +158,7 @@ export const getFunkisarSuccess = (funkisar) => ({
   payload: {funkisar}
 });
 
-export const getFunkisarFailure = ({err}) => ({
+export const getFunkisarFailure = (err) => ({
   type: GET_FUNKISAR.FAILURE,
   payload: err
 });
@@ -260,21 +222,83 @@ const testFunkisar = [
 export const getFunkisar = () => {
   return async dispatch => {
     dispatch(getFunkisarBegin())
-    /*api.post('/funkis/update/update') // TODO: UPDATE
-      .then((res) => res.json) 
-      .then((json) => {
-        dispatch(getFunkisarSuccess(json.funkisar))
+    api.get('funkis')
+      .then((funkisJson) => {
+        const funkisar = funkisJson.data;
+        api.get('funkis_applications')
+        .then(appJson => {
+          const apps = appJson.data;
+          const mergedFunkisar = funkisar.map(f => ({
+            ...f,
+            ...apps.reduce((acc, v) => v.funkis_id === f.id? {...v}:{}, {})
+          })).map(mf => ({
+            id: mf.id,
+            name: mf.name,
+            liuid: mf.liu_id,
+            email: mf.mail,
+            phonenumber: mf.phone_number,
+            allergy: mf.allergies,
+            allergyOther: mf.allergies_other,
+            tshirtSize: mf.tshirt_size,
+            markedAsDone: mf.marked_done,
+            postAddress: mf.post_address,
+            workfriend: mf.workfriend,
+            selectedFunkisAlt: mf.funkis_category_id,
+            funkisAlts: [
+              mf.first_post_id,
+              mf.second_post_id,
+              mf.third_post_id
+            ],
+            preferedDates: [
+              mf.first_day,
+              mf.second_day,
+              mf.third_day,
+            ],
+            selectedTimeSlots: [],
+          }))
+          dispatch(getFunkisarSuccess(mergedFunkisar))
+        }).catch((err) => dispatch(getFunkisarFailure(err)))
       })
-      .catch((err) => dispatch(setFunkisTypeFailure()))
-  }*/
-  await new Promise(r => setTimeout(r, 2000))
-  dispatch(getFunkisarSuccess(testFunkisar))
-}
+      .catch((err) => dispatch(getFunkisarFailure(err)))
+  }
 }
 
-export const UPDATE_FUNKIS = `${funkisActionBase}UPDATE_FUNKIS`;
+export const UPDATE_FUNKIS = {
+  BEGIN: `${funkisActionBase}UPDATE_FUNKIS_BEGIN`,
+  SUCCESS: `${funkisActionBase}UPDATE_FUNKIS_SUCCESS`,
+  FAILURE: `${funkisActionBase}UPDATE_FUNKIS_FAILURE`,
+}
 
-export const updateFunkis = (funkis) => ({
-  type: UPDATE_FUNKIS,
+export const updateFunkisBegin = (funkis) => ({
+  type: UPDATE_FUNKIS.BEGIN,
   payload: funkis
 });
+
+export const updateFunkisSuccess = () => ({
+  type: UPDATE_FUNKIS.SUCCESS,
+  payload: {}
+});
+
+export const updateFunkisFailure = (err) => ({
+  type: UPDATE_FUNKIS.FAILURE,
+  payload: err
+});
+
+export const updateFunkis = (funkis) => {
+
+  return async dispatch => {
+    dispatch(updateFunkisBegin(funkis))
+    console.log("API TEST")
+    console.log(funkis);
+    api.put(`funkis/${funkis.id}`, {
+      item: {
+        funkis_category_id: funkis.selectedFunkisAlt,
+        marked_done: funkis.markedAsDone
+      }
+    }) // TODO: UPDATE
+      .then((json) => {
+        dispatch(updateFunkisSuccess())
+      })
+      .catch((err) => dispatch(updateFunkisFailure(err)))
+  }
+};
