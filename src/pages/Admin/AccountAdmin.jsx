@@ -187,13 +187,13 @@ class AccountAdmin extends Component{
           admin
           requiredAccess={2}
           exact
-          path='/account/admin/orchestra'
+          path='/account/admin/cortege'
           render={(props) => {
             return(
               <CortegeAdmin />
             );
           }}
-          key = {'/admin/orchestra'}
+          key = {'/admin/cortege'}
         />
         <Route
           path = '/account/admin/permissiondenied'
@@ -260,7 +260,7 @@ class UNCBaseAdminPage extends Component{
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
-            <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/orchestra')}> Hantera orkestrar </Button>
+            <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/cortege')}> Hantera Kårtege </Button>
             : null
           }
         </GridCell>
