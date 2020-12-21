@@ -65,13 +65,25 @@ export default {
     'Funkis.recruitment.fieldLabels.secondPrefferedDate': 'Andra föredragna datum',
     'Funkis.recruitment.fieldLabels.thirdPrefferedDate': 'Tredje föredragna datum',
     'Funkis.recruitment.fieldLabels.shirtSize': 'T-Shirt storlek',
-    'Funkis.recruitment.fieldLabels.allergies': ' Allergier',
+    'Funkis.recruitment.fieldLabels.allergies': 'Allergier',
     'Funkis.recruitment.fieldLabels.otherAllergy': 'Övriga allergier',
 
     'Funkis.recruitment.errors.req.name': 'Du måste ange ditt namn',
     'Funkis.recruitment.errors.req.liuid': 'Du måste ange ditt liu-id',
     'Funkis.recruitment.errors.req.mail': 'Du måste ange din e-mail',
     'Funkis.recruitment.errors.req.phonenumber': 'Du måste ange ditt telefonnummer',
+
+    'Funkis.admin.fieldLabels.name': 'Namn',
+    'Funkis.admin.fieldLabels.liuid': 'LiU ID',
+    'Funkis.admin.fieldLabels.email': 'E-mail',
+    'Funkis.admin.fieldLabels.phonenumber': 'Telefon',
+    'Funkis.admin.fieldLabels.postAddress': 'Address',
+    'Funkis.admin.fieldLabels.workFriend': 'Önskad nattvaktspartner',
+    'Funkis.admin.fieldLabels.tshirtSize': 'T-Shirt storlek',
+    'Funkis.admin.fieldLabels.allergy': 'Allergier',
+    'Funkis.admin.fieldLabels.allergyOther': 'Övriga allergier',
+
+    
     
   },
 
