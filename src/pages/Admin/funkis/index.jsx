@@ -14,6 +14,9 @@ import {
   List, 
   ListItem,
   ListItemGraphic,
+  ListItemPrimaryText,
+  ListItemSecondaryText,
+  ListItemText,
 } from '@rmwc/list';
 import { Checkbox } from '@rmwc/checkbox';
 import { Select } from '@rmwc/select';
@@ -36,6 +39,7 @@ import {
   updateFunkis,
  } from '../../../actions/funkis';
 import { ScaleLoader } from 'react-spinners';
+import FormTextInput from '../../../components/forms/components/FormTextInput';
 
 // TODO: Bryt ut till intl
 
@@ -210,29 +214,79 @@ const FunkisAdminComponent = ({
         <DialogContent>
         <Grid className='funkisInfo'>
           <GridCell desktop='12' tablet='8' phone='4'>
-            {name}
+            <List twoLine nonInteractive>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Funkis.admin.fieldLabels.name'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{name}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Funkis.admin.fieldLabels.liuid'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{liuid}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Funkis.admin.fieldLabels.email'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{email}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Funkis.admin.fieldLabels.tshirtSize'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{tshirtSize}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Funkis.admin.fieldLabels.postAddress'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{postAddress}</ListItemSecondaryText>  
+                </ListItemText>
+              </ListItem>
+              { workFriend &&
+                <ListItem ripple={false}>
+                  <ListItemText>
+                    <ListItemPrimaryText>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.workFriend'/>
+                    </ListItemPrimaryText>
+                    <ListItemSecondaryText>{workFriend}</ListItemSecondaryText>
+                  </ListItemText>
+                </ListItem>
+              }
+              { allergy &&
+                <ListItem ripple={false}>
+                  <ListItemText>
+                    <ListItemPrimaryText>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.allergy'/>
+                    </ListItemPrimaryText>
+                    <ListItemSecondaryText>{allergy}</ListItemSecondaryText>
+                  </ListItemText>
+                </ListItem>
+              }
+              { allergyOther &&
+                <ListItem ripple={false}>
+                  <ListItemText>
+                    <ListItemPrimaryText>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.allergyOther'/>
+                    </ListItemPrimaryText>
+                    <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{allergyOther}</ListItemSecondaryText>
+                  </ListItemText>
+                </ListItem>
+              }
+            </List>
           </GridCell>
-          <GridCell desktop='12' tablet='8' phone='4'>
-            {liuid}
-          </GridCell>
-          <GridCell desktop='12' tablet='8' phone='4'>
-            {email}
-          </GridCell>
-          <GridCell desktop='12' tablet='8' phone='4'>
-            {tshirtSize}
-          </GridCell>
-          {workFriend && <GridCell desktop='12' tablet='8' phone='4'>
-            {workFriend}
-          </GridCell>}
-          <GridCell desktop='12' tablet='8' phone='4'>
-            {postAddress}
-          </GridCell>
-          {allergy && <GridCell desktop='12' tablet='8' phone='4'>
-            {workFriend}
-          </GridCell>}
-          {allergy && allergyOther && <GridCell desktop='12' tablet='8' phone='4'>
-            {workFriend}
-          </GridCell>}
           <GridCell desktop='12' tablet='8' phone='4'>
             <List>
               {preferedDates.filter(d => d !== null).map(d => <ListItem>{d}</ListItem>)}
@@ -326,8 +380,7 @@ const FunkisAdminComponent = ({
             <DataTableBody>
               {funkisar.map((f) => {
                 for(const key in {name, email, liuid}) {
-                  if(f[key].toLowerCase().includes(searchTerm)) {
-                    const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};     
+                  if(f[key].toLowerCase().includes(searchTerm)) {   
                     return (
                       <FunkisAdminRow
                         funkis={{
