@@ -1,7 +1,7 @@
 import { GET_CORTEGES, SEND_CORTEGE_APP, UPDATE_CORTEGE } from "../actions/cortege";
 
 const initialState = {
-  loading: true,
+  loading: false,
   error: null,
 	success: false,
 	corteges: [],

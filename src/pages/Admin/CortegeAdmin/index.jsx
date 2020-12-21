@@ -120,7 +120,7 @@ const CortegeAdminComponent = ({
         <TextField withLeadingIcon='search' label='Sök' id='searchBar'onChange={handleSearch}/>
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <DataTable>
+        <DataTable style={{width: '100%'}}>
           <DataTableContent>
             <DataTableHead>
               <DataTableRow>

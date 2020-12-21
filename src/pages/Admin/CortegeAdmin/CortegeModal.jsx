@@ -42,8 +42,6 @@ const CortegeModal = ({
 
   const onChange = (e) => { // TODO: It might be that we need to store this in Redux.
     const { target: { id, value } } = e;
-    console.log(id);
-    console.log(value);
     setCortegeData({
       ...cortegeData,
       [id]: value,
@@ -75,13 +73,13 @@ const CortegeModal = ({
       >
         <DialogTitle>Ändra cortege: {groupName}</DialogTitle>
         <DialogContent>
-        <Grid className='funkisInfo'>
+        <Grid className='CortegeInfo'>
           <GridCell desktop='12' tablet='8' phone='4'>
             <List twoLine nonInteractive>
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.groupName'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.groupName'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{groupName}</ListItemSecondaryText>
                 </ListItemText>
@@ -89,7 +87,7 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.amountPartaking'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.amountPartaking'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{amountPartaking}</ListItemSecondaryText>
                 </ListItemText>
@@ -97,7 +95,7 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.buildType'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.buildType'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{buildType}</ListItemSecondaryText>
                 </ListItemText>
@@ -105,7 +103,7 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.phonenumber'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.phonenumber'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{phonenumber}</ListItemSecondaryText>
                 </ListItemText>
@@ -113,7 +111,7 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.contactPerson'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.contactPerson'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{contactPerson}</ListItemSecondaryText>  
                 </ListItemText>
@@ -121,7 +119,7 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.contribMotivation'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.contribMotivation'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{contribMotivation}</ListItemSecondaryText>
                 </ListItemText>
@@ -129,7 +127,7 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.themeMotivation'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.themeMotivation'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{themeMotivation}</ListItemSecondaryText>
                 </ListItemText>
@@ -137,7 +135,7 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Funkis.admin.fieldLabels.allergyOther'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.image'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{image}</ListItemSecondaryText>
                 </ListItemText>
@@ -145,13 +143,34 @@ const CortegeModal = ({
             </List>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
-            <TextField textarea fullwidth id='feedback' label="feedback" value={feedback} onChange={onChange}/>
+            <TextField
+              textarea
+              fullwidth
+              id='feedback'
+              label={<FormattedMessage id='Cortege.admin.fieldLabels.feedback'/>}
+              value={feedback}
+              onChange={onChange}
+            />
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
-            <TextField textarea fullwidth id='securityFeedback' label="securityFeedback" value={securityFeedback} onChange={onChange}/>
+            <TextField
+            textarea
+            fullwidth
+            id='securityFeedback'
+            label={<FormattedMessage id='Cortege.admin.fieldLabels.securityFeedback'/>}
+            value={securityFeedback}
+            onChange={onChange}
+          />
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
-            <TextField textarea fullwidth id='otherComments' label="otherComments" value={otherComments} onChange={onChange}/>
+            <TextField
+            textarea
+            fullwidth
+            id='otherComments'
+            label={<FormattedMessage id='Cortege.admin.fieldLabels.otherComments'/>}
+            value={otherComments}
+            onChange={onChange}
+          />
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
             <Checkbox
