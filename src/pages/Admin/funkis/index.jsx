@@ -385,6 +385,7 @@ const FunkisAdminComponent = ({
                       <FunkisAdminRow
                         funkis={{
                           ...f,
+                          selectedFunkisAlt: positions[selectedFunkisAlt]
                         }}
                         onClick={() => {
                           setActiveFunkis({
