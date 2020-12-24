@@ -73,7 +73,9 @@ const CortegeModal = ({
       >
         <DialogTitle>Ändra cortege: {groupName}</DialogTitle>
         <DialogContent>
-        <Grid className='CortegeInfo'>
+        <Grid className='CortegeInfo'
+          style={{width: '800px', maxWidth:'100%'}}
+        >
           <GridCell desktop='12' tablet='8' phone='4'>
             <List twoLine nonInteractive>
               <ListItem ripple={false}>

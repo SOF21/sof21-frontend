@@ -18,6 +18,8 @@ import { ScaleLoader } from 'react-spinners';
 import CortegeModal from './CortegeModal';
 import defaultCortege from './defaultCortege';
 import { getCorteges, updateCortege } from '../../../actions/cortege';
+import { CSVDownload, CSVLink } from 'react-csv';
+import { Button } from 'rmwc';
 
 // TODO: Bryt ut till intl
 
@@ -74,6 +76,7 @@ const CortegeAdminComponent = ({
   const [cortegeModalOpen, setCortegeModalOpen] = useState(false);
   const [activeCortege, setActiveCortege] = useState(defaultCortege);
   const [searchTerm, setSearchTerm] = useState('');
+  const [downloadCSV, setDownloadCSV] = useState(false);
 
   const handleSearch = (e) => {
     const term = e.target.value;
@@ -117,10 +120,16 @@ const CortegeAdminComponent = ({
       {!loading &&
       <Grid>
       <GridCell desktop='12' tablet='8' phone='4'>
+        <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={Object.keys(corteges).reduce((cur, obj) => [...cur, corteges[obj]], [])}>
+        {corteges && <Button raised>Ladda ner CSV</Button>}
+        </CSVLink>
+        {downloadCSV && <CSVDownload />}
+      </GridCell>
+      <GridCell desktop='12' tablet='8' phone='4'>
         <TextField withLeadingIcon='search' label='Sök' id='searchBar'onChange={handleSearch}/>
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <DataTable style={{width: '100%'}}>
+        <DataTable style={{maxWidth: '100%'}}>
           <DataTableContent>
             <DataTableHead>
               <DataTableRow>

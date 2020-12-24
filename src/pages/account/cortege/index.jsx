@@ -14,7 +14,7 @@ import InformativeInputWrapper from '../../../components/forms/components/Inform
 
 import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
 import LoadButton from '../../../components/forms/components/LoadButton';
-import { sendCortegeApplication } from '../../../actions/cortege';
+import { getCurrentCortegeApp, sendCortegeApplication } from '../../../actions/cortege';
 
 const buildTypes = {
   macro: 'Macrobygge',
@@ -80,11 +80,17 @@ const CortegeComponent = ({
   success,
   error,
   submitCortegeApplication,
+  cortegeAppId,
+  loadCortegeId,
 }) => {
 
   const onSubmit = (values) => {
     submitCortegeApplication(values);
   }
+
+  useEffect(() => {
+    loadCortegeId();
+  }, [loadCortegeId])
 
   const intl = useIntl();
 
@@ -92,9 +98,9 @@ const CortegeComponent = ({
     <>
       {!loading && error && <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
-          <p>
+          <h5>
             <FormattedMessage id='Cortege.status.error.p1' />
-          </p>
+          </h5>
           <p>
           <FormattedMessage id='Cortege.status.error.p2' />
           </p>
@@ -111,18 +117,18 @@ const CortegeComponent = ({
           />
       </GridInner>
       }
-      {!loading && success && !error && 
+      {!loading && (success || cortegeAppId) && !error && 
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
-          <p>
+          <h5>
             <FormattedMessage id='Cortege.status.success.p1' />
-          </p>
-          <p>
+          </h5>
+          <h5>
             <FormattedMessage id='Cortege.status.success.p2' />
-          </p>
+          </h5>
         </GridCell>
-      </GridInner>}
-      {!loading && !success && !error && <Formik
+      </GridInner>} 
+      {!loading && !success && !error && !cortegeAppId && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -231,6 +237,7 @@ const CortegeComponent = ({
               touched={touched.contribMotivation}
               error={errors.contribMotivation}
               value={values.contribMotivation}
+              textarea
             />
           </InformativeInputWrapper>
         </GridCell>
@@ -261,6 +268,7 @@ const CortegeComponent = ({
               touched={touched.themeMotivation}
               error={errors.themeMotivation}
               value={values.themeMotivation}
+              textarea
             /> 
           </InformativeInputWrapper>
         </GridCell>
@@ -315,10 +323,12 @@ const mapStateToProps = state => ({
   loading: state.cortege.loading,
   success: state.cortege.success,
   error: state.cortege.error,
+  cortegeAppId: state.cortege.cortegeAppId,
 });
 
 const mapDispatchToProps = dispatch => ({
-  submitCortegeApplication: (values) => dispatch(sendCortegeApplication(values))
+  submitCortegeApplication: (values) => dispatch(sendCortegeApplication(values)),
+  loadCortegeId: (userId) => dispatch(getCurrentCortegeApp({userId})),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(CortegeComponent))

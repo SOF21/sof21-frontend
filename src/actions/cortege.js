@@ -163,3 +163,42 @@ export const updateCortege = ({
 
 
 
+export const GET_CURRENT_CORTEGE = {
+  BEGIN: `${cortegeActionBase}GET_CURRENT_CORTEGE_BEGIN`,
+  FAILURE: `${cortegeActionBase}GET_CURRENT_CORTEGE_FAILURE`,
+  SUCCESS: `${cortegeActionBase}GET_CURRENT_CORTEGE_SUCCESS`,
+};
+
+export const getCurrentCortegeAppBegin = (cortege) => ({
+  type: GET_CURRENT_CORTEGE.BEGIN,
+  payload: cortege
+});
+
+export const getCurrentCortegeAppSuccess = (cortegeId) => ({
+  type: GET_CURRENT_CORTEGE.SUCCESS,
+  payload: cortegeId
+});
+
+export const getCurrentCortegeAppFailure = (err) => ({
+  type: GET_CURRENT_CORTEGE.FAILURE,
+  payload: err
+});
+
+export const getCurrentCortegeApp = ({
+  userId
+}) => {
+  return async dispatch => {
+    dispatch(getCurrentCortegeAppBegin({
+      userId
+    }));
+    return api.get(`users/get_user`)
+      .then((res) => {
+        const json = res.data;
+        dispatch(getCurrentCortegeAppSuccess(
+          json.cortege?.id
+        ));
+      })
+      .catch(err => dispatch(getCurrentCortegeAppFailure(err)));
+  }
+};
+

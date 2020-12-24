@@ -1,10 +1,11 @@
-import { GET_CORTEGES, SEND_CORTEGE_APP, UPDATE_CORTEGE } from "../actions/cortege";
+import { GET_CORTEGES, GET_CURRENT_CORTEGE, SEND_CORTEGE_APP, UPDATE_CORTEGE } from "../actions/cortege";
 
 const initialState = {
   loading: false,
   error: null,
 	success: false,
 	corteges: [],
+	cortegeAppId: null,
 }
 
 const cortege = (state = initialState, action) => {
@@ -78,6 +79,30 @@ const cortege = (state = initialState, action) => {
 			}
 		}
 		case UPDATE_CORTEGE.FAILURE: {
+			const error = action.payload
+			return {
+				...state,
+				loading: false,
+				success: false,
+				error,
+			}
+		}
+		case GET_CURRENT_CORTEGE.BEGIN: {
+			return {
+				...state,
+				loading: true,
+			}
+		}
+		case GET_CURRENT_CORTEGE.SUCCESS: {
+			const cortegeAppId = action.payload;
+			return {
+				...state,
+				loading: false,
+				success: false,
+				cortegeAppId,
+			}
+		}
+		case GET_CURRENT_CORTEGE.FAILURE: {
 			const error = action.payload
 			return {
 				...state,
