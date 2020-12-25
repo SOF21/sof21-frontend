@@ -19,6 +19,7 @@ import CortegeModal from './CortegeModal';
 import defaultCortege from './defaultCortege';
 import { getCorteges, updateCortege } from '../../../actions/cortege';
 import { CSVDownload, CSVLink } from 'react-csv';
+import { Switch } from '@rmwc/switch';
 import { Button } from 'rmwc';
 
 // TODO: Bryt ut till intl
@@ -77,6 +78,19 @@ const CortegeAdminComponent = ({
   const [activeCortege, setActiveCortege] = useState(defaultCortege);
   const [searchTerm, setSearchTerm] = useState('');
   const [downloadCSV, setDownloadCSV] = useState(false);
+  const [CSVHeaders, setCSVHeaders] = useState({});
+
+  const activatedCSVHeaders = Object.values(CSVHeaders).filter(obj => obj.checked).map(v => v.id);
+  const CSVData = Object.values(corteges).map(c => ({
+    ...Object.keys(c).reduce((acc, k) => {
+      return activatedCSVHeaders.includes(k) ? {
+        ...acc,
+        [k] : corteges[c.id][k]
+      }
+      :
+      acc
+    },{})
+  }))
 
   const handleSearch = (e) => {
     const term = e.target.value;
@@ -88,15 +102,12 @@ const CortegeAdminComponent = ({
     e.preventDefault();
     switch(e.detail.action) {
       case 'save':
-        console.log(c)
         updateCortege(c)
         break;
       default:
         break;
     }
-  }
-
-  
+  }  
 
 
 
@@ -120,10 +131,38 @@ const CortegeAdminComponent = ({
       {!loading &&
       <Grid>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={Object.keys(corteges).reduce((cur, obj) => [...cur, corteges[obj]], [])}>
+        <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={CSVData}>
         {corteges && <Button raised>Ladda ner CSV</Button>}
         </CSVLink>
         {downloadCSV && <CSVDownload />}
+      </GridCell>
+      <GridCell desktop='12' tablet='8' phone='4'>
+          {Object.keys(corteges).length > 0 && Object.keys(corteges[Object.keys(corteges)[0]]).map(v => {
+            if(!CSVHeaders[v]) {
+              setCSVHeaders({
+                ...CSVHeaders,
+                [v] : {
+                  id: v,
+                  checked: true,
+                }
+              })
+            }
+            
+            return(<Switch
+              checked={CSVHeaders[v]?.checked ?? true}
+              onClick={() => {
+                setCSVHeaders({
+                  ...CSVHeaders,
+                  [v]: {
+                    id: v,
+                    checked: !(CSVHeaders[v]?.checked ?? true),
+                  },
+                })
+              }}
+              checkmark
+              label={v}
+            />)
+          })}
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
         <TextField withLeadingIcon='search' label='Sök' id='searchBar'onChange={handleSearch}/>
