@@ -24,7 +24,7 @@ import { fetchSignupOrchestra } from '../../../actions/orchestraSignups'
 import { fetchOrchestraFromSignup } from '../../../actions/orchestras'
 import { setTitle } from '../../../actions/title';
 
-function getFirstOrchestra(orchestras){
+function getTicketPickupOrchestra(orchestras){
   var firstOrchestra = null;
 
   orchestras.forEach( elem => {
@@ -132,157 +132,182 @@ class Orchestra extends Component{
             <h5> <FormattedMessage id='Orchestra.noOrchestras' /> </h5>
           </GridCell>)
       } else{
-        const firstOrc = getFirstOrchestra(this.props.orchestras.list);
-        const sortedArticles = firstOrc.orchestra_articles.sort((a, b) => a.kind - b.kind)
+        const ticketPickupOrc = getTicketPickupOrchestra(this.props.orchestras.list);
+        const sortedArticles = ticketPickupOrc !== null ? ticketPickupOrc.orchestra_articles.sort((a, b) => a.kind - b.kind) : [{id: 0}]
         
         // Check if has no t-shirt size
         if( sortedArticles[0].data > 0 && (sortedArticles[0].size === null || sortedArticles[0].size === '')){
           shirtId=sortedArticles[0].id;
-          orchId=firstOrc.id;
+          orchId=ticketPickupOrc.id;
           noSize=true;
         }
-        orchestraContent = (
-          <React.Fragment>
-            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-              <h5 style={{margin: '0px'}}> <FormattedMessage id='Orchestra.orchestras' /> </h5>
-            </GridCell>
-            <GridCell desktop='12' tablet='8' phone='4'>
-              <GridInner style={{width: '100%'}}>
-                {this.props.orchestras.list.map(orch => (
-                  <GridCell desktop='6' tablet='4' phone='4' key={orch.id}>
-                    <OrchestraCard orchestra={orch} key={orch.id}/>
-                  </GridCell>
-                ))}
-              </GridInner>
-            </GridCell>
-            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-              <h5 style={{margin: '0px'}}> <FormattedMessage id='Orchestra.info' /> </h5>
-            </GridCell>
-            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-              <SimpleDataTable
-                className='full-width-table rmwc-table-uninteractive'
-                getRowProps={row => {
-                  return {}
-                }}
-                getCellProps={(cell, index, isHead) => {
-                  return {}
-                }}
-                headers={[[ 
-                  this.props.intl.formatMessage({id :'Orchestra.question'}),
-                  this.props.intl.formatMessage({id :'Orchestra.answer'})
-                ]]}
-                data={
-                  [
+
+        orchestraContent =  ticketPickupOrc !== null ? 
+          (
+            <React.Fragment>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <h5 style={{margin: '0px'}}> <FormattedMessage id='Orchestra.orchestras' /> </h5>
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4'>
+                <GridInner style={{width: '100%'}}>
+                  {this.props.orchestras.list.map(orch => (
+                    <GridCell desktop='6' tablet='4' phone='4' key={orch.id}>
+                      <OrchestraCard orchestra={orch} key={orch.id}/>
+                    </GridCell>
+                  ))}
+                </GridInner>
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <h5 style={{margin: '0px'}}> <FormattedMessage id='Orchestra.info' /> </h5>
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <SimpleDataTable
+                  className='full-width-table rmwc-table-uninteractive'
+                  getRowProps={row => {
+                    return {}
+                  }}
+                  getCellProps={(cell, index, isHead) => {
+                    return {}
+                  }}
+                  headers={[[ 
+                    this.props.intl.formatMessage({id :'Orchestra.question'}),
+                    this.props.intl.formatMessage({id :'Orchestra.answer'})
+                  ]]}
+                  data={
                     [
-                      this.props.intl.formatMessage({id :'OrchestraMemReg.festivalPackage'}), 
-                      Package[firstOrc.orchestra_ticket.kind]
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'OrchestraMemReg.foodtickets'}),
-                      Food[firstOrc.orchestra_food_ticket.kind]
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'OrchestraMemReg.allergies'}),
-                      firstOrc.special_diets[0].name
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'Orchestra.dorm'}),
-                      firstOrc.dormitory ? 
-                        this.props.intl.formatMessage({id :'Orchestra.yes'}) :
-                        this.props.intl.formatMessage({id :'Orchestra.no'}) 
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'Orchestra.instrumentSize'}),
-                      InstrSize[firstOrc.instrument_size]
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'Orchestra.tenth'}),
-                      firstOrc.consecutive_10 ?
-                        this.props.intl.formatMessage({id :'Orchestra.yes'}) :
-                        this.props.intl.formatMessage({id :'Orchestra.no'}) 
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'Orchestra.twentyfifth'}),
-                      firstOrc.attended_25 ? 
-                        this.props.intl.formatMessage({id :'Orchestra.yes'}) :
-                        this.props.intl.formatMessage({id :'Orchestra.no'}) 
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'Orchestra.tshirt'}),
-                      sortedArticles[0].data
-                    ],
-                    (sortedArticles[0].data > 0 ?
                       [
-                        this.props.intl.formatMessage({id :'OrchestraMemReg.sizeTshirt'}) + ':',
-                        ShirtSizes[sortedArticles[0].size]
-                      ]: []
-                    ),
+                        this.props.intl.formatMessage({id :'OrchestraMemReg.festivalPackage'}), 
+                        Package[ticketPickupOrc.orchestra_ticket.kind]
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'OrchestraMemReg.foodtickets'}),
+                        Food[ticketPickupOrc.orchestra_food_ticket.kind]
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'OrchestraMemReg.allergies'}),
+                        ticketPickupOrc.special_diets[0].name
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'Orchestra.dorm'}),
+                        ticketPickupOrc.dormitory ? 
+                          this.props.intl.formatMessage({id :'Orchestra.yes'}) :
+                          this.props.intl.formatMessage({id :'Orchestra.no'}) 
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'Orchestra.instrumentSize'}),
+                        InstrSize[ticketPickupOrc.instrument_size]
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'Orchestra.tenth'}),
+                        ticketPickupOrc.consecutive_10 ?
+                          this.props.intl.formatMessage({id :'Orchestra.yes'}) :
+                          this.props.intl.formatMessage({id :'Orchestra.no'}) 
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'Orchestra.twentyfifth'}),
+                        ticketPickupOrc.attended_25 ? 
+                          this.props.intl.formatMessage({id :'Orchestra.yes'}) :
+                          this.props.intl.formatMessage({id :'Orchestra.no'}) 
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'Orchestra.tshirt'}),
+                        sortedArticles[0].data
+                      ],
+                      (sortedArticles[0].data > 0 ?
+                        [
+                          this.props.intl.formatMessage({id :'OrchestraMemReg.sizeTshirt'}) + ':',
+                          ShirtSizes[sortedArticles[0].size]
+                        ]: []
+                      ),
+                      [
+                        this.props.intl.formatMessage({id :'Orchestra.medal'}),
+                        sortedArticles[1].data
+                      ],
+                      [
+                        this.props.intl.formatMessage({id :'Orchestra.patch'}),
+                        sortedArticles[2].data
+                      ],
+                    ]
+                  }
+                />
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <h5 style={{margin: '0px'}}> <FormattedMessage id='Orchestra.toPay' /> </h5>
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <PriceSummary
+                  data={
                     [
-                      this.props.intl.formatMessage({id :'Orchestra.medal'}),
-                      sortedArticles[1].data
-                    ],
-                    [
-                      this.props.intl.formatMessage({id :'Orchestra.patch'}),
-                      sortedArticles[2].data
-                    ],
-                  ]
-                }
-              />
-            </GridCell>
-            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-              <h5 style={{margin: '0px'}}> <FormattedMessage id='Orchestra.toPay' /> </h5>
-            </GridCell>
-            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-              <PriceSummary
-                data={
-                  [
-                    [Package[firstOrc.orchestra_ticket.kind],
-                      1,
-                      PackagePrices[firstOrc.orchestra_ticket.kind],
-                      PackagePrices[firstOrc.orchestra_ticket.kind],
-                    ],
-                    (firstOrc.orchestra_food_ticket.kind !== 3) ? 
-                    [Food[firstOrc.orchestra_food_ticket.kind],
-                      1,
-                      FoodPrices[firstOrc.orchestra_food_ticket.kind],
-                      FoodPrices[firstOrc.orchestra_food_ticket.kind],
-                    ] : [],
-                    firstOrc.dormitory ? [ this.props.intl.formatMessage({id: 'Prices.Dorm'}),
-                      1,
-                      50,
-                      50,
-                    ] : [],
-                    sortedArticles[0].data ? [ this.props.intl.formatMessage({id: 'Prices.Tshirt'}),
-                      sortedArticles[0].data,
-                      100,
-                      100 * sortedArticles[0].data,
-                    ] : [],
-                    sortedArticles[1].data ? [ this.props.intl.formatMessage({id: 'Prices.Medal'}),
-                      sortedArticles[1].data,
-                      40,
-                      40 * sortedArticles[1].data,
-                    ] : [],
-                    sortedArticles[2].data ? [ this.props.intl.formatMessage({id: 'Prices.Patch'}),
-                      sortedArticles[2].data,
-                      20,
-                      20 * sortedArticles[2].data,
-                    ] : [],
-                    firstOrc.is_late_registration ? [ this.props.intl.formatMessage({id: 'Prices.late'}),
-                      1,
-                      250,
-                      250,
-                    ] : [],
-                  ]}
-              />
-            </GridCell>
-            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-              <p>
-                {this.props.intl.formatMessage({id :'Orchestra.change'})}
-                <b style={{color: '#f00'}} className='select-all'>orkester@sof.lintek.nu</b>
-              </p>
-             </GridCell>
-          </React.Fragment>
-        );
+                      [Package[ticketPickupOrc.orchestra_ticket.kind],
+                        1,
+                        PackagePrices[ticketPickupOrc.orchestra_ticket.kind],
+                        PackagePrices[ticketPickupOrc.orchestra_ticket.kind],
+                      ],
+                      (ticketPickupOrc.orchestra_food_ticket.kind !== 3) ? 
+                      [Food[ticketPickupOrc.orchestra_food_ticket.kind],
+                        1,
+                        FoodPrices[ticketPickupOrc.orchestra_food_ticket.kind],
+                        FoodPrices[ticketPickupOrc.orchestra_food_ticket.kind],
+                      ] : [],
+                      ticketPickupOrc.dormitory ? [ this.props.intl.formatMessage({id: 'Prices.Dorm'}),
+                        1,
+                        50,
+                        50,
+                      ] : [],
+                      sortedArticles[0].data ? [ this.props.intl.formatMessage({id: 'Prices.Tshirt'}),
+                        sortedArticles[0].data,
+                        100,
+                        100 * sortedArticles[0].data,
+                      ] : [],
+                      sortedArticles[1].data ? [ this.props.intl.formatMessage({id: 'Prices.Medal'}),
+                        sortedArticles[1].data,
+                        40,
+                        40 * sortedArticles[1].data,
+                      ] : [],
+                      sortedArticles[2].data ? [ this.props.intl.formatMessage({id: 'Prices.Patch'}),
+                        sortedArticles[2].data,
+                        20,
+                        20 * sortedArticles[2].data,
+                      ] : [],
+                      ticketPickupOrc.is_late_registration ? [ this.props.intl.formatMessage({id: 'Prices.late'}),
+                        1,
+                        250,
+                        250,
+                      ] : [],
+                    ]}
+                />
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <p>
+                  {this.props.intl.formatMessage({id :'Orchestra.change'})}
+                  <b style={{color: '#f00'}} className='select-all'>orkester@sof.lintek.nu</b>
+                </p>
+              </GridCell>
+            </React.Fragment>
+          )
+        :
+          (
+            <React.Fragment>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <h5 style={{margin: '0px'}}> <FormattedMessage id='Orchestra.orchestras' /> </h5>
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4'>
+                <GridInner style={{width: '100%'}}>
+                  {this.props.orchestras.list.map(orch => (
+                    <GridCell desktop='6' tablet='4' phone='4' key={orch.id}>
+                      <OrchestraCard orchestra={orch} key={orch.id}/>
+                    </GridCell>
+                  ))}
+                </GridInner>
+              </GridCell>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <p>
+                  {this.props.intl.formatMessage({id :'Orchestra.change'})}
+                  <b style={{color: '#f00'}} className='select-all'>orkester@sof.lintek.nu</b>
+                </p>
+              </GridCell>
+            </React.Fragment>
+          )
       }
     }
     return(

@@ -21,7 +21,7 @@ class OrchestraSignup extends Component{
     this.state = {
       failedFetchCode: false,
       successRegister: false,
-      ticketPickup: false,
+      pickupTicket: false,
     }
   }
 
@@ -58,8 +58,8 @@ class OrchestraSignup extends Component{
   }
 
   handleChange = (event) => {
-    if (event.target.value === 'yes') this.setState({ticketPickup: true})
-    else this.setState({ticketPickup: false})
+    if (event.target.value === 'yes') this.setState({pickupTicket: true})
+    else this.setState({pickupTicket: false})
   }
 
   render() {
@@ -96,13 +96,14 @@ class OrchestraSignup extends Component{
         + signupOrchestra.orchestra.name 
       }} />
     }
-    const MemRegType = this.state.ticketPickup ? OrchestraMemReg : OrchestraMemRegShort;
+    const MemRegType =  this.state.pickupTicket ? OrchestraMemReg: OrchestraMemRegShort
     return(
       <GridInner>
         
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           <h5> <FormattedMessage id='OrchestraMemReg.registerTo' /> <b>{signupOrchestra.orchestra.name}</b> </h5>
         </GridCell>
+        { signupOrchestra.has_ticket_pickup ?
         <GridCell desktop='12' tablet='8' phone='4'>
           <Select
             label={this.props.intl.formatMessage({id: 'OrchestraMemReg.ticketPickupWithWho'})}
@@ -122,6 +123,7 @@ class OrchestraSignup extends Component{
             style={{ width: '100%' }}
           />
         </GridCell>
+        : null }
         {/* <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           <h6 style={{marginTop: '-40px'}}> <b> <FormattedMessage id='OrchestraMemReg.closed' /> </b> </h6>
         </GridCell>  */}
@@ -130,7 +132,8 @@ class OrchestraSignup extends Component{
             late={signupOrchestra.late_signup}
             submitCallback={this.formSubmit} 
             code={this.props.match.params.id} 
-            day={signupOrchestra.orchestra.arrival_date}/> 
+            day={signupOrchestra.orchestra.arrival_date}
+            pickupTicket={this.state.pickupTicket}/> 
         </GridCell>
       </GridInner>
     );

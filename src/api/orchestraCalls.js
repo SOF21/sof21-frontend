@@ -3,6 +3,7 @@ import api from './axiosInstance';
 export const createOrchestraSignup = info => {
   return api.post('/orchestra_signup', {
     item: {
+      pickup_with: info.pickupTicket,
       dormitory: info.dorm,
       active_member: info.oldOrActive,
       arrival_date: info.arriveDay,
