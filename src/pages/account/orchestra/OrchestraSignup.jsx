@@ -6,7 +6,7 @@ import OrchestraMemRegShort from '../../../components/forms/OrchestraMemRegShort
 import {  GridCell, GridInner } from '@rmwc/grid';
 import { CircularProgress } from '@rmwc/circular-progress';
 
-
+import { Select } from '@rmwc/select'
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { fetchSignupOrchestra } from '../../../actions/orchestraSignups'
@@ -21,6 +21,7 @@ class OrchestraSignup extends Component{
     this.state = {
       failedFetchCode: false,
       successRegister: false,
+      pickupTicket: false,
     }
   }
 
@@ -54,6 +55,11 @@ class OrchestraSignup extends Component{
       bag.setSubmitting(false)
       //this.setState( {successfullySubmitted: 'Success!'} )
     });
+  }
+
+  handleChange = (event) => {
+    if (event.target.value === 'yes') this.setState({pickupTicket: true})
+    else this.setState({pickupTicket: false})
   }
 
   render() {
@@ -90,23 +96,44 @@ class OrchestraSignup extends Component{
         + signupOrchestra.orchestra.name 
       }} />
     }
-    const firstSignup = signupOrchestra.first_signup;
-    const MemRegType = firstSignup ? OrchestraMemReg : OrchestraMemRegShort;
-
+    const MemRegType =  this.state.pickupTicket ? OrchestraMemReg: OrchestraMemRegShort
     return(
       <GridInner>
+        
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           <h5> <FormattedMessage id='OrchestraMemReg.registerTo' /> <b>{signupOrchestra.orchestra.name}</b> </h5>
         </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-          {/* <h6 style={{marginTop: '-40px'}}> <b> <FormattedMessage id='OrchestraMemReg.closed' /> </b> </h6> */}
-        </GridCell> 
+        { signupOrchestra.has_ticket_pickup ?
+        <GridCell desktop='12' tablet='8' phone='4'>
+          <Select
+            label={this.props.intl.formatMessage({id: 'OrchestraMemReg.ticketPickupWithWho'})}
+            options={[
+              {
+                label: this.props.intl.formatMessage({id :'OrchestraMemReg.yes'}),
+                value: 'yes',
+                key: 0
+              },
+              {
+                label: this.props.intl.formatMessage({id: 'OrchestraMemReg.no'}),
+                value: 'no',
+                key: 1
+              }
+            ]}
+            onChange={(evt) => this.handleChange(evt)}
+            style={{ width: '100%' }}
+          />
+        </GridCell>
+        : null }
+        {/* <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+          <h6 style={{marginTop: '-40px'}}> <b> <FormattedMessage id='OrchestraMemReg.closed' /> </b> </h6>
+        </GridCell>  */}
         <GridCell desktop='12' tablet='8' phone='4'>
           <MemRegType 
             late={signupOrchestra.late_signup}
             submitCallback={this.formSubmit} 
             code={this.props.match.params.id} 
-            day={signupOrchestra.orchestra.arrival_date}/> 
+            day={signupOrchestra.orchestra.arrival_date}
+            pickupTicket={this.state.pickupTicket}/> 
         </GridCell>
       </GridInner>
     );

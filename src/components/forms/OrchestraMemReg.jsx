@@ -87,6 +87,7 @@ class OrchestraMemReg extends Component{
           <GridCell desktop='12' tablet='8' phone='4' className='account-orchestra-signup'>
             <Formik
               initialValues={{
+                pickupTicket: this.props.pickupTicket,
                 arriveWith: (answers && answers.arriveWith !== null) ? answers.arriveWith : '',
                 arriveDay: (answers && answers.arriveDay !== null) ? answers.arriveDay : '',
                 festivalPackage: (answers && answers.festivalPackage !== null) ? answers.festivalPackage : '',
@@ -379,8 +380,6 @@ class OrchestraMemReg extends Component{
                         onBlur={handleBlur}
                       />
                     </GridCell> : null}
-
-
 
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
