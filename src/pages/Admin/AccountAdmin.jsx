@@ -238,6 +238,13 @@ class UNCBaseAdminPage extends Component{
           }
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+
+          {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
+            <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/cortege')}> Hantera Kårtege </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           {(isAdmin(this.props.adminPriv, AdminPriv.MODIFY_USERS)) ?
             <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/modifypermissions')}> Behörigheter </Button>
             : null
@@ -254,13 +261,6 @@ class UNCBaseAdminPage extends Component{
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/soldseparately')}> Biljetter utanför hemsidan </Button>
-            : null
-          }
-        </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-
-          {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
-            <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/cortege')}> Hantera Kårtege </Button>
             : null
           }
         </GridCell>
