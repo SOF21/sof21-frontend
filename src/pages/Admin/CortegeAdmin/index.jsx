@@ -217,7 +217,15 @@ const CortegeAdminComponent = ({
               </DataTableRow>
             </DataTableHead>
             <DataTableBody>
-              {Object.keys(corteges).length > 0 && Object.values(corteges).map((cor) => {
+              {Object.keys(corteges).length > 0 && Object.values(corteges).filter(c => {
+                const searchProps = ['groupName', 'contactPerson', 'phonenumber', 'mail'];
+                for (const p of searchProps) {
+                  if(c[p]?.toLowerCase().includes(searchTerm)) return true;
+                  if(buildTypes[c.buildType].toLowerCase().includes(searchTerm)) return true;
+                }
+                return false;
+              })
+              .map((cor) => {
                     return (
                       <CortegeAdminRow
                         cortege={cor}
