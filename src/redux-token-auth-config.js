@@ -15,6 +15,7 @@ const config = {
     rebateBalance : "rebate_balance",
     rebateGiven : "rebate_given",
     email: "email",
+    cortegeID: ""
   },
   userRegistrationAttributes: {
     displayName: 'display_name',

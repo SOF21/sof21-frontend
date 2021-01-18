@@ -6,6 +6,7 @@ import login from './login';
 import title from './title';
 import dialog from './dialog';
 import klarna from './klarna';
+import cortege from './cortege';
 import cart from './cart';
 import shop from './shop';
 import orders from './orders';
@@ -22,5 +23,6 @@ export default combineReducers({
   dialog,
   cart,
   shop,
-  orders
+  orders,
+  cortege,
 })
