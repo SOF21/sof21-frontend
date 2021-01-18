@@ -48,7 +48,6 @@ const FCardMedia = forwardRef((props, ref) =>
   <CardMedia elementRef={ref} {...props}/>
 );
 
-//TODO: bit iffy animation
 const PosedTransformableCardMedia = posed(FCardMedia)({
   desktop: {
     paddingTop: '80%',
@@ -114,8 +113,6 @@ class ContactCard extends Component{
     }
   }
 
-
-  // TODO: Do this on props change instead
   handleResize() {
     if(!this.state.isMobile && window.innerWidth < 480){
       this.setState({isMobile: true});

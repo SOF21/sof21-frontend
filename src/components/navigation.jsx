@@ -41,16 +41,6 @@ import { Ripple } from '@rmwc/ripple';
 
 import { Icon } from '@rmwc/icon';
 
-// TODO: Temporary, replace with actual pages
-/*const pages = [
-  //{label:'Kårtege', ref: [
-  {label: 'Kårtege - Info', ref: '/'},
-  {label: 'Kårtege - Ansökan', ref: '/cortege-registration'},
-  //},
-  {label: 'Om SOF', ref: '/about'},
-  {label: 'Kontakt', ref: '/contact'},
-  {label: 'Historia', ref: '/history'}];
-*/
 class Navbar extends React.PureComponent{
   constructor(props){
     super(props);

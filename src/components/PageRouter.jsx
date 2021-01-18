@@ -169,7 +169,6 @@ class PageRouter extends React.Component{
                 )}
                 key='/NotFound/'
               />
-              {/* TODO: Add empty route for 404 handling */}
             </Switch>
           </PosedRoutesContainer>
         </PoseGroup>

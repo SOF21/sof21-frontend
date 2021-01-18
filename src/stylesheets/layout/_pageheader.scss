@@ -70,15 +70,15 @@
     overflow: hidden;
 
     max-width: $page-grid-max-width - (map-get($outer-grid-margins, phone) + map-get($mdc-layout-grid-default-margin, phone) * 2);
-    width: calc(100% - 24px*2);
+    width: calc(100% - $phonePadding*2);
     padding: 0px map-get($outer-grid-margins, phone) + map-get($mdc-layout-grid-default-margin, phone);
     @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
         padding: 0px map-get($outer-grid-margins, tablet) + map-get($mdc-layout-grid-default-margin, tablet);
-        width: calc(100% - 32px*2); //TODO: remove hard coded values
+        width: calc(100% - $tabletPadding*2); 
     }
     @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
         padding: 0px map-get($outer-grid-margins, desktop) + map-get($mdc-layout-grid-default-margin, desktop);
-        width: calc(100% - 48px*2); //TODO: remove hard coded values
+        width: calc(100% - $desktopPadding*2); 
     }
 
     color: white;

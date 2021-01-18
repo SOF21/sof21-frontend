@@ -17,17 +17,16 @@ body{
     margin-top: -(192px) / 2;
     margin-left: -(192px) / 2;
     @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
-        //TODO: Make variables
-        width: 256px;
-        height: 256px;
-        margin-top: -(256px) / 2;
-        margin-left: -(256px) / 2;
+        width: $logoSizeSmall;
+        height: $logoSizeSmall;
+        margin-top: -$logoSizeSmall / 2;
+        margin-left: -$logoSizeSmall / 2;
     }
     @media (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
-        width: 319px;
-        height: 319px;
-        margin-top: -256px;
-        margin-left: -160px;
+        width: $logoSize;
+        height: $logoSize;
+        margin-top: -$logoSize / 2;
+        margin-left: -$logoSize / 2;
     }
 }
 

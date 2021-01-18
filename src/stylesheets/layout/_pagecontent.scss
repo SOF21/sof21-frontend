@@ -32,8 +32,7 @@
     max-width: $page-grid-max-width;
 
     margin: 0 map-get($outer-grid-margins, phone);
-    // TODO: Make into mixin
-    @include max-width-minus-margin(phone)
+    @include max-width-minus-margin(phone);
     @media (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
         margin: 0 map-get($outer-grid-margins, tablet);
         @include max-width-minus-margin(tablet)

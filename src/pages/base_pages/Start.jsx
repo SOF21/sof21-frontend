@@ -181,7 +181,7 @@ class Start extends Component {
                 onClickProp={() => this.props.history.push('/about_history')}
               />
             </GridCell>
-            {!isFirefox && !isSafari && 
+            {!isFirefox && !isSafari && process.env.NODE_ENV !== 'development' && 
               <GridCell phone="4" tablet="8" desktop='12' >
                 <Header>
                   <FormattedMessage id='Start.instagram' />
@@ -197,7 +197,7 @@ class Start extends Component {
                 </Header>
               </GridCell>
             }
-            {!isFirefox && !isSafari &&
+            {!isFirefox && !isSafari && process.env.NODE_ENV !== 'development' &&
              <GridCell phone="4" tablet="8" desktop='12' >
                <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
              </GridCell>

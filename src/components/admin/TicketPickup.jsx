@@ -55,7 +55,6 @@ class TicketPickup extends Component {
     bag.setSubmitting(true);
     getOrderFromLiUCardCode(values.blipp)
       .then( res => {
-        //TODO: pout items in state
         this.setState( { currUser: res.data, qrRead: false, showCollect: true } );
         bag.setSubmitting(false);
       })

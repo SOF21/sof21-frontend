@@ -27,13 +27,7 @@ class OrchestraMemReg extends Component{
     }
   }
 
-
-
-  // TODO: show total sum at bottom, another simple version for orchestramembers already signed up.
-  // Verify code skall fungera fast ej i denna component
-
-  //Handles when e.g member says "Not arriving with orchestra"  and chooses Thur but changes mind later
-  fixArrive(values) {
+  fixArrivalDate(values) {
 
     if (values.arriveWith === true) {
       values.arriveDay = this.props.signupOrchestra.orchestra.arrival_date;

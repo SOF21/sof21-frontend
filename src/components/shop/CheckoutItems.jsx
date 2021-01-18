@@ -27,7 +27,6 @@ class CheckoutItems extends Component {
     this.state = {discountValue: null}
   }
 
-  //TODO: Make action or something. Also handle error.
   useCode = () =>{
     api.put('/cart/discount', {discount: {code: 'test'}})
       .then( response => {
