@@ -25,6 +25,12 @@ import FormTextInput from '../../../components/forms/components/FormTextInput';
 import defaultCortege from './defaultCortege';
 import { TextField } from 'rmwc';
 
+// TODO: Bryt ut till intl
+const buildTypes = {
+  0: 'Macrobygge',
+  1: 'Fribygge',
+};
+
 const CortegeModal = ({
   handleDialogExit,
   open,
@@ -79,6 +85,7 @@ const CortegeModal = ({
     approved,
     infoMail,
     electricity,
+    mail,
   } = cortegeData;
 
   return (
@@ -114,7 +121,15 @@ const CortegeModal = ({
                   <ListItemPrimaryText>
                     <FormattedMessage id='Cortege.admin.fieldLabels.buildType'/>
                   </ListItemPrimaryText>
-                  <ListItemSecondaryText>{buildType}</ListItemSecondaryText>
+                  <ListItemSecondaryText>{buildTypes[buildType]}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.contactPerson'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{contactPerson}</ListItemSecondaryText>  
                 </ListItemText>
               </ListItem>
               <ListItem ripple={false}>
@@ -128,9 +143,9 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Cortege.admin.fieldLabels.contactPerson'/>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.mail'/>
                   </ListItemPrimaryText>
-                  <ListItemSecondaryText>{contactPerson}</ListItemSecondaryText>  
+                  <ListItemSecondaryText>{mail}</ListItemSecondaryText>
                 </ListItemText>
               </ListItem>
               <ListItem ripple={false}>

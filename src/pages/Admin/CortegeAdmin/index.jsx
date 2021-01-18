@@ -25,7 +25,10 @@ import { Switch } from '@rmwc/switch';
 import { Button } from 'rmwc';
 
 // TODO: Bryt ut till intl
-
+const buildTypes = {
+  0: 'Macrobygge',
+  1: 'Fribygge',
+};
 
 const CortegeAdminRow = ({
   cortege,
@@ -68,7 +71,7 @@ const CortegeAdminRow = ({
         {phonenumber}
       </DataTableCell>
       <DataTableCell>
-        {buildType}
+        {buildTypes[buildType]}
       </DataTableCell>
       <DataTableCell>
         {amountPartaking}

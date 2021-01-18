@@ -18,7 +18,7 @@ import { getCurrentCortegeApp, sendCortegeApplication } from '../../../actions/c
 
 const buildTypes = {
   macro: 'Macrobygge',
-  friBygge: 'Fri bygge',
+  friBygge: 'Fribygge',
 };
 
 
