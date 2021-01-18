@@ -163,11 +163,6 @@ const CortegeAdminComponent = ({
       {!loading &&
       <Grid>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={CSVData}>
-        {corteges && <Button raised>Ladda ner CSV</Button>}
-        </CSVLink>
-      </GridCell>
-      <GridCell desktop='12' tablet='8' phone='4'>
           {Object.keys(corteges).length > 0 && Object.keys(corteges[Object.keys(corteges)[0]]).map(v => {
             if(!CSVHeaders[v]) {
               setCSVHeaders({
@@ -196,7 +191,12 @@ const CortegeAdminComponent = ({
           })}
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <TextField withLeadingIcon='search' label='Sök' id='searchBar'onChange={handleSearch}/>
+        <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={CSVData}>
+        {corteges && <Button raised>Ladda ner CSV</Button>}
+        </CSVLink>
+      </GridCell>
+      <GridCell desktop='12' tablet='8' phone='4'>
+        <TextField withLeadingIcon='search' label='Sök' id='searchBar'className='cortegeSearch' onChange={handleSearch}/>
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
         <DataTable style={{maxWidth: '100%'}} className='cortegesContainer'>

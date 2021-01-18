@@ -74,6 +74,7 @@ export default {
           illFormed: {
             mail: "Du måste ange en riktigt e-mail",
             gdpr: "Du måste acceptera vilkoren",
+            max40: "Gruppnamnet får inte vara längre än 40 karaktärer",
           },
         },
         

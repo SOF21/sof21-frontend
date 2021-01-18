@@ -36,7 +36,9 @@ const initialInput = {
 }
 
 const validationSchema = Yup.object().shape({
-  groupName: Yup.string().required(
+  groupName: Yup.string().max(40,
+    <FormattedMessage id='Cortege.form.errors.illFormed.max40' />
+    ).required(
     <FormattedMessage id='Cortege.form.errors.req.groupName' />
   ),
   contactPerson: Yup.string().required(
