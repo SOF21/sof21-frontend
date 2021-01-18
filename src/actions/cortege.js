@@ -42,6 +42,7 @@ export const sendCortegeApplication = ({
         name: groupName,
         participant_count: amountPartaking,
         cortege_type: buildType,
+        contact_mail: mail,
         contact_phone: phonenumber,
         contact_name: contactPerson,
         idea: contribMotivation,
@@ -92,6 +93,7 @@ export const getCorteges = () => {
             amountPartaking: c.participant_count,
             buildType: c.cortege_type,
             phonenumber: c.contact_phone,
+            mail: c.contact_mail,
             contactPerson: c.contact_name,
             contribMotivation: c.idea,
             themeMotivation: c.theme_connection,
@@ -100,7 +102,9 @@ export const getCorteges = () => {
             feedback: c.feedback,
             securityFeedback: c.security_feedback,
             otherComments: c.other_comments,
-            approved: c.approved,
+            approved: false || c.approved,
+            electricity: false || c.electricity,
+            infoMail: false || c.info_mail
           }
         }), {})
         dispatch(getCortegesSuccess(cFixed));
@@ -137,6 +141,8 @@ export const updateCortege = ({
   feedback,
   securityFeedback,
   otherComments,
+  electricity,
+  infoMail,
 }) => {
   return async dispatch => {
     dispatch(updateCortegeBegin({
@@ -145,10 +151,14 @@ export const updateCortege = ({
       feedback,
       securityFeedback,
       otherComments,
+      electricity,
+      infoMail,
     }));
     return api.put(`cortege/${id}`, {
       item: {
         approved: approved,
+        electricity: electricity,
+        info_mail: infoMail,
         feedback: feedback,
         other_comments: otherComments,
         security_feedback: securityFeedback,

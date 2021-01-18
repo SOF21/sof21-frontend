@@ -42,10 +42,23 @@ const CortegeModal = ({
 
   const onChange = (e) => { // TODO: It might be that we need to store this in Redux.
     const { target: { id, value } } = e;
-    setCortegeData({
-      ...cortegeData,
-      [id]: value,
-    })
+    switch(id) {
+      case 'approved':
+      case 'electricity':
+      case 'infoMail': {
+        setCortegeData({
+          ...cortegeData,
+          [id]: (value==='on') && !cortegeData[id],
+        })
+        break;
+      }
+      default:
+        setCortegeData({
+          ...cortegeData,
+          [id]: value,
+        })
+    }
+    
     setModified(true);
   }
 
@@ -64,6 +77,8 @@ const CortegeModal = ({
     securityFeedback,
     otherComments,
     approved,
+    infoMail,
+    electricity,
   } = cortegeData;
 
   return (
@@ -176,10 +191,26 @@ const CortegeModal = ({
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
             <Checkbox
+              id='infoMail'
+              onChange={onChange}
+              checked={infoMail}
+              label='Info mail'
+            />
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <Checkbox
+              id='electricity'
+              onChange={onChange}
+              checked={electricity}
+              label='El'
+            />
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <Checkbox
               id='approved'
               onChange={onChange}
               checked={approved}
-              label='Markera som klar'
+              label='Bekräftad'
             />
           </GridCell>
         </Grid>

@@ -1,0 +1,12 @@
+.cortegesContainer {
+  
+  .feedbackText {
+    max-width: 30ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .done td{
+    background: limegreen;
+  }
+}

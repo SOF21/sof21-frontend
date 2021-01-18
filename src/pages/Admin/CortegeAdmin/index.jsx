@@ -12,6 +12,8 @@ import {
  } from '@rmwc/data-table';
 import { TextField } from '@rmwc/textfield';
 
+import { Icon } from '@rmwc/icon'
+
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { ScaleLoader } from 'react-spinners';
@@ -42,6 +44,13 @@ const CortegeAdminRow = ({
     buildType,
     contactPerson,
     approved,
+    phonenumber,
+    mail,
+    infoMail,
+    electricity,
+    feedback,
+    securityFeedback,
+    otherComments,
   } = cortegeData;
   // TODO: Move select and list to separate modal instead. Accessed by clicking the item
   return(
@@ -53,10 +62,31 @@ const CortegeAdminRow = ({
         {contactPerson}
       </DataTableCell>
       <DataTableCell>
+        {mail}
+      </DataTableCell>
+      <DataTableCell>
+        {phonenumber}
+      </DataTableCell>
+      <DataTableCell>
         {buildType}
       </DataTableCell>
       <DataTableCell>
         {amountPartaking}
+      </DataTableCell>
+      <DataTableCell>
+        <Icon icon={infoMail? 'done' : 'clear'}/>
+      </DataTableCell>
+      <DataTableCell>
+        <Icon icon={electricity? 'done' : 'clear'}/>
+      </DataTableCell>
+      <DataTableCell className='feedbackText'>
+        {feedback}
+      </DataTableCell >
+      <DataTableCell className='feedbackText'>
+        {securityFeedback}
+      </DataTableCell>
+      <DataTableCell className='feedbackText'>
+        {otherComments}
       </DataTableCell>
     </DataTableRow>
   );
@@ -77,7 +107,6 @@ const CortegeAdminComponent = ({
   const [cortegeModalOpen, setCortegeModalOpen] = useState(false);
   const [activeCortege, setActiveCortege] = useState(defaultCortege);
   const [searchTerm, setSearchTerm] = useState('');
-  const [downloadCSV, setDownloadCSV] = useState(false);
   const [CSVHeaders, setCSVHeaders] = useState({});
 
   const activatedCSVHeaders = Object.values(CSVHeaders).filter(obj => obj.checked).map(v => v.id);
@@ -134,7 +163,6 @@ const CortegeAdminComponent = ({
         <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={CSVData}>
         {corteges && <Button raised>Ladda ner CSV</Button>}
         </CSVLink>
-        {downloadCSV && <CSVDownload />}
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
           {Object.keys(corteges).length > 0 && Object.keys(corteges[Object.keys(corteges)[0]]).map(v => {
@@ -168,14 +196,21 @@ const CortegeAdminComponent = ({
         <TextField withLeadingIcon='search' label='Sök' id='searchBar'onChange={handleSearch}/>
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <DataTable style={{maxWidth: '100%'}}>
+        <DataTable style={{maxWidth: '100%'}} className='cortegesContainer'>
           <DataTableContent>
             <DataTableHead>
               <DataTableRow>
                 <DataTableHeadCell>Gruppnamn</DataTableHeadCell>
                 <DataTableHeadCell>Kontaktperson</DataTableHeadCell>
-                <DataTableHeadCell>Byggnadsttyp</DataTableHeadCell>
-                <DataTableHeadCell>Antal deltagare</DataTableHeadCell>
+                <DataTableHeadCell>E-mail</DataTableHeadCell>
+                <DataTableHeadCell>Telefon</DataTableHeadCell>
+                <DataTableHeadCell>Bidragstyp</DataTableHeadCell>
+                <DataTableHeadCell>Antal personer</DataTableHeadCell>
+                <DataTableHeadCell>Info mail</DataTableHeadCell>
+                <DataTableHeadCell>El</DataTableHeadCell>
+                <DataTableHeadCell>Feedback</DataTableHeadCell>
+                <DataTableHeadCell>Säkerhet</DataTableHeadCell>
+                <DataTableHeadCell>Övrigt</DataTableHeadCell>
               </DataTableRow>
             </DataTableHead>
             <DataTableBody>
