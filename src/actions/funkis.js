@@ -337,7 +337,7 @@ export const unbookFunkis = ({
 
   return async dispatch => {
     dispatch(unbookFunkisBegin())
-    api.delete(`funkis_bookings/${funkisId}/${timeslotId}`) // TODO: UPDATE
+    api.delete(`funkis_bookings/destroy_by_ids/${funkisId}/${timeslotId}`) // TODO: UPDATE
       .then((json) => {
         dispatch(unbookFunkisSuccess())
       })
