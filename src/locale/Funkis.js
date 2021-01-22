@@ -78,6 +78,19 @@ export default {
             phonenumber: 'Du måste ange ditt telefonnummer',
           }
         }
+      },
+      admin: {
+        fieldLabels: {
+          name: 'Namn',
+          liuid: 'LiU ID',
+          email: 'E-mail',
+          phonenumber: 'Telefon',
+          postAddress: 'Address',
+          workFriend: 'Önskad nattvaktspartner',
+          tshirtSize: 'T-Shirt storlek',
+          allergy: 'Allergier',
+          allergyOther: 'Övriga allergier',
+        }
       }
     }
   },

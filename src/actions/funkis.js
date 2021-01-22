@@ -225,7 +225,6 @@ export const getFunkisar = () => {
     api.get('funkis')
       .then((funkisJson) => {
         const funkisar = funkisJson.data;
-        console.log(funkisar);
         const funkisarObject = funkisar.reduce((obj, cur) => ({
           ...obj,
           [cur.id]: {
@@ -263,7 +262,6 @@ export const getFunkisar = () => {
               ],
             }
           }), funkisarObject);
-          const mergedFunkisar = {...appsObj};
           console.log(appsObj);
           dispatch(getFunkisarSuccess(appsObj))
         }).catch((err) => dispatch(getFunkisarFailure(err)))
