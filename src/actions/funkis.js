@@ -60,9 +60,9 @@ export const sendFunkisApplication = ({
         first_post_id: funkisOne,
         second_post_id: funkisTwo,
         third_post_id: funkisThree,
-        first_day: firstPrefferedDate,
-        second_day: secondPrefferedDate,
-        third_day: thirdPrefferedDate,
+        first_day: new Date(2021, firstPrefferedDate.split('/')[0], firstPrefferedDate.split('/')[1]),
+        second_day: new Date(2021, secondPrefferedDate.split('/')[0], secondPrefferedDate.split('/')[1]),
+        third_day: new Date(2021, thirdPrefferedDate.split('/')[0], thirdPrefferedDate.split('/')[1]),
       }
     })
       .then(() => {
@@ -164,60 +164,6 @@ export const getFunkisarFailure = (err) => ({
 });
 
 
-const testFunkisar = [
-  {
-    name:'Test Testsson',
-    liuid:'teste123',
-    email: 'test123@student.liu.se',
-    funkisAlts: [
-      '1',
-      '2',
-    ],
-    funkisDays: {
-      1: {
-        selected: false,
-        day: '4/5',
-      },
-      2: {
-        selected: true,
-        day: '5/5',
-      },
-      3: {
-        selected: false,
-        day: '6/5',
-      },
-    },
-    selectedFunkisAlt: '',
-    markedAsDone: false,
-    selectedTimeSlots: [],
-  },
-  {
-    name:'Test Testsson2',
-    liuid:'teste666',
-    email: 'teste666@student.liu.se',
-    funkisDays: {
-      1: {
-        selected: false,
-        day: '4/5',
-      },
-      2: {
-        selected: false,
-        day: '15/4',
-      },
-      3: {
-        selected: true,
-        day: '14/4',
-      },
-    },
-    funkisAlts: [
-      '1',
-      '2',  
-    ],
-    selectedFunkisAlt: '1',
-    markedAsDone: true,
-    selectedTimeSlots: [1],
-  }
-]
 
 export const getFunkisar = () => {
   return async dispatch => {
@@ -389,7 +335,7 @@ export const unbookFunkis = ({
 
   return async dispatch => {
     dispatch(unbookFunkisBegin())
-    api.delete('funkis_bookings', {
+    api.delete('funkis_bookings/', {
       item: {
         funkis_id: funkisId,
         funkis_timeslot_id: timeslotId

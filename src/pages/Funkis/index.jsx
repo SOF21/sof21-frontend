@@ -68,7 +68,9 @@ const validationSchema = Yup.object().shape({
   address: Yup.string().required(
     <FormattedMessage id='Funkis.recruitment.errors.req.address' />
   ),
-  postcode: Yup.number().required(
+  postcode: Yup.number()
+  .typeError(<FormattedMessage id='Funkis.recruitment.errors.malformed.postcode' />)
+  .required(
     <FormattedMessage id='Funkis.recruitment.errors.req.postcode' />
   ),
   city: Yup.string().required(

@@ -31,17 +31,22 @@ import {
   DialogButton
 } from '@rmwc/dialog';
 
+import { Switch } from '@rmwc/switch';
+
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { 
   bookFunkis,
   getFunkisar,
   getFunkisTimeSlots,
   getFunkisTypes,
+  unbookFunkis,
   updateFunkis,
  } from '../../../actions/funkis';
 import { ScaleLoader } from 'react-spinners';
 
-import {defaultFunkis} from './constants'
+import { CSVLink } from 'react-csv';
+
+import { defaultFunkis } from './constants'
 import { FunkisAdminRow } from './FunkisAdminRow';
 import { FunkisDayItem } from './FunkisDayItem';
 
@@ -57,6 +62,8 @@ const FunkisAdminComponent = ({
   getFunkisTypes,
   positions,
   bookFunkis,
+  unbookFunkis,
+  idTimeslots,
 }) => {
 
   const [funkisModalOpen, setFunkisModalOpen] = useState(false);
@@ -64,6 +71,38 @@ const FunkisAdminComponent = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDay, setSelectedDay] = useState('');
   const [originalTimeslots, setOriginalTimeslots] = useState([]);
+  const [CSVHeaders, setCSVHeaders] = useState({});
+
+  const activatedCSVHeaders = Object.values(CSVHeaders).filter(obj => obj.checked).map(v => v.id);
+  const CSVData = Object.values(funkisar).map(c => ({
+    ...Object.keys(c).reduce((acc, k) => {
+      let val;
+      switch(k) {
+        case 'selectedFunkisAlt':
+          val = positions[funkisar[c.id][k]];
+          break;
+        case 'selectedTimeSlots':
+          val = funkisar[c.id][k].map(t => {
+            const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};
+            const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
+            const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
+            return (`${start} -  ${end}` );
+          });
+          break;
+        case 'funkisAlts':
+          val = funkisar[c.id][k].map(p => positions[p]);
+          break;
+        default:
+          val = funkisar[c.id][k]
+      }
+      return activatedCSVHeaders.includes(k) ? {
+        ...acc,
+        [k] : val
+      }
+      :
+      acc
+    },{})
+  }))
 
   useEffect(() => {
     getFunkisar();
@@ -84,12 +123,10 @@ const FunkisAdminComponent = ({
         for(const t of newTimeslots) {
           bookFunkis(id, t);
         }
-        //for item in deletedTimeSlots
-        // unbook
-        //for item in newTimeslots
-        // book
+        for(const t of removedTimeslots) {
+          unbookFunkis(id, t);
+        }
         updateFunkis(rest)
-        // TODO: Save, should be a redux action here...
         break;
       default:
         break;
@@ -164,6 +201,9 @@ const FunkisAdminComponent = ({
         <DialogTitle>Ändra funkis: {name}</DialogTitle>
         <DialogContent>
         <Grid className='funkisInfo'>
+        <GridCell desktop='12' tablet='8' phone='4'>
+            <span>Funkis info</span>
+          </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
             <List twoLine nonInteractive>
               <ListItem ripple={false}>
@@ -239,19 +279,50 @@ const FunkisAdminComponent = ({
             </List>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
+            <span>Bokad följade pass:</span>
             <List>
-              {preferedDates.filter(d => d !== null).map(d => <ListItem>{d}</ListItem>)}
+              {selectedTimeSlots.map(t => {
+                const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};
+                const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
+                const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
+                return (
+                  <ListItem ripple={false}>
+                  <ListItemPrimaryText>
+                    <span>{`${start} -  ${end}`}</span>
+                  </ListItemPrimaryText>
+                </ListItem>
+                );
+              }
+              )}
             </List>
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <span>Boka pass</span>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
             <Select
               id='funkisType'
-              options={funkisAlts.reduce((obj, alt) => ({
-                ...obj,
-                [alt]: positions[alt]
-              }), {})}
+              options={[
+               {
+                 label: 'Önskade',
+                 options: funkisAlts.reduce((obj, alt) => ({
+                  ...obj,
+                  [alt]: positions[alt]
+                }), {})
+              },
+              {
+                label: 'Övriga',
+                options: Object.keys(positions)
+                  .filter(p => funkisAlts.includes(p))
+                  .reduce((obj, alt) => ({
+                    ...obj,
+                    [alt]: positions[alt]
+                  }),{})
+              }
+              ]}
               value={selectedFunkisAlt}
               onChange={onChange}
+              disabled={selectedTimeSlots.length > 0}
             />
           </GridCell>
           {selectedFunkisAlt && <GridCell desktop='12' tablet='8' phone='4'>
@@ -294,7 +365,7 @@ const FunkisAdminComponent = ({
               </List>
             </GridCell>
           }
-          {selectedFunkisAlt && selectedTimeSlots.length > 0 && 
+          {selectedFunkisAlt && 
             <GridCell desktop='12' tablet='8' phone='4'>
               <Checkbox
                 id='markAsDone'
@@ -315,7 +386,40 @@ const FunkisAdminComponent = ({
       {!loading &&
       <Grid>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <TextField withLeadingIcon='search' label='Sök' id='searchBar'onChange={handleSearch}/>
+        {Object.keys(funkisar).length > 0 && Object.keys(funkisar[Object.keys(funkisar)[0]]).map(v => {
+          if(!CSVHeaders[v]) {
+            setCSVHeaders({
+              ...CSVHeaders,
+              [v] : {
+                id: v,
+                checked: true,
+              }
+            })
+          }
+          
+          return(<Switch
+            checked={CSVHeaders[v]?.checked ?? true}
+            onClick={() => {
+              setCSVHeaders({
+                ...CSVHeaders,
+                [v]: {
+                  id: v,
+                  checked: !(CSVHeaders[v]?.checked ?? true),
+                },
+              })
+            }}
+            checkmark
+            label={v}
+          />)
+        })}
+      </GridCell>
+      <GridCell desktop='12' tablet='8' phone='4'>
+        <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={CSVData}>
+        {funkisar && <Button raised>Ladda ner CSV</Button>}
+        </CSVLink>
+      </GridCell>
+      <GridCell desktop='12' tablet='8' phone='4'>
+        <TextField withLeadingIcon='search' label='Sök' id='searchBar' className='funkisSearch' onChange={handleSearch}/>
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
         <DataTable>
@@ -329,9 +433,23 @@ const FunkisAdminComponent = ({
               </DataTableRow>
             </DataTableHead>
             <DataTableBody>
-              {funkisar !== {} && Object.values(funkisar).sort(f => f.liuid).map((f) => {
-                for(const key in {name, email, liuid}) {
-                  if(f[key] && f[key].toLowerCase().includes(searchTerm)) {   
+              {funkisar !== {} && Object.values(funkisar).sort(f => f.liuid).filter(f => {
+                for(const key of ['name', 'email', 'liuid']) {
+                  if(f[key] && f[key].toLowerCase().includes(searchTerm)) return true;
+                  console.log(f.selectedTimeSlots);
+                  const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};
+                  if(f.selectedTimeSlots) {
+                    for(const t of f.selectedTimeSlots) {
+                      const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time)
+                      const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time)
+                      console.log(start);
+                      console.log(end);
+                      if(start.includes(searchTerm) || end.includes(searchTerm)) return true;
+                    }
+                  }
+                }
+                return false;
+              }).map((f) => {
                     return (
                       <FunkisAdminRow
                         funkis={{
@@ -348,9 +466,6 @@ const FunkisAdminComponent = ({
                       />
                     );
                   }
-                }
-                return <></>
-              }
               )}
             </DataTableBody>
           </DataTableContent>  
@@ -368,6 +483,7 @@ const mapStateToProps = (state) => ({
   loading: state.funkis.loading,
   timeslots: state.funkis.timeslots,
   positions: state.funkis.positions,
+  idTimeslots: state.funkis.idTimeslots,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -376,6 +492,7 @@ const mapDispatchToProps = (dispatch) => ({
   getFunkisTimeSlots: () => dispatch(getFunkisTimeSlots()),
   getFunkisTypes: () => dispatch(getFunkisTypes()),
   bookFunkis: (funkisId, timeslotId) => dispatch(bookFunkis({funkisId, timeslotId})),
+  unbookFunkis: (funkisId, timeslotId) => dispatch(unbookFunkis({funkisId, timeslotId})),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisAdminComponent))

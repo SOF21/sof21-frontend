@@ -14,7 +14,8 @@ const initialState = {
   error: {},
   positions: {},
   funkisar: {},
-  timeslots: {}
+  timeslots: {},
+  idTimeslots: {},
 }
 
 const funkisReducer = (state = initialState, action) => {
@@ -141,6 +142,14 @@ const funkisReducer = (state = initialState, action) => {
       return {
         ...state,
         timeslots: newSlots,
+        idTimeslots: timeslots.reduce((obj, cur) => ({
+          ...obj,
+          [cur.id]: {
+            ...cur,
+            start_time: new Date(cur.start_time),
+            end_time: new Date(cur.end_time),
+          }
+        }), {}),
         loading: false,
       }
     case GET_FUNKIS_TIME_SLOTS.FAILURE:

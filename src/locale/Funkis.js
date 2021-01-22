@@ -52,7 +52,8 @@ export default {
         submit: 'Ansök',
         fieldLabels: {
           name: 'Namn',
-          liuid: 'LiU ID',
+          liuid: 'LIU ID',
+          liuCard: 'LIU Kortnummer',
           mail: 'E-mail',
           phonenumber: 'Telefon',
           address: 'Address',
@@ -68,6 +69,7 @@ export default {
           shirtSize: 'T-Shirt storlek',
           allergies: ' Allergier',
           otherAllergy: 'Övriga allergier',
+          extraDesc: 'Övrig information',
         },
 
         errors: {
@@ -76,6 +78,13 @@ export default {
             liuid: 'Du måste ange ditt liu-id',
             mail: 'Du måste ange din e-mail',
             phonenumber: 'Du måste ange ditt telefonnummer',
+            gdpr: 'Du måste acceptera GDPR vilkoren',
+            postcode: 'Du måste ange ett postnummer',
+            address: 'Du måste ange din address',
+            city: 'Du måste ange en stad',
+          },
+          malformed: {
+            postcode: 'Ange endast siffror',
           }
         }
       },
