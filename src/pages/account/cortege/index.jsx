@@ -15,6 +15,7 @@ import InformativeInputWrapper from '../../../components/forms/components/Inform
 import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
 import LoadButton from '../../../components/forms/components/LoadButton';
 import { getCurrentCortegeApp, sendCortegeApplication } from '../../../actions/cortege';
+import { setTitle } from '../../../actions/title';
 
 const buildTypes = {
   macro: 'Macrobygge',
@@ -84,6 +85,7 @@ const CortegeComponent = ({
   submitCortegeApplication,
   cortegeAppId,
   loadCortegeId,
+  setTitle,
 }) => {
 
   const onSubmit = (values) => {
@@ -92,7 +94,8 @@ const CortegeComponent = ({
 
   useEffect(() => {
     loadCortegeId();
-  }, [loadCortegeId])
+    setTitle('Kårtege');
+  }, [loadCortegeId, setTitle])
 
   const intl = useIntl();
 
@@ -331,6 +334,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   submitCortegeApplication: (values) => dispatch(sendCortegeApplication(values)),
   loadCortegeId: (userId) => dispatch(getCurrentCortegeApp({userId})),
+  setTitle: (title) => dispatch(setTitle(title)),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(CortegeComponent))
