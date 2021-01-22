@@ -225,6 +225,7 @@ export const getFunkisar = () => {
     api.get('funkis')
       .then((funkisJson) => {
         const funkisar = funkisJson.data;
+        console.log(funkisar);
         const funkisarObject = funkisar.reduce((obj, cur) => ({
           ...obj,
           [cur.id]: {
@@ -239,16 +240,17 @@ export const getFunkisar = () => {
             markedAsDone: cur.marked_done,
             postAddress: cur.post_address,
             selectedFunkisAlt: cur.funkis_category_id,
-            selectedTimeSlots: cur.timeslots.map(t => t.funkis_timeslot_id),
+            selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : []
           }
         }), {});
-        console.log(funkisJson);
+        console.log(funkisarObject);
         api.get('funkis_applications')
         .then(appJson => {
           const apps = appJson.data;
           const appsObj = apps.reduce((obj, cur) => ({
             ...obj,
             [cur.funkis_id]: {
+              ...obj[cur.funkis_id],
               funkisAlts: [
                 cur.first_post_id,
                 cur.second_post_id,
@@ -260,9 +262,10 @@ export const getFunkisar = () => {
                 cur.third_day,
               ],
             }
-          }), {});
-          const mergedFunkisar = {...funkisarObject, ...appsObj};
-          dispatch(getFunkisarSuccess(mergedFunkisar))
+          }), funkisarObject);
+          const mergedFunkisar = {...appsObj};
+          console.log(appsObj);
+          dispatch(getFunkisarSuccess(appsObj))
         }).catch((err) => dispatch(getFunkisarFailure(err)))
       })
       .catch((err) => dispatch(getFunkisarFailure(err)))
@@ -324,32 +327,30 @@ export const BOOK_FUNKIS = {
 }
 
 export const bookFunkisBegin = (funkis) => ({
-  type: UPDATE_FUNKIS.BEGIN,
+  type: BOOK_FUNKIS.BEGIN,
   payload: funkis
 });
 
 export const bookFunkisSuccess = () => ({
-  type: UPDATE_FUNKIS.SUCCESS,
+  type: BOOK_FUNKIS.SUCCESS,
   payload: {}
 });
 
 export const bookFunkisFailure = (err) => ({
-  type: UPDATE_FUNKIS.FAILURE,
+  type: BOOK_FUNKIS.FAILURE,
   payload: err
 });
 
 export const bookFunkis = ({
   funkisId,
   timeslotId,
-  funkis
 }) => {
 
   return async dispatch => {
     dispatch(bookFunkisBegin())
-    dispatch(setFunkisData())
-    api.put('funkis_bookings', {
+    api.post('funkis_bookings', {
       item: {
-        funkis: funkisId,
+        funkis_id: funkisId,
         funkis_timeslot_id: timeslotId
       }
     }) // TODO: UPDATE
@@ -357,5 +358,48 @@ export const bookFunkis = ({
         dispatch(bookFunkisSuccess())
       })
       .catch((err) => dispatch(bookFunkisFailure(err)))
+  }
+};
+
+
+
+export const UNBOOK_FUNKIS = {
+  BEGIN: `${funkisActionBase}UNBOOK_FUNKIS_BEGIN`,
+  SUCCESS: `${funkisActionBase}UNBOOK_FUNKIS_SUCCESS`,
+  FAILURE: `${funkisActionBase}UNBOOK_FUNKIS_FAILURE`,
+}
+
+export const unbookFunkisBegin = (funkis) => ({
+  type: UNBOOK_FUNKIS.BEGIN,
+  payload: funkis
+});
+
+export const unbookFunkisSuccess = () => ({
+  type: UNBOOK_FUNKIS.SUCCESS,
+  payload: {}
+});
+
+export const unbookFunkisFailure = (err) => ({
+  type: UNBOOK_FUNKIS.FAILURE,
+  payload: err
+});
+
+export const unbookFunkis = ({
+  funkisId,
+  timeslotId,
+}) => {
+
+  return async dispatch => {
+    dispatch(unbookFunkisBegin())
+    api.delete('funkis_bookings', {
+      item: {
+        funkis_id: funkisId,
+        funkis_timeslot_id: timeslotId
+      }
+    }) // TODO: UPDATE
+      .then((json) => {
+        dispatch(unbookFunkisSuccess())
+      })
+      .catch((err) => dispatch(unbookFunkisFailure(err)))
   }
 };

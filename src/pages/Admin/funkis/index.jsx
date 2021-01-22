@@ -33,6 +33,7 @@ import {
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { 
+  bookFunkis,
   getFunkisar,
   getFunkisTimeSlots,
   getFunkisTypes,
@@ -55,7 +56,14 @@ const FunkisAdminComponent = ({
   getFunkisTimeSlots,
   getFunkisTypes,
   positions,
+  bookFunkis,
 }) => {
+
+  const [funkisModalOpen, setFunkisModalOpen] = useState(false);
+  const [activeFunkis, setActiveFunkis] = useState(defaultFunkis);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDay, setSelectedDay] = useState('');
+  const [originalTimeslots, setOriginalTimeslots] = useState([]);
 
   useEffect(() => {
     getFunkisar();
@@ -63,10 +71,7 @@ const FunkisAdminComponent = ({
     getFunkisTypes();
   }, [getFunkisar, getFunkisTimeSlots, getFunkisTypes])
 
-  const [funkisModalOpen, setFunkisModalOpen] = useState(false);
-  const [activeFunkis, setActiveFunkis] = useState(defaultFunkis);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDay, setSelectedDay] = useState('');
+  
 
   const handleDialogExit = (e) => {
     setFunkisModalOpen(false)
@@ -74,7 +79,15 @@ const FunkisAdminComponent = ({
     switch(e.detail.action) {
       case 'save':
         const {modified, ...rest} = activeFunkis
-        //updateTimeSlots()
+        const newTimeslots = selectedTimeSlots.filter(t => !originalTimeslots.includes(t))
+        const removedTimeslots = originalTimeslots.filter(t => !selectedTimeSlots.includes(t))
+        for(const t of newTimeslots) {
+          bookFunkis(id, t);
+        }
+        //for item in deletedTimeSlots
+        // unbook
+        //for item in newTimeslots
+        // book
         updateFunkis(rest)
         // TODO: Save, should be a redux action here...
         break;
@@ -129,8 +142,8 @@ const FunkisAdminComponent = ({
     allergy,
     allergyOther,
     preferedDates,
+    id,
   } = activeFunkis;
-
   const funkisTimeSlots = timeslots[selectedFunkisAlt]
 
   return ( // TODO: Fix in-line text
@@ -267,10 +280,10 @@ const FunkisAdminComponent = ({
                       index={index}
                       checked={selected} 
                       onClick={() => {
-                      setActiveFunkis({
-                          ...activeFunkis,
-                          modified: true,
-                          selectedTimeSlots: updatedSelectedTimeSlot,
+                        setActiveFunkis({
+                            ...activeFunkis,
+                            modified: true,
+                            selectedTimeSlots: updatedSelectedTimeSlot,
                         })
                       }
                     }
@@ -317,21 +330,20 @@ const FunkisAdminComponent = ({
             </DataTableHead>
             <DataTableBody>
               {funkisar !== {} && Object.values(funkisar).sort(f => f.liuid).map((f) => {
-                console.log(f);
-                console.log('funkis');
                 for(const key in {name, email, liuid}) {
-                  if(f[key].toLowerCase().includes(searchTerm)) {   
+                  if(f[key] && f[key].toLowerCase().includes(searchTerm)) {   
                     return (
                       <FunkisAdminRow
                         funkis={{
                           ...f,
-                          selectedFunkisAlt: positions[selectedFunkisAlt]
+                          selectedFunkisAlt: positions[f.selectedFunkisAlt]
                         }}
                         onClick={() => {
                           setActiveFunkis({
                             ...f,
                           });
                           setFunkisModalOpen(true);
+                          setOriginalTimeslots(f.selectedTimeSlots);
                         }}
                       />
                     );
@@ -363,6 +375,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateFunkis: (funkis) => dispatch(updateFunkis(funkis)),
   getFunkisTimeSlots: () => dispatch(getFunkisTimeSlots()),
   getFunkisTypes: () => dispatch(getFunkisTypes()),
+  bookFunkis: (funkisId, timeslotId) => dispatch(bookFunkis({funkisId, timeslotId})),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisAdminComponent))
