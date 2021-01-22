@@ -7,7 +7,7 @@ import { Formik, Form} from 'formik';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import * as Yup from 'yup';
 
-import { sendFunkisApplication, getFunkisTypes } from '../../actions/funkis'
+import { sendFunkisApplication, getFunkisTypes, getFunkisAppStatus } from '../../actions/funkis'
 
 import FormTextInput from '../../components/forms/components/FormTextInput';
 
@@ -111,15 +111,19 @@ const FunkisComponent = ({
   getFunkisTypes,
   success,
   error,
+  getFunkisAppStatus,
+  hasPrevApp,
+  userId,
 }) => {
 
 
   useEffect(() => {
+    getFunkisAppStatus();
     getFunkisTypes();
-  }, [getFunkisTypes])
+  }, [getFunkisTypes, getFunkisAppStatus])
 
   const onSubmit = (values) => {
-    sendFunkisApplication(values);
+    sendFunkisApplication({...values, userId});
   }
   return ( // TODO: Add errormessages for inputs
     <>
@@ -145,7 +149,7 @@ const FunkisComponent = ({
           />
       </GridInner>
       }
-      {!loading && success && !error && 
+      {!loading && (success || hasPrevApp) && !error && 
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <p>
@@ -156,7 +160,7 @@ const FunkisComponent = ({
           </p>
         </GridCell>
       </GridInner>}
-      {!loading && !success && !error && <Formik
+      {!loading && !success && !hasPrevApp && !error && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -461,11 +465,14 @@ const mapStateToProps = state => ({
   funkisPositions: state.funkis.positions,
   success: state.funkis.success,
   error: state.funkis.error,
+  hasPrevApp: state.funkis.hasPrevApp,
+  userId: state.funkis.userId,
 });
 
 const mapDispatchToProps = dispatch => ({
   sendFunkisApplication: (values) => dispatch(sendFunkisApplication(values)),
   getFunkisTypes: () => dispatch(getFunkisTypes()),
+  getFunkisAppStatus: () => dispatch(getFunkisAppStatus()),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisComponent))

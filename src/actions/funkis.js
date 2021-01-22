@@ -41,7 +41,8 @@ export const sendFunkisApplication = ({
   allergies,
   otherAllergy,
   gdpr,
-  liuCard
+  liuCard,
+  userId,
 }) => { // TODO: UPDATE
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
@@ -63,6 +64,7 @@ export const sendFunkisApplication = ({
         first_day: new Date(2021, firstPrefferedDate.split('/')[0], firstPrefferedDate.split('/')[1]),
         second_day: new Date(2021, secondPrefferedDate.split('/')[0], secondPrefferedDate.split('/')[1]),
         third_day: new Date(2021, thirdPrefferedDate.split('/')[0], thirdPrefferedDate.split('/')[1]),
+        user_id: userId,
       }
     })
       .then(() => {
@@ -335,15 +337,47 @@ export const unbookFunkis = ({
 
   return async dispatch => {
     dispatch(unbookFunkisBegin())
-    api.delete('funkis_bookings/', {
-      item: {
-        funkis_id: funkisId,
-        funkis_timeslot_id: timeslotId
-      }
-    }) // TODO: UPDATE
+    api.delete(`funkis_bookings/${funkisId}/${timeslotId}`) // TODO: UPDATE
       .then((json) => {
         dispatch(unbookFunkisSuccess())
       })
       .catch((err) => dispatch(unbookFunkisFailure(err)))
+  }
+};
+
+
+export const GET_FUNKIS_APP_STATUS = {
+  BEGIN: `${funkisActionBase}GET_FUNKIS_APP_STATUS_BEGIN`,
+  FAILURE: `${funkisActionBase}GET_FUNKIS_APP_STATUS_FAILURE`,
+  SUCCESS: `${funkisActionBase}GET_FUNKIS_APP_STATUS_SUCCESS`,
+};
+
+export const getFunkisAppStatusBegin = () => ({
+  type: GET_FUNKIS_APP_STATUS.BEGIN,
+  payload: {}
+});
+
+export const getFunkisAppStatusSuccess = (hasApp) => ({
+  type: GET_FUNKIS_APP_STATUS.SUCCESS,
+  payload: hasApp
+});
+
+export const getFunkisAppStatusFailure = (err) => ({
+  type: GET_FUNKIS_APP_STATUS.FAILURE,
+  payload: err
+});
+
+export const getFunkisAppStatus = () => {
+  return async dispatch => {
+    dispatch(getFunkisAppStatusBegin());
+    return api.get(`users/get_user`)
+      .then((res) => {
+        const json = res.data;
+        dispatch(getFunkisAppStatusSuccess( {
+          hasApp: 'funkis_application' in json,
+          userId: json.id,
+        }));
+      })
+      .catch(err => dispatch(getFunkisAppStatusFailure(err)));
   }
 };

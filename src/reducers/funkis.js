@@ -6,6 +6,7 @@ import {
   GET_FUNKIS_TYPES,
   GET_FUNKIS_TIME_SLOTS,
   SET_FUNKIS_DATA,
+  GET_FUNKIS_APP_STATUS,
 } from '../actions/funkis'
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   funkisar: {},
   timeslots: {},
   idTimeslots: {},
+  userId: {},
 }
 
 const funkisReducer = (state = initialState, action) => {
@@ -158,6 +160,15 @@ const funkisReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload.error,
       }
+
+    case GET_FUNKIS_APP_STATUS.SUCCESS: {
+      const hasPrevAppInfo = action.payload;
+      return {
+        ...state,
+        hasPrevApp: hasPrevAppInfo.hasApp,
+        userId: hasPrevAppInfo.userId,
+      }
+    }
 		default: 
 			return state;
 	}
