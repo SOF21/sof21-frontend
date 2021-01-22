@@ -5,6 +5,7 @@ import {
   UPDATE_FUNKIS,
   GET_FUNKIS_TYPES,
   GET_FUNKIS_TIME_SLOTS,
+  SET_FUNKIS_DATA,
 } from '../actions/funkis'
 
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
   success: false,
   error: {},
   positions: {},
-  funkisar: [],
+  funkisar: {},
   timeslots: {}
 }
 
@@ -51,17 +52,25 @@ const funkisReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        funkisar: funkisar.sort(f => f.liuid),
+        funkisar: funkisar,
       }
     }
-    case UPDATE_FUNKIS.BEGIN: {
+    case SET_FUNKIS_DATA: {
       const funkis = action.payload;
       return {
         ...state,
-        funkisar: [
-          ...state.funkisar.filter(f => f.liuid !== funkis.liuid),
-          funkis
-        ].sort(f => f.liuid),
+        funkisar: {
+          ...state.funkisar,
+          [funkis.id]: {
+            ...state.funkisar[funkis.id],
+            ...funkis,
+          }
+        }
+      }
+    }
+    case UPDATE_FUNKIS.BEGIN: {
+      return {
+        ...state,
         loading: true,
       }
     }

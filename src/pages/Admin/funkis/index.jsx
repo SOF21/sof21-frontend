@@ -39,74 +39,12 @@ import {
   updateFunkis,
  } from '../../../actions/funkis';
 import { ScaleLoader } from 'react-spinners';
-import FormTextInput from '../../../components/forms/components/FormTextInput';
+
+import {defaultFunkis} from './constants'
+import { FunkisAdminRow } from './FunkisAdminRow';
+import { FunkisDayItem } from './FunkisDayItem';
 
 // TODO: Bryt ut till intl
-
-
-const defaultFunkis = {
-  name:'',
-  liuid:'',
-  email: '',
-  funkisAlts: [],
-  funkis: {},
-  selectedFunkisAlt: '',
-  modified: false,
-  markedAsDone: false,
-  funkisTimeSlots: {},
-  selectedTimeSlots: [],
-}
-
-const FunkisDayItem = ({
-  timeSpan,
-  onClick,
-  checked,
-  index,
-}) => {
-return (
-  <ListItem onClick={onClick} id={`funkis-day-alt-${index}`}>
-    <ListItemGraphic icon={<Checkbox checked={checked}/>}/>
-    {timeSpan}
-  </ListItem>
-);
-}
-
-const FunkisAdminRow = ({
-  funkis,
-  onClick,
-}) => {
-
-  const [funkisData, setFunkisData] = useState(defaultFunkis)
-
-  useEffect(() => {
-    setFunkisData(funkis);
-  }, [funkis])
-  
-  const {
-    name,
-    liuid,
-    email,
-    selectedFunkisAlt,
-    markedAsDone,
-  } = funkisData;
-  // TODO: Move select and list to separate modal instead. Accessed by clicking the item
-  return(
-    <DataTableRow onClick={onClick} className={markedAsDone? 'done' : ''}>
-      <DataTableCell>
-        {name}
-      </DataTableCell>
-      <DataTableCell>
-        {liuid}
-      </DataTableCell>
-      <DataTableCell>
-        {email}
-      </DataTableCell>
-      <DataTableCell>
-        {selectedFunkisAlt}
-      </DataTableCell>
-    </DataTableRow>
-  );
-}
 
 const FunkisAdminComponent = ({
   funkisar,
@@ -378,7 +316,9 @@ const FunkisAdminComponent = ({
               </DataTableRow>
             </DataTableHead>
             <DataTableBody>
-              {funkisar.map((f) => {
+              {funkisar !== {} && Object.values(funkisar).sort(f => f.liuid).map((f) => {
+                console.log(f);
+                console.log('funkis');
                 for(const key in {name, email, liuid}) {
                   if(f[key].toLowerCase().includes(searchTerm)) {   
                     return (
@@ -397,6 +337,7 @@ const FunkisAdminComponent = ({
                     );
                   }
                 }
+                return <></>
               }
               )}
             </DataTableBody>

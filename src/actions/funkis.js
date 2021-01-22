@@ -225,37 +225,43 @@ export const getFunkisar = () => {
     api.get('funkis')
       .then((funkisJson) => {
         const funkisar = funkisJson.data;
+        const funkisarObject = funkisar.reduce((obj, cur) => ({
+          ...obj,
+          [cur.id]: {
+            id: cur.id,
+            name: cur.name,
+            liuid: cur.liu_id,
+            email: cur.mail,
+            phonenumber: cur.phone_number,
+            allergy: cur.allergies,
+            allergyOther: cur.allergies_other,
+            tshirtSize: cur.tshirt_size,
+            markedAsDone: cur.marked_done,
+            postAddress: cur.post_address,
+            selectedFunkisAlt: cur.funkis_category_id,
+            selectedTimeSlots: cur.timeslots.map(t => t.funkis_timeslot_id),
+          }
+        }), {});
+        console.log(funkisJson);
         api.get('funkis_applications')
         .then(appJson => {
           const apps = appJson.data;
-          const mergedFunkisar = funkisar.map(f => ({
-            ...f,
-            ...apps.reduce((acc, v) => v.funkis_id === f.id? {...v}:{}, {})
-          })).map(mf => ({
-            id: mf.id,
-            name: mf.name,
-            liuid: mf.liu_id,
-            email: mf.mail,
-            phonenumber: mf.phone_number,
-            allergy: mf.allergies,
-            allergyOther: mf.allergies_other,
-            tshirtSize: mf.tshirt_size,
-            markedAsDone: mf.marked_done,
-            postAddress: mf.post_address,
-            workfriend: mf.workfriend,
-            selectedFunkisAlt: mf.funkis_category_id,
-            funkisAlts: [
-              mf.first_post_id,
-              mf.second_post_id,
-              mf.third_post_id
-            ],
-            preferedDates: [
-              mf.first_day,
-              mf.second_day,
-              mf.third_day,
-            ],
-            selectedTimeSlots: [],
-          }))
+          const appsObj = apps.reduce((obj, cur) => ({
+            ...obj,
+            [cur.funkis_id]: {
+              funkisAlts: [
+                cur.first_post_id,
+                cur.second_post_id,
+                cur.third_post_id
+              ],
+              preferedDates: [
+                cur.first_day,
+                cur.second_day,
+                cur.third_day,
+              ],
+            }
+          }), {});
+          const mergedFunkisar = {...funkisarObject, ...appsObj};
           dispatch(getFunkisarSuccess(mergedFunkisar))
         }).catch((err) => dispatch(getFunkisarFailure(err)))
       })
@@ -288,7 +294,7 @@ export const updateFunkis = (funkis) => {
 
   return async dispatch => {
     dispatch(updateFunkisBegin(funkis))
-    console.log("API TEST")
+    dispatch(setFunkisData(funkis))
     console.log(funkis);
     api.put(`funkis/${funkis.id}`, {
       item: {
@@ -300,5 +306,56 @@ export const updateFunkis = (funkis) => {
         dispatch(updateFunkisSuccess())
       })
       .catch((err) => dispatch(updateFunkisFailure(err)))
+  }
+};
+
+export const SET_FUNKIS_DATA = `${funkisActionBase}SET_FUNKIS_DATA`;
+
+const setFunkisData = (funkis) => ({
+  type: SET_FUNKIS_DATA,
+  payload: funkis,
+})
+
+
+export const BOOK_FUNKIS = {
+  BEGIN: `${funkisActionBase}BOOK_FUNKIS_BEGIN`,
+  SUCCESS: `${funkisActionBase}BOOK_FUNKIS_SUCCESS`,
+  FAILURE: `${funkisActionBase}BOOK_FUNKIS_FAILURE`,
+}
+
+export const bookFunkisBegin = (funkis) => ({
+  type: UPDATE_FUNKIS.BEGIN,
+  payload: funkis
+});
+
+export const bookFunkisSuccess = () => ({
+  type: UPDATE_FUNKIS.SUCCESS,
+  payload: {}
+});
+
+export const bookFunkisFailure = (err) => ({
+  type: UPDATE_FUNKIS.FAILURE,
+  payload: err
+});
+
+export const bookFunkis = ({
+  funkisId,
+  timeslotId,
+  funkis
+}) => {
+
+  return async dispatch => {
+    dispatch(bookFunkisBegin())
+    dispatch(setFunkisData())
+    api.put('funkis_bookings', {
+      item: {
+        funkis: funkisId,
+        funkis_timeslot_id: timeslotId
+      }
+    }) // TODO: UPDATE
+      .then((json) => {
+        dispatch(bookFunkisSuccess())
+      })
+      .catch((err) => dispatch(bookFunkisFailure(err)))
   }
 };

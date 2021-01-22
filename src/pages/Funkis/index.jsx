@@ -14,6 +14,7 @@ import FormTextInput from '../../components/forms/components/FormTextInput';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import FormCheckbox from '../../components/forms/components/FormCheckbox';
 import LoadButton from '../../components/forms/components/LoadButton';
+import { TextFieldHelperText } from 'rmwc';
 
 // TODO: Replace, this is not nice.
 const noPref = 'Ingen';
@@ -307,7 +308,7 @@ const FunkisComponent = ({
           />
         </GridCell>
 
-        { [funkisPositions[values.funkisOne], funkisPositions[values.funkisTwo], funkisPositions[values.funkisThree]].includes(funkisPositions.nattvakt)  && <GridCell desktop='6' tablet='4' phone='4'>
+        { [funkisPositions[values.funkisOne], funkisPositions[values.funkisTwo], funkisPositions[values.funkisThree]].includes('Barfunkis')  && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
             label={<FormattedMessage id='Funkis.recruitment.fieldLabels.requestedPartner' />}
             name='requestedPartner'
@@ -317,6 +318,9 @@ const FunkisComponent = ({
             error={errors.requestedPartner}
             value={values.requestedPartner}
           />
+          <span>
+            Detta val kan inte garanteras.
+          </span>
         </GridCell>}
 
         <GridCell desktop='6' tablet='4' phone='4'>
