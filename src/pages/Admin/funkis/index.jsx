@@ -445,7 +445,7 @@ const FunkisAdminComponent = ({
                       const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time)
                       console.log(start);
                       console.log(end);
-                      if(start.includes(searchTerm) || end.includes(searchTerm)) return true;
+                      if(start.replace(/ /g,'').includes(searchTerm.replace(/ /g,'')) || end.replace(/ /g,'').includes(searchTerm.replace(/ /g,''))) return true;
                     }
                   }
                 }
