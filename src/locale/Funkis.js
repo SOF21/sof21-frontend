@@ -82,9 +82,12 @@ export default {
             postcode: 'Du måste ange ett postnummer',
             address: 'Du måste ange din address',
             city: 'Du måste ange en stad',
+            liuCard: 'Du måste ange ditt liu-kortnummer'
           },
           malformed: {
             postcode: 'Ange endast siffror',
+            liuCardLen: 'Kortnummer måste bestå av exakt 10 siffror',
+            liuCardType: 'Kortnummret får endast bestå av siffror',
           }
         }
       },

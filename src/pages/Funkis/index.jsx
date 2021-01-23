@@ -92,7 +92,12 @@ const validationSchema = Yup.object().shape({
   gdpr: Yup.bool().oneOf([true], 
       <FormattedMessage id='Funkis.recruitment.errors.req.gdpr' />
     ),
-  liuCard: Yup.string().required(
+  liuCard: Yup.number()
+  .typeError(
+    <FormattedMessage id='Funkis.recruitment.errors.malformed.liuCardType' />
+  )
+  .test('len', <FormattedMessage id='Funkis.recruitment.errors.malformed.liuCardLen' />, val => val && val.toString().length === 10)
+  .required(
     <FormattedMessage id='Funkis.recruitment.errors.req.liuCard' />
   ),
   extra: Yup.bool(),
@@ -152,12 +157,12 @@ const FunkisComponent = ({
       {!loading && (success || hasPrevApp) && !error && 
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
-          <p>
+          <h5>
             Din ansökan är nu skickad!
-          </p>
-          <p>
+          </h5>
+          <h5>
             Du kommer att få ett mail om du blir tilldelad en plats!
-          </p>
+          </h5>
         </GridCell>
       </GridInner>}
       {!loading && !success && !hasPrevApp && !error && <Formik

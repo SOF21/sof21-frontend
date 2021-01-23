@@ -22,6 +22,7 @@ export const FunkisAdminRow = ({
     email,
     selectedFunkisAlt,
     markedAsDone,
+    selectedTimeSlots,
   } = funkisData;
   // TODO: Move select and list to separate modal instead. Accessed by clicking the item
   return(
@@ -37,6 +38,9 @@ export const FunkisAdminRow = ({
       </DataTableCell>
       <DataTableCell>
         {selectedFunkisAlt}
+      </DataTableCell>
+      <DataTableCell>
+        {selectedTimeSlots.map(t => <span>{t}</span>)}
       </DataTableCell>
     </DataTableRow>
   );

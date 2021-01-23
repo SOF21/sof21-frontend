@@ -414,7 +414,7 @@ const FunkisAdminComponent = ({
         })}
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
-        <CSVLink style={{textDecoration: 'none'} } filename={'cortegeData.csv'} data={CSVData}>
+        <CSVLink style={{textDecoration: 'none'} } filename={'funkisData.csv'} data={CSVData}>
         {funkisar && <Button raised>Ladda ner CSV</Button>}
         </CSVLink>
       </GridCell>
@@ -430,6 +430,7 @@ const FunkisAdminComponent = ({
                 <DataTableHeadCell>LiU-ID</DataTableHeadCell>
                 <DataTableHeadCell>E-mail</DataTableHeadCell>
                 <DataTableHeadCell>Funkis-typ</DataTableHeadCell>
+                <DataTableHeadCell>Bokade pass</DataTableHeadCell>
               </DataTableRow>
             </DataTableHead>
             <DataTableBody>
@@ -454,7 +455,13 @@ const FunkisAdminComponent = ({
                       <FunkisAdminRow
                         funkis={{
                           ...f,
-                          selectedFunkisAlt: positions[f.selectedFunkisAlt]
+                          selectedFunkisAlt: positions[f.selectedFunkisAlt],
+                          selectedTimeSlots: f.selectedTimeSlots.map(t => {
+                            const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};
+                            const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
+                            const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
+                            return (`${start} -  ${end}` );
+                          })
                         }}
                         onClick={() => {
                           setActiveFunkis({
