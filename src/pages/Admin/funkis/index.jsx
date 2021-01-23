@@ -49,7 +49,6 @@ import { CSVLink } from 'react-csv';
 import { defaultFunkis } from './constants'
 import { FunkisAdminRow } from './FunkisAdminRow';
 import { FunkisDayItem } from './FunkisDayItem';
-import { faSortNumericDown } from '@fortawesome/free-solid-svg-icons';
 
 // TODO: Bryt ut till intl
 
