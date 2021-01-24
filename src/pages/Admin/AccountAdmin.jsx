@@ -5,6 +5,7 @@ import PermissionModifier from './../../components/admin/PermissionModifier';
 import TicketPickup from '../../components/admin/TicketPickup';
 import { AdminPriv, isAdmin } from '../../components/admin/PermissionHandler';
 import SoldSeparately from '../../components/admin/SoldSeparately';
+import FunkisAdmin from '../Admin/funkis'
 import {  GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
@@ -195,6 +196,18 @@ class AccountAdmin extends Component{
           }}
           key = {'/admin/cortege'}
         />
+        <PrivateRoute
+          admin
+          requiredAccess={2}
+          exact
+          path='/account/admin/funkisar'
+          render={(props) => {
+            return(
+              <FunkisAdmin />
+            );
+          }}
+          key = {'/admin/funkisar'}
+        />
         <Route
           path = '/account/admin/permissiondenied'
           render={(props) => {
@@ -234,6 +247,13 @@ class UNCBaseAdminPage extends Component{
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           {(isAdmin(this.props.adminPriv, AdminPriv.ORCHESTRA_ADMIN)) ?
             <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/orchestras')}> Orkestrar </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+
+          {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
+            <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/funkisar')}> Hantera funkisar </Button>
             : null
           }
         </GridCell>

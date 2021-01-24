@@ -20,7 +20,7 @@ import { ScaleLoader } from 'react-spinners';
 import CortegeModal from './CortegeModal';
 import defaultCortege from './defaultCortege';
 import { getCorteges, updateCortege } from '../../../actions/cortege';
-import { CSVDownload, CSVLink } from 'react-csv';
+import { CSVLink } from 'react-csv';
 import { Switch } from '@rmwc/switch';
 import { Button } from 'rmwc';
 
