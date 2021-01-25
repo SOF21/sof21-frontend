@@ -53,7 +53,7 @@ const validationSchema = Yup.object().shape({
     <FormattedMessage id='Cortege.form.errors.req.phonenumber' />
   ),
   buildType: Yup.string().required(
-    <FormattedMessage id='Corteg.form.errors.req.buildType' />
+    <FormattedMessage id='Cortege.form.errors.req.buildType' />
   ),
   contribMotivation: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.contribMotivation' />

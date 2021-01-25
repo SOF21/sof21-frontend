@@ -52,6 +52,7 @@ import { FunkisDayItem } from './FunkisDayItem';
 
 // TODO: Bryt ut till intl
 
+
 const FunkisAdminComponent = ({
   funkisar,
   loading,
@@ -72,6 +73,7 @@ const FunkisAdminComponent = ({
   const [selectedDay, setSelectedDay] = useState('');
   const [originalTimeslots, setOriginalTimeslots] = useState([]);
   const [CSVHeaders, setCSVHeaders] = useState({});
+  const [sortation, setSort] = useState({field: 'name', dir: 1});
 
   const activatedCSVHeaders = Object.values(CSVHeaders).filter(obj => obj.checked).map(v => v.id);
   const CSVData = Object.values(funkisar).map(c => ({
@@ -110,7 +112,10 @@ const FunkisAdminComponent = ({
     getFunkisTypes();
   }, [getFunkisar, getFunkisTimeSlots, getFunkisTypes])
 
-  
+  const getFieldSort = (field) => {
+    if(field === sortation.field) return sortation.dir;
+    return null;
+  }
 
   const handleDialogExit = (e) => {
     setFunkisModalOpen(false)
@@ -426,15 +431,21 @@ const FunkisAdminComponent = ({
           <DataTableContent>
             <DataTableHead>
               <DataTableRow>
-                <DataTableHeadCell>Namn</DataTableHeadCell>
-                <DataTableHeadCell>LiU-ID</DataTableHeadCell>
-                <DataTableHeadCell>E-mail</DataTableHeadCell>
-                <DataTableHeadCell>Funkis-typ</DataTableHeadCell>
+                <DataTableHeadCell sort={getFieldSort('name')} onSortChange={(dir) => setSort({field: 'name', dir: dir? dir : 1})}>Namn</DataTableHeadCell>
+                <DataTableHeadCell sort={getFieldSort('liuid')} onSortChange={(dir) => setSort({field: 'liuid', dir: dir? dir : 1})}>LiU-ID</DataTableHeadCell>
+                <DataTableHeadCell sort={getFieldSort('email')} onSortChange={(dir) => setSort({field: 'email', dir: dir? dir : 1})}>E-mail</DataTableHeadCell>
+                <DataTableHeadCell sort={getFieldSort('selectedFunkisAlt')} onSortChange={(dir) => setSort({field: 'selectedFunkisAlt', dir: dir? dir : 1})}>Funkis-typ</DataTableHeadCell>
                 <DataTableHeadCell>Bokade pass</DataTableHeadCell>
               </DataTableRow>
             </DataTableHead>
             <DataTableBody>
-              {funkisar !== {} && Object.values(funkisar).sort(f => f.liuid).filter(f => {
+              {funkisar !== {} && Object.values(funkisar).sort((f, s) => {
+                const first = sortation.field === 'selectedFunkisAlt' && f.selectedFunkisAlt? positions[f[sortation.field]] : f[sortation.field]
+                const second = sortation.field === 'selectedFunkisAlt' && s.selectedFunkisAlt? positions[s[sortation.field]] : s[sortation.field]
+                if(first > second) return -1;
+                if(first < second) return 1;
+                return 0;
+              }).sort(() => sortation.dir).filter(f => {
                 for(const key of ['name', 'email', 'liuid']) {
                   if(f[key] && f[key].toLowerCase().includes(searchTerm)) return true;
                   console.log(f.selectedTimeSlots);
