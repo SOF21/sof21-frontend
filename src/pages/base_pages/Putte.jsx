@@ -29,7 +29,7 @@ export const committees = {
     artDirector: { email: 'ad', path: '/art_director', spots: ['vice', 'creation', 'print'] }
 }
 
-const vacantAssigmments = [['cooperation', 'vice'], ['premises', 'electrics'], ['premises', 'wifi'], ['parade', 'locale'], ['orchestra', 'housing'], ['event', 'town']]
+const vacantAssigmments = [['cooperation', 'vice'], ['premises', 'electrics'], ['premises', 'wifi'], ['parade', 'locale'], ['orchestra'], ['event', 'town']]
 
 class Putte extends Component {
 
