@@ -71,6 +71,7 @@ class OrchestraMemReg extends Component{
           <GridCell desktop='12' tablet='8' phone='4' className='account-orchestra-signup'>
             <Formik
               initialValues={{
+                pickupTicket: this.props.pickupTicket,
                 arriveWith: (answers && answers.arriveWith !== null) ? answers.arriveWith : '',
                 arriveDay: (answers && answers.arriveDay !== null) ? answers.arriveDay : '',
                 oldOrActive: (answers && answers.oldOrActive !== null) ? answers.oldOrActive : '',
@@ -200,41 +201,18 @@ class OrchestraMemReg extends Component{
                         ]}
                       />
                     </GridCell>
+                    
                     <GridCell desktop='12' tablet='8' phone='4'>
-                    <FormSelect
-                        label={<FormattedMessage id='OrchestraMemReg.otherOrchestra'/>}
-                        value={values.otherPerformancesTrue}
-                        field='otherPerformancesTrue'
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        error={errors.otherPerformancesTrue}
-                        touched={touched.otherPerformancesTrue}
-                        options={[
-                          {
-                            label: this.props.intl.formatMessage({id: 'OrchestraMemReg.yes'}),
-                            value: true,
-                            key: 0
-                          },
-                          {
-                            label: this.props.intl.formatMessage({id: 'OrchestraMemReg.no'}),
-                            value: false,
-                            key: 1
-                          }
-                        ]}
-                      />
-                    </GridCell>
-
-                    {values.otherPerformancesTrue === true ? <GridCell desktop='12' tablet='8' phone='4'>
                       <FormTextInput
                         name='otherPerformances'
-                        label={<FormattedMessage id='OrchestraMemReg.whichOrchestras'/>}
+                        label={<FormattedMessage id='OrchestraMemReg.whichOtherOrchestras'/>}
                         value={values.otherPerformances}
                         error={errors.otherPerformances}
                         touched={touched.otherPerformances}
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
-                    </GridCell> : null}
+                    </GridCell>
 
                     <GridCell desktop='6' tablet='4' phone='2'>
                       <Button raised type='submit' disabled={

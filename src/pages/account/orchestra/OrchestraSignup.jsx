@@ -99,7 +99,6 @@ class OrchestraSignup extends Component{
     const MemRegType =  this.state.pickupTicket ? OrchestraMemReg: OrchestraMemRegShort
     return(
       <GridInner>
-        
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           <h5> <FormattedMessage id='OrchestraMemReg.registerTo' /> <b>{signupOrchestra.orchestra.name}</b> </h5>
         </GridCell>
