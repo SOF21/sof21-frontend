@@ -75,7 +75,6 @@ class OrchestraMemReg extends Component{
                 arriveWith: (answers && answers.arriveWith !== null) ? answers.arriveWith : '',
                 arriveDay: (answers && answers.arriveDay !== null) ? answers.arriveDay : '',
                 oldOrActive: (answers && answers.oldOrActive !== null) ? answers.oldOrActive : '',
-                otherPerformancesTrue: (answers && answers.otherPerformancesTrue !== null) ? answers.otherPerformancesTrue : '',
                 otherPerformances: (answers && answers.otherPerformances !== null) ? answers.otherPerformances : '',
                 orchestraType: (answers && answers.orchestraType !== null) ? answers.orchestraType : '',
             }}
@@ -84,9 +83,7 @@ class OrchestraMemReg extends Component{
                 arriveDay: Yup.number().when('arriveWith', { is: false, 
                   then: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />)}),
                 oldOrActive: Yup.bool().required(<FormattedMessage id='OrchestraMemReg.required' />),
-                otherPerformancesTrue: Yup.bool().required(<FormattedMessage id='OrchestraMemReg.required' />),
-                otherPerformances: Yup.string().when('otherPerformancesTrue', { is: true,
-                  then: Yup.string().required(<FormattedMessage id='OrchestraMemReg.required' />)}),
+                otherPerformances: Yup.string().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 orchestraType: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
 
             })}
@@ -201,7 +198,7 @@ class OrchestraMemReg extends Component{
                         ]}
                       />
                     </GridCell>
-                    
+
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormTextInput
                         name='otherPerformances'
