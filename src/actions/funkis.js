@@ -43,6 +43,8 @@ export const sendFunkisApplication = ({
   gdpr,
   liuCard,
   userId,
+  extraDesc,
+  requestedPartner,
 }) => { // TODO: UPDATE
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
@@ -65,6 +67,8 @@ export const sendFunkisApplication = ({
         second_day: new Date(2021, secondPrefferedDate.split('/')[0], secondPrefferedDate.split('/')[1]),
         third_day: new Date(2021, thirdPrefferedDate.split('/')[0], thirdPrefferedDate.split('/')[1]),
         user_id: userId,
+        share_info: extraDesc,
+        partner_id: requestedPartner,
       }
     })
       .then(() => {
@@ -188,7 +192,9 @@ export const getFunkisar = () => {
             checkedIn: cur.checked_in,
             postAddress: cur.post_address,
             selectedFunkisAlt: cur.funkis_category_id,
-            selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : []
+            selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : [],
+            extraDesc: cur.share_info,
+            requestedPartner: cur.partner_id,
           }
         }), {});
         console.log(funkisarObject);

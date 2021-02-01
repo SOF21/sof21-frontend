@@ -62,13 +62,13 @@ export default {
           funkisOne: 'Funkisalternativ 1',
           funkisTwo: 'Funkisalternativ 2',
           funkisThree: 'Funkisalternativ 3',
-          requestedPartner: 'Önskad nattvaktspartner',
+          requestedPartner: 'Önskad nattvaktspartner (liuid)',
           firstPrefferedDate: 'Första föredragna datum',
           secondPrefferedDate: 'Andra föredragna datum',
           thirdPrefferedDate: 'Tredje föredragna datum',
           shirtSize: 'T-Shirt storlek',
-          allergies: ' Allergier',
-          otherAllergy: 'Övriga allergier',
+          allergies: ' Specialkost',
+          otherAllergy: 'Övrig specialkost',
           extraDesc: 'Övrig information',
         },
 
@@ -82,7 +82,8 @@ export default {
             postcode: 'Du måste ange ett postnummer',
             address: 'Du måste ange din address',
             city: 'Du måste ange en stad',
-            liuCard: 'Du måste ange ditt liu-kortnummer'
+            liuCard: 'Du måste ange ditt liu-kortnummer',
+            otherAllergy: 'Du måste skriva in din specialkost'
           },
           malformed: {
             postcode: 'Ange endast siffror',
@@ -98,10 +99,11 @@ export default {
           email: 'E-mail',
           phonenumber: 'Telefon',
           postAddress: 'Address',
-          workFriend: 'Önskad nattvaktspartner',
+          requestedPartner: 'Önskad nattvaktspartner',
           tshirtSize: 'T-Shirt storlek',
-          allergy: 'Allergier',
-          allergyOther: 'Övriga allergier',
+          allergy: 'Specialkost',
+          allergyOther: 'Övrig specialkost',
+          extraDesc: 'Övrig information'
         }
       }
     }

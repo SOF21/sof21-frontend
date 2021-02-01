@@ -179,12 +179,13 @@ const FunkisAdminComponent = ({
     markedAsDone,
     selectedTimeSlots,
     tshirtSize,
-    workFriend,
     postAddress,
     allergy,
     allergyOther,
     preferedDates,
     id,
+    extraDesc,
+    requestedPartner,
   } = activeFunkis;
   const funkisTimeSlots = timeslots[selectedFunkisAlt]
 
@@ -251,16 +252,6 @@ const FunkisAdminComponent = ({
                   <ListItemSecondaryText>{postAddress}</ListItemSecondaryText>  
                 </ListItemText>
               </ListItem>
-              { workFriend &&
-                <ListItem ripple={false}>
-                  <ListItemText>
-                    <ListItemPrimaryText>
-                      <FormattedMessage id='Funkis.admin.fieldLabels.workFriend'/>
-                    </ListItemPrimaryText>
-                    <ListItemSecondaryText>{workFriend}</ListItemSecondaryText>
-                  </ListItemText>
-                </ListItem>
-              }
               { allergy &&
                 <ListItem ripple={false}>
                   <ListItemText>
@@ -278,6 +269,26 @@ const FunkisAdminComponent = ({
                       <FormattedMessage id='Funkis.admin.fieldLabels.allergyOther'/>
                     </ListItemPrimaryText>
                     <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{allergyOther}</ListItemSecondaryText>
+                  </ListItemText>
+                </ListItem>
+              }
+              { extraDesc &&
+                <ListItem ripple={false}>
+                  <ListItemText>
+                    <ListItemPrimaryText>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.extraDesc'/>
+                    </ListItemPrimaryText>
+                    <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{extraDesc}</ListItemSecondaryText>
+                  </ListItemText>
+                </ListItem>
+              }
+              { requestedPartner &&
+                <ListItem ripple={false}>
+                  <ListItemText>
+                    <ListItemPrimaryText>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.requestedPartner'/>
+                    </ListItemPrimaryText>
+                    <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{requestedPartner}</ListItemSecondaryText>
                   </ListItemText>
                 </ListItem>
               }

@@ -112,11 +112,11 @@ const FunkisModal = ({
     markedAsDone,
     selectedTimeSlots,
     tshirtSize,
-    workFriend,
     postAddress,
     allergy,
     allergyOther,
     preferedDates,
+    requestedPartner,
   } = funkis;
 
   const funkisTimeSlots = timeslots[selectedFunkisAlt]
@@ -171,13 +171,13 @@ const FunkisModal = ({
                   <ListItemSecondaryText>{postAddress}</ListItemSecondaryText>  
                 </ListItemText>
               </ListItem>
-              { workFriend &&
+              { requestedPartner &&
                 <ListItem ripple={false}>
                   <ListItemText>
                     <ListItemPrimaryText>
-                      <FormattedMessage id='Funkis.admin.fieldLabels.workFriend'/>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.requestedPartner'/>
                     </ListItemPrimaryText>
-                    <ListItemSecondaryText>{workFriend}</ListItemSecondaryText>
+                    <ListItemSecondaryText>{requestedPartner}</ListItemSecondaryText>
                   </ListItemText>
                 </ListItem>
               }

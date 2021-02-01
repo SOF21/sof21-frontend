@@ -48,6 +48,7 @@ const initialInput = {
   otherAllergy: '',
   gdpr: false,
   liuCard: '',
+  requestedPartner: '',
 }
 
 const validationSchema = Yup.object().shape({
@@ -106,7 +107,8 @@ const validationSchema = Yup.object().shape({
     then: Yup.string().required(
       <FormattedMessage id='Funkis.recruitment.errors.req.extraDesc' />
     )
-  })
+  }),
+  requestedPartner: Yup.string().matches(/[A-ö]{5}\d{3}/, 'Du måste ange ett giltlig LiuID'),
 })
 
 const FunkisComponent = ({
