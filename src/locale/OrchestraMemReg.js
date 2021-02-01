@@ -44,6 +44,7 @@ export default {
       otherOrchestra: "Uppträder du med någon annan orkester",
       ticketPickupWithWho: "Ska du köpa, och därmed hämta, dina biljetter med denna orkester/band?",
       whichOrchestras: "Vilka då?",
+      whichOtherOrchestras: "Vilka andra orkestrar uppträder du med?",
       festivalPackage: "Festival​paket",
       foodtickets: "Matbiljetts​paket",
       littlePackage: "Lilla paketet (fre-lör): 470 kr",
