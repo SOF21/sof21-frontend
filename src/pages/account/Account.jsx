@@ -9,6 +9,7 @@ import PageFooter from '../pageTypes/PageFooter';
 import { PrivateRoute, isAnyAdmin  } from '../../components/admin/PermissionHandler';
 
 import Profile from './Profile';
+import Cortege from './cortege';
 import Admin from '../Admin/AccountAdmin';
 import Orchestra from './orchestra/AccountOrchestra';
 import Purchases from './Purchases';
@@ -29,6 +30,7 @@ import {connect} from 'react-redux';
 
 import { setTitle, mapTabToIndex, setActiveTab } from '../../actions/title';
 import ChangePassword from '../../components/forms/ChangePassword';
+import Funkis from '../Funkis';
 
 const mapStateToProps = state => ({
   adminPriv: state.reduxTokenAuth.currentUser.attributes.adminPermissions,
@@ -101,6 +103,18 @@ class Account extends Component{
                       <FormattedMessage id='Account.orchestra'/>
                     </h4>
                   </ListItem>
+                  <ListItem tag={Link} to='/account/cortege'>
+                    <ListItemGraphic icon={sofHeart}/>
+                    <h4>
+                      <FormattedMessage id='Account.cortege'/>
+                    </h4>
+                  </ListItem>
+                  <ListItem tag={Link} to='/account/funkis'>
+                    <ListItemGraphic icon={sofHeart}/>
+                    <h4>
+                      <FormattedMessage id='Account.funkis'/>
+                    </h4>
+                  </ListItem>
                 {isAnyAdmin(this.props.adminPriv) ? <ListItem tag={Link} to='/account/admin'>
                     <ListItemGraphic icon={sofHeart}/>
                     <h4>
@@ -166,7 +180,13 @@ class Account extends Component{
                       <Orchestra {...props} />
                     )}
                     key = {'/account/orchestra'}
-
+                  />
+                  <PrivateRoute
+                    path = {'/account/cortege'}
+                    render={(props) => (
+                      <Cortege {...props} />
+                    )}
+                    key = {'/account/cortege'}
                   />
                   <PrivateRoute
                     path = {'/account/purchases'}
@@ -174,6 +194,14 @@ class Account extends Component{
                       <Purchases {...props} />
                     )}
                     key = {'/account/purchases'}
+
+                  />
+                  <PrivateRoute
+                    path = {'/account/funkis'}
+                    render={(props) => (
+                      <Funkis {...props} />
+                    )}
+                    key = {'/account/funkis'}
 
                   />
                   <PrivateRoute
