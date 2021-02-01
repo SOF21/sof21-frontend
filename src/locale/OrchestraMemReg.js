@@ -108,6 +108,7 @@ export default {
       otherOrchestra: "Are you also performing with another orchestra?",
       ticketPickupWithWho: "Are you buying, and therefore picking up, your tickets with this orchestra/band?",
       whichOrchestras: "Which ones?",
+      whichOtherOrchestras: "Which other orchestras are you performing with?",
       festivalPackage: "Festival package",
       foodtickets: "Food ticket package",
       littlePackage: "Small package (fri-sat): 470 SEK",
