@@ -9,29 +9,11 @@ import {
   DataTableHead,
   DataTableRow,
   DataTableHeadCell,
-  DataTableCell,
 } from '@rmwc/data-table';
-import {
-  List,
-  ListItem,
-  ListItemGraphic,
-  ListItemPrimaryText,
-  ListItemSecondaryText,
-  ListItemText,
-} from '@rmwc/list';
 import { Checkbox } from '@rmwc/checkbox';
 import { Select } from '@rmwc/select';
 import { Button } from '@rmwc/button';
 import { TextField } from '@rmwc/textfield';
-
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  DialogButton
-} from '@rmwc/dialog';
-
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 
@@ -51,7 +33,6 @@ const FunkisCheckInOverviewComponent = (
     getFunkisar,
     getFunkisTimeSlots,
     getFunkisTypes,
-    checkInFunkis,
     positions,
     idTimeslots,
   }
@@ -86,13 +67,6 @@ const FunkisCheckInOverviewComponent = (
   const routeChange = () => {
     let path = `/account/admin/funkischeckin/checkin`;
     history.push(path);
-  }
-
-  const parseDates = (dates) => {
-    return Object.keys(dates).map(n => {
-      const startOfTimeSlot = dates[n].start_time
-      return `${startOfTimeSlot.getDate()}/${startOfTimeSlot.getMonth()}`
-    }).filter((v, i, a) => a.indexOf(v) === i)
   }
 
   const filterByFieldValues = (f) => {
@@ -140,18 +114,22 @@ const FunkisCheckInOverviewComponent = (
 
       if (parsedDates.includes(chosenDate) || chosenDate === 'Alla datum') return true
     }
-      return false
+    return false
   }
 
   const sortedFunkis = Object.values(funkisar)
     .filter((f) => f.selectedTimeSlots.length > 0)
-    .sort(() => sortation.dir)
     .filter(f => filterByFieldValues(f))
     .filter(f => filterByCheckedIn(f))
     .filter(f => filterByFunkisAlt(f))
     .filter(f => filterByDate(f))
+    .sort(() => sortation.dir)
 
-  const workDates = parseDates(idTimeslots)
+  const workDates = Object.keys(idTimeslots).map(n => {
+    const startOfTimeSlot = idTimeslots[n].start_time
+    return `${startOfTimeSlot.getDate()}/${startOfTimeSlot.getMonth()}`
+  }).filter((v, i, a) => a.indexOf(v) === i)
+
   const sampleWorkDates = ['Alla datum', ...workDates, '15/4', '16/4', '17/4']
 
   return (
@@ -175,13 +153,13 @@ const FunkisCheckInOverviewComponent = (
             <Checkbox
               label="Sena"
               checked={late}
-              onChange={evt => setLate(!!evt.currentTarget.checked)}    
+              onChange={evt => setLate(!!evt.currentTarget.checked)}
             />
             <Select
               label="Funkistyp"
-              defaultValue={{0: 'Alla'}}
-              options={{...positions, 0: 'Alla'}}
-              style={{margin: '0 20px 10px 20px'}}
+              defaultValue={{ 0: 'Alla' }}
+              options={{ ...positions, 0: 'Alla' }}
+              style={{ margin: '0 20px 10px 20px' }}
               onChange={evt => setFunkisAlt(evt.target.value)}
             />
             <Select
@@ -190,9 +168,9 @@ const FunkisCheckInOverviewComponent = (
               options={sampleWorkDates}
               onChange={evt => setDate(evt.target.value)}
             />
-            <Button 
-              raised 
-              style={{marginLeft: '20px'}}
+            <Button
+              raised
+              style={{ marginLeft: '20px' }}
               onClick={resetFilters}
             >
               Återställ filter
@@ -239,8 +217,6 @@ const FunkisCheckInOverviewComponent = (
 
 const mapStateToProps = (state) => ({
   funkisar: state.funkis.funkisar,
-  loading: state.funkis.loading,
-  timeslots: state.funkis.timeslots,
   positions: state.funkis.positions,
   idTimeslots: state.funkis.idTimeslots,
 })
