@@ -44,7 +44,7 @@ const FunkisCheckInOverviewComponent = (
     getFunkisTypes();
   }, [getFunkisar, getFunkisTimeSlots, getFunkisTypes])
 
-  const [sortation, setSort] = useState({ field: 'name', dir: 1 });
+  const [sortation, setSort] = useState({ field: 'checkedIn', dir: -1 });
   const [searchTerm, setSearchTerm] = useState('');
   const [checked_in, setCheckedIn] = React.useState(false);
   const [late, setLate] = React.useState(false);
@@ -68,6 +68,17 @@ const FunkisCheckInOverviewComponent = (
     let path = `/account/admin/funkischeckin/checkin`;
     history.push(path);
   }
+
+  const checkIfLate = ((timeSlots, checkedIn) => {
+    const currentTime = new Date()
+    if (timeSlots !== undefined) {
+      return timeSlots.map(t => {
+        if (currentTime > t.start_time && currentTime < t.end_time && !checkedIn) return true
+        return false
+      });
+    }
+    return [false]
+  })
 
   const filterByFieldValues = (f) => {
     for (const key of ['name', 'email', 'liuid']) {
@@ -123,7 +134,10 @@ const FunkisCheckInOverviewComponent = (
     .filter(f => filterByCheckedIn(f))
     .filter(f => filterByFunkisAlt(f))
     .filter(f => filterByDate(f))
-    .sort(() => sortation.dir)
+    .sort((x, y) => {
+      return (checkIfLate(x.selectedTimeSlots) === checkIfLate(y.selectedTimeSlots)) ?
+        0 : checkIfLate(x.selectedTimeSlots) && !x.checkedIn ? -1 : 1
+    })
 
   const workDates = Object.keys(idTimeslots).map(n => {
     const startOfTimeSlot = idTimeslots[n].start_time
@@ -198,8 +212,8 @@ const FunkisCheckInOverviewComponent = (
                           funkisAlt: positions[f.selectedFunkisAlt],
                           timeSlots: f.selectedTimeSlots.map(t => {
                             return idTimeslots[t]
-                          })
-
+                          }),
+                          late: checkIfLate(f.selectedTimeSlots, f.checkedIn).includes(true)
                         }}
                       />
                     );

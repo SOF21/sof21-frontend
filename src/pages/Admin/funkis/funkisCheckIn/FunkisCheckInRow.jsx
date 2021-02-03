@@ -16,18 +16,8 @@ export const FunkisCheckInRow = ({
         timeSlots,
         checkedIn,
         liuid,
+        late
     } = funkis
-
-    const checkIfLate = ((timeSlots) => {
-        const currentTime = new Date()
-        if (timeSlots !== undefined) {
-            return timeSlots.map(t => {
-                if (currentTime > t.start_time && currentTime < t.end_time && !checkedIn ) return true
-                return false
-            } );
-        }
-        return [false]
-    })
 
     return (
         <DataTableRow>
@@ -52,7 +42,8 @@ export const FunkisCheckInRow = ({
                     return res
                 })}
             </DataTableCell>
-            <DataTableCell className={`${checkedIn ? 'checkedIn' : ''} ${checkIfLate(timeSlots).includes(true) ? 'late' : ''}`}>
+            <DataTableCell className={`${checkedIn ? 'checkedIn' : ''} ${late ? 'late' : ''}`}>
+              {late}
             </DataTableCell>
         </DataTableRow>
     );
