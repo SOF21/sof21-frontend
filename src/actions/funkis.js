@@ -185,6 +185,7 @@ export const getFunkisar = () => {
             allergyOther: cur.allergies_other,
             tshirtSize: cur.tshirt_size,
             markedAsDone: cur.marked_done,
+            checkedIn: cur.checked_in,
             postAddress: cur.post_address,
             selectedFunkisAlt: cur.funkis_category_id,
             selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : []
@@ -255,6 +256,36 @@ export const updateFunkis = (funkis) => {
         dispatch(updateFunkisSuccess())
       })
       .catch((err) => dispatch(updateFunkisFailure(err)))
+  }
+};
+
+
+export const checkInFunkisBegin = (funkis) => ({
+  type: UPDATE_FUNKIS.BEGIN,
+  payload: funkis
+});
+
+export const checkInFunkisSuccess = () => ({
+  type: UPDATE_FUNKIS.SUCCESS,
+  payload: {}
+});
+
+export const checkInFunkisFailure = (err) => ({
+  type: UPDATE_FUNKIS.FAILURE,
+  payload: err
+});
+
+export const checkInFunkis = (code) => {
+  return async dispatch => {
+    //dispatch(checkInFunkisBegin(code))
+    //dispatch(setFunkisData(code))
+    console.log("Checkin" + code);
+    api.put(`/funkis/set_checked_in/${code}` )
+    // TODO: UPDATE
+      .then((json) => {
+        //dispatch(updateFunkisSuccess())
+      })
+     // .catch((err) => dispatch(updateFunkisFailure(err)))
   }
 };
 

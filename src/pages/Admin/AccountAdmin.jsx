@@ -6,6 +6,7 @@ import TicketPickup from '../../components/admin/TicketPickup';
 import { AdminPriv, isAdmin } from '../../components/admin/PermissionHandler';
 import SoldSeparately from '../../components/admin/SoldSeparately';
 import FunkisAdmin from '../Admin/funkis'
+import FunkisCheckIn from '../Admin/funkis/funkisCheckIn'
 import {  GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
@@ -208,6 +209,18 @@ class AccountAdmin extends Component{
           }}
           key = {'/admin/funkisar'}
         />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.Funkis}
+          exact
+          path='/account/admin/funkischeckin'
+          render={(props) => {
+            return(
+              <FunkisCheckIn />
+            );
+          }}
+          key = {'/admin/funkisar'}
+        />
         <Route
           path = '/account/admin/permissiondenied'
           render={(props) => {
@@ -281,6 +294,13 @@ class UNCBaseAdminPage extends Component{
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/soldseparately')}> Biljetter utanför hemsidan </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+
+          {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
+            <Button raised style={{width: '100%'}} onClick={() => this.props.history.push('admin/funkischeckin')}> Checka in funkisar </Button>
             : null
           }
         </GridCell>
