@@ -32,20 +32,14 @@ import {
   DialogButton
 } from '@rmwc/dialog';
 
-import { Formik, Form, setNestedObjectValues } from 'formik/dist/index';
-import FormTextInput from '../../../../components/forms/components/FormTextInput'
-
-import { Switch } from '@rmwc/switch';
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import {
-  bookFunkis,
   checkInFunkis,
   getFunkisar,
   getFunkisTimeSlots,
   getFunkisTypes,
-  unbookFunkis,
   updateFunkis,
 } from '../../../../actions/funkis';
 
@@ -71,6 +65,9 @@ const FunkisCheckInOverviewComponent = (
 
   const [sortation, setSort] = useState({ field: 'name', dir: 1 });
   const [searchTerm, setSearchTerm] = useState('');
+  const [checked_in, setCheckedIn] = React.useState(false);
+  const [late, setLate] = React.useState(false);
+  const [funkisAlt, setFunkisAlt] = React.useState('0')
 
   const getFieldSort = (field) => {
     if (field === sortation.field) return sortation.dir;
@@ -88,13 +85,7 @@ const FunkisCheckInOverviewComponent = (
     history.push(path);
   }
 
-  const sortedFunkis = Object.values(funkisar).filter((f) => f.selectedTimeSlots.length > 0).sort((f, s) => {
-    const first = sortation.field === 'selectedFunkisAlt' && f.selectedFunkisAlt ? positions[f[sortation.field]] : f[sortation.field]
-    const second = sortation.field === 'selectedFunkisAlt' && s.selectedFunkisAlt ? positions[s[sortation.field]] : s[sortation.field]
-    if (first > second) return -1;
-    if (first < second) return 1;
-    return 0;
-  }).sort(() => sortation.dir).filter(f => {
+  const filterByFieldValues = (f) => {
     for (const key of ['name', 'email', 'liuid']) {
       if (f[key] && f[key].toLowerCase().includes(searchTerm)) return true;
       else if (positions[f['selectedFunkisAlt']].toLowerCase().includes(searchTerm)) return true
@@ -103,14 +94,39 @@ const FunkisCheckInOverviewComponent = (
         for (const t of f.selectedTimeSlots) {
           const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time)
           const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time)
-          console.log(start);
-          console.log(end);
+          console.log(start, end);
           if (start.replace(/ /g, '').includes(searchTerm.replace(/ /g, '')) || end.replace(/ /g, '').includes(searchTerm.replace(/ /g, ''))) return true;
         }
       }
     }
     return false;
-  })
+  }
+
+  const filterByCheckedIn = (f) => {
+    if (checked_in && f['checkedIn']) return true
+    else if (late) {
+      for (const t of f.selectedTimeSlots) {
+        const currentTime = new Date()
+        if (currentTime > idTimeslots[t].start_time && currentTime < idTimeslots[t].end_time) return true;
+      }
+    }
+    else if (!checked_in && !late) return true
+    return false
+  }
+
+  const filterByFunkisAlt = (f) => {
+    const allFunkisAlts = '0'
+    if (positions[f['selectedFunkisAlt']] === positions[funkisAlt]) return true
+    else if (funkisAlt === allFunkisAlts) return true
+    return false
+  }
+
+  const sortedFunkis = Object.values(funkisar)
+    .filter((f) => f.selectedTimeSlots.length > 0)
+    .sort(() => sortation.dir)
+    .filter(f => filterByFieldValues(f))
+    .filter(f => filterByCheckedIn(f))
+    .filter(f => filterByFunkisAlt(f))
 
   return (
     <>
@@ -123,6 +139,26 @@ const FunkisCheckInOverviewComponent = (
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
             <TextField withLeadingIcon='search' label='Sök' id='searchBar' className='funkisSearch' onChange={handleSearch} />
+          </GridCell>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <Checkbox
+              label="Incheckade"
+              checked={checked_in}
+              onChange={evt => setCheckedIn(!!evt.currentTarget.checked)}
+            />
+            <Checkbox
+              label="Sena"
+              checked={late}
+              onChange={evt => setLate(!!evt.currentTarget.checked)}
+            />
+            <Select
+              label="Funkistyp"
+              defaultValue={{0: 'Alla'}}
+              options={{...positions, 0: 'Alla'}}
+              style={{marginLeft: '20px'}}
+              onChange={evt => {console.log(evt.target.value) 
+                setFunkisAlt(evt.target.value)}}
+            />
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='6'>
             <DataTable style={{ maxWidth: '100%' }}>
