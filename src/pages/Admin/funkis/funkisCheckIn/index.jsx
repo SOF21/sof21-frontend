@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { GridCell, Grid, GridInner } from '@rmwc/grid';
 import {
     DataTable,
@@ -51,13 +51,7 @@ import {
 
 import { FunkisCheckInRow } from './FunkisCheckInRow'
 
-const focusUsernameInputField = input => {
-    if (input) {
-        setTimeout(() => input.focus(), 100);
-    }
-};
-
-const FunkisCheckInComponent = (
+const FunkisCheckInOverviewComponent = (
     {
         funkisar,
         getFunkisar,
@@ -77,30 +71,33 @@ const FunkisCheckInComponent = (
 
     const parseLiUCardCode = hexCode => {
         const decimalCode = parseInt(hexCode, 16)
-        return decimalCode.length != 10 ? "0" + decimalCode : decimalCode
+        return decimalCode.length !== 10 ? "0" + decimalCode : decimalCode
     }
 
-    const [updateState, setState] = useState('')
     const handleSubmit = (values, bag) => {
-        console.log("SUBMITTING")
-        console.log(values)
         bag.setSubmitting(true)
         checkInFunkis(parseLiUCardCode(values.blipp))
             .then(res => {
-                bag.setSubmitting(false);
+                bag.setSubmitting(false)
             })
             .catch(err => {
-                this.props.openDialog('Ajaj', 'Denna person verkar inte ha lagt till sin kod rätt, skriv in LiU-id istället');
-                bag.setSubmitting(false);
-            }) 
-        bag.resetForm();
+                this.props.openDialog('Ajaj', 'Denna person verkar inte ha lagt till sin kod rätt, skriv in LiU-id istället')
+                bag.setSubmitting(false)
+            })
+        bag.resetForm()
+    }
+
+    const history = useHistory();
+    const routeChange = () => {
+        let path = `/account/admin/funkischeckin/checkin`;
+        history.push(path);
     }
 
     return (
         <>
             <Grid>
                 <GridInner>
-                    <GridCell desktop='12' tablet='8' phone='4'>
+                    {/*                     <GridCell desktop='12' tablet='8' phone='4'>
                         <Formik
                             initialValues={{ blipp: '' }}
                             onSubmit={handleSubmit}
@@ -119,7 +116,7 @@ const FunkisCheckInComponent = (
                                                     touched={touched.blipp}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
-                                                    //inputRef={focusUsernameInputField}
+                                                    inputRef={focusUsernameInputField}
                                                     style={{width: '100%'}}
                                                 />
                                             </GridCell>
@@ -133,7 +130,12 @@ const FunkisCheckInComponent = (
                                 );
                             }}
                         />
-                    </GridCell >
+                    </GridCell > */}
+                    <GridCell desktop='6' tablet='4' phone='2'>
+                        <Button raised type='submit' onClick={routeChange}>
+                            Checka in funkisar
+                        </Button>
+                    </GridCell>
                     <GridCell desktop='12' tablet='8' phone='4'>
                         <TextField withLeadingIcon='search' label='Sök' id='searchBar' className='funkisSearch' />
                     </GridCell>
@@ -157,10 +159,6 @@ const FunkisCheckInComponent = (
                                                     ...f,
                                                     funkisAlt: positions[f.selectedFunkisAlt],
                                                     timeSlots: f.selectedTimeSlots.map(t => {
-                                                        const options = { day: 'numeric', month: 'numeric', hour: 'numeric', minute: 'numeric' };
-                                                        const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
-                                                        const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
-                                                        const res = (`${start} -  ${end}`);
                                                         return idTimeslots[t]
                                                     })
 
@@ -195,4 +193,4 @@ const mapDispatchToProps = (dispatch) => ({
     checkInFunkis: (checkedIn) => dispatch(checkInFunkis(checkedIn))
 })
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisCheckInComponent))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisCheckInOverviewComponent))

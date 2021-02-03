@@ -6,7 +6,7 @@ import TicketPickup from '../../components/admin/TicketPickup';
 import { AdminPriv, isAdmin } from '../../components/admin/PermissionHandler';
 import SoldSeparately from '../../components/admin/SoldSeparately';
 import FunkisAdmin from '../Admin/funkis'
-import FunkisCheckIn from '../Admin/funkis/funkisCheckIn'
+import FunkisCheckInOverview from '../Admin/funkis/funkisCheckIn'
 import {  GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
@@ -22,6 +22,7 @@ import { PrivateRoute } from '../../components/admin/PermissionHandler';
 
 import { setTitle, setActiveTab, mapTabToIndex } from '../../actions/title';
 import CortegeAdmin from './CortegeAdmin';
+import FunkisCheckIn from './funkis/funkisCheckIn/FunkisCheckIn';
 
 class AccountAdmin extends Component{
   static pageTitle(){
@@ -216,10 +217,21 @@ class AccountAdmin extends Component{
           path='/account/admin/funkischeckin'
           render={(props) => {
             return(
-              <FunkisCheckIn />
+              <FunkisCheckInOverview />
             );
           }}
           key = {'/admin/funkisar'}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.Funkis}
+          exact
+          path='/account/admin/funkischeckin/checkin'
+          render={(props) => {
+            return(
+              <FunkisCheckIn />
+            )
+          }}
         />
         <Route
           path = '/account/admin/permissiondenied'
