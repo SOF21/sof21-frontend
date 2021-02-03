@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { GridCell, Grid, GridInner } from '@rmwc/grid';
 
@@ -8,7 +7,15 @@ import { Button } from '@rmwc/button';
 import { Formik, Form, setNestedObjectValues } from 'formik/dist/index';
 import FormTextInput from '../../../../components/forms/components/FormTextInput'
 
-import { FormattedMessage, injectIntl } from 'react-intl';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogButton
+} from '@rmwc/dialog';
+
+import { injectIntl } from 'react-intl';
 
 import {
   checkInFunkis,
@@ -20,27 +27,32 @@ const focusUsernameInputField = input => {
   }
 };
 
-const FunkisCheckInComponent = (
-  {
-    checkInFunkis,
-  }
-) => {
+const FunkisCheckInComponent = () => {
 
   const history = useHistory()
+  const [open, setOpen] = useState(false);
+  const [usedLiuId, setLiuId] = useState(true)
 
   const parseLiUCardCode = hexCode => {
     const decimalCode = parseInt(hexCode, 16)
     return decimalCode.length !== 10 ? "0" + decimalCode : decimalCode
   }
 
+  const checkIfLiuId = id => {
+    const initials = id.substring(0, 5)
+    const numbers = id.substring(5)
+    return !/[^a-z]/i.test(initials) && /\d/.test(numbers)
+  }
+
   const handleSubmit = (values, bag) => {
     bag.setSubmitting(true)
-    checkInFunkis(parseLiUCardCode(values.blipp))
-      .then(res => {
-        bag.setSubmitting(false)
-      })
+    const code = values.blipp
+    const liuCardOrLiuId = checkIfLiuId(code) ? "liu_id" : "liu_card_number"
+    setLiuId(checkIfLiuId(code))
+    checkInFunkis(liuCardOrLiuId, checkIfLiuId(code) ? code : parseLiUCardCode(code))
       .catch(err => {
-        this.props.openDialog('Ajaj', 'Denna person verkar inte ha lagt till sin kod rätt, skriv in LiU-id istället')
+        console.log(err)
+        setOpen(true)
         bag.setSubmitting(false)
       })
     bag.resetForm()
@@ -55,6 +67,16 @@ const FunkisCheckInComponent = (
     <>
       <Grid>
         <GridInner>
+          <Dialog
+            open={open}
+            onClose={() => setOpen(false)}
+          >
+            <DialogTitle>Fel {usedLiuId ? 'LiU-id' : 'LiU-kort kod'}!</DialogTitle>
+            <DialogContent> Testa att {usedLiuId ? 'blippa LiU-kortet' : 'skriva in LiU-id'} istället </DialogContent>
+            <DialogActions>
+              <DialogButton action="accept" isDefaultAction>OK</DialogButton>
+            </DialogActions>
+          </Dialog>
           <GridCell desktop='12' tablet='8' phone='4'>
             <Formik
               initialValues={{ blipp: '' }}
@@ -83,7 +105,7 @@ const FunkisCheckInComponent = (
                           raised
                           type='submit'
                           disabled={!isValid || isSubmitting}
-                          style={{marginRight: '10px'}}
+                          style={{ marginRight: '10px' }}
                         >
                           Checka in
                         </Button>
@@ -104,9 +126,4 @@ const FunkisCheckInComponent = (
   )
 }
 
-
-const mapDispatchToProps = (dispatch) => ({
-  checkInFunkis: (checkedIn) => dispatch(checkInFunkis(checkedIn))
-})
-
-export default injectIntl(connect(null, mapDispatchToProps)(FunkisCheckInComponent))
+export default injectIntl((FunkisCheckInComponent))

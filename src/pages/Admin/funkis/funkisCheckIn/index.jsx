@@ -145,6 +145,7 @@ const FunkisCheckInOverviewComponent = (
                                 <DataTableHead>
                                     <DataTableRow>
                                         <DataTableHeadCell>Namn</DataTableHeadCell>
+                                        <DataTableHeadCell>LiU-id</DataTableHeadCell>
                                         <DataTableHeadCell>E-mail</DataTableHeadCell>
                                         <DataTableHeadCell>Funkistyp</DataTableHeadCell>
                                         <DataTableHeadCell>Pass</DataTableHeadCell>

@@ -260,33 +260,9 @@ export const updateFunkis = (funkis) => {
 };
 
 
-export const checkInFunkisBegin = (funkis) => ({
-  type: UPDATE_FUNKIS.BEGIN,
-  payload: funkis
-});
-
-export const checkInFunkisSuccess = () => ({
-  type: UPDATE_FUNKIS.SUCCESS,
-  payload: {}
-});
-
-export const checkInFunkisFailure = (err) => ({
-  type: UPDATE_FUNKIS.FAILURE,
-  payload: err
-});
-
-export const checkInFunkis = (code) => {
-  return async dispatch => {
-    //dispatch(checkInFunkisBegin(code))
-    //dispatch(setFunkisData(code))
-    console.log("Checkin" + code);
-    api.put(`/funkis/set_checked_in/${code}` )
-    // TODO: UPDATE
-      .then((json) => {
-        //dispatch(updateFunkisSuccess())
-      })
-     // .catch((err) => dispatch(updateFunkisFailure(err)))
-  }
+export const checkInFunkis = (liuCardOrLiuID, code) => {
+    console.log("Check in: " + code);
+    return api.put(`/funkis/check_in/${liuCardOrLiuID}/${code}`, { timeout : 1000 * 10 } )
 };
 
 export const SET_FUNKIS_DATA = `${funkisActionBase}SET_FUNKIS_DATA`;

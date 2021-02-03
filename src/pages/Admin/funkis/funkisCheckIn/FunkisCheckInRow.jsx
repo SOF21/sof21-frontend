@@ -15,6 +15,7 @@ export const FunkisCheckInRow = ({
         funkisAlt,
         timeSlots,
         checkedIn,
+        liuid,
     } = funkis
 
     const startOfTimeSlot = timeSlots !== undefined ? timeSlots.map(t => t.start_time) : undefined
@@ -29,12 +30,14 @@ export const FunkisCheckInRow = ({
         return [false]
     })
 
-    console.log(funkis.checkedIn)
     const lateForTimeSlot = checkIfLate(startOfTimeSlot).includes(true)
     return (
         <DataTableRow>
             <DataTableCell>
                 {name}
+            </DataTableCell>
+            <DataTableCell>
+                {liuid}
             </DataTableCell>
             <DataTableCell>
                 {email}
