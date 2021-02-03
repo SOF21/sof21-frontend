@@ -68,21 +68,31 @@ const FunkisCheckInOverviewComponent = (
   const [checked_in, setCheckedIn] = React.useState(false);
   const [late, setLate] = React.useState(false);
   const [funkisAlt, setFunkisAlt] = React.useState('0')
-
-  const getFieldSort = (field) => {
-    if (field === sortation.field) return sortation.dir;
-    return null;
-  }
+  const [chosenDate, setDate] = React.useState('Alla datum')
 
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term.toLowerCase());
   }
 
+  const resetFilters = () => {
+    setCheckedIn(false)
+    setLate(false)
+    setFunkisAlt('0')
+    setDate('Alla datum')
+  }
+
   const history = useHistory();
   const routeChange = () => {
     let path = `/account/admin/funkischeckin/checkin`;
     history.push(path);
+  }
+
+  const parseDates = (dates) => {
+    return Object.keys(dates).map(n => {
+      const startOfTimeSlot = dates[n].start_time
+      return `${startOfTimeSlot.getDate()}/${startOfTimeSlot.getMonth()}`
+    }).filter((v, i, a) => a.indexOf(v) === i)
   }
 
   const filterByFieldValues = (f) => {
@@ -121,12 +131,28 @@ const FunkisCheckInOverviewComponent = (
     return false
   }
 
+  const filterByDate = (f) => {
+    if (f !== undefined) {
+      const parsedDates = f.selectedTimeSlots.map(timeslot => {
+        const startOfTimeSlot = idTimeslots[timeslot].start_time
+        return `${startOfTimeSlot.getDate()}/${startOfTimeSlot.getMonth()}`
+      }).filter((v, i, a) => a.indexOf(v) === i)
+
+      if (parsedDates.includes(chosenDate) || chosenDate === 'Alla datum') return true
+    }
+      return false
+  }
+
   const sortedFunkis = Object.values(funkisar)
     .filter((f) => f.selectedTimeSlots.length > 0)
     .sort(() => sortation.dir)
     .filter(f => filterByFieldValues(f))
     .filter(f => filterByCheckedIn(f))
     .filter(f => filterByFunkisAlt(f))
+    .filter(f => filterByDate(f))
+
+  const workDates = parseDates(idTimeslots)
+  const sampleWorkDates = ['Alla datum', ...workDates, '15/4', '16/4', '17/4']
 
   return (
     <>
@@ -149,16 +175,28 @@ const FunkisCheckInOverviewComponent = (
             <Checkbox
               label="Sena"
               checked={late}
-              onChange={evt => setLate(!!evt.currentTarget.checked)}
+              onChange={evt => setLate(!!evt.currentTarget.checked)}    
             />
             <Select
               label="Funkistyp"
               defaultValue={{0: 'Alla'}}
               options={{...positions, 0: 'Alla'}}
-              style={{marginLeft: '20px'}}
-              onChange={evt => {console.log(evt.target.value) 
-                setFunkisAlt(evt.target.value)}}
+              style={{margin: '0 20px 10px 20px'}}
+              onChange={evt => setFunkisAlt(evt.target.value)}
             />
+            <Select
+              label="Datum"
+              defaultValue={sampleWorkDates[0]}
+              options={sampleWorkDates}
+              onChange={evt => setDate(evt.target.value)}
+            />
+            <Button 
+              raised 
+              style={{marginLeft: '20px'}}
+              onClick={resetFilters}
+            >
+              Återställ filter
+            </Button>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='6'>
             <DataTable style={{ maxWidth: '100%' }}>
