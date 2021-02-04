@@ -151,10 +151,12 @@ const FunkisCheckInOverviewComponent = (
     .filter(f => filterByCheckedIn(f))
     .filter(f => filterByFunkisAlt(f))
     .filter(f => filterByDate(f))
+    .sort((x, y) => y.checkedIn - x.checkedIn)
     .sort((x, y) => {
       return (checkIfLate(y.selectedTimeSlots, y.checkedIn, idTimeslots) 
         - checkIfLate(x.selectedTimeSlots, x.checkedIn, idTimeslots))
     })
+    
 
   const workDates = Object.keys(idTimeslots).map(n => {
     const startOfTimeSlot = idTimeslots[n].start_time
