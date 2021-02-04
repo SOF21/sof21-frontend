@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { GridCell, Grid, GridInner } from '@rmwc/grid';
@@ -27,6 +27,36 @@ import {
 
 import { FunkisCheckInRow } from './FunkisCheckInRow'
 
+export function useInterval(callback, delay) {
+  const savedCallback = useRef()
+
+  useEffect(() => {
+    savedCallback.current = callback
+  }, [callback])
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current()
+    }
+
+    if (delay !== null) {
+      let id = setInterval(tick, delay)
+      return () => clearInterval(id)
+    }
+  },[delay])
+}
+
+export function checkIfLate(timeSlots, checkedIn, idTimeslots) {
+  const currentTime = new Date()
+  if (timeSlots !== undefined && idTimeslots !== undefined) {
+    return timeSlots.map(t => {
+      const timeslot = idTimeslots[t]
+      return currentTime >= timeslot.start_time && currentTime <= timeslot.end_time && !checkedIn
+    }).includes(true)
+  }
+  return false
+}
+
 const FunkisCheckInOverviewComponent = (
   {
     funkisar,
@@ -44,7 +74,6 @@ const FunkisCheckInOverviewComponent = (
     getFunkisTypes();
   }, [getFunkisar, getFunkisTimeSlots, getFunkisTypes])
 
-  const [sortation, setSort] = useState({ field: 'checkedIn', dir: -1 });
   const [searchTerm, setSearchTerm] = useState('');
   const [checked_in, setCheckedIn] = React.useState(false);
   const [late, setLate] = React.useState(false);
@@ -69,17 +98,6 @@ const FunkisCheckInOverviewComponent = (
     history.push(path);
   }
 
-  const checkIfLate = ((timeSlots, checkedIn) => {
-    const currentTime = new Date()
-    if (timeSlots !== undefined) {
-      return timeSlots.map(t => {
-        if (currentTime > t.start_time && currentTime < t.end_time && !checkedIn) return true
-        return false
-      });
-    }
-    return [false]
-  })
-
   const filterByFieldValues = (f) => {
     for (const key of ['name', 'email', 'liuid']) {
       if (f[key] && f[key].toLowerCase().includes(searchTerm)) return true;
@@ -89,7 +107,6 @@ const FunkisCheckInOverviewComponent = (
         for (const t of f.selectedTimeSlots) {
           const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time)
           const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time)
-          console.log(start, end);
           if (start.replace(/ /g, '').includes(searchTerm.replace(/ /g, '')) || end.replace(/ /g, '').includes(searchTerm.replace(/ /g, ''))) return true;
         }
       }
@@ -135,8 +152,8 @@ const FunkisCheckInOverviewComponent = (
     .filter(f => filterByFunkisAlt(f))
     .filter(f => filterByDate(f))
     .sort((x, y) => {
-      return (checkIfLate(x.selectedTimeSlots) === checkIfLate(y.selectedTimeSlots)) ?
-        0 : checkIfLate(x.selectedTimeSlots) && !x.checkedIn ? -1 : 1
+      return (checkIfLate(y.selectedTimeSlots, y.checkedIn, idTimeslots) 
+        - checkIfLate(x.selectedTimeSlots, x.checkedIn, idTimeslots))
     })
 
   const workDates = Object.keys(idTimeslots).map(n => {
@@ -144,7 +161,12 @@ const FunkisCheckInOverviewComponent = (
     return `${startOfTimeSlot.getDate()}/${startOfTimeSlot.getMonth()}`
   }).filter((v, i, a) => a.indexOf(v) === i)
 
-  const sampleWorkDates = ['Alla datum', ...workDates, '15/4', '16/4', '17/4']
+  const sampleWorkDates = ['Alla datum', ...workDates, '16/4', '17/4']
+
+  useInterval(() => {
+    console.log("Re-fetching funkisar")
+    getFunkisar()
+  }, 1000 * 60 * 5 )
 
   return (
     <>
@@ -210,10 +232,7 @@ const FunkisCheckInOverviewComponent = (
                         funkis={{
                           ...f,
                           funkisAlt: positions[f.selectedFunkisAlt],
-                          timeSlots: f.selectedTimeSlots.map(t => {
-                            return idTimeslots[t]
-                          }),
-                          late: checkIfLate(f.selectedTimeSlots, f.checkedIn).includes(true)
+                          idTimeslots,
                         }}
                       />
                     );

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { defaultFunkis } from '../constants';
+import React, { useState } from 'react';
+import { useInterval, checkIfLate } from './index'
 import {
     DataTableRow,
     DataTableCell,
@@ -13,11 +13,17 @@ export const FunkisCheckInRow = ({
         name,
         email,
         funkisAlt,
-        timeSlots,
         checkedIn,
         liuid,
-        late
+        idTimeslots,
+        selectedTimeSlots,
     } = funkis
+
+    const [late, setLate] = useState(checkIfLate(selectedTimeSlots, checkedIn, idTimeslots))
+
+    useInterval(() => {
+      setLate(checkIfLate(selectedTimeSlots, checkedIn, idTimeslots))
+    }, 1000)
 
     return (
         <DataTableRow>
@@ -34,11 +40,11 @@ export const FunkisCheckInRow = ({
                 {funkisAlt}
             </DataTableCell>
             <DataTableCell>
-                {timeSlots !== undefined && timeSlots.map(t => {
+                {selectedTimeSlots.map(t => {
                     const options = { day: 'numeric', month: 'numeric', hour: 'numeric', minute: 'numeric' };
-                    const start = new Intl.DateTimeFormat('sv', options).format(t.start_time);
-                    const end = new Intl.DateTimeFormat('sv', options).format(t.end_time);
-                    const res = (`${start} -  ${end}`);
+                    const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
+                    const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
+                    const res = (`${start} -  ${end} `);
                     return res
                 })}
             </DataTableCell>
