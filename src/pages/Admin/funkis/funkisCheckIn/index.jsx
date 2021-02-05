@@ -168,7 +168,7 @@ const FunkisCheckInOverviewComponent = (
   useInterval(() => {
     console.log("Re-fetching funkisar")
     getFunkisar()
-  }, 1000 * 60 * 5 )
+  }, 1000 * 60)
 
   return (
     <>
