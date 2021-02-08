@@ -74,7 +74,12 @@ const FunkisCheckInOverviewComponent = (
     getFunkisTypes();
   }, [getFunkisar, getFunkisTimeSlots, getFunkisTypes])
 
-  const defaltSearchValues = { checkedIn: false, late: false, funkisAlt: '0', chosenDate: 'Alla datum'}
+  const defaltSearchValues = { 
+    checkedIn: false, 
+    late: false, 
+    funkisAlt: '0', 
+    chosenDate: 'Alla datum'
+  }
 
   const [searchTerm, setSearchTerm] = useState('');
   const [checkedIn, setCheckedIn] = React.useState(defaltSearchValues.checkedIn);
@@ -117,7 +122,7 @@ const FunkisCheckInOverviewComponent = (
   }
 
   const filterByCheckedIn = (f) => {
-    if (checkedIn && f['checkedIn']) return true
+    if (checkedIn && f.checkedIn) return true
     else if (late) {
       for (const t of f.selectedTimeSlots) {
         const currentTime = new Date()
