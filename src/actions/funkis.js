@@ -185,6 +185,7 @@ export const getFunkisar = () => {
             allergyOther: cur.allergies_other,
             tshirtSize: cur.tshirt_size,
             markedAsDone: cur.marked_done,
+            checkedIn: cur.checked_in,
             postAddress: cur.post_address,
             selectedFunkisAlt: cur.funkis_category_id,
             selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : []
@@ -256,6 +257,40 @@ export const updateFunkis = (funkis) => {
       })
       .catch((err) => dispatch(updateFunkisFailure(err)))
   }
+};
+
+export const CHECK_IN_FUNKIS = {
+  BEGIN: `${funkisActionBase}CHECK_IN_FUNKIS_BEGIN`,
+  SUCCESS: `${funkisActionBase}CHECK_IN_FUNKIS_SUCCESS`,
+  FAILURE: `${funkisActionBase}CHECK_IN_FUNKIS_FAILURE`,
+}
+
+export const checkInFunkisBegin = (funkis) => ({
+  type: CHECK_IN_FUNKIS.BEGIN,
+  payload: funkis
+});
+
+export const checkInFunkisSuccess = () => ({
+  type: CHECK_IN_FUNKIS.SUCCESS,
+  payload: {}
+});
+
+export const checkInFunkisFailure = (err) => ({
+  type: CHECK_IN_FUNKIS.FAILURE,
+  payload: err
+});
+
+
+export const checkInFunkis = (liuCardOrLiuID, code) => {
+
+    return async dispatch => {
+      dispatch(checkInFunkisBegin)
+      api.put(`/funkis/check_in/${liuCardOrLiuID}/${code}`)
+        .then((json) => {
+          dispatch(checkInFunkisSuccess())
+        })
+        .catch((err) => dispatch(checkInFunkisFailure(err)))
+    }
 };
 
 export const SET_FUNKIS_DATA = `${funkisActionBase}SET_FUNKIS_DATA`;
