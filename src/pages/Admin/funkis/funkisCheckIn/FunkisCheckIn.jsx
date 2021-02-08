@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { GridCell, Grid, GridInner } from '@rmwc/grid';
 
@@ -21,13 +22,13 @@ import {
   checkInFunkis,
 } from '../../../../actions/funkis';
 
-const focusUsernameInputField = input => {
+const focusInput = input => {
   if (input) {
     setTimeout(() => input.focus(), 100);
   }
 };
 
-const FunkisCheckInComponent = () => {
+const FunkisCheckInComponent = ({checkInFunkis}) => {
 
   const history = useHistory()
   const [open, setOpen] = useState(false);
@@ -45,16 +46,17 @@ const FunkisCheckInComponent = () => {
   }
 
   const handleSubmit = (values, bag) => {
+    console.log("Check in")
     bag.setSubmitting(true)
     const code = values.blipp
     const liuCardOrLiuId = checkIfLiuId(code) ? "liu_id" : "liu_card_number"
     setLiuId(checkIfLiuId(code))
     checkInFunkis(liuCardOrLiuId, checkIfLiuId(code) ? code : parseLiUCardCode(code))
-      .catch(err => {
+/*       .catch(err => {
         console.log(err)
         setOpen(true)
         bag.setSubmitting(false)
-      })
+      }) */
     bag.resetForm()
   }
 
@@ -96,7 +98,7 @@ const FunkisCheckInComponent = () => {
                           touched={touched.blipp}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          inputRef={focusUsernameInputField}
+                          inputRef={focusInput}
                           style={{ width: '100%' }}
                         />
                       </GridCell>
@@ -126,4 +128,8 @@ const FunkisCheckInComponent = () => {
   )
 }
 
-export default injectIntl((FunkisCheckInComponent))
+const mapDispatchToProps = (dispatch) => ({
+  checkInFunkis: (liuCardOrLiuCode, code) => dispatch(checkInFunkis(liuCardOrLiuCode, code))
+})
+
+export default injectIntl(connect(null, mapDispatchToProps)(FunkisCheckInComponent))

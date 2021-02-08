@@ -74,11 +74,13 @@ const FunkisCheckInOverviewComponent = (
     getFunkisTypes();
   }, [getFunkisar, getFunkisTimeSlots, getFunkisTypes])
 
+  const defaltSearchValues = { checkedIn: false, late: false, funkisAlt: '0', chosenDate: 'Alla datum'}
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [checked_in, setCheckedIn] = React.useState(false);
-  const [late, setLate] = React.useState(false);
-  const [funkisAlt, setFunkisAlt] = React.useState('0')
-  const [chosenDate, setDate] = React.useState('Alla datum')
+  const [checkedIn, setCheckedIn] = React.useState(defaltSearchValues.checkedIn);
+  const [late, setLate] = React.useState(defaltSearchValues.late);
+  const [funkisAlt, setFunkisAlt] = React.useState(defaltSearchValues.funkisAlt)
+  const [chosenDate, setDate] = React.useState(defaltSearchValues.chosenDate)
 
   const handleSearch = (e) => {
     const term = e.target.value;
@@ -86,10 +88,10 @@ const FunkisCheckInOverviewComponent = (
   }
 
   const resetFilters = () => {
-    setCheckedIn(false)
-    setLate(false)
-    setFunkisAlt('0')
-    setDate('Alla datum')
+    setCheckedIn(defaltSearchValues.checkedIn)
+    setLate(defaltSearchValues.late)
+    setFunkisAlt(defaltSearchValues.funkisAlt)
+    setDate(defaltSearchValues.chosenDate)
   }
 
   const history = useHistory();
@@ -101,7 +103,7 @@ const FunkisCheckInOverviewComponent = (
   const filterByFieldValues = (f) => {
     for (const key of ['name', 'email', 'liuid']) {
       if (f[key] && f[key].toLowerCase().includes(searchTerm)) return true;
-      else if (positions[f['selectedFunkisAlt']].toLowerCase().includes(searchTerm)) return true
+      else if (positions[f.selectedFunkisAlt].toLowerCase().includes(searchTerm)) return true
       const options = { day: 'numeric', month: 'numeric', hour: 'numeric', minute: 'numeric' };
       if (f.selectedTimeSlots) {
         for (const t of f.selectedTimeSlots) {
@@ -115,14 +117,14 @@ const FunkisCheckInOverviewComponent = (
   }
 
   const filterByCheckedIn = (f) => {
-    if (checked_in && f['checkedIn']) return true
+    if (checkedIn && f['checkedIn']) return true
     else if (late) {
       for (const t of f.selectedTimeSlots) {
         const currentTime = new Date()
         if (currentTime > idTimeslots[t].start_time && currentTime < idTimeslots[t].end_time) return true;
       }
     }
-    else if (!checked_in && !late) return true
+    else if (!checkedIn && !late) return true
     return false
   }
 
@@ -166,7 +168,6 @@ const FunkisCheckInOverviewComponent = (
   const sampleWorkDates = ['Alla datum', ...workDates, '16/4', '17/4']
 
   useInterval(() => {
-    console.log("Re-fetching funkisar")
     getFunkisar()
   }, 1000 * 60)
 
@@ -185,7 +186,7 @@ const FunkisCheckInOverviewComponent = (
           <GridCell desktop='12' tablet='8' phone='4'>
             <Checkbox
               label="Incheckade"
-              checked={checked_in}
+              checked={checkedIn}
               onChange={evt => setCheckedIn(!!evt.currentTarget.checked)}
             />
             <Checkbox
@@ -261,7 +262,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateFunkis: (funkis) => dispatch(updateFunkis(funkis)),
   getFunkisTimeSlots: () => dispatch(getFunkisTimeSlots()),
   getFunkisTypes: () => dispatch(getFunkisTypes()),
-  checkInFunkis: (checkedIn) => dispatch(checkInFunkis(checkedIn))
+  checkInFunkis: (liuCardOrLiuCode, code) => dispatch(checkInFunkis(liuCardOrLiuCode, code))
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisCheckInOverviewComponent))
