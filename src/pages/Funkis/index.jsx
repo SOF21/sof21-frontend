@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
 import { GridCell, GridInner } from '@rmwc/grid';
@@ -14,7 +14,7 @@ import FormTextInput from '../../components/forms/components/FormTextInput';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import FormCheckbox from '../../components/forms/components/FormCheckbox';
 import LoadButton from '../../components/forms/components/LoadButton';
-import { TextFieldHelperText } from 'rmwc';
+import { Chip, ChipSet, TextFieldHelperText } from 'rmwc';
 
 // TODO: Replace, this is not nice.
 const noPref = 'Ingen';
@@ -24,6 +24,8 @@ const availableAllergies = {
   none: 'Ingen',
   gluten: 'Gluten',
   laktos: 'Laktos',
+  vegetarian: 'Vegetarian',
+  vegan: 'Vegan',
   both: 'Gluten & Laktos',
   other: 'Annat',
 };
@@ -124,6 +126,8 @@ const FunkisComponent = ({
 }) => {
 
 
+  const [allergies, setAllergies] = useState([]);
+
   useEffect(() => {
     getFunkisAppStatus();
     getFunkisTypes();
@@ -132,6 +136,20 @@ const FunkisComponent = ({
   const onSubmit = (values) => {
     sendFunkisApplication({...values, userId});
   }
+
+  const handleAllergyChip = (e, setFieldValue) =>{
+    const {detail: {chipId}} = e;
+    console.log(e.chipId)
+    if(allergies.includes(chipId)) {
+      setAllergies(allergies.filter(a => a !== chipId))
+    }
+    else {
+      setAllergies([...allergies, chipId])
+    }
+   
+    setFieldValue(chipId, allergies.reduce((str, a) => `${str} ${a}`, ''))
+  }
+
   return ( // TODO: Add errormessages for inputs
     <>
       {!loading && error && <GridInner>
@@ -180,6 +198,7 @@ const FunkisComponent = ({
          handleBlur,
          isSubmitting,
          handleSubmit,
+         setFieldValue,
        }) => (
          <Form 
           className='funkis-form'
@@ -389,16 +408,37 @@ const FunkisComponent = ({
         </GridCell>
 
         <GridCell desktop='6' tablet='4' phone='4'>
-          <Select 
-            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.allergies' />}
-            name='allergies'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            touched={touched.allergies}
-            error={errors.allergies}
-            value={values.allergies}
-            options={Object.values(availableAllergies)}
-          />
+          <ChipSet choice>
+            {console.log(allergies)}
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.gluten)}
+              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              text={"Gluten"}
+              id={availableAllergies.gluten}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.laktos)}
+              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.laktos}
+              id={availableAllergies.laktos}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.vegetarian)}
+              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.vegetarian}
+              id={availableAllergies.vegetarian}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.vegan)}
+              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.vegan}
+              id={availableAllergies.vegan}
+            />
+          </ChipSet>
         </GridCell>
 
         {values.allergies === availableAllergies.other  && <GridCell desktop='6' tablet='4' phone='4'>
