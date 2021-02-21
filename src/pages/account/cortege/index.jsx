@@ -68,14 +68,25 @@ const validationSchema = Yup.object().shape({
   image: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.image' />
   ),
-  /*electricity: Yup.string().required(
-    <FormattedMessage id='Cortege.form.errors.req.electricity' />
-  ),*/
   gdpr: Yup.bool().required(
     <FormattedMessage id='Cortege.form.errors.req.gdpr' />
   ).oneOf([true], 
     <FormattedMessage id='Cortege.form.errors.illFormed.gdpr' />
-  )
+  ),
+  reservContactPerson: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.reservContactPerson' />
+  ),
+  reservMail: Yup.string().email(
+    <FormattedMessage id='Cortege.form.errors.illFormed.reservMail' />
+  ).required(
+    <FormattedMessage id='Cortege.form.errors.req.reservMail' />
+  ),
+  reservPhonenumber: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.reservPhonenumber' />
+  ),
+  invoiceAddress: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.invoiceAddress' />
+  ),
 })
 
 const CortegeComponent = ({
@@ -201,6 +212,54 @@ const CortegeComponent = ({
               touched={touched.mail}
               error={errors.mail}
               value={values.mail}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservPhonenumber' />}
+              name='reservPhonenumber'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservPhonenumber}
+              error={errors.reservPhonenumber}
+              value={values.reservPhonenumber}
+            />        
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+          
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservContactPerson' />}
+              name='reservContactPerson'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservContactPerson}
+              error={errors.reservContactPerson}
+              value={values.reservContactPerson}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+          
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservMail' />}
+              name='reservMail'
+              type='email'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservMail}
+              error={errors.reservMail}
+              value={values.reservMail}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+          
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.invoiceAddress' />}
+              name='invoiceAddress'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.invoiceAddress}
+              error={errors.invoiceAddress}
+              value={values.invoiceAddress}
             />
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>

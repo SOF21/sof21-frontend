@@ -197,11 +197,7 @@ class Start extends Component {
                 </Header>
               </GridCell>
             }
-            {!isFirefox && !isSafari &&
-             <GridCell phone="4" tablet="8" desktop='12' >
-               <Feed userName="studentorkesterfestivalen" className="feed" classNameLoading="Loading" limit="2"/>
-             </GridCell>
-            }
+            
            
           </GridInner>
         </Grid >

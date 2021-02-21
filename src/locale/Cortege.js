@@ -15,6 +15,10 @@ export default {
           feedback: 'Feedback',
           securityFeedback: 'Säkerhetsfeedback',
           otherComments: 'Övriga kommentarer',
+          reservContactPerson: "Reservkontakt namn",
+          reservMail: "Reservkontakt e-mail",
+          reservPhonenumber: "Reservkontakt telefonnummer",
+          invoiceAddress: "Faktureringsaddress"
         },
       },
 
@@ -56,7 +60,11 @@ export default {
           themeMotivation: "Tema motivation",
           amountPartaking: "Antal deltagare",
           gdpr: "Jag samtycker till ovanstående",
-          image: "Länk till bidragsbeskrivning"
+          image: "Länk till bidragsbeskrivning",
+          reservContactPerson: "Reservkontakt namn",
+          reservMail: "Reservkontakt e-mail",
+          reservPhonenumber: "Reservkontakt telefonnummer",
+          invoiceAddress: "Faktureringsaddress"
         },
         errors: {
           req: {
@@ -69,10 +77,15 @@ export default {
             themeMotivation: "Du måste motivera relationen till temat",
             amountPartaking: "Du måste ange hur många som kommer delta",
             image: "Du måste länka till en bidragsskiss",
-            gdpr: "Du måste acceptera vilkoren"
+            gdpr: "Du måste acceptera vilkoren",
+            reservContactPerson: "Du måste ange en reservkontakt",
+            reservMail: "Du måste ange en e-mail till reservkontakten",
+            reservPhonenumber: "Du måste ange ett telefonnummer till reservkontakten",
+            invoiceAddress: "Du måste ange en faktureringsaddress",
           },
           illFormed: {
             mail: "Du måste ange en riktigt e-mail",
+            reservMail: "Du måste ange en riktigt e-mail",
             gdpr: "Du måste acceptera vilkoren",
             max40: "Gruppnamnet får inte vara längre än 40 karaktärer",
           },

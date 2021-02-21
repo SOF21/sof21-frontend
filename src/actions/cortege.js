@@ -34,6 +34,10 @@ export const sendCortegeApplication = ({
   amountPartaking,
   image,
   gdpr,
+  reservPhonenumber,
+  reservContactPerson,
+  reservMail,
+  invoiceAddress,
 }) => {
   return async dispatch => {
     dispatch(sendCortegeAppBegin());
@@ -49,6 +53,10 @@ export const sendCortegeApplication = ({
         theme_connection: themeMotivation,
         image_url: image,
         gdpr,
+        secondary_phone: reservPhonenumber,
+        secondary_name: reservContactPerson,
+        secondary_mail: reservMail,
+        invoice_address: invoiceAddress,
       }
     })
       .then(() => {
@@ -104,7 +112,12 @@ export const getCorteges = () => {
             otherComments: c.other_comments,
             approved: false || c.approved,
             electricity: false || c.electricity,
-            infoMail: false || c.info_mail
+            infoMail: false || c.info_mail,
+            flags: c.flags,
+            reservPhonenumber: c.secondary_phone,
+            reservContactPerson: c.secondary_name,
+            reservMail: c.secondary_mail,
+            invoiceAddress: c.invoice_address
           }
         }), {})
         dispatch(getCortegesSuccess(cFixed));
@@ -143,6 +156,7 @@ export const updateCortege = ({
   otherComments,
   electricity,
   infoMail,
+  flags,
 }) => {
   return async dispatch => {
     dispatch(updateCortegeBegin({
@@ -153,6 +167,7 @@ export const updateCortege = ({
       otherComments,
       electricity,
       infoMail,
+      flags,
     }));
     return api.put(`cortege/${id}`, {
       item: {
@@ -162,6 +177,7 @@ export const updateCortege = ({
         feedback: feedback,
         other_comments: otherComments,
         security_feedback: securityFeedback,
+        flags,
       }
     })
       .then((res) => {
