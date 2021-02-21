@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+//import { useHistory } from 'react-router-dom'
 import { GridCell, Grid, GridInner } from '@rmwc/grid';
 import {
   DataTable,
@@ -99,7 +99,7 @@ const FunkisCheckInOverviewComponent = (
     setDate(defaltSearchValues.chosenDate)
   }
 
-  const history = useHistory();
+  const history = null //useHistory();
   const routeChange = () => {
     let path = `/account/admin/funkischeckin/checkin`;
     history.push(path);

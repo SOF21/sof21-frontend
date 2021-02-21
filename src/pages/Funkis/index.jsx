@@ -138,8 +138,8 @@ const FunkisComponent = ({
   }
 
   const handleAllergyChip = (e, setFieldValue) =>{
-    const {detail: {chipId}} = e;
-    console.log(e.chipId)
+    const { target: { chipId } } = e;
+    console.log(chipId)
     if(allergies.includes(chipId)) {
       setAllergies(allergies.filter(a => a !== chipId))
     }
@@ -407,41 +407,48 @@ const FunkisComponent = ({
           />
         </GridCell>
 
-        <GridCell desktop='6' tablet='4' phone='4'>
+        <GridCell desktop='12' tablet='8' phone='4'>
           <ChipSet choice>
             {console.log(allergies)}
             <Chip 
               checkmark
               selected={allergies.includes(availableAllergies.gluten)}
-              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
               text={"Gluten"}
               id={availableAllergies.gluten}
             />
             <Chip 
               checkmark
               selected={allergies.includes(availableAllergies.laktos)}
-              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
               text={availableAllergies.laktos}
               id={availableAllergies.laktos}
             />
             <Chip 
               checkmark
               selected={allergies.includes(availableAllergies.vegetarian)}
-              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
               text={availableAllergies.vegetarian}
               id={availableAllergies.vegetarian}
             />
             <Chip 
               checkmark
               selected={allergies.includes(availableAllergies.vegan)}
-              onClick={(e) => handleAllergyChip(e, setFieldValue)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
               text={availableAllergies.vegan}
               id={availableAllergies.vegan}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.other)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.other}
+              id={availableAllergies.other}
             />
           </ChipSet>
         </GridCell>
 
-        {values.allergies === availableAllergies.other  && <GridCell desktop='6' tablet='4' phone='4'>
+        {allergies.includes(availableAllergies.other) && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
             label={<FormattedMessage id='Funkis.recruitment.fieldLabels.otherAllergy' />}
             name='otherAllergy'
