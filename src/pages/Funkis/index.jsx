@@ -47,7 +47,7 @@ const initialInput = {
   thirdPrefferedDate: '',
   shirtSize: '',
   allergies: '',
-  otherAllergy: '',
+  otherFoodPreference: '',
   gdpr: false,
   liuCard: '',
   requestedPartner: '',
@@ -85,11 +85,11 @@ const validationSchema = Yup.object().shape({
   funkisOne: Yup.string().required(
     <FormattedMessage id='Funkis.recruitment.errors.req.address' /> 
   ),
-  otherAllergy: Yup.string().when('allergies',
+  otherFoodPreference: Yup.string().when('allergies',
   {
     is: availableAllergies.other,
     then: Yup.string().required(
-      <FormattedMessage id='Funkis.recruitment.errors.req.otherAllergy' />
+      <FormattedMessage id='Funkis.recruitment.errors.req.otherFoodPreference' />
     )
   }),
   gdpr: Yup.bool().oneOf([true], 
@@ -408,6 +408,7 @@ const FunkisComponent = ({
         </GridCell>
 
         <GridCell desktop='12' tablet='8' phone='4'>
+          <span><FormattedMessage id='Funkis.recruitment.fieldLabels.foodPreference' /></span>
           <ChipSet choice>
             {console.log(allergies)}
             <Chip 
@@ -450,15 +451,16 @@ const FunkisComponent = ({
 
         {allergies.includes(availableAllergies.other) && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.otherAllergy' />}
-            name='otherAllergy'
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.otherFoodPreference' />}
+            name='otherFoodPreference'
             onChange={handleChange}
             onBlur={handleBlur}
-            touched={touched.otherAllergy}
-            error={errors.otherAllergy}
-            value={values.otherAllergy}
+            touched={touched.otherFoodPreference}
+            error={errors.otherFoodPreference}
+            value={values.otherFoodPreference}
           />
-        </GridCell>}
+        </GridCell>
+        }
 
         <GridCell desktop='12' tablet='8' phone='4'>
           <FormCheckbox 

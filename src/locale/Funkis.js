@@ -67,8 +67,8 @@ export default {
           secondPrefferedDate: 'Andra föredragna datum',
           thirdPrefferedDate: 'Tredje föredragna datum',
           shirtSize: 'T-Shirt storlek',
-          allergies: ' Specialkost',
-          otherAllergy: 'Övrig specialkost',
+          foodPreference: 'Specialkost',
+          otherFoodPreference: 'Övrig specialkost',
           extraDesc: 'Övrig information',
         },
 
@@ -83,7 +83,7 @@ export default {
             address: 'Du måste ange din address',
             city: 'Du måste ange en stad',
             liuCard: 'Du måste ange ditt liu-kortnummer',
-            otherAllergy: 'Du måste skriva in din specialkost'
+            otherFoodPreference: 'Du måste skriva in din specialkost'
           },
           malformed: {
             postcode: 'Ange endast siffror',
@@ -102,7 +102,7 @@ export default {
           requestedPartner: 'Önskad nattvaktspartner',
           tshirtSize: 'T-Shirt storlek',
           allergy: 'Specialkost',
-          allergyOther: 'Övrig specialkost',
+          otherFoodPreference: 'Övrig specialkost',
           extraDesc: 'Övrig information'
         }
       }

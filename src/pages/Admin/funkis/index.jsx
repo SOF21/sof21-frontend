@@ -181,7 +181,7 @@ const FunkisAdminComponent = ({
     tshirtSize,
     postAddress,
     allergy,
-    allergyOther,
+    otherFoodPreference,
     preferedDates,
     id,
     extraDesc,
@@ -262,13 +262,13 @@ const FunkisAdminComponent = ({
                   </ListItemText>
                 </ListItem>
               }
-              { allergyOther &&
+              { otherFoodPreference &&
                 <ListItem ripple={false}>
                   <ListItemText>
                     <ListItemPrimaryText>
-                      <FormattedMessage id='Funkis.admin.fieldLabels.allergyOther'/>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.otherFoodPreference'/>
                     </ListItemPrimaryText>
-                    <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{allergyOther}</ListItemSecondaryText>
+                    <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{otherFoodPreference}</ListItemSecondaryText>
                   </ListItemText>
                 </ListItem>
               }

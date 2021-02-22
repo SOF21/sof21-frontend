@@ -114,7 +114,7 @@ const FunkisModal = ({
     tshirtSize,
     postAddress,
     allergy,
-    allergyOther,
+    otherFoodPreference,
     preferedDates,
     requestedPartner,
   } = funkis;
@@ -191,13 +191,13 @@ const FunkisModal = ({
                   </ListItemText>
                 </ListItem>
               }
-              { allergyOther &&
+              { otherFoodPreference &&
                 <ListItem ripple={false}>
                   <ListItemText>
                     <ListItemPrimaryText>
-                      <FormattedMessage id='Funkis.admin.fieldLabels.allergyOther'/>
+                      <FormattedMessage id='Funkis.admin.fieldLabels.otherFoodPreference'/>
                     </ListItemPrimaryText>
-                    <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{allergyOther}</ListItemSecondaryText>
+                    <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{otherFoodPreference}</ListItemSecondaryText>
                   </ListItemText>
                 </ListItem>
               }
