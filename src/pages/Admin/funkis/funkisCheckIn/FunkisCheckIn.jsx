@@ -46,7 +46,6 @@ const FunkisCheckInComponent = ({checkInFunkis, checkedInFunkis, error}) => {
   }
 
   const handleSubmit = (values, bag) => {
-    console.log("Check in")
     bag.setSubmitting(true)
     const code = values.blipp
     const liuCardOrLiuId = checkIfLiuId(code) ? "liu_id" : "liu_card_number"
