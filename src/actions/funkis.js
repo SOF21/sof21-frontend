@@ -265,14 +265,14 @@ export const CHECK_IN_FUNKIS = {
   FAILURE: `${funkisActionBase}CHECK_IN_FUNKIS_FAILURE`,
 }
 
-export const checkInFunkisBegin = (funkis) => ({
+export const checkInFunkisBegin = (code) => ({
   type: CHECK_IN_FUNKIS.BEGIN,
-  payload: funkis
+  payload: code
 });
 
-export const checkInFunkisSuccess = () => ({
+export const checkInFunkisSuccess = (funkis) => ({
   type: CHECK_IN_FUNKIS.SUCCESS,
-  payload: {}
+  payload: funkis.data
 });
 
 export const checkInFunkisFailure = (err) => ({
@@ -284,10 +284,10 @@ export const checkInFunkisFailure = (err) => ({
 export const checkInFunkis = (liuCardOrLiuID, code) => {
 
     return async dispatch => {
-      dispatch(checkInFunkisBegin)
+      dispatch(checkInFunkisBegin())
       api.put(`/funkis/check_in/${liuCardOrLiuID}/${code}`)
         .then((json) => {
-          dispatch(checkInFunkisSuccess())
+          dispatch(checkInFunkisSuccess(json))
         })
         .catch((err) => dispatch(checkInFunkisFailure(err)))
     }
