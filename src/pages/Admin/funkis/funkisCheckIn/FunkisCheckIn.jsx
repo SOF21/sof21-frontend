@@ -28,7 +28,7 @@ const focusInput = input => {
   }
 };
 
-const FunkisCheckInComponent = ({checkInFunkis}) => {
+const FunkisCheckInComponent = ({checkInFunkis, checkedInFunkis, error}) => {
 
   const history = useHistory()
   const [open, setOpen] = useState(false);
@@ -46,24 +46,24 @@ const FunkisCheckInComponent = ({checkInFunkis}) => {
   }
 
   const handleSubmit = (values, bag) => {
-    console.log("Check in")
     bag.setSubmitting(true)
     const code = values.blipp
     const liuCardOrLiuId = checkIfLiuId(code) ? "liu_id" : "liu_card_number"
     setLiuId(checkIfLiuId(code))
     checkInFunkis(liuCardOrLiuId, checkIfLiuId(code) ? code : parseLiUCardCode(code))
-/*       .catch(err => {
-        console.log(err)
-        setOpen(true)
-        bag.setSubmitting(false)
-      }) */
-    bag.resetForm()
+    values.blipp = ''
+    bag.setSubmitting(false)
   }
 
   const handleClick = (e) => {
     e.preventDefault()
     history.push('/account/admin/funkischeckin')
   }
+
+  useEffect(() => {
+    if (error !== null && ((error instanceof Object) 
+        && Object.keys(error).length) !== 0) setOpen(true)
+  }, [error])
 
   return (
     <>
@@ -88,7 +88,14 @@ const FunkisCheckInComponent = ({checkInFunkis}) => {
                   <Form style={{ width: '100%' }}>
                     <GridInner>
                       {errors.global && <GridCell desktop='12' tablet='8' phone='4'> {errors.global}</GridCell>}
-
+                      <GridCell span='12' style={{textAlign: 'center'}}>
+                        <p style={{margin: '0px'}}> Du kan checka in med genom att blippa ditt LiU-kort eller genom att skriva in ditt LiU-id</p>
+                      </GridCell>
+                      <GridCell span='12' style={{textAlign: 'center'}}>
+                        {'id' in checkedInFunkis ? <p style={{margin: '0px', color: checkedInFunkis.checked_in? 'green' : 'red' }}>
+                          <b>{checkedInFunkis.name} har checkat {checkedInFunkis.checked_in ? 'in' : 'ut'}</b>
+                        </p> : null }
+                      </GridCell>
                       <GridCell desktop='12' tablet='8' phone='4'>
                         <FormTextInput
                           name='blipp'
@@ -109,12 +116,13 @@ const FunkisCheckInComponent = ({checkInFunkis}) => {
                           disabled={!isValid || isSubmitting}
                           style={{ marginRight: '10px' }}
                         >
-                          Checka in
+                          Checka in/ut
                         </Button>
                         <Button raised onClick={handleClick}>
                           Tillbaka
                         </Button>
                       </GridCell>
+                      <GridCell desktop='6' tablet='4' phone='2'/>
                     </GridInner>
                   </Form>
                 );
@@ -128,8 +136,13 @@ const FunkisCheckInComponent = ({checkInFunkis}) => {
   )
 }
 
+const mapStateToProps = (state) => ({
+  checkedInFunkis: state.funkis.checkedInFunkis,
+  error: state.funkis.error
+})
+
 const mapDispatchToProps = (dispatch) => ({
   checkInFunkis: (liuCardOrLiuCode, code) => dispatch(checkInFunkis(liuCardOrLiuCode, code))
 })
 
-export default injectIntl(connect(null, mapDispatchToProps)(FunkisCheckInComponent))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FunkisCheckInComponent))

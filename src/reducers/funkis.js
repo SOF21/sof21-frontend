@@ -7,11 +7,13 @@ import {
   GET_FUNKIS_TIME_SLOTS,
   SET_FUNKIS_DATA,
   GET_FUNKIS_APP_STATUS,
+  CHECK_IN_FUNKIS,
 } from '../actions/funkis'
 
 const initialState = {
   loading: true,
   success: false,
+  checkedInFunkis: {},
   error: {},
   positions: {},
   funkisar: {},
@@ -169,6 +171,24 @@ const funkisReducer = (state = initialState, action) => {
         userId: hasPrevAppInfo.userId,
       }
     }
+    case CHECK_IN_FUNKIS.BEGIN: 
+      return {
+      ...state,
+      loading: true,
+      error: null
+    }
+    case CHECK_IN_FUNKIS.SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        checkedInFunkis: action.payload
+      }
+    case CHECK_IN_FUNKIS.FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
 		default: 
 			return state;
 	}
