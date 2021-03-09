@@ -103,7 +103,8 @@ export default {
           tshirtSize: 'T-Shirt storlek',
           allergy: 'Specialkost',
           otherFoodPreference: 'Övrig specialkost',
-          extraDesc: 'Övrig information'
+          extraDesc: 'Övrig information',
+          preferedTimeSlots: 'Önskade dagar för arbete'
         }
       }
     }

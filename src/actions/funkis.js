@@ -46,6 +46,9 @@ export const sendFunkisApplication = ({
   extraDesc,
   requestedPartner,
 }) => { // TODO: UPDATE
+  console.log(parseInt(firstPrefferedDate.split('/')[1])-1)
+  console.log('-->')
+  console.log(firstPrefferedDate.split('/')[0])
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
     return api.post('funkis', {
@@ -63,9 +66,9 @@ export const sendFunkisApplication = ({
         first_post_id: funkisOne,
         second_post_id: funkisTwo,
         third_post_id: funkisThree,
-        first_day: new Date(2021, firstPrefferedDate.split('/')[0], firstPrefferedDate.split('/')[1]),
-        second_day: new Date(2021, secondPrefferedDate.split('/')[0], secondPrefferedDate.split('/')[1]),
-        third_day: new Date(2021, thirdPrefferedDate.split('/')[0], thirdPrefferedDate.split('/')[1]),
+        first_day: new Date(2021, parseInt(firstPrefferedDate.split('/')[1])-1, firstPrefferedDate.split('/')[0], 12, 12),
+        second_day: new Date(2021, parseInt(secondPrefferedDate.split('/')[1])-1, secondPrefferedDate.split('/')[0], 12, 12),
+        third_day: new Date(2021, parseInt(thirdPrefferedDate.split('/')[1])-1, thirdPrefferedDate.split('/')[0], 12, 12),
         user_id: userId,
         share_info: extraDesc,
         partner_id: requestedPartner,

@@ -18,7 +18,7 @@ import { Chip, ChipSet, TextFieldHelperText } from 'rmwc';
 
 // TODO: Replace, this is not nice.
 const noPref = 'Ingen';
-const workDates = ["1/1", "2/2", "3/3", "4/4"];
+const workDates = ["14/5", "2/2", "3/3", "4/4"];
 const shirtSizes = ["S", "M", "L", "XL"];
 const availableAllergies = {
   none: 'Ingen',
@@ -147,10 +147,10 @@ const FunkisComponent = ({
       setAllergies([...allergies, chipId])
     }
    
-    setFieldValue(chipId, allergies.reduce((str, a) => `${str} ${a}`, ''))
+    setFieldValue('allergies', allergies.reduce((str, a) => `${a} ${str}`, ''))
   }
 
-  return ( // TODO: Add errormessages for inputs
+  return (
     <>
       {!loading && error && <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
@@ -415,7 +415,7 @@ const FunkisComponent = ({
               checkmark
               selected={allergies.includes(availableAllergies.gluten)}
               onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
-              text={"Gluten"}
+              text={availableAllergies.gluten}
               id={availableAllergies.gluten}
             />
             <Chip 
