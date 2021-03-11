@@ -28,13 +28,6 @@ import { TextField } from 'rmwc';
 import bitFlags from './bitFlags';
 
 
-// TODO: Bryt ut till intl
-const buildTypes = {
-  0: 'Macrobygge',
-  1: 'Fribygge',
-};
-
-
 const toggleFlag = ({
   flags,
   flag
@@ -95,7 +88,6 @@ const CortegeModal = ({
   const {
     groupName,
     amountPartaking,
-    buildType,
     phonenumber,
     contactPerson,
     contribMotivation,
@@ -140,14 +132,6 @@ const CortegeModal = ({
                     <FormattedMessage id='Cortege.admin.fieldLabels.amountPartaking'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{amountPartaking}</ListItemSecondaryText>
-                </ListItemText>
-              </ListItem>
-              <ListItem ripple={false}>
-                <ListItemText>
-                  <ListItemPrimaryText>
-                    <FormattedMessage id='Cortege.admin.fieldLabels.buildType'/>
-                  </ListItemPrimaryText>
-                  <ListItemSecondaryText>{buildTypes[buildType]}</ListItemSecondaryText>
                 </ListItemText>
               </ListItem>
               <ListItem ripple={false}>
@@ -309,6 +293,7 @@ const CortegeModal = ({
         </Grid>
         </DialogContent>
         <DialogActions>
+          <DialogButton action="delete" raised style={{marginRight: 'auto'}}>Ta bort</DialogButton>  
           <DialogButton action="close">Avbryt</DialogButton>
           <DialogButton action="save" raised disabled={!modified}>Spara</DialogButton>
         </DialogActions>

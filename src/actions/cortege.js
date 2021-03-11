@@ -28,7 +28,6 @@ export const sendCortegeApplication = ({
   contactPerson,
   mail,
   phonenumber,
-  buildType,
   contribMotivation,
   themeMotivation,
   amountPartaking,
@@ -45,7 +44,7 @@ export const sendCortegeApplication = ({
       item: {
         name: groupName,
         participant_count: amountPartaking,
-        cortege_type: buildType,
+        cortege_type: 0,
         contact_mail: mail,
         contact_phone: phonenumber,
         contact_name: contactPerson,
@@ -99,7 +98,6 @@ export const getCorteges = () => {
             id: c.id,
             groupName: c.name,
             amountPartaking: c.participant_count,
-            buildType: c.cortege_type,
             phonenumber: c.contact_phone,
             mail: c.contact_mail,
             contactPerson: c.contact_name,
@@ -188,6 +186,41 @@ export const updateCortege = ({
 };
 
 
+export const DELETE_CORTEGE = {
+  BEGIN: `${cortegeActionBase}DELETE_CORTEGE_BEGIN`,
+  FAILURE: `${cortegeActionBase}DELETE_CORTEGE_FAILURE`,
+  SUCCESS: `${cortegeActionBase}DELETE_CORTEGE_SUCCESS`,
+};
+
+export const deleteCortegeBegin = (cortege) => ({
+  type: DELETE_CORTEGE.BEGIN,
+  payload: cortege
+});
+
+export const deleteCortegeSuccess = () => ({
+  type: DELETE_CORTEGE.SUCCESS,
+  payload: {}
+});
+
+export const deleteCortegeFailure = (err) => ({
+  type: DELETE_CORTEGE.FAILURE,
+  payload: err
+});
+
+export const deleteCortege = ({
+  id,
+}) => {
+  return async dispatch => {
+    dispatch(deleteCortegeBegin({
+      id
+    }));
+    return api.delete(`cortege/${id}`)
+      .then((res) => {
+        dispatch(deleteCortegeSuccess());
+      })
+      .catch(err => dispatch(deleteCortegeFailure(err)));
+  }
+};
 
 export const GET_CURRENT_CORTEGE = {
   BEGIN: `${cortegeActionBase}GET_CURRENT_CORTEGE_BEGIN`,

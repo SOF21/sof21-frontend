@@ -20,18 +20,18 @@ import { ScaleLoader } from 'react-spinners';
 import CortegeModal from './CortegeModal';
 import defaultCortege from './defaultCortege';
 import bitFlags from './bitFlags';
-import { getCorteges, updateCortege } from '../../../actions/cortege';
-import { CSVDownload, CSVLink } from 'react-csv';
+import { getCorteges, updateCortege, deleteCortege } from '../../../actions/cortege';
+import {  CSVLink } from 'react-csv';
 import { Chip, ChipSet } from '@rmwc/chip';
 import { Checkbox } from 'rmwc';
 import { Button } from '@rmwc/button';
-import cortege from '../../../reducers/cortege';
-
-// TODO: Bryt ut till intl
-const buildTypes = {
-  0: 'Macrobygge',
-  1: 'Fribygge',
-};
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogButton
+} from '@rmwc/dialog';
 
 
 const isFlagSet = (flags, flag) => {
@@ -52,13 +52,10 @@ const CortegeAdminRow = ({
   const {
     groupName,
     amountPartaking,
-    buildType,
     contactPerson,
     approved,
     phonenumber,
     mail,
-    infoMail,
-    electricity,
     feedback,
     securityFeedback,
     otherComments,
@@ -86,9 +83,6 @@ const CortegeAdminRow = ({
         {phonenumber}
       </DataTableCell>
       <DataTableCell>
-        {buildTypes[buildType]}
-      </DataTableCell>
-      <DataTableCell>
         {amountPartaking}
       </DataTableCell>
       <DataTableCell className='feedbackText'>
@@ -110,6 +104,7 @@ const CortegeAdminComponent = ({
   getCorteges,
   updateCortege,
   positions,
+  deleteCortege,
 }) => {
 
   useEffect(() => {
@@ -117,6 +112,7 @@ const CortegeAdminComponent = ({
   }, [getCorteges])
 
   const [cortegeModalOpen, setCortegeModalOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [activeCortege, setActiveCortege] = useState(defaultCortege);
   const [searchTerm, setSearchTerm] = useState('');
   const [CSVHeaders, setCSVHeaders] = useState({});
@@ -140,17 +136,36 @@ const CortegeAdminComponent = ({
     setSearchTerm(term.toLowerCase());
   }
 
-  const handleDialogExit = (e, c) => {
-    setCortegeModalOpen(false)
+  const handleCortegeDialogExit = (e, c) => {
     e.preventDefault();
     switch(e.detail.action) {
       case 'save':
-        updateCortege(c)
+        setCortegeModalOpen(false);
+        updateCortege(c);
+        break;
+      case 'delete':
+        setDeleteDialogOpen(true);
+        break;
+      default:
+        setCortegeModalOpen(false);
+        break;
+    }
+  }
+
+  const handleDeleteDialogExit = (e, c) => {
+    setDeleteDialogOpen(false)
+    e.preventDefault();
+    switch(e.detail.action) {
+      case 'delete':
+        setCortegeModalOpen(false);
+        deleteCortege(c);
         break;
       default:
         break;
     }
   }
+
+
 
   const onStatusFilterChange = (e) => {
     const {target: {chipId}} = e;
@@ -197,7 +212,6 @@ const CortegeAdminComponent = ({
     const searchProps = ['groupName', 'contactPerson', 'phonenumber', 'mail'];
     for (const p of searchProps) {
       if(cortege[p]?.toLowerCase().includes(searchTerm)) return true;
-      if(buildTypes[cortege.buildType].toLowerCase().includes(searchTerm)) return true;
     }
     return false;
   }
@@ -214,10 +228,25 @@ const CortegeAdminComponent = ({
     }
     {!loading && activeCortege !== defaultCortege &&
       <CortegeModal 
-        handleDialogExit={handleDialogExit}
+        handleDialogExit={handleCortegeDialogExit}
         open={cortegeModalOpen}
         cortege={activeCortege}
       /> 
+    }
+    {!loading && activeCortege !== defaultCortege &&
+      <Dialog
+        onClose={(e) => handleDeleteDialogExit(e, activeCortege)}
+        open={deleteDialogOpen}
+      >
+        <DialogContent>
+          <p>Är du säker på att du vill ta bort cortege: {activeCortege.groupName} ?</p>
+        </DialogContent>
+        <DialogActions>          
+          <DialogButton action="cancel">Avbryt</DialogButton>
+          <DialogButton action="delete" raised>Ta bort</DialogButton>  
+        </DialogActions>
+        
+      </Dialog> 
     }
       {!loading &&
       <Grid>
@@ -336,7 +365,6 @@ const CortegeAdminComponent = ({
                 <DataTableHeadCell>Kontaktperson</DataTableHeadCell>
                 <DataTableHeadCell>E-mail</DataTableHeadCell>
                 <DataTableHeadCell>Telefon</DataTableHeadCell>
-                <DataTableHeadCell>Bidragstyp</DataTableHeadCell>
                 <DataTableHeadCell>Antal personer</DataTableHeadCell>
                 <DataTableHeadCell>Feedback</DataTableHeadCell>
                 <DataTableHeadCell>Säkerhet</DataTableHeadCell>
@@ -380,7 +408,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCorteges: () => dispatch(getCorteges()),
-  updateCortege: (cortege) => dispatch(updateCortege(cortege))
+  updateCortege: (cortege) => dispatch(updateCortege(cortege)),
+  deleteCortege: (cortege) => dispatch(deleteCortege(cortege))
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(CortegeAdminComponent))

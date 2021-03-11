@@ -1,4 +1,4 @@
-import { GET_CORTEGES, GET_CURRENT_CORTEGE, SEND_CORTEGE_APP, UPDATE_CORTEGE } from "../actions/cortege";
+import { DELETE_CORTEGE, GET_CORTEGES, GET_CURRENT_CORTEGE, SEND_CORTEGE_APP, UPDATE_CORTEGE } from "../actions/cortege";
 
 const initialState = {
   loading: false,
@@ -75,10 +75,38 @@ const cortege = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				success: false,
+				success: true,
 			}
 		}
 		case UPDATE_CORTEGE.FAILURE: {
+			const error = action.payload
+			return {
+				...state,
+				loading: false,
+				success: false,
+				error,
+			}
+		}
+		case DELETE_CORTEGE.BEGIN: {
+			const { id } = action.payload;
+			const corteges = state.corteges;
+			delete corteges[id];
+			return {
+				...state,
+				loading: true,
+				corteges: {
+					...corteges,
+				}
+			}
+		}
+		case DELETE_CORTEGE.SUCCESS: {
+			return {
+				...state,
+				loading: false,
+				success: true,
+			}
+		}
+		case DELETE_CORTEGE.FAILURE: {
 			const error = action.payload
 			return {
 				...state,
