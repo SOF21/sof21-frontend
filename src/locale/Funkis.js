@@ -83,7 +83,8 @@ export default {
             address: 'Du måste ange din address',
             city: 'Du måste ange en stad',
             liuCard: 'Du måste ange ditt liu-kortnummer',
-            otherFoodPreference: 'Du måste skriva in din specialkost'
+            otherFoodPreference: 'Du måste skriva in din specialkost',
+            extraDesc: 'Du måste ange din övriga information',
           },
           malformed: {
             postcode: 'Ange endast siffror',

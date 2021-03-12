@@ -3,7 +3,7 @@ import React from 'react';
 import BasePage from '../pages/pageTypes/BasePage';
 
 import Account from '../pages/account/Account';
-import Funkis from '../pages/Funkis';
+import Funkis from '../pages/account/Funkis';
 
 import Checkout from '../pages/base_pages/Checkout';
 import VerifyLiuLogin from './account/VerifyLiuLogin';

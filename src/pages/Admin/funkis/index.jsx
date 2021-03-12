@@ -55,7 +55,9 @@ const FunkisAdminComponent = ({
   const [originalTimeslots, setOriginalTimeslots] = useState([]);
   const [CSVHeaders, setCSVHeaders] = useState({});
   const [sortation, setSort] = useState({field: 'name', dir: 1});
-  const [funkisTypeFilter, setFunkisTypeFilter] = useState('0')
+  const [funkisTypeFilter, setFunkisTypeFilter] = useState('0');
+  const [funkisCompleteFilter, setFunkisCompleteFilter] = useState('0');
+
   const activatedCSVHeaders = Object.values(CSVHeaders).filter(obj => obj.checked).map(v => v.id);
   const CSVData = Object.values(funkisar).map(c => ({
     ...Object.keys(c).reduce((acc, k) => {
@@ -108,7 +110,12 @@ const FunkisAdminComponent = ({
   }
 
   const funkisFilter = (f) => {
-    if(f.selectedFunkisAlt !== funkisTypeFilter && !(funkisTypeFilter === "0" && f.selectedFunkisAlt === null)) return false;
+    if(f.selectedFunkisAlt != funkisTypeFilter && funkisTypeFilter !== "0") return false;
+    if(funkisCompleteFilter !== "0") {
+      if(f.markedAsDone && funkisCompleteFilter !== '1') return false;
+      else if(!f.markedAsDone && funkisCompleteFilter !== '2') return false;
+    }
+    
     for(const key of ['name', 'email', 'liuid']) {
       if(f[key] && f[key].toLowerCase().includes(searchTerm)) return true;
     }
@@ -236,10 +243,22 @@ const FunkisAdminComponent = ({
             Object.keys(positions).reduce((obj, alt) => ({
               ...obj,
               [alt]: positions[alt]
-            }), {0: "Ingen"})
+            }), {0: "Alla"})
           }
           onChange={(e) => setFunkisTypeFilter(e.target.value)}
           value={funkisTypeFilter}
+        />
+        <Select 
+          label="Klar"
+          options={
+          {
+            0: "Båda",
+            1: "Klar",
+            2: "Ej klar",
+          }
+          }
+          onChange={(e) => setFunkisCompleteFilter(e.target.value)}
+          value={funkisCompleteFilter}
         />
       </GridCell>
       <GridCell desktop='12' tablet='8' phone='4'>
