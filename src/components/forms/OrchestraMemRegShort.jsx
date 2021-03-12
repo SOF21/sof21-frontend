@@ -86,8 +86,10 @@ class OrchestraMemReg extends Component {
                 }),
                 oldOrActive: Yup.bool().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 otherPerformances: Yup.string().required(<FormattedMessage id='OrchestraMemReg.required' />),
-                orchestraType: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
-
+                orchestraType: Yup.number().when('this.props.orchestraType', {
+                  is: true,
+                  then: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
+                }),
               })}
               onSubmit={this.formSubmit}
               render={({ values, handleChange, handleBlur, errors, touched, isValid, setFieldValue, setFieldTouched, isSubmitting }) => (
@@ -119,7 +121,6 @@ class OrchestraMemReg extends Component {
                       />
 
                     </GridCell>
-                    {this.props.signupOrchestra.orchestra.orchestra_type === 2 &&
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
                         label={
@@ -147,7 +148,7 @@ class OrchestraMemReg extends Component {
                           }
                         ]}
                       />
-                    </GridCell>}
+                    </GridCell>
 
                     {values.arriveWith === false ? <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
