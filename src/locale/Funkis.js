@@ -44,7 +44,66 @@ export default {
       tearFunkTitle: "Rivfunkis",
       tearFunk: "Har du en fallenhet för att sabba, demolera och allmänt röja? Som rivfunkis får du chansen att få utlopp för ditt förödelsebehov! Riv ner allt från barer till boende!",
       nightFunkTitle: "Nattvakt",
-      nightFunk: "Är du något av en nattuggla? Hjälp oss vaka över SOFs eminenta område!"
+      nightFunk: "Är du något av en nattuggla? Hjälp oss vaka över SOFs eminenta område!",
+      
+      recruitment: {
+        header: 'Funkis ansökan',
+        info: 'Här kan du ansöka om att bli Funkis på SOF21',
+        submit: 'Ansök',
+        fieldLabels: {
+          name: 'Namn',
+          liuid: 'LIU ID',
+          liuCard: 'LIU Kortnummer',
+          mail: 'E-mail',
+          phonenumber: 'Telefon',
+          address: 'Address',
+          postcode: 'Postnummer',
+          city: 'Stad',
+          funkisOne: 'Funkisalternativ 1',
+          funkisTwo: 'Funkisalternativ 2',
+          funkisThree: 'Funkisalternativ 3',
+          requestedPartner: 'Önskad nattvaktspartner',
+          firstPrefferedDate: 'Första föredragna datum',
+          secondPrefferedDate: 'Andra föredragna datum',
+          thirdPrefferedDate: 'Tredje föredragna datum',
+          shirtSize: 'T-Shirt storlek',
+          allergies: ' Allergier',
+          otherAllergy: 'Övriga allergier',
+          extraDesc: 'Övrig information',
+        },
+
+        errors: {
+          req: {
+            name: 'Du måste ange ditt namn',
+            liuid: 'Du måste ange ditt liu-id',
+            mail: 'Du måste ange din e-mail',
+            phonenumber: 'Du måste ange ditt telefonnummer',
+            gdpr: 'Du måste acceptera GDPR vilkoren',
+            postcode: 'Du måste ange ett postnummer',
+            address: 'Du måste ange din address',
+            city: 'Du måste ange en stad',
+            liuCard: 'Du måste ange ditt liu-kortnummer'
+          },
+          malformed: {
+            postcode: 'Ange endast siffror',
+            liuCardLen: 'Kortnummer måste bestå av exakt 10 siffror',
+            liuCardType: 'Kortnummret får endast bestå av siffror',
+          }
+        }
+      },
+      admin: {
+        fieldLabels: {
+          name: 'Namn',
+          liuid: 'LiU ID',
+          email: 'E-mail',
+          phonenumber: 'Telefon',
+          postAddress: 'Address',
+          workFriend: 'Önskad nattvaktspartner',
+          tshirtSize: 'T-Shirt storlek',
+          allergy: 'Allergier',
+          allergyOther: 'Övriga allergier',
+        }
+      }
     }
   },
 

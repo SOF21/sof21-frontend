@@ -236,7 +236,7 @@ class UNCOrchestraSignup extends Component{
     }
     const sortedArticles = this.state.signup.orchestra_articles.sort((a, b) => a.kind - b.kind)
 
-    const isFirstReg = !(sortedArticles === undefined || sortedArticles.length === 0);
+    const isTicketPickupOrc = !(sortedArticles === undefined || sortedArticles.length === 0);
 
     return(
       <React.Fragment>
@@ -251,7 +251,9 @@ class UNCOrchestraSignup extends Component{
           Vill du verkligen ta bort <b>{this.state.user.email}</b>'s anmälan till <b>{this.state.signup.orchestra.name}</b>?
 
           <br/><br/>
-          <b>PSA</b>: Beteendet för att ta bort någons första anmälan när de har flera är odefinerat, gör inte det!
+
+          {isTicketPickupOrc ? <b>PSA:</b> : '' }
+          {isTicketPickupOrc ? ` Du håller på att ta bort ${this.state.user.email}'s anmälan som som innehåller all information om hens betalning, tröjstorlek osv. Du bör trippelkolla om det är den här anmälan du ska ta bort!` : ''}
         </DialogContent>
         <DialogActions>
           <DialogButton action="close" raised isDefaultAction>Gör ingenting</DialogButton>
@@ -267,7 +269,7 @@ class UNCOrchestraSignup extends Component{
             <ListDivider style={{width: '100%'}}/>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-            <AnswerSummary full={isFirstReg} small={!isFirstReg} signup={this.state.signup}/>
+            <AnswerSummary full={isTicketPickupOrc} small={!isTicketPickupOrc} signup={this.state.signup}/>
           </GridCell>
           <GridCell desktop='6' tablet='4' phone='2' className='h-center'>
             <Button raised style={{width: '100%'}}
@@ -363,12 +365,12 @@ class UNCOrchestraSignupChange extends Component{
 
     const sortedArticles = signup.orchestra_articles.sort((a, b) => a.kind - b.kind);
 
-    const isFirstReg = !(sortedArticles === undefined || sortedArticles.length === 0);
+    const isTicketPickupOrc = !(sortedArticles === undefined || sortedArticles.length === 0);
 
     var answers = {};
     var MemRegType = null;
 
-    if(isFirstReg){
+    if(isTicketPickupOrc){
       MemRegType =  OrchestraMemReg;
       answers = {
         arriveWith: (signup.arrival_date === signup.orchestra.arrival_date || signup.arrival_date === null),

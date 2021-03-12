@@ -3,6 +3,8 @@ import React from 'react';
 import BasePage from '../pages/pageTypes/BasePage';
 
 import Account from '../pages/account/Account';
+import Funkis from '../pages/Funkis';
+
 import Checkout from '../pages/base_pages/Checkout';
 import VerifyLiuLogin from './account/VerifyLiuLogin';
 import NotFound from '../pages/base_pages/NotFound';
@@ -150,7 +152,7 @@ class PageRouter extends React.Component{
                     <Checkout {...props}/>
                   </BasePage>
                 )}
-                key = {'/account/login/verify'}
+                key = {'/checkout'}
               />
               <Route
                 path = {'/account'}

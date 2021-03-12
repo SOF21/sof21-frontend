@@ -181,24 +181,6 @@ class Start extends Component {
                 onClickProp={() => this.props.history.push('/about_history')}
               />
             </GridCell>
-            {!isFirefox && !isSafari && 
-              <GridCell phone="4" tablet="8" desktop='12' >
-                <Header>
-                  <FormattedMessage id='Start.instagram' />
-                  &nbsp;
-                  <a 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    href="https://www.instagram.com/studentorkesterfestivalen/" 
-                    style={{color: "black"}}
-                  >
-                    <FontAwesomeIcon icon={faInstagram}/>
-                  </a>
-                </Header>
-              </GridCell>
-            }
-            
-           
           </GridInner>
         </Grid >
 

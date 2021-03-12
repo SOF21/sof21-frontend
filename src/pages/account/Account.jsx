@@ -30,6 +30,7 @@ import {connect} from 'react-redux';
 
 import { setTitle, mapTabToIndex, setActiveTab } from '../../actions/title';
 import ChangePassword from '../../components/forms/ChangePassword';
+import Funkis from '../Funkis';
 
 const mapStateToProps = state => ({
   adminPriv: state.reduxTokenAuth.currentUser.attributes.adminPermissions,
@@ -106,6 +107,12 @@ class Account extends Component{
                     <ListItemGraphic icon={sofHeart}/>
                     <h4>
                       <FormattedMessage id='Account.cortege'/>
+                    </h4>
+                  </ListItem>
+                  <ListItem tag={Link} to='/account/funkis'>
+                    <ListItemGraphic icon={sofHeart}/>
+                    <h4>
+                      <FormattedMessage id='Account.funkis'/>
                     </h4>
                   </ListItem>
                 {isAnyAdmin(this.props.adminPriv) ? <ListItem tag={Link} to='/account/admin'>
@@ -187,6 +194,14 @@ class Account extends Component{
                       <Purchases {...props} />
                     )}
                     key = {'/account/purchases'}
+
+                  />
+                  <PrivateRoute
+                    path = {'/account/funkis'}
+                    render={(props) => (
+                      <Funkis {...props} />
+                    )}
+                    key = {'/account/funkis'}
 
                   />
                   <PrivateRoute
