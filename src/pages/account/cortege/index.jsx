@@ -205,7 +205,7 @@ const CortegeComponent = ({
           </DialogActions>
         </Dialog>
       }
-      {!loading && error && <GridInner>
+      {!loading && error && isOpen && <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
           <h5>
             <FormattedMessage id='Cortege.status.error.p1' />
@@ -218,7 +218,7 @@ const CortegeComponent = ({
           </p>
         </GridCell>
       </GridInner>}
-      {loading && !error &&
+      {loading && !error && 
         <GridInner className='h-center v-center' style={{ height: '100%' }}>
           <ScaleLoader
             loading={true}
@@ -226,7 +226,7 @@ const CortegeComponent = ({
           />
         </GridInner>
       }
-      {!loading && (success || cortegeAppId) && !error &&
+      {!loading && (success || cortegeAppId) && !error && isOpen &&
         <GridInner>
           <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
             <h5>
