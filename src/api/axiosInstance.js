@@ -7,7 +7,7 @@ const API_ENDPOINT = env.REACT_APP_API_ENDPOINT
 
 const api = axios.create({
   baseURL: API_ENDPOINT,
-  timeout: 1000,
+  timeout: 2000,
   headers: {'Content-Type': 'application/json'}
 
 });
