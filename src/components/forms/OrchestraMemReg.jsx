@@ -14,7 +14,6 @@ import PriceSummary from '../account/orchestra/PriceSummary'
 import { connect } from 'react-redux';
 import { setTitle } from '../../actions/title';
 
-
 class OrchestraMemReg extends Component{
   constructor(props) {
     super(props);
@@ -165,7 +164,7 @@ class OrchestraMemReg extends Component{
                     <FormSelect
                         label={
                           <span>
-                            <FormattedMessage id='OrchestraMemReg.arrive'/>
+                            <FormattedMessage id={`OrchestraMemReg.arrive.${this.props.orchestraType}`}/>
                             {" "}({this.Days[this.props.day] })
                           </span>
                         }
@@ -319,9 +318,7 @@ class OrchestraMemReg extends Component{
                       />
                     </GridCell>
 
-
-
-
+                    {this.props.signupOrchestra.orchestra.orchestra_type === 2 &&
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
                         label={<FormattedMessage id='OrchestraMemReg.balletOrOrchestra'/>}
@@ -344,7 +341,7 @@ class OrchestraMemReg extends Component{
                           },
                         ]}
                       />
-                    </GridCell>
+                    </GridCell>}
                     <GridCell desktop='12' tablet='8' phone='4'>
                     <FormSelect
                         label={<FormattedMessage id='OrchestraMemReg.otherOrchestra'/>}

@@ -19,3 +19,10 @@ export const images = {
 export const info = {
   SOFYear: 21
 }
+
+export const orchestraTypes = {
+  0: "orchestra",
+  1: "ballet",
+  2: "balchestra",
+  3: "band"
+}
