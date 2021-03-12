@@ -97,7 +97,11 @@ class AllOrchestras extends Component{
                 <DataTableCell>{orchestraTypes[orchestra.orchestra_type]}</DataTableCell>
                 <DataTableCell>{orchestra.members_count}</DataTableCell>
                 <DataTableCell>{(new Date(orchestra.created_at)).toISOString().substring(0, 10)}</DataTableCell>
-                <DataTableCell>{orchestra.code}</DataTableCell>
+                <DataTableCell>
+                  <Button onClick={(e) => {e.stopPropagation(); navigator.clipboard.writeText(orchestra.code)}}>
+                    {orchestra.code}
+                  </Button>
+                </DataTableCell>
                 <DataTableCell> 
                   <Button onClick={(e) => {e.stopPropagation(); this.downloadOrchestraData(orchestra.id, orchestra.name)}}> 
                     Hämta
