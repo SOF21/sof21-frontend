@@ -9,7 +9,6 @@ import {
   ListItemText,
 } from '@rmwc/list';
 import { Checkbox } from '@rmwc/checkbox';
-import { Select } from '@rmwc/select';
 
 import {
   Dialog,
@@ -19,17 +18,22 @@ import {
   DialogButton
 } from '@rmwc/dialog';
 
+import { Chip, ChipSet } from '@rmwc/chip';
+import { Radio } from '@rmwc/radio';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { } from '../../../actions/cortege';
 import FormTextInput from '../../../components/forms/components/FormTextInput';
 import defaultCortege from './defaultCortege';
 import { TextField } from 'rmwc';
+import bitFlags from './bitFlags';
 
-// TODO: Bryt ut till intl
-const buildTypes = {
-  0: 'Macrobygge',
-  1: 'Fribygge',
-};
+
+const toggleFlag = ({
+  flags,
+  flag
+}) => {
+  return (flag ^ parseInt(`0${flags}`, 2)).toString(2);
+}
 
 const CortegeModal = ({
   handleDialogExit,
@@ -47,17 +51,29 @@ const CortegeModal = ({
   
 
   const onChange = (e) => { // TODO: It might be that we need to store this in Redux.
-    const { target: { id, value } } = e;
-    switch(id) {
-      case 'approved':
-      case 'electricity':
-      case 'infoMail': {
+    const { target: { id, value, chipId } } = e;
+    switch(id ?? chipId) {
+      case 'approved': {
         setCortegeData({
           ...cortegeData,
-          [id]: (value==='on') && !cortegeData[id],
+          [id ?? chipId]: !cortegeData[id ?? chipId],
         })
         break;
       }
+      case 'paid':
+      case 'ideaReqExpand':
+      case 'secApprv':
+      case 'chosen':
+      case 'removed':
+      case 'invoiceSent':
+        setCortegeData({
+          ...cortegeData,
+          flags: toggleFlag({
+            flags: cortegeData.flags,
+            flag: bitFlags[id ?? chipId],
+          })
+        })
+        break;
       default:
         setCortegeData({
           ...cortegeData,
@@ -72,7 +88,6 @@ const CortegeModal = ({
   const {
     groupName,
     amountPartaking,
-    buildType,
     phonenumber,
     contactPerson,
     contribMotivation,
@@ -83,9 +98,12 @@ const CortegeModal = ({
     securityFeedback,
     otherComments,
     approved,
-    infoMail,
-    electricity,
     mail,
+    flags,
+    reservPhonenumber,
+    reservContactPerson,
+    reservMail,
+    invoiceAddress,
   } = cortegeData;
 
   return (
@@ -119,14 +137,6 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
-                    <FormattedMessage id='Cortege.admin.fieldLabels.buildType'/>
-                  </ListItemPrimaryText>
-                  <ListItemSecondaryText>{buildTypes[buildType]}</ListItemSecondaryText>
-                </ListItemText>
-              </ListItem>
-              <ListItem ripple={false}>
-                <ListItemText>
-                  <ListItemPrimaryText>
                     <FormattedMessage id='Cortege.admin.fieldLabels.contactPerson'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{contactPerson}</ListItemSecondaryText>  
@@ -151,6 +161,38 @@ const CortegeModal = ({
               <ListItem ripple={false}>
                 <ListItemText>
                   <ListItemPrimaryText>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.reservContactPerson'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{reservContactPerson}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.reservPhonenumber'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{reservPhonenumber}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.reservMail'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{reservMail}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.invoiceAddress'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{invoiceAddress}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
                     <FormattedMessage id='Cortege.admin.fieldLabels.contribMotivation'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{contribMotivation}</ListItemSecondaryText>
@@ -169,7 +211,7 @@ const CortegeModal = ({
                   <ListItemPrimaryText>
                     <FormattedMessage id='Cortege.admin.fieldLabels.image'/>
                   </ListItemPrimaryText>
-                  <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{image}</ListItemSecondaryText>
+                  <ListItemSecondaryText style={{whiteSpace: 'break-spaces', wordBreak: 'break-all'}}><a href={image}>{image}</a></ListItemSecondaryText>
                 </ListItemText>
               </ListItem>
             </List>
@@ -205,32 +247,53 @@ const CortegeModal = ({
           />
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
-            <Checkbox
-              id='infoMail'
-              onChange={onChange}
-              checked={infoMail}
-              label='Info mail'
-            />
+            <ChipSet choice>
+              <Chip 
+                id={'paid'}
+                text={'Betalat anmälningsavgift'}
+                selected={parseInt(flags, 2) & bitFlags.paid}
+                onInteraction={onChange}
+              />
+              <Chip 
+                id={'secApprv'}
+                text={'Godkänd av säkerhet'}
+                selected={parseInt(flags, 2) & bitFlags.secApprv}
+                onInteraction={onChange}
+              />
+              <Chip 
+                id={'ideaReqExpand'}
+                text={'Idé kräver vidarutveckling'}
+                selected={parseInt(flags, 2) & bitFlags.ideaReqExpand}
+                onInteraction={onChange}
+              />
+              <Chip 
+                id={'invoiceSent'}
+                text={'Faktura skickad'}
+                selected={parseInt(flags, 2) & bitFlags.invoiceSent}
+                onInteraction={onChange}
+              />
+            </ChipSet>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
             <Checkbox
-              id='electricity'
+              label={'Bortvald'}
+              id={'removed'}
+              checked={parseInt(flags, 2) & bitFlags.removed}
               onChange={onChange}
-              checked={electricity}
-              label='El'
-            />
+            ></Checkbox>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4'>
             <Checkbox
               id='approved'
               onChange={onChange}
               checked={approved}
-              label='Bekräftad'
+              label='Vald'
             />
           </GridCell>
         </Grid>
         </DialogContent>
         <DialogActions>
+          <DialogButton action="delete" raised style={{marginRight: 'auto'}}>Ta bort</DialogButton>  
           <DialogButton action="close">Avbryt</DialogButton>
           <DialogButton action="save" raised disabled={!modified}>Spara</DialogButton>
         </DialogActions>

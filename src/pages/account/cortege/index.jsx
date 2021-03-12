@@ -1,11 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Select } from '@rmwc/select';
 import { Formik, Form} from 'formik';
+import { Button } from '@rmwc/button';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import * as Yup from 'yup';
+
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogButton
+} from '@rmwc/dialog';
+
 
 import FormTextInput from '../../../components/forms/components/FormTextInput';
 import FormCheckbox from '../../../components/forms/components/FormCheckbox';
@@ -15,19 +25,13 @@ import InformativeInputWrapper from '../../../components/forms/components/Inform
 import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
 import LoadButton from '../../../components/forms/components/LoadButton';
 import { getCurrentCortegeApp, sendCortegeApplication } from '../../../actions/cortege';
-
-const buildTypes = {
-  macro: 'Macrobygge',
-  friBygge: 'Fribygge',
-};
-
+import { setTitle } from '../../../actions/title';
 
 const initialInput = {
   groupName: '',
   contactPerson: '',
   mail: '',
   phonenumber: '',
-  buildType: '',
   contribMotivation: '',
   themeMotivation: '',
   amountPartaking: '',
@@ -52,9 +56,6 @@ const validationSchema = Yup.object().shape({
   phonenumber: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.phonenumber' />
   ),
-  buildType: Yup.string().required(
-    <FormattedMessage id='Cortege.form.errors.req.buildType' />
-  ),
   contribMotivation: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.contribMotivation' />
   ),
@@ -67,14 +68,25 @@ const validationSchema = Yup.object().shape({
   image: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.image' />
   ),
-  /*electricity: Yup.string().required(
-    <FormattedMessage id='Cortege.form.errors.req.electricity' />
-  ),*/
   gdpr: Yup.bool().required(
     <FormattedMessage id='Cortege.form.errors.req.gdpr' />
   ).oneOf([true], 
     <FormattedMessage id='Cortege.form.errors.illFormed.gdpr' />
-  )
+  ),
+  reservContactPerson: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.reservContactPerson' />
+  ),
+  reservMail: Yup.string().email(
+    <FormattedMessage id='Cortege.form.errors.illFormed.reservMail' />
+  ).required(
+    <FormattedMessage id='Cortege.form.errors.req.reservMail' />
+  ),
+  reservPhonenumber: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.reservPhonenumber' />
+  ),
+  invoiceAddress: Yup.string().required(
+    <FormattedMessage id='Cortege.form.errors.req.invoiceAddress' />
+  ),
 })
 
 const CortegeComponent = ({
@@ -84,6 +96,7 @@ const CortegeComponent = ({
   submitCortegeApplication,
   cortegeAppId,
   loadCortegeId,
+  setTitle,
 }) => {
 
   const onSubmit = (values) => {
@@ -92,12 +105,73 @@ const CortegeComponent = ({
 
   useEffect(() => {
     loadCortegeId();
-  }, [loadCortegeId])
+    setTitle('Kårtege');
+  }, [loadCortegeId, setTitle])
 
   const intl = useIntl();
 
+  const [coronaDialogOpen, setCoronaDialogOpen] = useState(false)
+
   return ( // TODO: Add errormessages for inputs
     <>
+      {!loading && !success && !error && !cortegeAppId &&
+        <Dialog open={coronaDialogOpen} onClose={(e) => setCoronaDialogOpen(false)}>
+          <DialogTitle>
+            <FormattedMessage id='Cortege.info.coronaModal.header' />
+          </DialogTitle>
+          <DialogContent>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p1' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p2' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p3' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p4' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p5' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p7.header' />
+              <ul>
+                <li><FormattedMessage id='Cortege.info.coronaModal.p7.i1' /></li>
+                <li><FormattedMessage id='Cortege.info.coronaModal.p7.i2' /></li>
+                <li><FormattedMessage id='Cortege.info.coronaModal.p7.i3' /></li>
+              </ul>
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p8' />
+            </p>
+            <p>
+              <b>Tips! </b><FormattedMessage id='Cortege.info.coronaModal.p9' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p10' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p11' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p12' />
+              <br></br>
+              <b>OBS! </b><FormattedMessage id='Cortege.info.coronaModal.p13' />
+            </p>
+            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p14.a' />
+              <br></br>
+              <FormattedMessage id='Cortege.info.coronaModal.p14.b' />
+            </p>
+
+          </DialogContent>
+          <DialogActions>
+            <DialogButton raised action="ok">Ok</DialogButton>
+          </DialogActions>
+        </Dialog>
+      }
       {!loading && error && <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <h5>
@@ -156,12 +230,22 @@ const CortegeComponent = ({
           <p>
             <span><FormattedMessage id='Cortege.info.p1'/></span>
             <br></br>
-            <span><FormattedMessage id='Cortege.info.p2'/></span>
+          </p>
+          <p>
+            <span><b><FormattedMessage id='Cortege.info.p2'/></b></span>
+            <br></br>
+            <span><FormattedMessage id='Cortege.info.p3'/></span>
           </p>
           <p>
             <span><FormattedMessage id='Cortege.info.outro1'/></span>
             <br></br>
             <span><FormattedMessage id='Cortege.info.outro2'/></span>
+          </p>
+          <p>
+          <span><FormattedMessage id='Cortege.info.corona'/> <Button dense outlined onClick={(e) => {
+              e.preventDefault();
+              setCoronaDialogOpen(true);
+            }}>Här</Button></span>
           </p>
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>
@@ -202,6 +286,54 @@ const CortegeComponent = ({
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>
             <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservPhonenumber' />}
+              name='reservPhonenumber'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservPhonenumber}
+              error={errors.reservPhonenumber}
+              value={values.reservPhonenumber}
+            />        
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+          
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservContactPerson' />}
+              name='reservContactPerson'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservContactPerson}
+              error={errors.reservContactPerson}
+              value={values.reservContactPerson}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+          
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservMail' />}
+              name='reservMail'
+              type='email'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservMail}
+              error={errors.reservMail}
+              value={values.reservMail}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+          
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.invoiceAddress' />}
+              name='invoiceAddress'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.invoiceAddress}
+              error={errors.invoiceAddress}
+              value={values.invoiceAddress}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+            <FormTextInput 
               label={<FormattedMessage id='Cortege.form.fieldLabels.phonenumber' />}
               name='phonenumber'
               onChange={handleChange}
@@ -210,22 +342,6 @@ const CortegeComponent = ({
               error={errors.phonenumber}
               value={values.phonenumber}
             />        
-        </GridCell>
-        <GridCell desktop='12' tablet='4' phone='4'>
-          <InformativeInputWrapper
-            infoText={<FormattedMessage id='Cortege.form.info.buildType' />}
-          >
-            <Select 
-              label={<FormattedMessage id='Cortege.form.fieldLabels.buildType' />}
-              name='buildType'
-              onChange={handleChange}
-              onBlur={handleBlur}
-              touched={touched.buildType}
-              error={errors.buildType}
-              value={values.buildType}
-              options={buildTypes}
-            />
-          </InformativeInputWrapper>
         </GridCell>
         <GridCell desktop='12' tablet='4' phone='4'>
           <InformativeInputWrapper
@@ -304,7 +420,6 @@ const CortegeComponent = ({
             />
           </InformativeInputWrapper>         
         </GridCell>
-        {console.log(values)}
         <GridCell desktop='12' tablet='8' phone='4'>
           <LoadButton loading={isSubmitting || loading} type='submit' raised disabled= { isSubmitting
           }>
@@ -331,6 +446,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   submitCortegeApplication: (values) => dispatch(sendCortegeApplication(values)),
   loadCortegeId: (userId) => dispatch(getCurrentCortegeApp({userId})),
+  setTitle: (title) => dispatch(setTitle(title)),
 })
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(CortegeComponent))
