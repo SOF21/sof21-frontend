@@ -97,6 +97,7 @@ const CortegeComponent = ({
   cortegeAppId,
   loadCortegeId,
   setTitle,
+  lang,
 }) => {
 
   const onSubmit = (values) => {
@@ -114,6 +115,7 @@ const CortegeComponent = ({
 
   return ( // TODO: Add errormessages for inputs
     <>
+      {console.log(lang === 'sv')}
       {!loading && !success && !error && !cortegeAppId &&
         <Dialog open={coronaDialogOpen} onClose={(e) => setCoronaDialogOpen(false)}>
           <DialogTitle>
@@ -203,8 +205,16 @@ const CortegeComponent = ({
             <FormattedMessage id='Cortege.status.success.p2' />
           </h5>
         </GridCell>
-      </GridInner>} 
-      {!loading && !success && !error && !cortegeAppId && <Formik
+      </GridInner>}
+      {!loading && lang !== 'sv' && !error && 
+      <GridInner>
+        <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
+          <h5>
+            <FormattedMessage id='Cortege.error.english' />
+          </h5>
+        </GridCell>
+      </GridInner>}
+      {!loading && !success && !error && !cortegeAppId && lang === 'sv' && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -260,7 +270,6 @@ const CortegeComponent = ({
             />
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>
-          
             <FormTextInput 
               label={<FormattedMessage id='Cortege.form.fieldLabels.contactPerson' />}
               name='contactPerson'
@@ -272,7 +281,6 @@ const CortegeComponent = ({
             />
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>
-          
             <FormTextInput 
               label={<FormattedMessage id='Cortege.form.fieldLabels.mail' />}
               name='mail'
@@ -282,6 +290,40 @@ const CortegeComponent = ({
               touched={touched.mail}
               error={errors.mail}
               value={values.mail}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.phonenumber' />}
+              name='phonenumber'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.phonenumber}
+              error={errors.phonenumber}
+              value={values.phonenumber}
+            />        
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservContactPerson' />}
+              name='reservContactPerson'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservContactPerson}
+              error={errors.reservContactPerson}
+              value={values.reservContactPerson}
+            />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>          
+            <FormTextInput 
+              label={<FormattedMessage id='Cortege.form.fieldLabels.reservMail' />}
+              name='reservMail'
+              type='email'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              touched={touched.reservMail}
+              error={errors.reservMail}
+              value={values.reservMail}
             />
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>
@@ -296,32 +338,6 @@ const CortegeComponent = ({
             />        
         </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>
-          
-            <FormTextInput 
-              label={<FormattedMessage id='Cortege.form.fieldLabels.reservContactPerson' />}
-              name='reservContactPerson'
-              onChange={handleChange}
-              onBlur={handleBlur}
-              touched={touched.reservContactPerson}
-              error={errors.reservContactPerson}
-              value={values.reservContactPerson}
-            />
-        </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4'>
-          
-            <FormTextInput 
-              label={<FormattedMessage id='Cortege.form.fieldLabels.reservMail' />}
-              name='reservMail'
-              type='email'
-              onChange={handleChange}
-              onBlur={handleBlur}
-              touched={touched.reservMail}
-              error={errors.reservMail}
-              value={values.reservMail}
-            />
-        </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4'>
-          
             <FormTextInput 
               label={<FormattedMessage id='Cortege.form.fieldLabels.invoiceAddress' />}
               name='invoiceAddress'
@@ -332,17 +348,7 @@ const CortegeComponent = ({
               value={values.invoiceAddress}
             />
         </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4'>
-            <FormTextInput 
-              label={<FormattedMessage id='Cortege.form.fieldLabels.phonenumber' />}
-              name='phonenumber'
-              onChange={handleChange}
-              onBlur={handleBlur}
-              touched={touched.phonenumber}
-              error={errors.phonenumber}
-              value={values.phonenumber}
-            />        
-        </GridCell>
+
         <GridCell desktop='12' tablet='4' phone='4'>
           <InformativeInputWrapper
             infoText={<FormattedMessage id='Cortege.form.info.contribMotivation' />}
@@ -441,6 +447,7 @@ const mapStateToProps = state => ({
   success: state.cortege.success,
   error: state.cortege.error,
   cortegeAppId: state.cortege.cortegeAppId,
+  lang: state.locale.lang
 });
 
 const mapDispatchToProps = dispatch => ({

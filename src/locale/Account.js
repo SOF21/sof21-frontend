@@ -42,6 +42,7 @@ export default {
       account: "Account",
       orchestra: "Orchestra",
       funkis: "Funkis",
+      cortege: 'Cortege',
       admin: "Admin",
       welcomeToProfile: "Welcome to your profile! Here you can use your personal QR code to collect your items, check out all your purchases.",
       liuAdd: " Or add your LiU-card code for easier collecting of products.",
