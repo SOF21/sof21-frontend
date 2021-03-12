@@ -17,5 +17,6 @@ export const images = {
 }
 
 export const info = {
-  SOFYear: 21
+  SOFYear: 21,
+  adminPassword: 'PutTutten2021!'
 }
