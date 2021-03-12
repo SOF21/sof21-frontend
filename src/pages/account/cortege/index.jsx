@@ -121,7 +121,7 @@ const CortegeComponent = ({
           <DialogTitle>
             <FormattedMessage id='Cortege.info.coronaModal.header' />
           </DialogTitle>
-          <DialogContent>
+          <DialogContent style={{maxHeight: '70vh' }}>
             <p>
               <FormattedMessage id='Cortege.info.coronaModal.p1' />
             </p>
