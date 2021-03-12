@@ -27,6 +27,8 @@ export default {
       balletOrOrchestra: "Balett eller orkester?",
       ballet: "Balett",
       orchestra: "Orkester",
+      band: "Band",
+      balchestra: "Balkester",
       both: "Båda",
       instrumentSize: "Hur stort är ditt intrument/utrustning?",
       sizeVerySmall: "Mycket litet (klarinett, flöjt eller liknande)",
