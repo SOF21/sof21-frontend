@@ -46,9 +46,6 @@ export const sendFunkisApplication = ({
   extraDesc,
   requestedPartner,
 }) => { // TODO: UPDATE
-  console.log(parseInt(firstPrefferedDate.split('/')[1])-1)
-  console.log('-->')
-  console.log(firstPrefferedDate.split('/')[0])
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
     return api.post('funkis', {
@@ -200,7 +197,6 @@ export const getFunkisar = () => {
             requestedPartner: cur.partner_id,
           }
         }), {});
-        console.log(funkisarObject);
         api.get('funkis_applications')
         .then(appJson => {
           const apps = appJson.data;
@@ -220,7 +216,6 @@ export const getFunkisar = () => {
               ],
             }
           }), funkisarObject);
-          console.log(appsObj);
           dispatch(getFunkisarSuccess(appsObj))
         }).catch((err) => dispatch(getFunkisarFailure(err)))
       })
@@ -254,7 +249,6 @@ export const updateFunkis = (funkis) => {
   return async dispatch => {
     dispatch(updateFunkisBegin(funkis))
     dispatch(setFunkisData(funkis))
-    console.log(funkis);
     api.put(`funkis/${funkis.id}`, {
       item: {
         funkis_category_id: funkis.selectedFunkisAlt,
