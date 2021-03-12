@@ -60,6 +60,7 @@ export default {
         error: {
           p1: "Något gick väldigt snett hos oss!",
           p2: "Du är välkommen att höra av dig till support med felmeddelande:",
+          closed: "Anmälan är inte öppen"
         },
         success: {
           p1: "Din ansökan är nu skickad!",
