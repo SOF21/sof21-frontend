@@ -144,7 +144,6 @@ const CortegeComponent = ({
                 value={code}
               />
             </form>
-            <Button/>
           </GridCell>
         </GridInner>}
       {!loading && !success && !error && !cortegeAppId &&
