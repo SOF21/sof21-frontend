@@ -198,7 +198,7 @@ class AccountAdmin extends Component {
           }}
           key={'/admin/cortege'}
         />
-        <PrivateRoute
+{/*         <PrivateRoute
           admin
           requiredAccess={2}
           exact
@@ -221,7 +221,7 @@ class AccountAdmin extends Component {
             );
           }}
           key={'/admin/funkisar'}
-        />
+        /> */}
         <PrivateRoute
           admin
           requiredAccess={AdminPriv.Funkis}
@@ -275,7 +275,7 @@ class UNCBaseAdminPage extends Component {
             : null
           }
         </GridCell>
-        <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
+{/*         <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkisar')}> Hantera funkisar </Button>
@@ -288,7 +288,7 @@ class UNCBaseAdminPage extends Component {
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkischeckin')}> Checka in funkisar </Button>
             : null
           }
-        </GridCell>
+        </GridCell> */}
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
