@@ -32,6 +32,7 @@ import {
   DialogActions,
   DialogButton
 } from '@rmwc/dialog';
+import cortege from '../../account/cortege';
 
 
 const isFlagSet = (flags, flag) => {
@@ -63,7 +64,7 @@ const CortegeAdminRow = ({
   } = cortegeData;
   // TODO: Move select and list to separate modal instead. Accessed by clicking the item
   return(
-    <DataTableRow onClick={onClick} className={`${approved? 'done' : ''} ${isFlagSet(flags, bitFlags.removed) ? 'removed' : ''}`}>
+    <DataTableRow key={groupName} onClick={onClick} className={`${approved? 'done' : ''} ${isFlagSet(flags, bitFlags.removed) ? 'removed' : ''}`}>
       <DataTableCell>
         {isFlagSet(flags, bitFlags.paid) ? <Icon icon='credit_card' style={{color: 'green'}}/> : null}
         {isFlagSet(flags, bitFlags.secApprv) ? <Icon icon='verified_user' style={{color: 'green'}}/> : null}
@@ -290,7 +291,6 @@ const CortegeAdminComponent = ({
                     },
                   })
                 }}
-                checkmark
                 label={v}
               />)
             })}
