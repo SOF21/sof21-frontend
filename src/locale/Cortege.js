@@ -117,6 +117,7 @@ export default {
             gdpr: "Du måste acceptera vilkoren",
             phoneNumber: 'Du måste ange ett riktigt telefonnummer',
             max40: "Gruppnamnet får inte vara längre än 40 karaktärer",
+            amountPartaking: "Du måste ange en siffra",
           },
         },
 

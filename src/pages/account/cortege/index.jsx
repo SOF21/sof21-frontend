@@ -67,7 +67,7 @@ const validationSchema = Yup.object().shape({
   themeMotivation: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.themeMotivation' />
   ),
-  amountPartaking: Yup.string().required(
+  amountPartaking: Yup.number().typeError(<FormattedMessage id='Cortege.form.errors.illFormed.amountPartaking' />).required(
     <FormattedMessage id='Cortege.form.errors.req.amountPartaking' />
   ),
   image: Yup.string().required(
