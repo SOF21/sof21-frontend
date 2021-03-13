@@ -85,7 +85,9 @@ const validationSchema = Yup.object().shape({
   reservPhonenumber: Yup.string().required(
     <FormattedMessage id='Cortege.form.errors.req.reservPhonenumber' />
   ),
-  invoiceAddress: Yup.string().required(
+  invoiceAddress: Yup.string().email(
+    <FormattedMessage id='Cortege.form.errors.illFormed.mail' />
+  ).required(
     <FormattedMessage id='Cortege.form.errors.req.invoiceAddress' />
   ),
 })
@@ -105,12 +107,12 @@ const CortegeComponent = ({
     submitCortegeApplication(values);
   }
 
+  const intl = useIntl();
+
   useEffect(() => {
     loadCortegeId();
-    setTitle('Kårtege');
-  }, [loadCortegeId, setTitle])
-
-  const intl = useIntl();
+    setTitle(intl.formatMessage({ id: 'Account.cortege' }));
+  }, [loadCortegeId, setTitle, intl])
 
   const openApp = new Date("Mar 15, 2021").getTime()
   const closeApp = new Date("Apr 5, 01:00:00 2021").getTime()
@@ -129,7 +131,7 @@ const CortegeComponent = ({
 
   return ( // TODO: Add errormessages for inputs
     <>
-      {!loading && !isOpen && lang === 'sv' &&
+      {!loading && !isOpen && lang === 'sv' && !(success || cortegeAppId) && 
         <GridInner>
           <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
             <h5>
@@ -169,12 +171,12 @@ const CortegeComponent = ({
             </p>
             <p>
               <FormattedMessage id='Cortege.info.coronaModal.p7.header' />
-              <ul>
-                <li><FormattedMessage id='Cortege.info.coronaModal.p7.i1' /></li>
-                <li><FormattedMessage id='Cortege.info.coronaModal.p7.i2' /></li>
-                <li><FormattedMessage id='Cortege.info.coronaModal.p7.i3' /></li>
-              </ul>
             </p>
+            <ul>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p7.i1' /></li>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p7.i2' /></li>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p7.i3' /></li>
+            </ul>
             <p>
               <FormattedMessage id='Cortege.info.coronaModal.p8' />
             </p>
@@ -225,7 +227,7 @@ const CortegeComponent = ({
           />
         </GridInner>
       }
-      {!loading && (success || cortegeAppId) && !error && isOpen &&
+      {!loading && (success || cortegeAppId) && !error && lang === 'sv' &&
         <GridInner>
           <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
             <h5>
@@ -265,7 +267,7 @@ const CortegeComponent = ({
               handleSubmit();
             }}
           >
-            <GridInner base-outer-grid base-outer-grid--first>
+            <GridInner /* base-outer-grid base-outer-grid--first */>
               <GridCell desktop='12' tablet='8' phone='4'>
                 <p>
                   <span><FormattedMessage id='Cortege.info.p1' /></span>
@@ -370,6 +372,7 @@ const CortegeComponent = ({
               <GridCell desktop='12' tablet='8' phone='4'>
                 <FormTextInput
                   label={<FormattedMessage id='Cortege.form.fieldLabels.invoiceAddress' />}
+                  type='email'
                   name='invoiceAddress'
                   onChange={handleChange}
                   onBlur={handleBlur}
