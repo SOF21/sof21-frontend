@@ -40,6 +40,8 @@ const initialInput = {
   gdpr: false,
 }
 
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
 const validationSchema = Yup.object().shape({
   groupName: Yup.string().max(40,
     <FormattedMessage id='Cortege.form.errors.illFormed.max40' />
@@ -54,7 +56,9 @@ const validationSchema = Yup.object().shape({
   ).required(
     <FormattedMessage id='Cortege.form.errors.req.mail' />
   ),
-  phonenumber: Yup.string().required(
+  phonenumber: Yup.string().matches(
+    phoneRegExp, <FormattedMessage id='Cortege.form.errors.illFormed.phoneNumber'/>
+  ).required(
     <FormattedMessage id='Cortege.form.errors.req.phonenumber' />
   ),
   contribMotivation: Yup.string().required(
@@ -82,7 +86,9 @@ const validationSchema = Yup.object().shape({
   ).required(
     <FormattedMessage id='Cortege.form.errors.req.reservMail' />
   ),
-  reservPhonenumber: Yup.string().required(
+  reservPhonenumber: Yup.string().matches(
+    phoneRegExp, <FormattedMessage id='Cortege.form.errors.illFormed.phoneNumber'/>
+  ).required(
     <FormattedMessage id='Cortege.form.errors.req.reservPhonenumber' />
   ),
   invoiceAddress: Yup.string().email(
