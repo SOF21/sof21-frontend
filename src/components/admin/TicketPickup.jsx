@@ -50,10 +50,14 @@ class TicketPickup extends Component {
     this.props.openDialog('Så jäkla icke-tungt', 'Något gick fel döh');
   };
 
+  parseLiUCardCode = hexCode => {
+    const decimalCode = parseInt(hexCode, 16)
+    return decimalCode.length != 10 ? "0" + decimalCode : decimalCode
+  }
 
   formSubmit = (values, bag) => {
     bag.setSubmitting(true);
-    getOrderFromLiUCardCode(values.blipp)
+    getOrderFromLiUCardCode(this.parseLiUCardCode(values.blipp))
       .then( res => {
         //TODO: pout items in state
         this.setState( { currUser: res.data, qrRead: false, showCollect: true } );

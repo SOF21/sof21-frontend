@@ -1,0 +1,15 @@
+export default {
+  groupName: '',
+  amountPartaking: 0,
+  buildType: 0,
+  phonenumber: '',
+  contactPerson: '',
+  contribMotivation: '',
+  themeMotivation: '',
+  image: '',
+  gdpr: false,
+  feedback: '',
+  securityFeedback: '',
+  otherComments: '',
+  approved: false,
+}

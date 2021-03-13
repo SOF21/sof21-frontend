@@ -13,10 +13,11 @@ const PosedPage = posed.div({
 export default class BasePage extends Component{
 
   render() {
+    const {content: { pageTitle } = {}, title} = this.props;
     return(
       <React.Fragment>
         <BasePageHeader
-          title={this.props.content.pageTitle()}
+          title={(pageTitle && pageTitle()) || title}
         />
 
         <PosedPage  className='base-page-content'>

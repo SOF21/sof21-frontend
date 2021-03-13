@@ -95,7 +95,6 @@ class Putte extends Component {
                         <p style={{ marginBottom: '0' }}>
                             <FormattedMessage id={`Putte.${element[0]}.text`} />
                         </p>
-                        {console.log(element)}
                     </GridCell>)
         })
         return (

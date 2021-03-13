@@ -1,0 +1,21 @@
+.cortegesContainer {
+  
+  .feedbackText {
+    max-width: 30ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .done td{
+    background: limegreen;
+  }
+
+  .removed td{
+    background: red;
+  }
+}
+
+.cortegeSearch {
+  width: 100%;
+  max-width: 100%;
+}
