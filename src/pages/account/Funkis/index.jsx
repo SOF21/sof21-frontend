@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
-import { GridCell, GridInner } from '@rmwc/grid';
-import { Select } from '@rmwc/select';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import * as Yup from 'yup';
 import { Formik, Form} from 'formik';
 import ScaleLoader from 'react-spinners/ScaleLoader';
-import * as Yup from 'yup';
+
+import { GridCell, GridInner } from '@rmwc/grid';
+import { Select } from '@rmwc/select';
+import { Button } from '@rmwc/button';
+import { Chip, ChipSet   } from 'rmwc';
 
 import { sendFunkisApplication, getFunkisTypes, getFunkisAppStatus } from '../../../actions/funkis'
 
 import FormTextInput from '../../../components/forms/components/FormTextInput';
-
-import { FormattedMessage, injectIntl } from 'react-intl';
 import FormCheckbox from '../../../components/forms/components/FormCheckbox';
 import LoadButton from '../../../components/forms/components/LoadButton';
-import { Chip, ChipSet, TextFieldHelperText } from 'rmwc';
+import { info } from '../../../constants';
 
 // TODO: Replace, this is not nice.
-const noPref = 'Ingen';
 const workDates = ["14/5", "2/2", "3/3", "4/4"];
 const shirtSizes = ["S", "M", "L", "XL"];
 const availableAllergies = {
@@ -123,6 +124,7 @@ const FunkisComponent = ({
   getFunkisAppStatus,
   hasPrevApp,
   userId,
+  lang,
 }) => {
 
 
@@ -132,6 +134,20 @@ const FunkisComponent = ({
     getFunkisAppStatus();
     getFunkisTypes();
   }, [getFunkisTypes, getFunkisAppStatus])
+
+  const openApp = new Date("Mar 15, 2021").getTime();
+  const closeApp = new Date("Apr 5, 01:00:00 2021").getTime();
+  const currentTime = new Date().getTime();
+  
+  const [code, setCode] = useState('');
+  const [isOpen, setOpen] = useState(currentTime >= openApp && currentTime < closeApp);
+
+  const handlePasscode = (e) => {
+    e.preventDefault();
+    if (code === info.adminPassword) {
+      setOpen(true);
+    }
+  }
 
   const onSubmit = (values) => {
     sendFunkisApplication({...values, userId});
@@ -152,17 +168,42 @@ const FunkisComponent = ({
 
   return (
     <>
+      {!loading && !isOpen && lang === 'sv' &&
+        <GridInner>
+          <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
+            <h5>
+              <FormattedMessage id='Cortege.status.error.closed' />
+            </h5>
+            <form onSubmit={handlePasscode}>
+              <FormTextInput
+                label="Adminkod"
+                type='text'
+                onChange={(e) => setCode(e.target.value)}
+                onSubmit={(e) => handlePasscode(e)}
+                value={code}
+              />
+            </form>
+            <Button/>
+          </GridCell>
+        </GridInner>}
+        {!loading && lang !== 'sv' && !error &&
+        <GridInner>
+          <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
+            <h5>
+              <FormattedMessage id='Funkis.errors.english' />
+            </h5>
+          </GridCell>
+        </GridInner>}
       {!loading && error && <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <p>
-            Något gick väldigt snett hos oss!
+            <FormattedMessage id='Funkis.errors.p1' />
           </p>
           <p>
-            Du är välkommen att höra av dig till support med felmeddelande:
+            <FormattedMessage id='Funkis.errors.p2' />
           </p>
           <p>
             {error.message}
-            {console.log(error.message)}
           </p>
         </GridCell>
       </GridInner>}
@@ -174,18 +215,18 @@ const FunkisComponent = ({
           />
       </GridInner>
       }
-      {!loading && (success || hasPrevApp) && !error && 
+      {!loading && (success || hasPrevApp) && !error &&
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <h5>
-            Din ansökan är nu skickad!
+            <FormattedMessage id='Funkis.recruitment.success.p1' />
           </h5>
           <h5>
-            Du kommer att få ett mail om du blir tilldelad en plats!
+            <FormattedMessage id='Funkis.recruitment.success.p2' />
           </h5>
         </GridCell>
       </GridInner>}
-      {!loading && !success && !hasPrevApp && !error && <Formik
+      {!loading && !success && !hasPrevApp && !error && !isOpen && lang === 'sv' && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -490,7 +531,7 @@ const FunkisComponent = ({
 
         <GridCell desktop='12' tablet='8' phone='4'>
           <FormCheckbox 
-            label='Jag godkänner att mina personuppgifter sparas enligt LinTeks blabla'
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.gdpr' />}
             name='gdpr'
             onChange={handleChange}
             onBlur={handleBlur}
@@ -523,6 +564,7 @@ const mapStateToProps = state => ({
   error: state.funkis.error,
   hasPrevApp: state.funkis.hasPrevApp,
   userId: state.funkis.userId,
+  lang: state.locale.lang,
 });
 
 const mapDispatchToProps = dispatch => ({

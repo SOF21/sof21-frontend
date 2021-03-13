@@ -12,7 +12,7 @@ import {
 import { Button } from '@rmwc/button';
 import { TextField } from '@rmwc/textfield';
 
-import { Switch } from '@rmwc/switch';
+import { Checkbox } from '@rmwc/checkbox';
 import { Select } from '@rmwc/select';
 
 import { injectIntl } from 'react-intl';
@@ -39,13 +39,10 @@ const FunkisAdminComponent = ({
   funkisar,
   loading,
   getFunkisar,
-  updateFunkis,
   timeslots,
   getFunkisTimeSlots,
   getFunkisTypes,
   positions,
-  bookFunkis,
-  unbookFunkis,
   idTimeslots,
 }) => {
 
@@ -57,6 +54,7 @@ const FunkisAdminComponent = ({
   const [sortation, setSort] = useState({field: 'name', dir: 1});
   const [funkisTypeFilter, setFunkisTypeFilter] = useState('0');
   const [funkisCompleteFilter, setFunkisCompleteFilter] = useState('0');
+  const [displayCSV, setDisplayCSV] = useState(false);
 
   const activatedCSVHeaders = Object.values(CSVHeaders).filter(obj => obj.checked).map(v => v.id);
   const CSVData = Object.values(funkisar).map(c => ({
@@ -201,6 +199,15 @@ const FunkisAdminComponent = ({
       {!loading &&
       <Grid>
       <GridCell desktop='12' tablet='8' phone='4'>
+      <Button
+        style={{marginRight: '10px'}}
+        raised
+        onClick={() => {setDisplayCSV(!displayCSV)}}
+      >
+        Visa CSV
+      </Button>
+      </GridCell>
+      { displayCSV && <GridCell desktop='12' tablet='8' phone='4'>
         {Object.keys(funkisar).length > 0 && Object.keys(funkisar[Object.keys(funkisar)[0]]).map(v => {
           if(!CSVHeaders[v]) {
             setCSVHeaders({
@@ -212,7 +219,7 @@ const FunkisAdminComponent = ({
             })
           }
           
-          return(<Switch
+          return(<Checkbox
             checked={CSVHeaders[v]?.checked ?? true}
             onClick={() => {
               setCSVHeaders({
@@ -227,17 +234,18 @@ const FunkisAdminComponent = ({
             label={v}
           />)
         })}
-      </GridCell>
-      <GridCell desktop='12' tablet='8' phone='4'>
+      </GridCell>}
+      { displayCSV && <GridCell desktop='12' tablet='8' phone='4'>
         <CSVLink style={{textDecoration: 'none'} } filename={'funkisData.csv'} data={CSVData}>
         {funkisar && <Button raised>Ladda ner CSV</Button>}
         </CSVLink>
-      </GridCell>
+      </GridCell>}
       <GridCell desktop='12' tablet='8' phone='4'>
         <TextField withLeadingIcon='search' label='Sök' id='searchBar' className='funkisSearch' onChange={handleSearch}/>
       </GridCell>
-      <GridCell desktop='12' tablet='8' phone='4'>
+      <GridCell className='filterContainer' desktop='12' tablet='8' phone='4'>
         <Select 
+          className='filterSelect'
           label="Funkistyp"
           options={
             Object.keys(positions).reduce((obj, alt) => ({
@@ -248,7 +256,8 @@ const FunkisAdminComponent = ({
           onChange={(e) => setFunkisTypeFilter(e.target.value)}
           value={funkisTypeFilter}
         />
-        <Select 
+        <Select
+          className='filterSelect'
           label="Klar"
           options={
           {
