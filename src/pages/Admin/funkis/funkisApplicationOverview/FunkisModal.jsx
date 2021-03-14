@@ -24,9 +24,9 @@ import {
   bookFunkis,
   unbookFunkis,
   updateFunkis,
- } from '../../../actions/funkis';
+ } from '../../../../actions/funkis';
 
-import {defaultFunkis} from './constants'
+import {defaultFunkis} from '../constants'
 import { FunkisDayItem } from './FunkisDayItem';
 
 // TODO: Bryt ut till intl

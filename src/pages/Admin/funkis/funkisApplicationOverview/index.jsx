@@ -23,12 +23,12 @@ import {
   getFunkisTypes,
   unbookFunkis,
   updateFunkis,
- } from '../../../actions/funkis';
+ } from '../../../../actions/funkis';
 import { ScaleLoader } from 'react-spinners';
 
 import { CSVLink } from 'react-csv';
 
-import { defaultFunkis } from './constants'
+import { defaultFunkis } from '../constants'
 import { FunkisAdminRow } from './FunkisAdminRow';
 import FunkisModal from './FunkisModal';
 
