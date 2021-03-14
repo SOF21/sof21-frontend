@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
 import { Grid, GridCell } from '@rmwc/grid'
+import { Button } from '@rmwc/button'
 import {
   DataTable,
   DataTableBody,
@@ -39,12 +40,23 @@ const FunkisCreationComponent = ({
     <>
       <Grid>
         <GridCell>
+          <Button>
+            Lägg till funkistyp
+          </Button>
+        </GridCell>
+        <GridCell>
+          <Button>
+          </Button>
+        </GridCell>
+        <GridCell desktop="12">
           <DataTable>
             <DataTableContent>
               <DataTableHead>
-                <DataTableHeadCell>Funkistyp</DataTableHeadCell>
-                <DataTableHeadCell>Antal</DataTableHeadCell>
-                <DataTableHeadCell>Pass</DataTableHeadCell>
+                <DataTableRow>
+                  <DataTableHeadCell>Funkistyp</DataTableHeadCell>
+                  <DataTableHeadCell>Antal</DataTableHeadCell>
+                  <DataTableHeadCell>Pass</DataTableHeadCell>
+                </DataTableRow>
               </DataTableHead>
               <DataTableBody>
                 {positions !== {} ? Object.values(positions).map((funkisType) => {
