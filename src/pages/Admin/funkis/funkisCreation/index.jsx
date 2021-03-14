@@ -33,9 +33,8 @@ const FunkisCreationComponent = ({
   useEffect(() => {
     getFunkisTimeSlots();
     getFunkisTypes();
-  }, [])
+  }, [getFunkisTimeSlots, getFunkisTypes])
 
-  console.log(positions)
   return (
     <>
       <Grid>
@@ -53,6 +52,7 @@ const FunkisCreationComponent = ({
                     <FunkisCreationRow
                       key={funkisType.title}
                       funkisType={funkisType}
+                      funkisTimeslots={Object.values(idTimeslots).filter((f) => f.funkis_category_id === funkisType.id)}
                     />
                   )
                 }) : null}

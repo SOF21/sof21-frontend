@@ -110,6 +110,7 @@ const funkisReducer = (state = initialState, action) => {
         return {
           ...obj,
           [curr.id]: {
+            id: curr.id,
             title: curr.title,
             needed: curr.amount_needed,
             current: curr.amount_count

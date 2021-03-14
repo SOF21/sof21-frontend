@@ -6,13 +6,13 @@ import {
 
 export const FunkisCreationRow = ({
     funkisType,
+    funkisTimeslots
 }) => {
 
     const {
         title,
         current,
         needed,
-        timeslots,
     } = funkisType
 
     return (
@@ -24,7 +24,7 @@ export const FunkisCreationRow = ({
                 {`${current} / ${needed}`}
             </DataTableCell>
             <DataTableCell>
-                {timeslots}
+                {funkisTimeslots.length}
             </DataTableCell>
         </DataTableRow>
     );
