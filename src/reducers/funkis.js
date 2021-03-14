@@ -101,10 +101,17 @@ const funkisReducer = (state = initialState, action) => {
       }
     case GET_FUNKIS_TYPES.SUCCESS:
       const {positions} = action.payload;
-      const newPost = positions.reduce((obj, curr) => ({
-        ...obj,
-        [curr.id]: curr.title
-      }), {})
+      const newPost = positions.reduce((obj, curr) => {
+        return {
+          ...obj,
+          [curr.id]: {
+            title: curr.title,
+            needed: curr.amount_needed,
+            current: curr.amount_count
+          }
+
+        }
+      }, {})
       return {
         ...state,
         positions: newPost,

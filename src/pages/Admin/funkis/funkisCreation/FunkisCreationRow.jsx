@@ -9,19 +9,19 @@ export const FunkisCreationRow = ({
 }) => {
 
     const {
-        name,
-        amount,
-        wishedAmount,
+        title,
+        current,
+        needed,
         timeslots,
     } = funkisType
 
     return (
         <DataTableRow>
             <DataTableCell>
-                {name}
+                {title}
             </DataTableCell>
             <DataTableCell>
-                {`${amount}/${wishedAmount}`}
+                {`${current} / ${needed}`}
             </DataTableCell>
             <DataTableCell>
                 {timeslots}

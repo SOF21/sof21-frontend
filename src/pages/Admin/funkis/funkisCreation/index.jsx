@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
 import { Grid, GridCell } from '@rmwc/grid'
-import { 
+import {
   DataTable,
   DataTableBody,
   DataTableContent,
@@ -10,16 +10,16 @@ import {
   DataTableRow,
   DataTableHeadCell,
   DataTableCell,
- } from '@rmwc/data-table';
- 
+} from '@rmwc/data-table';
+
 import FunkisCreationRow from './FunkisCreationRow'
- import { 
+import {
   getFunkisar,
   getFunkisTimeSlots,
   getFunkisTypes,
- } from '../../../../actions/funkis';
+} from '../../../../actions/funkis';
 
- import { ScaleLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 const FunkisCreationComponent = ({
   loading,
@@ -48,13 +48,14 @@ const FunkisCreationComponent = ({
                 <DataTableHeadCell>Pass</DataTableHeadCell>
               </DataTableHead>
               <DataTableBody>
-{/*                 {positions !== {} ? positions.map((funkisType) => {
+                {positions !== {} ? Object.values(positions).map((funkisType) => {
                   return (
                     <FunkisCreationRow
+                      key={funkisType.title}
                       funkisType={funkisType}
                     />
                   )
-                }) : null} */}
+                }) : null}
               </DataTableBody>
             </DataTableContent>
           </DataTable>

@@ -62,7 +62,7 @@ const FunkisAdminComponent = ({
       let val;
       switch(k) {
         case 'selectedFunkisAlt':
-          val = positions[funkisar[c.id][k]];
+          val = positions[funkisar[c.id][k]].title;
           break;
         case 'selectedTimeSlots':
           val = funkisar[c.id][k].map(t => {
@@ -73,7 +73,7 @@ const FunkisAdminComponent = ({
           });
           break;
         case 'funkisAlts':
-          val = funkisar[c.id][k].map(p => positions[p]);
+          val = funkisar[c.id][k].map(p => positions[p].title);
           break;
         default:
           val = funkisar[c.id][k]
@@ -142,8 +142,8 @@ const FunkisAdminComponent = ({
         </DataTableHead>
         <DataTableBody>
           {funkisar !== {} && Object.values(funkisar).sort((f, s) => {
-            const first = sortation.field === 'selectedFunkisAlt' && f.selectedFunkisAlt? positions[f[sortation.field]] : f[sortation.field]
-            const second = sortation.field === 'selectedFunkisAlt' && s.selectedFunkisAlt? positions[s[sortation.field]] : s[sortation.field]
+            const first = sortation.field === 'selectedFunkisAlt' && f.selectedFunkisAlt? positions[f[sortation.field]].title : f[sortation.field]
+            const second = sortation.field === 'selectedFunkisAlt' && s.selectedFunkisAlt? positions[s[sortation.field]].title : s[sortation.field]
             if(first > second) return -1;
             if(first < second) return 1;
             return 0;
@@ -152,7 +152,7 @@ const FunkisAdminComponent = ({
                   <FunkisAdminRow
                     funkis={{
                       ...f,
-                      selectedFunkisAlt: positions[f.selectedFunkisAlt],
+                      selectedFunkisAlt: positions[f.selectedFunkisAlt].title,
                       selectedTimeSlots: f.selectedTimeSlots.map(t => {
                         const options = {day: 'numeric', month: 'numeric', hour:'numeric', minute:'numeric'};
                         const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
@@ -250,7 +250,7 @@ const FunkisAdminComponent = ({
           options={
             Object.keys(positions).reduce((obj, alt) => ({
               ...obj,
-              [alt]: positions[alt]
+              [alt]: positions[alt].title
             }), {0: "Alla"})
           }
           onChange={(e) => setFunkisTypeFilter(e.target.value)}
