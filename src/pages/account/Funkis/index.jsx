@@ -1,29 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
+
+import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
+import * as Yup from 'yup';
+import { Formik, Form} from 'formik';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Select } from '@rmwc/select';
-import { Formik, Form} from 'formik';
-import ScaleLoader from 'react-spinners/ScaleLoader';
-import * as Yup from 'yup';
+import { Button } from '@rmwc/button';
+import { Chip, ChipSet   } from 'rmwc';
 
-import { sendFunkisApplication, getFunkisTypes, getFunkisAppStatus } from '../../actions/funkis'
+import { sendFunkisApplication, getFunkisTypes, getFunkisAppStatus } from '../../../actions/funkis'
 
-import FormTextInput from '../../components/forms/components/FormTextInput';
-
-import { FormattedMessage, injectIntl } from 'react-intl';
-import FormCheckbox from '../../components/forms/components/FormCheckbox';
-import LoadButton from '../../components/forms/components/LoadButton';
-import { TextFieldHelperText } from 'rmwc';
+import FormTextInput from '../../../components/forms/components/FormTextInput';
+import FormCheckbox from '../../../components/forms/components/FormCheckbox';
+import LoadButton from '../../../components/forms/components/LoadButton';
+import { info } from '../../../constants';
 
 // TODO: Replace, this is not nice.
-const noPref = 'Ingen';
-const workDates = ["1/1", "2/2", "3/3", "4/4"];
+const workDates = ["14/5", "2/2", "3/3", "4/4"];
 const shirtSizes = ["S", "M", "L", "XL"];
 const availableAllergies = {
   none: 'Ingen',
   gluten: 'Gluten',
   laktos: 'Laktos',
+  vegetarian: 'Vegetarian',
+  vegan: 'Vegan',
   both: 'Gluten & Laktos',
   other: 'Annat',
 };
@@ -45,9 +48,10 @@ const initialInput = {
   thirdPrefferedDate: '',
   shirtSize: '',
   allergies: '',
-  otherAllergy: '',
+  otherFoodPreference: '',
   gdpr: false,
   liuCard: '',
+  requestedPartner: '',
 }
 
 const validationSchema = Yup.object().shape({
@@ -82,11 +86,11 @@ const validationSchema = Yup.object().shape({
   funkisOne: Yup.string().required(
     <FormattedMessage id='Funkis.recruitment.errors.req.address' /> 
   ),
-  otherAllergy: Yup.string().when('allergies',
+  otherFoodPreference: Yup.string().when('allergies',
   {
     is: availableAllergies.other,
     then: Yup.string().required(
-      <FormattedMessage id='Funkis.recruitment.errors.req.otherAllergy' />
+      <FormattedMessage id='Funkis.recruitment.errors.req.otherFoodPreference' />
     )
   }),
   gdpr: Yup.bool().oneOf([true], 
@@ -106,7 +110,8 @@ const validationSchema = Yup.object().shape({
     then: Yup.string().required(
       <FormattedMessage id='Funkis.recruitment.errors.req.extraDesc' />
     )
-  })
+  }),
+  requestedPartner: Yup.string().matches(/[A-ö]{5}\d{3}/, 'Du måste ange ett giltlig LiuID'),
 })
 
 const FunkisComponent = ({
@@ -119,30 +124,87 @@ const FunkisComponent = ({
   getFunkisAppStatus,
   hasPrevApp,
   userId,
+  lang,
 }) => {
 
+  const intl = useIntl();
+
+  const [allergies, setAllergies] = useState([]);
 
   useEffect(() => {
     getFunkisAppStatus();
     getFunkisTypes();
   }, [getFunkisTypes, getFunkisAppStatus])
 
+  const openApp = new Date("Mar 15, 2021").getTime();
+  const closeApp = new Date("Apr 5, 01:00:00 2021").getTime();
+  const currentTime = new Date().getTime();
+  
+  const [code, setCode] = useState('');
+  const [isOpen, setOpen] = useState(currentTime >= openApp && currentTime < closeApp);
+
+  const handlePasscode = (e) => {
+    e.preventDefault();
+    if (code === info.adminPassword) {
+      setOpen(true);
+    }
+  }
+
   const onSubmit = (values) => {
     sendFunkisApplication({...values, userId});
   }
-  return ( // TODO: Add errormessages for inputs
+
+  const handleAllergyChip = (e, setFieldValue) =>{
+    const { target: { chipId } } = e;
+    console.log(chipId)
+    if(allergies.includes(chipId)) {
+      setAllergies(allergies.filter(a => a !== chipId))
+    }
+    else {
+      setAllergies([...allergies, chipId])
+    }
+   
+    setFieldValue('allergies', allergies.reduce((str, a) => `${a} ${str}`, ''))
+  }
+
+  return (
     <>
+      {!loading && !isOpen && lang === 'sv' &&
+        <GridInner>
+          <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
+            <h5>
+              <FormattedMessage id='Cortege.status.error.closed' />
+            </h5>
+            <form onSubmit={handlePasscode}>
+              <FormTextInput
+                label="Adminkod"
+                type='text'
+                onChange={(e) => setCode(e.target.value)}
+                onSubmit={(e) => handlePasscode(e)}
+                value={code}
+              />
+            </form>
+            <Button/>
+          </GridCell>
+        </GridInner>}
+        {!loading && lang !== 'sv' && !error &&
+        <GridInner>
+          <GridCell desktop='12' tablet='8' phone='4' style={{ textAlign: 'center' }}>
+            <h5>
+              <FormattedMessage id='Funkis.errors.english' />
+            </h5>
+          </GridCell>
+        </GridInner>}
       {!loading && error && <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <p>
-            Något gick väldigt snett hos oss!
+            <FormattedMessage id='Funkis.errors.p1' />
           </p>
           <p>
-            Du är välkommen att höra av dig till support med felmeddelande:
+            <FormattedMessage id='Funkis.errors.p2' />
           </p>
           <p>
             {error.message}
-            {console.log(error.message)}
           </p>
         </GridCell>
       </GridInner>}
@@ -154,18 +216,18 @@ const FunkisComponent = ({
           />
       </GridInner>
       }
-      {!loading && (success || hasPrevApp) && !error && 
+      {!loading && (success || hasPrevApp) && !error &&
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' style={{textAlign: 'center'}}>
           <h5>
-            Din ansökan är nu skickad!
+            <FormattedMessage id='Funkis.recruitment.success.p1' />
           </h5>
           <h5>
-            Du kommer att få ett mail om du blir tilldelad en plats!
+            <FormattedMessage id='Funkis.recruitment.success.p2' />
           </h5>
         </GridCell>
       </GridInner>}
-      {!loading && !success && !hasPrevApp && !error && <Formik
+      {!loading && !success && !hasPrevApp && !error && !isOpen && lang === 'sv' && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -178,6 +240,7 @@ const FunkisComponent = ({
          handleBlur,
          isSubmitting,
          handleSubmit,
+         setFieldValue,
        }) => (
          <Form 
           className='funkis-form'
@@ -386,30 +449,60 @@ const FunkisComponent = ({
           />
         </GridCell>
 
-        <GridCell desktop='6' tablet='4' phone='4'>
-          <Select 
-            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.allergies' />}
-            name='allergies'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            touched={touched.allergies}
-            error={errors.allergies}
-            value={values.allergies}
-            options={Object.values(availableAllergies)}
-          />
+        <GridCell desktop='12' tablet='8' phone='4'>
+          <span><FormattedMessage id='Funkis.recruitment.fieldLabels.foodPreference' /></span>
+          <ChipSet choice>
+            {console.log(allergies)}
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.gluten)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.gluten}
+              id={availableAllergies.gluten}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.laktos)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.laktos}
+              id={availableAllergies.laktos}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.vegetarian)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.vegetarian}
+              id={availableAllergies.vegetarian}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.vegan)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.vegan}
+              id={availableAllergies.vegan}
+            />
+            <Chip 
+              checkmark
+              selected={allergies.includes(availableAllergies.other)}
+              onInteraction={(e) => handleAllergyChip(e, setFieldValue)}
+              text={availableAllergies.other}
+              id={availableAllergies.other}
+            />
+          </ChipSet>
         </GridCell>
 
-        {values.allergies === availableAllergies.other  && <GridCell desktop='6' tablet='4' phone='4'>
+        {allergies.includes(availableAllergies.other) && <GridCell desktop='6' tablet='4' phone='4'>
           <FormTextInput 
-            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.otherAllergy' />}
-            name='otherAllergy'
+            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.otherFoodPreference' />}
+            name='otherFoodPreference'
             onChange={handleChange}
             onBlur={handleBlur}
-            touched={touched.otherAllergy}
-            error={errors.otherAllergy}
-            value={values.otherAllergy}
+            touched={touched.otherFoodPreference}
+            error={errors.otherFoodPreference}
+            value={values.otherFoodPreference}
           />
-        </GridCell>}
+        </GridCell>
+        }
 
         <GridCell desktop='12' tablet='8' phone='4'>
           <FormCheckbox 
@@ -439,7 +532,7 @@ const FunkisComponent = ({
 
         <GridCell desktop='12' tablet='8' phone='4'>
           <FormCheckbox 
-            label='Jag godkänner att mina personuppgifter sparas enligt LinTeks blabla'
+            label={intl.formatMessage({ id: 'Funkis.recruitment.fieldLabels.gdpr' })}
             name='gdpr'
             onChange={handleChange}
             onBlur={handleBlur}
@@ -472,6 +565,7 @@ const mapStateToProps = state => ({
   error: state.funkis.error,
   hasPrevApp: state.funkis.hasPrevApp,
   userId: state.funkis.userId,
+  lang: state.locale.lang,
 });
 
 const mapDispatchToProps = dispatch => ({

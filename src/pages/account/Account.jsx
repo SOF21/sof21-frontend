@@ -30,7 +30,7 @@ import {connect} from 'react-redux';
 
 import { setTitle, mapTabToIndex, setActiveTab } from '../../actions/title';
 import ChangePassword from '../../components/forms/ChangePassword';
-import Funkis from '../Funkis';
+import Funkis from './Funkis';
 
 const mapStateToProps = state => ({
   adminPriv: state.reduxTokenAuth.currentUser.attributes.adminPermissions,

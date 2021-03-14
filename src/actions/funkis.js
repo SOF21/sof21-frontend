@@ -39,10 +39,12 @@ export const sendFunkisApplication = ({
   thirdPrefferedDate,
   shirtSize,
   allergies,
-  otherAllergy,
+  otherFoodPreference,
   gdpr,
   liuCard,
   userId,
+  extraDesc,
+  requestedPartner,
 }) => { // TODO: UPDATE
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
@@ -55,16 +57,18 @@ export const sendFunkisApplication = ({
         post_address: `${address} ${postcode} ${city}`,
         tshirt_size: shirtSize,
         allergies,
-        allergies_other: otherAllergy,
+        allergies_other: otherFoodPreference,
         gdpr,
         liu_card: liuCard,
         first_post_id: funkisOne,
         second_post_id: funkisTwo,
         third_post_id: funkisThree,
-        first_day: new Date(2021, firstPrefferedDate.split('/')[0], firstPrefferedDate.split('/')[1]),
-        second_day: new Date(2021, secondPrefferedDate.split('/')[0], secondPrefferedDate.split('/')[1]),
-        third_day: new Date(2021, thirdPrefferedDate.split('/')[0], thirdPrefferedDate.split('/')[1]),
+        first_day: new Date(2021, parseInt(firstPrefferedDate.split('/')[1])-1, firstPrefferedDate.split('/')[0], 12, 12),
+        second_day: new Date(2021, parseInt(secondPrefferedDate.split('/')[1])-1, secondPrefferedDate.split('/')[0], 12, 12),
+        third_day: new Date(2021, parseInt(thirdPrefferedDate.split('/')[1])-1, thirdPrefferedDate.split('/')[0], 12, 12),
         user_id: userId,
+        share_info: extraDesc,
+        partner_id: requestedPartner,
       }
     })
       .then(() => {
@@ -182,16 +186,17 @@ export const getFunkisar = () => {
             email: cur.mail,
             phonenumber: cur.phone_number,
             allergy: cur.allergies,
-            allergyOther: cur.allergies_other,
+            otherFoodPreference: cur.allergies_other,
             tshirtSize: cur.tshirt_size,
             markedAsDone: cur.marked_done,
             checkedIn: cur.checked_in,
             postAddress: cur.post_address,
             selectedFunkisAlt: cur.funkis_category_id,
-            selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : []
+            selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : [],
+            extraDesc: cur.share_info,
+            requestedPartner: cur.partner_id,
           }
         }), {});
-        console.log(funkisarObject);
         api.get('funkis_applications')
         .then(appJson => {
           const apps = appJson.data;
@@ -211,7 +216,6 @@ export const getFunkisar = () => {
               ],
             }
           }), funkisarObject);
-          console.log(appsObj);
           dispatch(getFunkisarSuccess(appsObj))
         }).catch((err) => dispatch(getFunkisarFailure(err)))
       })
@@ -245,7 +249,6 @@ export const updateFunkis = (funkis) => {
   return async dispatch => {
     dispatch(updateFunkisBegin(funkis))
     dispatch(setFunkisData(funkis))
-    console.log(funkis);
     api.put(`funkis/${funkis.id}`, {
       item: {
         funkis_category_id: funkis.selectedFunkisAlt,
