@@ -5,8 +5,10 @@ import PermissionModifier from './../../components/admin/PermissionModifier';
 import TicketPickup from '../../components/admin/TicketPickup';
 import { AdminPriv, isAdmin } from '../../components/admin/PermissionHandler';
 import SoldSeparately from '../../components/admin/SoldSeparately';
-import FunkisAdmin from '../Admin/funkis/funkisApplicationOverview'
-import FunkisCheckInOverview from '../Admin/funkis/funkisCheckIn'
+import CortegeAdmin from './cortege';
+import FunkisAdmin from './funkis/funkisApplicationOverview'
+import FunkisCheckIn from './funkis/funkisCheckIn'
+import FunkisCreation from './funkis/funkisCreation'
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 
@@ -21,8 +23,6 @@ import { connect } from 'react-redux';
 import { PrivateRoute } from '../../components/admin/PermissionHandler';
 
 import { setTitle, setActiveTab, mapTabToIndex } from '../../actions/title';
-import CortegeAdmin from './CortegeAdmin';
-import FunkisCheckIn from './funkis/funkisCheckIn/FunkisCheckIn';
 
 class AccountAdmin extends Component {
   static pageTitle() {
@@ -217,7 +217,7 @@ class AccountAdmin extends Component {
           path='/account/admin/funkischeckin'
           render={(props) => {
             return (
-              <FunkisCheckInOverview />
+              <FunkisCheckIn />
             );
           }}
           key={'/admin/funkisar'}
@@ -230,6 +230,17 @@ class AccountAdmin extends Component {
           render={(props) => {
             return (
               <FunkisCheckIn />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.Funkis}
+          exact
+          path='/account/admin/funkiscreation'
+          render={(props) => {
+            return (
+              <FunkisCreation />
             )
           }}
         />
@@ -275,14 +286,21 @@ class UNCBaseAdminPage extends Component {
             : null
           }
         </GridCell>
-        <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
+        <GridCell desktop='4' tablet='8' phone='4' className='h-center'>
+
+          {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkiscreation')}> Hantera funkistyper </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='4' tablet='4' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkisar')}> Hantera funkisar </Button>
             : null
           }
         </GridCell>
-        <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
+        <GridCell desktop='4' tablet='4' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkischeckin')}> Checka in funkisar </Button>
