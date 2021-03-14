@@ -15,6 +15,7 @@ const initialState = {
   success: false,
   checkedInFunkis: {},
   error: {},
+  positionTitles: {},
   positions: {},
   funkisar: {},
   timeslots: {},
@@ -101,6 +102,10 @@ const funkisReducer = (state = initialState, action) => {
       }
     case GET_FUNKIS_TYPES.SUCCESS:
       const {positions} = action.payload;
+      const titles = positions.reduce((obj, curr) => ({
+        ...obj,
+        [curr.id]: curr.title
+      }), {})
       const newPost = positions.reduce((obj, curr) => {
         return {
           ...obj,
@@ -114,6 +119,7 @@ const funkisReducer = (state = initialState, action) => {
       }, {})
       return {
         ...state,
+        positionTitles: titles,
         positions: newPost,
         loading: false,
       }

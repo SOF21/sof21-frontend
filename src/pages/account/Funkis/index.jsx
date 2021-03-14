@@ -560,7 +560,7 @@ const FunkisComponent = ({
 
 const mapStateToProps = state => ({
   loading: state.funkis.loading,
-  funkisPositions: state.funkis.positions,
+  funkisPositions: state.funkis.positionTitles,
   success: state.funkis.success,
   error: state.funkis.error,
   hasPrevApp: state.funkis.hasPrevApp,
