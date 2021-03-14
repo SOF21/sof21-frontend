@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
 import * as Yup from 'yup';
 import { Formik, Form} from 'formik';
 import ScaleLoader from 'react-spinners/ScaleLoader';
@@ -127,6 +127,7 @@ const FunkisComponent = ({
   lang,
 }) => {
 
+  const intl = useIntl();
 
   const [allergies, setAllergies] = useState([]);
 
@@ -531,7 +532,7 @@ const FunkisComponent = ({
 
         <GridCell desktop='12' tablet='8' phone='4'>
           <FormCheckbox 
-            label={<FormattedMessage id='Funkis.recruitment.fieldLabels.gdpr' />}
+            label={intl.formatMessage({ id: 'Funkis.recruitment.fieldLabels.gdpr' })}
             name='gdpr'
             onChange={handleChange}
             onBlur={handleBlur}
