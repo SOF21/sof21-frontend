@@ -67,7 +67,7 @@ const FunkisCreationComponent = ({
             <Button
               raised
               style={{ width: '100%' }}
-              onClick={() => setOpenDialog(true)}
+              onClick={() => history.push('/account/admin/funkistypes/new')}
             >
               + Lägg till funkistyp
           </Button>

@@ -10,6 +10,7 @@ import FunkisAdmin from './funkis/funkisApplications'
 import FunkisCheckIn from './funkis/funkisCheckIn'
 import FunkisTypes from './funkis/funkisTypes'
 import FunkisTypeData from './funkis/funkisTypes/FunkisTypeData';
+import FunkisTypeCreate from './funkis/funkisTypes/FunkisTypeCreate'
 
 import Header from '../../components/page_components/NiceHeader';
 
@@ -243,6 +244,17 @@ class AccountAdmin extends Component {
           render={(props) => {
             return (
               <FunkisTypes />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/new'
+          render={(props) => {
+            return (
+              <FunkisTypeCreate />
             )
           }}
         />
