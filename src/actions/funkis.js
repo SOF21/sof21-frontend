@@ -102,12 +102,43 @@ export const getFunkisTypesFailure = ({err}) => ({
 });
 
 
-export const getFunkisTypes = () => {
+export const getFunkisTypes = (type) => {
   return async dispatch => {
     dispatch(getFunkisTypesBegin())
     api.get('funkis_category') // TODO: UPDATE
       .then((json) => dispatch(getFunkisTypesSuccess(json.data)))
       .catch((err) => dispatch(getFunkisTypesFailure(err)))
+  }
+}
+
+export const GET_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}GET_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}GET_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}GET_FUNKIS_TYPE_SUCCESS`,
+};
+
+export const getFunkisTypeBegin = (data) => ({
+  type: GET_FUNKIS_TYPE.BEGIN,
+  payload: {positions: data}
+});
+
+export const getFunkisTypeSuccess = (positions) => ({
+  type: GET_FUNKIS_TYPE.SUCCESS,
+  payload: {positions}
+});
+
+export const getFunkisTypeFailure = ({err}) => ({
+  type: GET_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const getFunkisType = (id) => {
+  return async dispatch => {
+    dispatch(getFunkisTypeBegin())
+    api.get('funkis_category/' + id)
+      .then((json) => dispatch(getFunkisTypeSuccess(json.data)))
+      .catch((err) => dispatch(getFunkisTypeFailure(err)))
   }
 }
 

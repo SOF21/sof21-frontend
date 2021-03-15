@@ -1,4 +1,4 @@
-import { 
+import {
   SEND_FUNKIS_APP,
   SET_FUNKIS_TYPE,
   GET_FUNKISAR,
@@ -8,6 +8,7 @@ import {
   SET_FUNKIS_DATA,
   GET_FUNKIS_APP_STATUS,
   CHECK_IN_FUNKIS,
+  GET_FUNKIS_TYPE,
 } from '../actions/funkis'
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   checkedInFunkis: {},
   error: {},
   positionTitles: {},
+  currentFunkisType: {},
   positions: {},
   funkisar: {},
   timeslots: {},
@@ -24,16 +26,16 @@ const initialState = {
 }
 
 const funkisReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case SEND_FUNKIS_APP.BEGIN: {
+  switch (action.type) {
+    case SEND_FUNKIS_APP.BEGIN: {
       return {
         ...state,
         success: false,
         loading: true,
       }
     }
-		case SEND_FUNKIS_APP.SUCCESS: {
-			return {
+    case SEND_FUNKIS_APP.SUCCESS: {
+      return {
         ...state,
         success: true,
         loading: false,
@@ -54,7 +56,7 @@ const funkisReducer = (state = initialState, action) => {
         loading: true,
       }
     case GET_FUNKISAR.SUCCESS: {
-      const {payload: {funkisar}} = action;
+      const { payload: { funkisar } } = action;
       return {
         ...state,
         loading: false,
@@ -101,7 +103,7 @@ const funkisReducer = (state = initialState, action) => {
         error: null,
       }
     case GET_FUNKIS_TYPES.SUCCESS:
-      const {positions} = action.payload;
+      const { positions } = action.payload;
       const titles = positions.reduce((obj, curr) => ({
         ...obj,
         [curr.id]: curr.title
@@ -125,7 +127,34 @@ const funkisReducer = (state = initialState, action) => {
         loading: false,
       }
     case GET_FUNKIS_TYPES.FAILURE: {
-      const {error} = action.payload;
+      const { error } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error,
+      }
+    }
+    case GET_FUNKIS_TYPE.BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      }
+    case GET_FUNKIS_TYPE.SUCCESS: {
+      const { positions } = action.payload
+      return {
+        ...state,
+        currentFunkisType: {
+          id: positions.id,
+          title: positions.title,
+          needed: positions.amount_needed,
+          current: positions.amount_count
+        },
+        loading: false,
+      }
+    }
+    case GET_FUNKIS_TYPE.FAILURE: {
+      const { error } = action.payload;
       return {
         ...state,
         loading: false,
@@ -139,21 +168,21 @@ const funkisReducer = (state = initialState, action) => {
         error: null,
       }
     case GET_FUNKIS_TIME_SLOTS.SUCCESS:
-      const {timeslots} = action.payload;
-      const options = {day: 'numeric', month: 'numeric'};
+      const { timeslots } = action.payload;
+      const options = { day: 'numeric', month: 'numeric' };
       const newSlots = timeslots.reduce((obj, curr) => {
         return {
           ...obj,
           [curr.funkis_category_id]: {
             ...obj[curr.funkis_category_id],
-            [new Date(curr.start_time).toLocaleDateString(options)] : {
+            [new Date(curr.start_time).toLocaleDateString(options)]: {
               ...({} || obj[curr.funkis_category_id][new Date(curr.start_time).toLocaleDateString(options)]),
               [curr.id]: {
-                  start: new Date(curr.start_time),
-                  end: new Date(curr.end_time),
-                  id: curr.id
+                start: new Date(curr.start_time),
+                end: new Date(curr.end_time),
+                id: curr.id
               }
-            }            
+            }
           }
         }
       }, {})
@@ -185,12 +214,12 @@ const funkisReducer = (state = initialState, action) => {
         userId: hasPrevAppInfo.userId,
       }
     }
-    case CHECK_IN_FUNKIS.BEGIN: 
+    case CHECK_IN_FUNKIS.BEGIN:
       return {
-      ...state,
-      loading: true,
-      error: null
-    }
+        ...state,
+        loading: true,
+        error: null
+      }
     case CHECK_IN_FUNKIS.SUCCESS:
       return {
         ...state,
@@ -203,9 +232,9 @@ const funkisReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload
       }
-		default: 
-			return state;
-	}
+    default:
+      return state;
+  }
 }
 
 export default funkisReducer;

@@ -17,23 +17,34 @@ import FunkisCreationRow from './FunkisCreationRow'
 import {
   getFunkisar,
   getFunkisTimeSlots,
-  getFunkisTypes,
+  getFunkisType,
 } from '../../../../actions/funkis';
 
 import { ScaleLoader } from 'react-spinners';
 
-const FunkisTypeData = (props) => {
+const FunkisTypeData = ({
+  funkisType,
+  getFunkisType,
+  match
+}) => {
 
-  console.log(props)
+  useEffect(() => {
+    getFunkisType(match.params.id)
+  }, [getFunkisType, match.params.id])
+
+
+  console.log(funkisType)
   return (
     <>
       <Grid>
-        <GridCell>
-
-        </GridCell>
+      <GridCell desktop='12' tablet='8' phone='4'>
+            <h4 style={{margin: '0px'}}> <b>{funkisType.title}</b></h4>
+            <br/>
+            <h6 style={{margin: '0px'}}> Antal: {funkisType.current} / {funkisType.needed}</h6>
+          </GridCell>
         <GridCell>
           <Button>
-            Lägg till funkistyp
+            Lägg till pass
           </Button>
         </GridCell>
         <GridCell>
@@ -67,12 +78,13 @@ const mapStateToProps = (state) => ({
   timeslots: state.funkis.timeslots,
   positions: state.funkis.positions,
   idTimeslots: state.funkis.idTimeslots,
+  funkisType: state.funkis.currentFunkisType
 })
 
 const mapDispatchToProps = (dispatch) => ({
   getFunkisar: () => dispatch(getFunkisar()),
   getFunkisTimeSlots: () => dispatch(getFunkisTimeSlots()),
-  getFunkisTypes: () => dispatch(getFunkisTypes()),
+  getFunkisType: (id) => dispatch(getFunkisType(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FunkisTypeData)
