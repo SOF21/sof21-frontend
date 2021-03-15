@@ -219,7 +219,7 @@ const FunkisModal = ({
                 <ListItemPrimaryText>
                   <FormattedMessage id='Funkis.admin.fieldLabels.preferedTimeSlots'/>
                 </ListItemPrimaryText>
-                {preferedDates.map(ts => <ListItemSecondaryText>{ts}</ListItemSecondaryText>)}
+                {preferedDates.map(ts => <ListItemSecondaryText key={ts}>{ts}</ListItemSecondaryText>)}
                 
               </ListItemText>
             </ListItem>
@@ -234,7 +234,7 @@ const FunkisModal = ({
             const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
             const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
             return (
-              <ListItem ripple={false}>
+              <ListItem key={t} ripple={false}>
               <ListItemSecondaryText>
                 <span>{`${start} -  ${end}`}</span>
               </ListItemSecondaryText>

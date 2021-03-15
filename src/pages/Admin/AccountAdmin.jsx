@@ -9,10 +9,10 @@ import CortegeAdmin from './cortege';
 import FunkisAdmin from './funkis/funkisApplicationOverview'
 import FunkisCheckIn from './funkis/funkisCheckIn'
 import FunkisCreation from './funkis/funkisCreation'
+
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
-
-// import { ListDivider } from '@rmwc/list';
+import { ListDivider } from '@rmwc/list';
 
 // import { SimpleDataTable } from '@rmwc/data-table';
 
@@ -24,6 +24,7 @@ import { PrivateRoute } from '../../components/admin/PermissionHandler';
 
 import { setTitle, setActiveTab, mapTabToIndex } from '../../actions/title';
 import FunkisTypeData from './funkis/funkisCreation/FunkisTypeData';
+import Header from '../../components/page_components/NiceHeader';
 
 class AccountAdmin extends Component {
   static pageTitle() {
@@ -245,14 +246,14 @@ class AccountAdmin extends Component {
             )
           }}
         />
-        <PrivateRoute 
+        <PrivateRoute
           admin
           requiredAccess={AdminPriv.FUNKIS}
           exact
           path='/account/admin/funkistypes/:id'
           render={(props) => {
             return (
-              <FunkisTypeData {...props}/>
+              <FunkisTypeData {...props} />
             )
           }}
         />
@@ -292,16 +293,26 @@ class UNCBaseAdminPage extends Component {
   render() {
     return (
       <GridInner>
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Orkester
+          </Header>
+        </GridCell>
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           {(isAdmin(this.props.adminPriv, AdminPriv.ORCHESTRA_ADMIN)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/orchestras')}> Orkestrar </Button>
             : null
           }
         </GridCell>
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Funkis
+          </Header>
+        </GridCell>
         <GridCell desktop='4' tablet='8' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
-            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkistypes')}> Funkisar </Button>
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkistypes')}> Hantera funkistyper </Button>
             : null
           }
         </GridCell>
@@ -319,6 +330,11 @@ class UNCBaseAdminPage extends Component {
             : null
           }
         </GridCell>
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Kårtege
+          </Header>
+        </GridCell>
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
@@ -326,11 +342,10 @@ class UNCBaseAdminPage extends Component {
             : null
           }
         </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-          {(isAdmin(this.props.adminPriv, AdminPriv.MODIFY_USERS)) ?
-            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/modifypermissions')}> Behörigheter </Button>
-            : null
-          }
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Biljetter
+          </Header>
         </GridCell>
         <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
 
@@ -343,6 +358,15 @@ class UNCBaseAdminPage extends Component {
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/soldseparately')}> Biljetter utanför hemsidan </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+          <ListDivider style={{ width: '100%' }} />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+          {(isAdmin(this.props.adminPriv, AdminPriv.MODIFY_USERS)) ?
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/modifypermissions')}> Behörigheter </Button>
             : null
           }
         </GridCell>

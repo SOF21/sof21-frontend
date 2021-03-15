@@ -8,6 +8,7 @@ import {
 import Button from '@rmwc/button';
 
 export const FunkisCreationRow = ({
+    funkisar,
     funkisType,
     funkisTimeslots
 }) => {
@@ -21,6 +22,12 @@ export const FunkisCreationRow = ({
 
     const history = useHistory()
 
+    const filteredFunkisar = Object.values(funkisar).filter((f) => f.selectedFunkisAlt === parseInt(funkisType.id))
+    const filledTimeSlots = funkisTimeslots.filter((t, n) => {
+      const timeslotFilled = filteredFunkisar.map((f) => f.selectedTimeSlots.includes(t.id))
+      return timeslotFilled.includes(true)
+    })
+
     return (
         <DataTableRow>
             <DataTableCell>
@@ -30,7 +37,7 @@ export const FunkisCreationRow = ({
                 {`${current} / ${needed}`}
             </DataTableCell>
             <DataTableCell>
-                {funkisTimeslots.length}
+                {filledTimeSlots.length} / {funkisTimeslots.length}
             </DataTableCell>
             <DataTableCell style={{width:'100%'}} alignMiddle>
               <Button

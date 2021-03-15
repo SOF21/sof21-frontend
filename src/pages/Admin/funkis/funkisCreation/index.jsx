@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
-import { Grid, GridCell } from '@rmwc/grid'
+import { Grid, GridCell, GridInner } from '@rmwc/grid'
 import { Button } from '@rmwc/button'
 import {
   DataTable,
@@ -25,75 +25,70 @@ import { ScaleLoader } from 'react-spinners';
 
 const FunkisCreationComponent = ({
   loading,
+  getFunkisar,
   getFunkisTimeSlots,
   getFunkisTypes,
   positions,
   idTimeslots,
+  funkisar,
   timeslots
 }) => {
 
   useEffect(() => {
+    getFunkisar()
     getFunkisTimeSlots();
     getFunkisTypes();
-  }, [getFunkisTimeSlots, getFunkisTypes])
+  }, [getFunkisTimeSlots, getFunkisTypes, getFunkisar])
 
   const history = useHistory()
 
   return (
     <>
-      <Grid>
-        <GridCell desktop='6' tablet='8' phone='4'>
-          <Button 
-            raised
-            style={{width: '100%'}}
-            onClick={() => history.push('/account/admin/funkisar')}
-          >
-            Funkisanmälningar
+      {loading &&
+        <GridInner className='h-center v-center' style={{ height: '100%' }}>
+          <ScaleLoader
+            loading={true}
+            color={'red'}
+          />
+        </GridInner>
+      }
+      {!loading &&
+        <Grid>
+          <GridCell desktop='12' tablet='8' phone='4'>
+            <Button
+              raised
+              style={{ width: '100%' }}
+            >
+              + Lägg till funkistyp
           </Button>
-        </GridCell>
-        <GridCell desktop='6' tablet='8' phone='4'>
-          <Button 
-            raised
-            style={{width: '100%'}}
-            onClick={() => history.push('/account/admin/funkischeckin')}
-          >
-            Checka in funkisar
-          </Button>
-        </GridCell>
-        <GridCell  desktop='12' tablet='8' phone='4'>
-          <Button 
-            raised
-            style={{width: '100%'}}
-          >
-            Lägg till funkistyp
-          </Button>
-        </GridCell>
-        <GridCell desktop="12">
-          <DataTable style={{width: '100%'}}>
-            <DataTableContent>
-              <DataTableHead>
-                <DataTableRow>
-                  <DataTableHeadCell>Funkistyp</DataTableHeadCell>
-                  <DataTableHeadCell>Antal</DataTableHeadCell>
-                  <DataTableHeadCell>Pass</DataTableHeadCell>
-                  <DataTableHeadCell></DataTableHeadCell>
-                </DataTableRow>
-              </DataTableHead>
-              <DataTableBody>
-                {positions !== {} ? Object.values(positions).map((funkisType) => {
-                  return (
-                    <FunkisCreationRow
-                      key={funkisType.title}
-                      funkisType={funkisType}
-                      funkisTimeslots={Object.values(idTimeslots).filter((f) => f.funkis_category_id === funkisType.id)}
-                    />
-                  )
-                }) : null}
-              </DataTableBody>
-            </DataTableContent>
-          </DataTable>
-        </GridCell>
-      </Grid>
+          </GridCell>
+          <GridCell desktop="12">
+            <DataTable style={{ width: '100%' }}>
+              <DataTableContent>
+                <DataTableHead>
+                  <DataTableRow>
+                    <DataTableHeadCell>Funkistyp</DataTableHeadCell>
+                    <DataTableHeadCell>Antal</DataTableHeadCell>
+                    <DataTableHeadCell>Pass</DataTableHeadCell>
+                    <DataTableHeadCell></DataTableHeadCell>
+                  </DataTableRow>
+                </DataTableHead>
+                <DataTableBody>
+                  {positions !== {} ? Object.values(positions).map((funkisType) => {
+                    return (
+                      <FunkisCreationRow
+                        key={funkisType.title}
+                        funkisar={funkisar}
+                        funkisType={funkisType}
+                        funkisTimeslots={Object.values(idTimeslots).filter((f) => f.funkis_category_id === funkisType.id)}
+                      />
+                    )
+                  }) : null}
+                </DataTableBody>
+              </DataTableContent>
+            </DataTable>
+          </GridCell>
+        </Grid>}
     </>
   )
 }
