@@ -301,7 +301,7 @@ class UNCBaseAdminPage extends Component {
         <GridCell desktop='4' tablet='8' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
-            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkistypes')}> Hantera funkistyper </Button>
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkistypes')}> Funkisar </Button>
             : null
           }
         </GridCell>

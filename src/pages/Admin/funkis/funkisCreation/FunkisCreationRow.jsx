@@ -5,6 +5,7 @@ import {
     DataTableRow,
     DataTableCell,
 } from '@rmwc/data-table';
+import Button from '@rmwc/button';
 
 export const FunkisCreationRow = ({
     funkisType,
@@ -21,10 +22,7 @@ export const FunkisCreationRow = ({
     const history = useHistory()
 
     return (
-        <DataTableRow
-          onClick={() => history.push('/account/admin/funkistypes/' + id)}
-          style={{cursor: 'pointer'}}
-        >
+        <DataTableRow>
             <DataTableCell>
                 {title}
             </DataTableCell>
@@ -33,6 +31,13 @@ export const FunkisCreationRow = ({
             </DataTableCell>
             <DataTableCell>
                 {funkisTimeslots.length}
+            </DataTableCell>
+            <DataTableCell style={{width:'100%'}} alignMiddle>
+              <Button
+                onClick={() => history.push('/account/admin/funkistypes/' + id)}
+              >
+                Mer information
+              </Button>
             </DataTableCell>
         </DataTableRow>
     );

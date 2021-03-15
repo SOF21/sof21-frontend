@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 
 import { Grid, GridCell } from '@rmwc/grid'
 import { Button } from '@rmwc/button'
@@ -36,26 +37,46 @@ const FunkisCreationComponent = ({
     getFunkisTypes();
   }, [getFunkisTimeSlots, getFunkisTypes])
 
+  const history = useHistory()
+
   return (
     <>
       <Grid>
-        <GridCell>
-          <Button>
+        <GridCell desktop='6' tablet='8' phone='4'>
+          <Button 
+            raised
+            style={{width: '100%'}}
+            onClick={() => history.push('/account/admin/funkisar')}
+          >
+            Funkisanmälningar
+          </Button>
+        </GridCell>
+        <GridCell desktop='6' tablet='8' phone='4'>
+          <Button 
+            raised
+            style={{width: '100%'}}
+            onClick={() => history.push('/account/admin/funkischeckin')}
+          >
+            Checka in funkisar
+          </Button>
+        </GridCell>
+        <GridCell  desktop='12' tablet='8' phone='4'>
+          <Button 
+            raised
+            style={{width: '100%'}}
+          >
             Lägg till funkistyp
           </Button>
         </GridCell>
-        <GridCell>
-          <Button>
-          </Button>
-        </GridCell>
         <GridCell desktop="12">
-          <DataTable>
+          <DataTable style={{width: '100%'}}>
             <DataTableContent>
               <DataTableHead>
                 <DataTableRow>
                   <DataTableHeadCell>Funkistyp</DataTableHeadCell>
                   <DataTableHeadCell>Antal</DataTableHeadCell>
                   <DataTableHeadCell>Pass</DataTableHeadCell>
+                  <DataTableHeadCell></DataTableHeadCell>
                 </DataTableRow>
               </DataTableHead>
               <DataTableBody>

@@ -42,7 +42,7 @@ const FunkisTypeData = ({
             <br/>
             <h6 style={{margin: '0px'}}> Antal: {funkisType.current} / {funkisType.needed}</h6>
           </GridCell>
-        <GridCell>
+        <GridCell desktop='6' tablet='8' phone='4'>
           <Button>
             Lägg till pass
           </Button>
