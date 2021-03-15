@@ -15,7 +15,7 @@ import {
   DataTableCell,
 } from '@rmwc/data-table';
 
-import FunkisModal from '../funkisApplicationOverview/FunkisModal'
+import FunkisModal from '../funkisApplications/FunkisModal'
 import { defaultFunkis } from '../constants'
 import {
   getFunkisar,

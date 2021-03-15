@@ -10,7 +10,7 @@ import { PrivateRoute, isAnyAdmin  } from '../../components/admin/PermissionHand
 
 import Profile from './Profile';
 import Cortege from './cortege';
-import Funkis from './funkis'
+import Funkis from './Funkis'
 import Admin from '../Admin/AccountAdmin';
 import Orchestra from './orchestra/AccountOrchestra';
 import Purchases from './Purchases';

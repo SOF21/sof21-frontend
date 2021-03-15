@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
@@ -14,7 +14,15 @@ import {
   DataTableCell,
 } from '@rmwc/data-table';
 
-import FunkisCreationRow from './FunkisCreationRow'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogButton
+} from '@rmwc/dialog';
+
+import FunkisTypesRow from './FunkisTypesRow'
 import {
   getFunkisar,
   getFunkisTimeSlots,
@@ -22,6 +30,7 @@ import {
 } from '../../../../actions/funkis';
 
 import { ScaleLoader } from 'react-spinners';
+import TextField from '@rmwc/textfield';
 
 const FunkisCreationComponent = ({
   loading,
@@ -58,11 +67,12 @@ const FunkisCreationComponent = ({
             <Button
               raised
               style={{ width: '100%' }}
+              onClick={() => setOpenDialog(true)}
             >
               + Lägg till funkistyp
           </Button>
           </GridCell>
-          <GridCell desktop="12">
+          <GridCell span="12">
             <DataTable style={{ width: '100%' }}>
               <DataTableContent>
                 <DataTableHead>
@@ -76,7 +86,7 @@ const FunkisCreationComponent = ({
                 <DataTableBody>
                   {positions !== {} ? Object.values(positions).map((funkisType) => {
                     return (
-                      <FunkisCreationRow
+                      <FunkisTypesRow
                         key={funkisType.title}
                         funkisar={funkisar}
                         funkisType={funkisType}

@@ -6,9 +6,12 @@ import TicketPickup from '../../components/admin/TicketPickup';
 import { AdminPriv, isAdmin } from '../../components/admin/PermissionHandler';
 import SoldSeparately from '../../components/admin/SoldSeparately';
 import CortegeAdmin from './cortege';
-import FunkisAdmin from './funkis/funkisApplicationOverview'
+import FunkisAdmin from './funkis/funkisApplications'
 import FunkisCheckIn from './funkis/funkisCheckIn'
-import FunkisCreation from './funkis/funkisCreation'
+import FunkisTypes from './funkis/funkisTypes'
+import FunkisTypeData from './funkis/funkisTypes/FunkisTypeData';
+
+import Header from '../../components/page_components/NiceHeader';
 
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
@@ -23,9 +26,6 @@ import { connect } from 'react-redux';
 import { PrivateRoute } from '../../components/admin/PermissionHandler';
 
 import { setTitle, setActiveTab, mapTabToIndex } from '../../actions/title';
-import FunkisTypeData from './funkis/funkisCreation/FunkisTypeData';
-import Header from '../../components/page_components/NiceHeader';
-
 class AccountAdmin extends Component {
   static pageTitle() {
     //return <FormattedMessage id='CortegeAbout.title' />
@@ -242,7 +242,7 @@ class AccountAdmin extends Component {
           path='/account/admin/funkistypes'
           render={(props) => {
             return (
-              <FunkisCreation />
+              <FunkisTypes />
             )
           }}
         />
