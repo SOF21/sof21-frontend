@@ -338,7 +338,7 @@ const mapStateToProps = (state) => ({
   funkisar: state.funkis.funkisar,
   loading: state.funkis.loading,
   timeslots: state.funkis.timeslots,
-  positions: state.funkis.positions,
+  positions: state.funkis.positionTitles,
   idTimeslots: state.funkis.idTimeslots,
 })
 

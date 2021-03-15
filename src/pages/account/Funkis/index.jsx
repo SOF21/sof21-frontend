@@ -227,7 +227,7 @@ const FunkisComponent = ({
           </h5>
         </GridCell>
       </GridInner>}
-      {!loading && !success && !hasPrevApp && !error && !isOpen && lang === 'sv' && <Formik
+      {!loading && !success && !hasPrevApp && !error && isOpen && lang === 'sv' && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
