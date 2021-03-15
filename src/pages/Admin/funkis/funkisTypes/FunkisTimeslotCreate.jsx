@@ -9,8 +9,8 @@ import FormSelect from '../../../../components/forms/components/FormSelect';
 import { Formik, Form } from 'formik';
 import api from '../../../../api/axiosInstance';
 
-const createTimeslot = (timeslot) => {
-  return api.post('/funkis_timeslots', { item: { start_time: new Date(), end_time: new Date(), funkis_category_id: 4} })
+const createTimeslot = (timeslot, id) => {
+  return api.post('/funkis_timeslots', { item: { start_time: new Date(timeslot.start), end_time: new Date(timeslot.end), funkis_category_id: id} })
 }
 
 export const FunkisTimeslotCreate = ({match}) => {
@@ -19,7 +19,7 @@ export const FunkisTimeslotCreate = ({match}) => {
  
   const createOrchestra = (values, bag) => {
     bag.setSubmitting(true);
-    createTimeslot(values)
+    createTimeslot(values, match.params.id)
       .then((response) => {
         console.log("Done!")
         bag.setSubmitting(false);
