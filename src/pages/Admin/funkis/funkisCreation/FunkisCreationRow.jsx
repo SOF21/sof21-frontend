@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
+
 import {
     DataTableRow,
     DataTableCell,
@@ -10,13 +12,19 @@ export const FunkisCreationRow = ({
 }) => {
 
     const {
+        id,
         title,
         current,
         needed,
     } = funkisType
 
+    const history = useHistory()
+
     return (
-        <DataTableRow>
+        <DataTableRow
+          onClick={() => history.push('/account/admin/funkistypes/' + id)}
+          style={{cursor: 'pointer'}}
+        >
             <DataTableCell>
                 {title}
             </DataTableCell>

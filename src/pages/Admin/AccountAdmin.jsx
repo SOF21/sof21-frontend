@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import { PrivateRoute } from '../../components/admin/PermissionHandler';
 
 import { setTitle, setActiveTab, mapTabToIndex } from '../../actions/title';
+import FunkisTypeData from './funkis/funkisCreation/FunkisTypeData';
 
 class AccountAdmin extends Component {
   static pageTitle() {
@@ -224,7 +225,7 @@ class AccountAdmin extends Component {
         />
         <PrivateRoute
           admin
-          requiredAccess={AdminPriv.Funkis}
+          requiredAccess={AdminPriv.FUNKIS}
           exact
           path='/account/admin/funkischeckin/checkin'
           render={(props) => {
@@ -235,12 +236,23 @@ class AccountAdmin extends Component {
         />
         <PrivateRoute
           admin
-          requiredAccess={AdminPriv.Funkis}
+          requiredAccess={AdminPriv.FUNKIS}
           exact
-          path='/account/admin/funkiscreation'
+          path='/account/admin/funkistypes'
           render={(props) => {
             return (
               <FunkisCreation />
+            )
+          }}
+        />
+        <PrivateRoute 
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/:id'
+          render={(props) => {
+            return (
+              <FunkisTypeData {...props}/>
             )
           }}
         />
@@ -289,7 +301,7 @@ class UNCBaseAdminPage extends Component {
         <GridCell desktop='4' tablet='8' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
-            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkiscreation')}> Hantera funkistyper </Button>
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkistypes')}> Hantera funkistyper </Button>
             : null
           }
         </GridCell>
