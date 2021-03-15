@@ -9,39 +9,37 @@ import FormSelect from '../../../../components/forms/components/FormSelect';
 import { Formik, Form } from 'formik';
 import api from '../../../../api/axiosInstance';
 
-/* const createFunkisType = (funkisType) => {
-  return api.post('/funkis_category', { item: { title: funkisType.name, amount_needed: funkisType.amount } })
-} */
+const createTimeslot = (timeslot) => {
+  return api.post('/funkis_timeslots', { item: { start_time: new Date(), end_time: new Date(), funkis_category_id: 4} })
+}
 
-export const FunkisTypeCreate = () => {
+export const FunkisTimeslotCreate = ({match}) => {
 
   const history = useHistory()
-
+ 
   const createOrchestra = (values, bag) => {
-/*     bag.setSubmitting(true);
-    createFunkisType(values)
+    bag.setSubmitting(true);
+    createTimeslot(values)
       .then((response) => {
         console.log("Done!")
         bag.setSubmitting(false);
         history.push({
-          pathname: '/account/admin/funkistypes/',
-          state: { message: 'Funkistypen ' + response.data.name + " skapades" }
+          pathname: '/account/admin/funkistypes/' + match.params.id,
+          state: { message: 'Passet skapades' }
         });
       })
       .catch((error) => {
         bag.setErrors({ error: "Registration failed" });
 
         bag.setSubmitting(false);
-      }) */
+      })
 
   }
 
   return (
     <Formik
-      initialValues={{ name: '', amount: '' }}
+      initialValues={{ start: '', end: '' }}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required("Funkistypen behöver ett namn"),
-        amount: Yup.number().positive("Du måste ange ett positivt antal").typeError("Du kan bara ange en siffra").required("Du måste ange ett antal, du kan ändra det senare")
       })}
       onSubmit={createOrchestra}
       render={({ values, handleChange, handleBlur, errors, touched, isValid, isSubmitting }) => (
@@ -50,11 +48,11 @@ export const FunkisTypeCreate = () => {
             {errors.global && <GridCell desktop='12' tablet='8' phone='4'> {errors.global}</GridCell>}
             <GridCell desktop='12' tablet='8' phone='4'>
               <FormTextInput
-                name='name'
-                label={"Namn"}
-                value={values.name}
-                error={errors.name}
-                touched={touched.name}
+                name='start'
+                label={"Starttid"}
+                value={values.start}
+                error={errors.start}
+                touched={touched.start}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -62,11 +60,11 @@ export const FunkisTypeCreate = () => {
 
             <GridCell desktop='12' tablet='8' phone='4'>
               <FormTextInput
-                name='amount'
-                label={"Önskat antal"}
-                value={values.amount}
-                error={errors.amount}
-                touched={touched.amount}
+                name='end'
+                label={"Sluttid"}
+                value={values.end}
+                error={errors.end}
+                touched={touched.end}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -74,7 +72,7 @@ export const FunkisTypeCreate = () => {
 
             <GridCell desktop='12' tablet='8' phone='4'>
               <Button raised type='submit' disabled={!isValid || isSubmitting}>
-                Skapa funkistyp
+                Skapa pass
               </Button>
             </GridCell>
           </GridInner>
@@ -84,4 +82,4 @@ export const FunkisTypeCreate = () => {
   );
 }
 
-export default FunkisTypeCreate
+export default FunkisTimeslotCreate

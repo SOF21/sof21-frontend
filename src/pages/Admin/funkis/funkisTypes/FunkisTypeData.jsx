@@ -147,7 +147,11 @@ const FunkisTypeData = ({
           </GridCell>
 
           <GridCell desktop='5' tablet='4' phone='4'>
-            <Button raised style={{ width: '100%' }}>
+            <Button 
+              raised 
+              style={{ width: '100%' }}
+              onClick={() => history.push('/account/admin/funkistypes/' + funkisType.id + '/newshift')}
+            >
               + Lägg till pass
           </Button>
           </GridCell>
