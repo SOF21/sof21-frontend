@@ -256,7 +256,18 @@ class AccountAdmin extends Component {
           path='/account/admin/funkistypes/new'
           render={(props) => {
             return (
-              <FunkisTypeCreate />
+              <FunkisTypeCreate {...props} />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/:id/update'
+          render={(props) => {
+            return (
+              <FunkisTypeCreate {...props} />
             )
           }}
         />

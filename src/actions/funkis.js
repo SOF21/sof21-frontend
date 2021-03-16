@@ -181,6 +181,43 @@ export const addFunkisType = ({
   }
 }
 
+export const UPDATE_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}UPDATE_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}UPDATE_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}UPDATE_FUNKIS_TYPE_SUCCESS`,
+};
+
+export const updateFunkisTypeBegin = (funkisType) => ({
+  type: UPDATE_FUNKIS_TYPE.BEGIN,
+  payload: funkisType
+});
+
+export const updateFunkisTypeSuccess = () => ({
+  type: UPDATE_FUNKIS_TYPE.SUCCESS,
+  payload: {}
+});
+
+export const updateFunkisTypeFailure = ({err}) => ({
+  type: UPDATE_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const updateFunkisType = (funkis) => {
+  console.log(funkis)
+  return async dispatch => {
+    dispatch(updateFunkisTypeBegin(funkis))
+    api.put('funkis_category/' + funkis.id, {
+      item: {
+        title: funkis.name,
+        amount_needed: funkis.amount,
+      }
+    })
+      .then(() => dispatch(updateFunkisTypeSuccess()))
+      .catch((err) => dispatch(updateFunkisTypeFailure(err)))
+  }
+}
+
 export const GET_FUNKIS_TIME_SLOTS = {
   BEGIN: `${funkisActionBase}GET_FUNKIS_TIME_SLOTS_BEGIN`,
   FAILURE: `${funkisActionBase}GET_FUNKIS_TIME_SLOTS_FAILURE`,

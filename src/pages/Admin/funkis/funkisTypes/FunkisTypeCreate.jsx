@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
@@ -8,17 +8,38 @@ import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 import { Formik, Form } from 'formik';
 
-import { addFunkisType, getFunkisTypes } from '../../../../actions/funkis'
+import { addFunkisType, getFunkisTypes, getFunkisType, updateFunkisType } from '../../../../actions/funkis'
+import api from '../../../../api/axiosInstance';
 
-export const FunkisTypeCreate = ({ addFunkisType }) => {
+export const FunkisTypeCreate = ({
+  addFunkisType,
+  getFunkisTypes,
+  getFunkisType,
+  updateFunkisType,
+  funkisType,
+  match
+}) => {
 
   const history = useHistory()
 
   const handleSubmit = (values) => {
-    addFunkisType(values)
-      .then(() => getFunkisTypes())
-      .then(() => history.push('/account/admin/funkistypes'))
+    if (match.params.id) {
+      updateFunkisType({ ...values, id: funkisType.id })
+        .then(() => getFunkisTypes())
+        .then(() => history.push('/account/admin/funkistypes/' + funkisType.id))
+     } else {
+      addFunkisType(values)
+        .then(() => getFunkisTypes())
+        .then(() => history.push('/account/admin/funkistypes'))
+    } 
   }
+
+  useEffect(() => {
+    if (match.params.id) {
+      getFunkisType(match.params.id)
+    }
+
+  }, [match.params.id, getFunkisType])
 
   return (
     <Formik
@@ -31,6 +52,11 @@ export const FunkisTypeCreate = ({ addFunkisType }) => {
       render={({ values, handleChange, handleBlur, errors, touched, isValid, isSubmitting }) => (
         <Form style={{ width: '100%' }} className='orchestra-creation'>
           <GridInner>
+            {match.params.id && <GridCell desktop='12' tablet='8' phone='4'>
+              <h4 style={{ margin: '0px' }}> <b>Uppdaterar: {funkisType.title}</b></h4>
+              <br />
+              <h6 style={{ margin: '0px' }}> Nuvarande antal: {funkisType.current} / {funkisType.needed}</h6>
+            </GridCell>}
             {errors.global && <GridCell desktop='12' tablet='8' phone='4'> {errors.global}</GridCell>}
             <GridCell desktop='12' tablet='8' phone='4'>
               <FormTextInput
@@ -58,7 +84,7 @@ export const FunkisTypeCreate = ({ addFunkisType }) => {
 
             <GridCell desktop='12' tablet='8' phone='4'>
               <Button raised type='submit' disabled={!isValid || isSubmitting}>
-                Skapa funkistyp
+                {match.params.id ? 'Uppdatera funkistyp' : 'Skapa funkistyp'}
               </Button>
             </GridCell>
           </GridInner>
@@ -68,9 +94,20 @@ export const FunkisTypeCreate = ({ addFunkisType }) => {
   );
 }
 
+const mapStateToProps = (state) => ({
+  funkisar: state.funkis.funkisar,
+  loading: state.funkis.loading,
+  timeslots: state.funkis.timeslots,
+  positions: state.funkis.positionTitles,
+  idTimeslots: state.funkis.idTimeslots,
+  funkisType: state.funkis.currentFunkisType
+})
+
 const mapDispatchToProps = (dispatch) => ({
   addFunkisType: (funkisType) => dispatch(addFunkisType(funkisType)),
   getFunkisTypes: () => dispatch(getFunkisTypes()),
+  getFunkisType: (id) => dispatch(getFunkisType(id)),
+  updateFunkisType: (funkisType) => dispatch(updateFunkisType(funkisType))
 })
 
-export default connect(null, mapDispatchToProps)(FunkisTypeCreate)
+export default connect(mapStateToProps, mapDispatchToProps)(FunkisTypeCreate)

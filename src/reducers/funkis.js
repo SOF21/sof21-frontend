@@ -10,6 +10,7 @@ import {
   CHECK_IN_FUNKIS,
   GET_FUNKIS_TYPE,
   ADD_FUNKIS_TYPE,
+  UPDATE_FUNKIS_TYPE,
 } from '../actions/funkis'
 
 const initialState = {
@@ -181,6 +182,26 @@ const funkisReducer = (state = initialState, action) => {
         loading: false,
         success: false,
         error: action.payload.error,
+      }
+      case UPDATE_FUNKIS_TYPE.BEGIN: {
+        return {
+          ...state,
+          loading: true,
+        }
+      }
+      case UPDATE_FUNKIS_TYPE.SUCCESS: {
+        return {
+          ...state,
+          loading: false,
+        }
+      }
+      case UPDATE_FUNKIS_TYPE.FAILURE: {
+        const error = action.payload;
+        return {
+          ...state,
+          loading: false,
+          error
+        }
       }
     case GET_FUNKIS_TIME_SLOTS.BEGIN:
       return {

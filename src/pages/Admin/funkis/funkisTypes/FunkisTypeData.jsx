@@ -24,6 +24,7 @@ import {
 } from '../../../../actions/funkis';
 
 import { ScaleLoader } from 'react-spinners';
+import IconButton from '@rmwc/icon-button';
 
 const FunkisTypeData = ({
   loading,
@@ -131,7 +132,11 @@ const FunkisTypeData = ({
         <Grid>
 
           <GridCell desktop='12' tablet='8' phone='4'>
-            <h4 style={{ margin: '0px' }}> <b>{funkisType.title}</b></h4>
+            <h4 style={{ margin: '0px', display: 'inline' }}> <b>{funkisType.title}</b></h4>
+            <IconButton 
+              icon="edit"
+              onClick={() => history.push('/account/admin/funkistypes/' + funkisType.id + '/update')}
+            />
             <br />
             <h6 style={{ margin: '0px' }}> Antal: {funkisType.current} / {funkisType.needed}</h6>
           </GridCell>
