@@ -142,7 +142,44 @@ export const getFunkisType = (id) => {
   }
 }
 
+export const ADD_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}ADD_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}ADD_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}ADD_FUNKIS_TYPE_SUCCESS`,
+};
 
+export const addFunkisTypeBegin = (data) => ({
+  type: ADD_FUNKIS_TYPE.BEGIN,
+  payload: {funkisType: data}
+});
+
+export const addFunkisTypeSuccess = (funkisType) => ({
+  type: ADD_FUNKIS_TYPE.SUCCESS,
+  payload: {funkisType}
+});
+
+export const addFunkisTypeFailure = ({err}) => ({
+  type: ADD_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const addFunkisType = ({
+  name,
+  amount
+}) => {
+  return async dispatch => {
+    dispatch(addFunkisTypeBegin())
+    api.post('funkis_category/', {
+      item: {
+        title: name,
+        amount_needed: amount,
+      }
+    })
+      .then((json) => dispatch(addFunkisTypeSuccess(json.data)))
+      .catch((err) => dispatch(addFunkisTypeFailure(err)))
+  }
+}
 
 export const GET_FUNKIS_TIME_SLOTS = {
   BEGIN: `${funkisActionBase}GET_FUNKIS_TIME_SLOTS_BEGIN`,

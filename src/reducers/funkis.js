@@ -9,6 +9,7 @@ import {
   GET_FUNKIS_APP_STATUS,
   CHECK_IN_FUNKIS,
   GET_FUNKIS_TYPE,
+  ADD_FUNKIS_TYPE,
 } from '../actions/funkis'
 
 const initialState = {
@@ -161,6 +162,26 @@ const funkisReducer = (state = initialState, action) => {
         error,
       }
     }
+    case ADD_FUNKIS_TYPE.BEGIN:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+        error: null
+      }
+    case ADD_FUNKIS_TYPE.SUCCESS:
+      return {
+        ...state,
+        success: true,
+        loading: false,
+      }
+    case ADD_FUNKIS_TYPE.FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      }
     case GET_FUNKIS_TIME_SLOTS.BEGIN:
       return {
         ...state,

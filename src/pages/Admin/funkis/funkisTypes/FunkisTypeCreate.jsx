@@ -1,39 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux';
 import * as Yup from 'yup';
+
 import FormTextInput from '../../../../components/forms/components/FormTextInput';
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
-
-import FormSelect from '../../../../components/forms/components/FormSelect';
 import { Formik, Form } from 'formik';
-import api from '../../../../api/axiosInstance';
 
-/* const createFunkisType = (funkisType) => {
-  return api.post('/funkis_category', { item: { title: funkisType.name, amount_needed: funkisType.amount } })
-} */
+import { addFunkisType, getFunkisTypes } from '../../../../actions/funkis'
 
-export const FunkisTypeCreate = () => {
+export const FunkisTypeCreate = ({ addFunkisType }) => {
 
   const history = useHistory()
 
-  const createOrchestra = (values, bag) => {
-/*     bag.setSubmitting(true);
-    createFunkisType(values)
-      .then((response) => {
-        console.log("Done!")
-        bag.setSubmitting(false);
-        history.push({
-          pathname: '/account/admin/funkistypes/',
-          state: { message: 'Funkistypen ' + response.data.name + " skapades" }
-        });
-      })
-      .catch((error) => {
-        bag.setErrors({ error: "Registration failed" });
-
-        bag.setSubmitting(false);
-      }) */
-
+  const handleSubmit = (values) => {
+    addFunkisType(values)
+      .then(() => getFunkisTypes())
+      .then(() => history.push('/account/admin/funkistypes'))
   }
 
   return (
@@ -43,7 +27,7 @@ export const FunkisTypeCreate = () => {
         name: Yup.string().required("Funkistypen behöver ett namn"),
         amount: Yup.number().positive("Du måste ange ett positivt antal").typeError("Du kan bara ange en siffra").required("Du måste ange ett antal, du kan ändra det senare")
       })}
-      onSubmit={createOrchestra}
+      onSubmit={handleSubmit}
       render={({ values, handleChange, handleBlur, errors, touched, isValid, isSubmitting }) => (
         <Form style={{ width: '100%' }} className='orchestra-creation'>
           <GridInner>
@@ -84,4 +68,9 @@ export const FunkisTypeCreate = () => {
   );
 }
 
-export default FunkisTypeCreate
+const mapDispatchToProps = (dispatch) => ({
+  addFunkisType: (funkisType) => dispatch(addFunkisType(funkisType)),
+  getFunkisTypes: () => dispatch(getFunkisTypes()),
+})
+
+export default connect(null, mapDispatchToProps)(FunkisTypeCreate)
