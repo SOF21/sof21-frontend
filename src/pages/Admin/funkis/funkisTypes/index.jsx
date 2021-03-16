@@ -51,8 +51,24 @@ const FunkisCreationComponent = ({
 
   const history = useHistory()
 
+  const [isOpen, setOpen] = useState(false)
+
   return (
     <>
+      {isOpen &&
+        <Dialog open={isOpen}>
+          <DialogTitle>Varning!</DialogTitle>
+          <DialogContent>
+            Du kan inte ta bort den här funkistypen. <br />
+            Det finns fortfarande funkisar av denna typen. Ta bort dem först!
+          </DialogContent>
+          <DialogActions>
+            <DialogButton onClick={() => setOpen(false)}>
+              Stäng
+            </DialogButton>
+          </DialogActions>
+        </Dialog>
+      }
       {loading &&
         <GridInner className='h-center v-center' style={{ height: '100%' }}>
           <ScaleLoader
@@ -91,6 +107,7 @@ const FunkisCreationComponent = ({
                         funkisar={funkisar}
                         funkisType={funkisType}
                         funkisTimeslots={Object.values(idTimeslots).filter((f) => f.funkis_category_id === funkisType.id)}
+                        setOpen={setOpen}
                       />
                     )
                   }) : null}

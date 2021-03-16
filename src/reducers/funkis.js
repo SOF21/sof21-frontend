@@ -11,6 +11,7 @@ import {
   GET_FUNKIS_TYPE,
   ADD_FUNKIS_TYPE,
   UPDATE_FUNKIS_TYPE,
+  DELETE_FUNKIS_TYPE,
 } from '../actions/funkis'
 
 const initialState = {
@@ -183,25 +184,49 @@ const funkisReducer = (state = initialState, action) => {
         success: false,
         error: action.payload.error,
       }
-      case UPDATE_FUNKIS_TYPE.BEGIN: {
-        return {
-          ...state,
-          loading: true,
-        }
+    case UPDATE_FUNKIS_TYPE.BEGIN: {
+      return {
+        ...state,
+        loading: true,
       }
-      case UPDATE_FUNKIS_TYPE.SUCCESS: {
-        return {
-          ...state,
-          loading: false,
-        }
+    }
+    case UPDATE_FUNKIS_TYPE.SUCCESS: {
+      return {
+        ...state,
+        loading: false,
       }
-      case UPDATE_FUNKIS_TYPE.FAILURE: {
-        const error = action.payload;
-        return {
-          ...state,
-          loading: false,
-          error
-        }
+    }
+    case UPDATE_FUNKIS_TYPE.FAILURE: {
+      const error = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error
+      }
+    }
+    case DELETE_FUNKIS_TYPE.BEGIN:
+      const { id } = action.payload;
+      console.log(id, state.positions)
+      delete state.positions[id]
+      return {
+        ...state,
+        loading: true,
+        positions: {
+          ...state.positions,
+        },
+      }
+    case DELETE_FUNKIS_TYPE.SUCCESS:
+      return {
+        ...state,
+        success: true,
+        loading: false,
+      }
+    case DELETE_FUNKIS_TYPE.FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
       }
     case GET_FUNKIS_TIME_SLOTS.BEGIN:
       return {

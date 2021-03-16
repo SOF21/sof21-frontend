@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux';
+
+import { deleteFunkisType } from '../../../../actions/funkis'
 
 import {
   DataTableRow,
@@ -11,7 +14,9 @@ import IconButton from '@rmwc/icon-button';
 export const FunkisCreationRow = ({
   funkisar,
   funkisType,
-  funkisTimeslots
+  funkisTimeslots,
+  deleteFunkisType,
+  setOpen
 }) => {
 
   const {
@@ -23,40 +28,56 @@ export const FunkisCreationRow = ({
 
   const history = useHistory()
 
-  const filteredFunkisar = Object.values(funkisar).filter((f) => f.selectedFunkisAlt === parseInt(funkisType.id))
   const filledTimeSlots = funkisTimeslots.filter((t, n) => {
-    const timeslotFilled = filteredFunkisar.map((f) => f.selectedTimeSlots.includes(t.id))
+    const timeslotFilled = Object.values(funkisar)
+      .filter((f) => f.selectedFunkisAlt === parseInt(funkisType.id))
+      .map((f) => f.selectedTimeSlots.includes(t.id))
     return timeslotFilled.includes(true)
   })
 
+  const deleteFunkis = () => {
+    current > 0 ? setOpen(true) : deleteFunkisType(funkisType)
+  }
+
   return (
-    <DataTableRow>
-      <DataTableCell>
-        {title}
-      </DataTableCell>
-      <DataTableCell>
-        {`${current} / ${needed}`}
-      </DataTableCell>
-      <DataTableCell>
-        {filledTimeSlots.length} / {funkisTimeslots.length}
-      </DataTableCell>
-      <DataTableCell style={{ width: '100%' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <IconButton icon="delete" />
-          <IconButton icon="edit"
-            onClick={() => history.push('/account/admin/funkistypes/' + id + '/update')}
-          />
-          <Button
-            onClick={() => history.push('/account/admin/funkistypes/' + id)}
-          >
-            Mer information
-          </Button>
-        </div>
-
-
-      </DataTableCell>
-    </DataTableRow>
+    <>
+      <DataTableRow>
+        <DataTableCell>
+          {title}
+        </DataTableCell>
+        <DataTableCell>
+          {`${current} / ${needed}`}
+        </DataTableCell>
+        <DataTableCell>
+          {filledTimeSlots.length} / {funkisTimeslots.length}
+        </DataTableCell>
+        <DataTableCell style={{ width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Button
+              onClick={() => history.push('/account/admin/funkistypes/' + id)}
+            >
+              Mer information
+            </Button>
+            <IconButton
+              icon="edit"
+              style={{ color: '#C20E1A' }}
+              onClick={() => history.push('/account/admin/funkistypes/' + id + '/update')}
+            />
+            <IconButton
+              icon="delete"
+              style={{ color: '#C20E1A' }}
+              onClick={deleteFunkis}
+            />
+          </div>
+        </DataTableCell>
+      </DataTableRow>
+    </>
   );
 }
 
-export default FunkisCreationRow
+const mapDispatchToProps = (dispatch) => ({
+  deleteFunkisType: (funkisType) => dispatch(deleteFunkisType(funkisType))
+})
+
+
+export default connect(null, mapDispatchToProps)(FunkisCreationRow)

@@ -181,6 +181,39 @@ export const addFunkisType = ({
   }
 }
 
+export const DELETE_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}DELETE_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}DELETE_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}DELETE_FUNKIS_TYPE_SUCCESS`,
+};
+
+export const deleteFunkisTypeBegin = (data) => ({
+  type: DELETE_FUNKIS_TYPE.BEGIN,
+  payload: data
+});
+
+export const deleteFunkisTypeSuccess = (funkisType) => ({
+  type: DELETE_FUNKIS_TYPE.SUCCESS,
+  payload: {}
+});
+
+export const deleteFunkisTypeFailure = ({err}) => ({
+  type: DELETE_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const deleteFunkisType = ({
+  id
+}) => {
+  return async dispatch => {
+    dispatch(deleteFunkisTypeBegin({ id }))
+    api.delete('funkis_category/' + id)
+      .then(() => dispatch(deleteFunkisTypeSuccess()))
+      .catch((err) => dispatch(deleteFunkisTypeFailure(err)))
+  }
+}
+
 export const UPDATE_FUNKIS_TYPE = {
   BEGIN: `${funkisActionBase}UPDATE_FUNKIS_TYPE_BEGIN`,
   FAILURE: `${funkisActionBase}UPDATE_FUNKIS_TYPE_FAILURE`,

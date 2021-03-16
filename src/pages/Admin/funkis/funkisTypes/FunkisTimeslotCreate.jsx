@@ -9,6 +9,7 @@ import FormSelect from '../../../../components/forms/components/FormSelect';
 import { Formik, Form } from 'formik';
 import api from '../../../../api/axiosInstance';
 
+// TODO: Turn into redux action
 const createTimeslot = (timeslot, id) => {
   return api.post('/funkis_timeslots', { item: { start_time: new Date(timeslot.start), end_time: new Date(timeslot.end), funkis_category_id: id} })
 }
