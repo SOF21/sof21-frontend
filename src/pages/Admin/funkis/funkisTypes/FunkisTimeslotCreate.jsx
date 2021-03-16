@@ -45,14 +45,12 @@ export const FunkisTimeslotCreate = ({match}) => {
       render={({ values, handleChange, handleBlur, errors, touched, isValid, isSubmitting }) => (
         <Form style={{ width: '100%' }} className='orchestra-creation'>
           <GridInner>
-          <GridCell desktop='12' tablet='8' phone='4' style={{display: 'flex', justifyContent: 'center'}}>
-              <h5 style={{margin: '0'}}><b>Formatet är:</b> ÅÅÅÅ-MM-DD HH:MM </h5>
-            </GridCell>
             {errors.global && <GridCell desktop='12' tablet='8' phone='4'> {errors.global}</GridCell>}
-            <GridCell desktop='12' tablet='8' phone='4'>
+            <GridCell desktop='6' tablet='4' phone='4'>
               <FormTextInput
                 name='start'
                 label={"Starttid"}
+                type="datetime-local"
                 value={values.start}
                 error={errors.start}
                 touched={touched.start}
@@ -61,10 +59,11 @@ export const FunkisTimeslotCreate = ({match}) => {
               />
             </GridCell>
 
-            <GridCell desktop='12' tablet='8' phone='4'>
+            <GridCell desktop='6' tablet='4' phone='4'>
               <FormTextInput
                 name='end'
                 label={"Sluttid"}
+                type="datetime-local"
                 value={values.end}
                 error={errors.end}
                 touched={touched.end}
