@@ -103,6 +103,10 @@ const FunkisTypeData = ({
           {timeslotFilled.includes(true) ?
             <Icon icon="done" style={{ color: 'green' }} /> : null }
         </DataTableCell>
+        <DataTableCell>
+          <IconButton icon="edit" style={{ color: '#C20E1A' }}/>
+          <IconButton icon="delete" style={{ color: '#C20E1A' }}/>
+        </DataTableCell>
       </DataTableRow>
     )
   })
@@ -140,7 +144,7 @@ const FunkisTypeData = ({
             <h6 style={{ margin: '0px' }}> Antal: {funkisType.current} / {funkisType.needed}</h6>
           </GridCell>
 
-          <GridCell desktop='7' tablet='4' phone='4'>
+          <GridCell desktop='6' tablet='4' phone='4'>
             <Button
               raised
               style={{ width: '100%' }}
@@ -150,7 +154,7 @@ const FunkisTypeData = ({
           </Button>
           </GridCell>
 
-          <GridCell desktop='5' tablet='4' phone='4'>
+          <GridCell desktop='6' tablet='4' phone='4'>
             <Button 
               raised 
               style={{ width: '100%' }}
@@ -160,7 +164,7 @@ const FunkisTypeData = ({
           </Button>
           </GridCell>
 
-          <GridCell desktop="7" tablet="8" phone="4">
+          <GridCell desktop="6" tablet="8" phone="4">
             <h5 style={{ margin: '0px' }}>Funkisar</h5>
             <DataTable style={{ width: '100%' }}>
               <DataTableContent>
@@ -178,7 +182,7 @@ const FunkisTypeData = ({
             </DataTable>
           </GridCell>
 
-          <GridCell desktop="5" tablet="8" phone="4">
+          <GridCell desktop="6" tablet="8" phone="4">
             <h5 style={{ margin: '0px' }}>Pass</h5>
             <DataTable style={{width: '100%'}}>
               <DataTableContent>
@@ -187,6 +191,7 @@ const FunkisTypeData = ({
                     <DataTableHeadCell>Starttid</DataTableHeadCell>
                     <DataTableHeadCell>Sluttid</DataTableHeadCell>
                     <DataTableHeadCell alignMiddle>Tillsatt?</DataTableHeadCell>
+                    <DataTableHeadCell ></DataTableHeadCell>
                   </DataTableRow>
                 </DataTableHead>
                 <DataTableBody>

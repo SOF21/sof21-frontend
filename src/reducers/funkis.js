@@ -206,7 +206,6 @@ const funkisReducer = (state = initialState, action) => {
     }
     case DELETE_FUNKIS_TYPE.BEGIN:
       const { id } = action.payload;
-      console.log(id, state.positions)
       delete state.positions[id]
       return {
         ...state,

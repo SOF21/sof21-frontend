@@ -237,7 +237,6 @@ export const updateFunkisTypeFailure = ({err}) => ({
 
 
 export const updateFunkisType = (funkis) => {
-  console.log(funkis)
   return async dispatch => {
     dispatch(updateFunkisTypeBegin(funkis))
     api.put('funkis_category/' + funkis.id, {
