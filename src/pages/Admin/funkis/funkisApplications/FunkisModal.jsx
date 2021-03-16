@@ -261,11 +261,12 @@ const FunkisModal = ({
           {
             label: 'Övriga',
             options: Object.keys(positions)
-              .filter(p => funkisAlts.includes(p))
-              .reduce((obj, alt) => ({
-                ...obj,
-                [alt]: positions[alt]
-              }),{})
+            .map((i) => parseInt(i))
+            .filter(p => !funkisAlts.includes(p))
+            .reduce((obj, alt) => ({
+              ...obj,
+              [alt]: positions[alt]
+            }),{})
           }
           ]}
           value={selectedFunkisAlt}

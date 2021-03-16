@@ -89,7 +89,6 @@ const FunkisTypeData = ({
     const start = new Intl.DateTimeFormat('sv', options).format(t.start_time);
     const end = new Intl.DateTimeFormat('sv', options).format(t.end_time);
     const timeslotFilled = filteredFunkisar.map((f) => f.selectedTimeSlots.includes(t.id))
-    console.log(timeslotFilled)
     return (
       <DataTableRow
         key={t.id}

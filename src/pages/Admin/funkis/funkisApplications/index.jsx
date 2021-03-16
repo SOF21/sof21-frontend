@@ -150,6 +150,7 @@ const FunkisAdminComponent = ({
           }).sort(() => sortation.dir).filter(f => funkisFilter(f)).map((f) => {
             return (
               <FunkisAdminRow
+                key={f.id}
                 funkis={{
                   ...f,
                   selectedFunkisAlt: positions[f.selectedFunkisAlt],

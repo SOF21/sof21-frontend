@@ -22,7 +22,6 @@ export const FunkisTimeslotCreate = ({match}) => {
     bag.setSubmitting(true);
     createTimeslot(values, match.params.id)
       .then((response) => {
-        console.log("Done!")
         bag.setSubmitting(false);
         history.push({
           pathname: '/account/admin/funkistypes/' + match.params.id,

@@ -60,7 +60,11 @@ const FunkisCreationComponent = ({
           <DialogTitle>Varning!</DialogTitle>
           <DialogContent>
             Du kan inte ta bort den här funkistypen. <br />
+            <br />
             Det finns fortfarande funkisar av denna typen. Ta bort dem först!
+            <br />
+            Om en funkis valt denna funkistyp som ett av alternativen <br />
+            i sin funkisanmälan kommer det att bli en tomt fält i deras modal. 
           </DialogContent>
           <DialogActions>
             <DialogButton onClick={() => setOpen(false)}>
@@ -100,7 +104,7 @@ const FunkisCreationComponent = ({
                   </DataTableRow>
                 </DataTableHead>
                 <DataTableBody>
-                  {positions !== {} ? Object.values(positions).map((funkisType) => {
+                  {positions !== {} ? Object.values(positions).sort((a, b) => b.title > a.title ? -1 : 1).map((funkisType) => {
                     return (
                       <FunkisTypesRow
                         key={funkisType.title}
