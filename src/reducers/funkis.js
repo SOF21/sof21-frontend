@@ -12,6 +12,7 @@ import {
   ADD_FUNKIS_TYPE,
   UPDATE_FUNKIS_TYPE,
   DELETE_FUNKIS_TYPE,
+  ADD_FUNKIS_TIME_SLOT,
 } from '../actions/funkis'
 
 const initialState = {
@@ -26,6 +27,20 @@ const initialState = {
   timeslots: {},
   idTimeslots: {},
   userId: {},
+}
+
+const standardValues = {
+  BEGIN: {
+    success: false,
+    loading: true,
+  },
+  SUCCESS: {
+    success: true,
+    loading: false
+  },
+  FAILURE: {
+    loading: false
+  }
 }
 
 const funkisReducer = (state = initialState, action) => {
@@ -271,7 +286,33 @@ const funkisReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload.error,
       }
+    case ADD_FUNKIS_TIME_SLOT.BEGIN:
+      return {
+        ...state,
+        ...standardValues.BEGIN,
 
+      }
+    case ADD_FUNKIS_TIME_SLOT.SUCCESS:
+      const { timeSlot } = action.payload 
+      return {
+        ...state,
+        ...standardValues.SUCCESS,
+        idTimeslots: {
+          ...state.idTimeslots,
+          [timeSlot.id]: {
+            funkis_category_id: timeSlot.funkis_category_id,
+            start_time: new Date(timeSlot.start_time),
+            end_time: new Date(timeSlot.end_time),
+            id: timeSlot.id
+          }
+        }
+      }
+    case ADD_FUNKIS_TIME_SLOT.FAILURE:
+      return {
+        ...state,
+        ...standardValues.FAILURE,
+        error: action.payload.error
+      }
     case GET_FUNKIS_APP_STATUS.SUCCESS: {
       const hasPrevAppInfo = action.payload;
       return {

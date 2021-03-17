@@ -1,47 +1,32 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import * as Yup from 'yup';
+
 import FormTextInput from '../../../../components/forms/components/FormTextInput';
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
-
-import FormSelect from '../../../../components/forms/components/FormSelect';
 import { Formik, Form } from 'formik';
-import api from '../../../../api/axiosInstance';
 
-// TODO: Turn into redux action
-const createTimeslot = (timeslot, id) => {
-  return api.post('/funkis_timeslots', { item: { start_time: new Date(timeslot.start), end_time: new Date(timeslot.end), funkis_category_id: id} })
-}
+import { addFunkisTimeSlot } from '../../../../actions/funkis';
 
-export const FunkisTimeslotCreate = ({match}) => {
+export const FunkisTimeslotCreate = ({
+  match,
+  addFunkisTimeSlot
+}) => {
 
   const history = useHistory()
- 
-  const createOrchestra = (values, bag) => {
-    bag.setSubmitting(true);
-    createTimeslot(values, match.params.id)
-      .then((response) => {
-        bag.setSubmitting(false);
-        history.push({
-          pathname: '/account/admin/funkistypes/' + match.params.id,
-          state: { message: 'Passet skapades' }
-        });
-      })
-      .catch((error) => {
-        bag.setErrors({ error: "Registration failed" });
 
-        bag.setSubmitting(false);
-      })
-
+  const handleSubmit = (values) => {
+    addFunkisTimeSlot({ ...values, funkisTypeId: match.params.id })
+      .then(() => history.push('/account/admin/funkistypes/' + match.params.id))
   }
-
   return (
     <Formik
       initialValues={{ start: '', end: '' }}
       validationSchema={Yup.object().shape({
       })}
-      onSubmit={createOrchestra}
+      onSubmit={handleSubmit}
       render={({ values, handleChange, handleBlur, errors, touched, isValid, isSubmitting }) => (
         <Form style={{ width: '100%' }} className='orchestra-creation'>
           <GridInner>
@@ -84,4 +69,8 @@ export const FunkisTimeslotCreate = ({match}) => {
   );
 }
 
-export default FunkisTimeslotCreate
+const mapDispatchToProps = (dispatch) => ({
+  addFunkisTimeSlot: (timeSlot) => dispatch(addFunkisTimeSlot(timeSlot))
+})
+
+export default connect(null, mapDispatchToProps)(FunkisTimeslotCreate)
