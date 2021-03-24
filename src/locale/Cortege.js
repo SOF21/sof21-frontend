@@ -28,7 +28,7 @@ export default {
         p3: "Tveka inte att höra av er till kartegeutskottet@sof.lintek.nu",
         outro1: "Lev gott, ",
         outro2: "Kårtegeutskottet & SOF-organisationen. ",
-        corona: "För mer information om hur corona pandemin påverkar SOF21, klicka ",
+        corona: "För mer information om hur coronapandemin påverkar SOF21, klicka ",
         coronaModal: {
           header: "Allmän information",
           p1: "Välkomna till årets Kårtege! Vi hoppas att ni är taggade på att vara med i en riktigt unik Kårtege som SOF aldrig tidigare skådat. Kårtegen är inget utan bidragen och vi hoppas att du och ditt gäng vill vara med.",
