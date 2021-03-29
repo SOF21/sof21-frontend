@@ -45,7 +45,7 @@ export const sendFunkisApplication = ({
   userId,
   extraDesc,
   requestedPartner,
-}) => { // TODO: UPDATE
+}) => {
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
     return api.post('funkis', {
@@ -105,7 +105,7 @@ export const getFunkisTypesFailure = ({ err }) => ({
 export const getFunkisTypes = (type) => {
   return async dispatch => {
     dispatch(getFunkisTypesBegin())
-    api.get('funkis_category') // TODO: UPDATE
+    api.get('funkis_category')
       .then((json) => dispatch(getFunkisTypesSuccess(json.data)))
       .catch((err) => dispatch(getFunkisTypesFailure(err)))
   }
@@ -274,7 +274,7 @@ export const getFunkisTimeSlotsFailure = (err) => ({
 export const getFunkisTimeSlots = () => {
   return async dispatch => {
     dispatch(getFunkisTimeSlotsBegin())
-    api.get('funkis_timeslots') // TODO: UPDATE
+    api.get('funkis_timeslots')
       .then((json) => {
         dispatch(getFunkisTimeSlotsSuccess(json.data))
       })
@@ -426,7 +426,7 @@ export const updateFunkis = (funkis) => {
         funkis_category_id: funkis.selectedFunkisAlt,
         marked_done: funkis.markedAsDone
       }
-    }) // TODO: UPDATE
+    }) 
       .then((json) => {
         dispatch(updateFunkisSuccess())
       })
@@ -509,7 +509,7 @@ export const bookFunkis = ({
         funkis_id: funkisId,
         funkis_timeslot_id: timeslotId
       }
-    }) // TODO: UPDATE
+    }) 
       .then((json) => {
         dispatch(bookFunkisSuccess())
       })
@@ -547,7 +547,7 @@ export const unbookFunkis = ({
 
   return async dispatch => {
     dispatch(unbookFunkisBegin())
-    api.delete(`funkis_bookings/destroy_by_ids/${funkisId}/${timeslotId}`) // TODO: UPDATE
+    api.delete(`funkis_bookings/destroy_by_ids/${funkisId}/${timeslotId}`)
       .then((json) => {
         dispatch(unbookFunkisSuccess())
       })
