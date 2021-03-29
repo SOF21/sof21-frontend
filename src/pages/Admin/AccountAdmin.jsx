@@ -293,6 +293,17 @@ class AccountAdmin extends Component {
             )
           }}
         />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/:id/updateshift/:shiftId'
+          render={(props) => {
+            return (
+              <FunkisTimeslotCreate {...props} />
+            )
+          }}
+        />
         <Route
           path='/account/admin/permissiondenied'
           render={(props) => {

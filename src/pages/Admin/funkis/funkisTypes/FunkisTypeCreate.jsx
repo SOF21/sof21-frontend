@@ -9,7 +9,6 @@ import { Button } from '@rmwc/button';
 import { Formik, Form } from 'formik';
 
 import { addFunkisType, getFunkisTypes, getFunkisType, updateFunkisType } from '../../../../actions/funkis'
-import api from '../../../../api/axiosInstance';
 
 export const FunkisTypeCreate = ({
   addFunkisType,

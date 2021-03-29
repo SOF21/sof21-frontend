@@ -104,8 +104,15 @@ const FunkisTypeData = ({
             <Icon icon="done" style={{ color: 'green' }} /> : null }
         </DataTableCell>
         <DataTableCell>
-          <IconButton icon="edit" style={{ color: '#C20E1A' }}/>
-          <IconButton icon="delete" style={{ color: '#C20E1A' }}/>
+          <IconButton 
+            icon="edit" 
+            style={{ color: '#C20E1A' }}
+            onClick={() => history.push(`/account/admin/funkistypes/${funkisType.id}/updateshift/${t.id}`)} 
+          />
+          <IconButton 
+            icon="delete" 
+            style={{ color: '#C20E1A' }}
+          />
         </DataTableCell>
       </DataTableRow>
     )

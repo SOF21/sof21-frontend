@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import * as Yup from 'yup';
@@ -6,24 +6,42 @@ import * as Yup from 'yup';
 import FormTextInput from '../../../../components/forms/components/FormTextInput';
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
-import { Formik, Form } from 'formik';
+import { Formik, Form, setNestedObjectValues } from 'formik';
 
-import { addFunkisTimeSlot } from '../../../../actions/funkis';
+import { addFunkisTimeSlot, getFunkisTimeSlots } from '../../../../actions/funkis';
+import api from '../../../../api/axiosInstance';
+import { getFunkisTimeSlot, updateFunkisTimeslot } from '../../../../api/funkisCalls';
 
 export const FunkisTimeslotCreate = ({
   match,
-  addFunkisTimeSlot
+  addFunkisTimeSlot,
 }) => {
 
   const history = useHistory()
+  const [timeslot, setTimeslot] = useState(undefined)
+  const [error, setError] = useState(undefined)
 
   const handleSubmit = (values) => {
-    addFunkisTimeSlot({ ...values, funkisTypeId: match.params.id })
-      .then(() => history.push('/account/admin/funkistypes/' + match.params.id))
+    const action = match.params.shiftId
+      ? updateFunkisTimeslot(match.params.shiftId, values.start, values.end)
+      : addFunkisTimeSlot({ ...values, funkisTypeId: match.params.id })
+    action.then(() => history.push('/account/admin/funkistypes/' + match.params.id))
   }
+
+  useEffect(() => {
+    if (match.params.shiftId) {
+      getFunkisTimeSlot(match.params.shiftId)
+        .then((json) => {
+          setTimeslot(json.data)
+        })
+        .catch((err) => setError(err))
+    }
+  }, [match.params.shiftId])
+
   return (
     <Formik
-      initialValues={{ start: '', end: '' }}
+      enableReinitialize
+      initialValues={timeslot ? { start: timeslot.start_time.split('.')[0], end: timeslot.end_time.split('.')[0] } : { start: '', end: '' }}
       validationSchema={Yup.object().shape({
       })}
       onSubmit={handleSubmit}
@@ -31,6 +49,8 @@ export const FunkisTimeslotCreate = ({
         <Form style={{ width: '100%' }} className='orchestra-creation'>
           <GridInner>
             {errors.global && <GridCell desktop='12' tablet='8' phone='4'> {errors.global}</GridCell>}
+            {error && <GridCell desktop='12' tablet='8' phone='4'> {error}</GridCell>}
+            {console.log(values)}
             <GridCell desktop='6' tablet='4' phone='4'>
               <FormTextInput
                 name='start'
@@ -69,8 +89,9 @@ export const FunkisTimeslotCreate = ({
   );
 }
 
+
 const mapDispatchToProps = (dispatch) => ({
-  addFunkisTimeSlot: (timeSlot) => dispatch(addFunkisTimeSlot(timeSlot))
+  addFunkisTimeSlot: (timeSlot) => dispatch(addFunkisTimeSlot(timeSlot)),
 })
 
 export default connect(null, mapDispatchToProps)(FunkisTimeslotCreate)
