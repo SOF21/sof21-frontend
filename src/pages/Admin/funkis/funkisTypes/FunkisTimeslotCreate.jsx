@@ -8,8 +8,7 @@ import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
 import { Formik, Form, setNestedObjectValues } from 'formik';
 
-import { addFunkisTimeSlot, getFunkisTimeSlots } from '../../../../actions/funkis';
-import api from '../../../../api/axiosInstance';
+import { addFunkisTimeSlot } from '../../../../actions/funkis';
 import { getFunkisTimeSlot, updateFunkisTimeslot } from '../../../../api/funkisCalls';
 
 export const FunkisTimeslotCreate = ({
@@ -50,7 +49,6 @@ export const FunkisTimeslotCreate = ({
           <GridInner>
             {errors.global && <GridCell desktop='12' tablet='8' phone='4'> {errors.global}</GridCell>}
             {error && <GridCell desktop='12' tablet='8' phone='4'> {error}</GridCell>}
-            {console.log(values)}
             <GridCell desktop='6' tablet='4' phone='4'>
               <FormTextInput
                 name='start'

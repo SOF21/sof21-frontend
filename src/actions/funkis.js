@@ -320,6 +320,37 @@ export const addFunkisTimeSlot = (timeSlot) => {
 }
 
 
+export const DELETE_FUNKIS_TIME_SLOT = {
+  BEGIN: `${funkisActionBase}DELETE_FUNKIS_TIME_SLOT_BEGIN`,
+  FAILURE: `${funkisActionBase}DELETE_FUNKIS_TIME_SLOT_FAILURE`,
+  SUCCESS: `${funkisActionBase}DELETE_FUNKIS_TIME_SLOT_SUCCESS`,
+};
+
+export const deleteFunkisTimeSlotBegin = (id) => ({
+  type: DELETE_FUNKIS_TIME_SLOT.BEGIN,
+  payload: id
+});
+
+export const deleteFunkisTimeSlotSuccess = (timeSlot) => ({
+  type: DELETE_FUNKIS_TIME_SLOT.SUCCESS,
+  payload: { }
+});
+
+export const deleteFunkisTimeSlotFailure = (err) => ({
+  type: DELETE_FUNKIS_TIME_SLOT.FAILURE,
+  payload: err
+});
+
+export const deleteFunkisTimeSlot = (id) => {
+  return async dispatch => {
+    dispatch(deleteFunkisTimeSlotBegin(id))
+    api.delete(`funkis_timeslots/${id}`)
+      .then((json) => dispatch(deleteFunkisTimeSlotSuccess()))
+      .catch((err) => dispatch(deleteFunkisTimeSlotFailure(err)))
+  }
+}
+
+
 export const GET_FUNKISAR = {
   BEGIN: `${funkisActionBase}GET_FUNKISAR_BEGIN`,
   FAILURE: `${funkisActionBase}GET_FUNKISAR_FAILURE`,

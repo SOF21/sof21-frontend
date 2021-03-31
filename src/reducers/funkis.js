@@ -13,6 +13,7 @@ import {
   UPDATE_FUNKIS_TYPE,
   DELETE_FUNKIS_TYPE,
   ADD_FUNKIS_TIME_SLOT,
+  DELETE_FUNKIS_TIME_SLOT
 } from '../actions/funkis'
 
 const initialState = {
@@ -308,6 +309,26 @@ const funkisReducer = (state = initialState, action) => {
         }
       }
     case ADD_FUNKIS_TIME_SLOT.FAILURE:
+      return {
+        ...state,
+        ...standardValues.FAILURE,
+        error: action.payload.error
+      }
+    case DELETE_FUNKIS_TIME_SLOT.BEGIN:
+      delete state.idTimeslots[action.payload]
+      return {
+        ...state,
+        ...standardValues.BEGIN,
+        timeslots: {
+          ...state.timeslots
+        }
+      }
+    case DELETE_FUNKIS_TIME_SLOT.SUCCESS:
+      return {
+        ...state,
+        ...standardValues.SUCCESS,
+      }
+    case DELETE_FUNKIS_TIME_SLOT.FAILURE:
       return {
         ...state,
         ...standardValues.FAILURE,

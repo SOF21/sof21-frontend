@@ -21,6 +21,7 @@ import {
   getFunkisar,
   getFunkisTimeSlots,
   getFunkisType,
+  deleteFunkisTimeSlot
 } from '../../../../actions/funkis';
 
 import { ScaleLoader } from 'react-spinners';
@@ -32,6 +33,7 @@ const FunkisTypeData = ({
   getFunkisType,
   getFunkisar,
   getFunkisTimeSlots,
+  deleteFunkisTimeSlot,
   match,
   positions,
   timeslots,
@@ -44,7 +46,6 @@ const FunkisTypeData = ({
     getFunkisType(match.params.id)
     getFunkisTimeSlots()
   }, [getFunkisType, match.params.id, getFunkisar, getFunkisTimeSlots])
-
 
   const history = useHistory()
 
@@ -112,6 +113,7 @@ const FunkisTypeData = ({
           <IconButton 
             icon="delete" 
             style={{ color: '#C20E1A' }}
+            onClick={() => deleteFunkisTimeSlot(t.id)}
           />
         </DataTableCell>
       </DataTableRow>
@@ -236,6 +238,7 @@ const mapDispatchToProps = (dispatch) => ({
   getFunkisar: () => dispatch(getFunkisar()),
   getFunkisTimeSlots: () => dispatch(getFunkisTimeSlots()),
   getFunkisType: (id) => dispatch(getFunkisType(id)),
+  deleteFunkisTimeSlot: (id) => dispatch(deleteFunkisTimeSlot(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FunkisTypeData)
