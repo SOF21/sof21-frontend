@@ -253,7 +253,7 @@ const FunkisModal = ({
           options={[
           {
             label: 'Önskade',
-            options: funkisAlts.reduce((obj, alt) => ({
+            options: funkisAlts.filter(alt => positions[alt] !== undefined ).reduce((obj, alt) => ({
               ...obj,
               [alt]: positions[alt]
             }), {})
@@ -269,7 +269,7 @@ const FunkisModal = ({
             }),{})
           }
           ]}
-          value={selectedFunkisAlt}
+          value={selectedFunkisAlt || ''}
           onChange={onChange}
           disabled={selectedTimeSlots.length > 0}
         />
@@ -277,11 +277,11 @@ const FunkisModal = ({
       {selectedFunkisAlt && <GridCell desktop='12' tablet='8' phone='4'>
         <Select
           id='funkisDay'
-          options={Object.keys(funkisTimeSlots).reduce((obj, date) => ({
+          options={funkisTimeSlots ? Object.keys(funkisTimeSlots).reduce((obj, date) => ({
             ...obj,
             [date]: date
           }), {})
-          }
+          : ''}
           value={selectedDay}
           onChange={onChange}
         />

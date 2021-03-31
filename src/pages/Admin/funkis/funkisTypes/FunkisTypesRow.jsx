@@ -15,8 +15,7 @@ export const FunkisCreationRow = ({
   funkisar,
   funkisType,
   funkisTimeslots,
-  deleteFunkisType,
-  setOpen
+  handleDeleteFunkis,
 }) => {
 
   const {
@@ -34,10 +33,6 @@ export const FunkisCreationRow = ({
       .map((f) => f.selectedTimeSlots.includes(t.id))
     return timeslotFilled.includes(true)
   })
-
-  const deleteFunkis = () => {
-    current > 0 ? setOpen(true) : deleteFunkisType(funkisType)
-  }
 
   return (
     <>
@@ -66,7 +61,7 @@ export const FunkisCreationRow = ({
             <IconButton
               icon="delete"
               style={{ color: '#C20E1A' }}
-              onClick={deleteFunkis}
+              onClick={() => handleDeleteFunkis(funkisType)}
             />
           </div>
         </DataTableCell>

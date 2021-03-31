@@ -27,6 +27,7 @@ import {
   getFunkisar,
   getFunkisTimeSlots,
   getFunkisTypes,
+  deleteFunkisType
 } from '../../../../actions/funkis';
 
 import { ScaleLoader } from 'react-spinners';
@@ -37,6 +38,7 @@ const FunkisCreationComponent = ({
   getFunkisar,
   getFunkisTimeSlots,
   getFunkisTypes,
+  deleteFunkisType,
   positions,
   idTimeslots,
   funkisar,
@@ -52,6 +54,16 @@ const FunkisCreationComponent = ({
   const history = useHistory()
 
   const [isOpen, setOpen] = useState(false)
+  const [funkisType, setFunkisType] = useState(undefined)
+
+  const handleDeleteFunkis = (funkisType) => {
+    if (funkisType.current > 0) {
+      setOpen(true)
+      setFunkisType(funkisType)
+    } else {
+      deleteFunkisType(funkisType)
+    }
+  }
 
   return (
     <>
@@ -59,16 +71,23 @@ const FunkisCreationComponent = ({
         <Dialog open={isOpen}>
           <DialogTitle>Varning!</DialogTitle>
           <DialogContent>
-            Du kan inte ta bort den här funkistypen. <br />
+            Det finns fortfarande funkisar av denna typen. <br />
             <br />
-            Det finns fortfarande funkisar av denna typen. Ta bort dem först!
-            <br />
-            Om en funkis valt denna funkistyp som ett av alternativen <br />
-            i sin funkisanmälan kommer det att bli en tomt fält i deras modal. 
+             Är du säker att du vill ta bort den?
           </DialogContent>
           <DialogActions>
+            <DialogButton 
+              onClick={() => {
+                setOpen(false)
+                deleteFunkisType(funkisType).finally(() => {
+                  getFunkisTimeSlots()
+                  getFunkisar()
+                })
+              }}>
+              Fortsätt
+            </DialogButton>
             <DialogButton onClick={() => setOpen(false)}>
-              Stäng
+              Avbryt
             </DialogButton>
           </DialogActions>
         </Dialog>
@@ -111,7 +130,7 @@ const FunkisCreationComponent = ({
                         funkisar={funkisar}
                         funkisType={funkisType}
                         funkisTimeslots={Object.values(idTimeslots).filter((f) => f.funkis_category_id === funkisType.id)}
-                        setOpen={setOpen}
+                        handleDeleteFunkis={handleDeleteFunkis}
                       />
                     )
                   }) : null}
@@ -136,6 +155,7 @@ const mapDispatchToProps = (dispatch) => ({
   getFunkisar: () => dispatch(getFunkisar()),
   getFunkisTimeSlots: () => dispatch(getFunkisTimeSlots()),
   getFunkisTypes: () => dispatch(getFunkisTypes()),
+  deleteFunkisType: (funkisType) => dispatch(deleteFunkisType(funkisType))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FunkisCreationComponent)

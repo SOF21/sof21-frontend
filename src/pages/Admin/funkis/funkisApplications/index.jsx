@@ -65,7 +65,7 @@ const FunkisAdminComponent = ({
           val = positions[funkisar[c.id][k]];
           break;
         case 'selectedTimeSlots':
-          val = funkisar[c.id][k].map(t => {
+            val = funkisar[c.id][k].map(t => {
             const options = { day: 'numeric', month: 'numeric', hour: 'numeric', minute: 'numeric' };
             const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
             const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
