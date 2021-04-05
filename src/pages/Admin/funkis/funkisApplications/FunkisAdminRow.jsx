@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { defaultFunkis } from './constants';
+import { defaultFunkis } from '../constants';
 import {
   DataTableRow,
   DataTableCell,
@@ -40,7 +40,7 @@ export const FunkisAdminRow = ({
         {selectedFunkisAlt}
       </DataTableCell>
       <DataTableCell>
-        {selectedTimeSlots.map(t => <span>{t}</span>)}
+        <span>{selectedTimeSlots.reduce((str, t) => `${t}${str.length > 0? ',' : ''} ${str}`, '')}</span>
       </DataTableCell>
     </DataTableRow>
   );

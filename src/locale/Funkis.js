@@ -50,6 +50,10 @@ export default {
         header: 'Funkis ansökan',
         info: 'Här kan du ansöka om att bli Funkis på SOF21',
         submit: 'Ansök',
+        success: {
+          p1: 'Din ansökan är nu skickad!',
+          p2: 'Du kommer att få ett mail om du blir tilldelad en plats!',
+        },
         fieldLabels: {
           name: 'Namn',
           liuid: 'LIU ID',
@@ -62,17 +66,20 @@ export default {
           funkisOne: 'Funkisalternativ 1',
           funkisTwo: 'Funkisalternativ 2',
           funkisThree: 'Funkisalternativ 3',
-          requestedPartner: 'Önskad nattvaktspartner',
+          requestedPartner: 'Önskad nattvaktspartner (liuid)',
           firstPrefferedDate: 'Första föredragna datum',
           secondPrefferedDate: 'Andra föredragna datum',
           thirdPrefferedDate: 'Tredje föredragna datum',
           shirtSize: 'T-Shirt storlek',
-          allergies: ' Allergier',
-          otherAllergy: 'Övriga allergier',
+          foodPreference: 'Specialkost',
+          otherFoodPreference: 'Övrig specialkost',
           extraDesc: 'Övrig information',
+          gdpr: 'Information samlas in av LinTek, som även är personuppgiftsansvarig. Syftet för behandlingen av dina personuppgifter är att kunna genomföra festivalen under SOF21 och lagringsperioden är t.o.m. 31/7 2021. Information som ej är personrelaterad kommer att lagras för framtida SOFs användning. Samtycket är giltigt under lagringsperioden. Du har rätt att när som helst ta tillbaka ditt samtycke. Du har rätt att kontakta oss om du vill ha ut information om de uppgifter vi har om dig, för att begära rättelse, överföring eller för att begära att vi begränsar behandlingen, för att göra invändningar eller begära radering av dina uppgifter. Kontakta personal@sof.lintek.nu för att göra detta.'
         },
 
         errors: {
+          p1: 'Något gick väldigt snett hos oss!',
+          p2: 'Du är välkommen att höra av dig till personal@sof.lintek.nu med felmeddelande:',
           req: {
             name: 'Du måste ange ditt namn',
             liuid: 'Du måste ange ditt liu-id',
@@ -82,7 +89,9 @@ export default {
             postcode: 'Du måste ange ett postnummer',
             address: 'Du måste ange din address',
             city: 'Du måste ange en stad',
-            liuCard: 'Du måste ange ditt liu-kortnummer'
+            liuCard: 'Du måste ange ditt liu-kortnummer',
+            otherFoodPreference: 'Du måste skriva in din specialkost',
+            extraDesc: 'Du måste ange din övriga information',
           },
           malformed: {
             postcode: 'Ange endast siffror',
@@ -98,10 +107,12 @@ export default {
           email: 'E-mail',
           phonenumber: 'Telefon',
           postAddress: 'Address',
-          workFriend: 'Önskad nattvaktspartner',
+          requestedPartner: 'Önskad nattvaktspartner',
           tshirtSize: 'T-Shirt storlek',
-          allergy: 'Allergier',
-          allergyOther: 'Övriga allergier',
+          allergy: 'Specialkost',
+          otherFoodPreference: 'Övrig specialkost',
+          extraDesc: 'Övrig information',
+          preferedTimeSlots: 'Önskade dagar för arbete'
         }
       }
     }
@@ -152,7 +163,11 @@ export default {
       tearFunkTitle: "Rivfunkis",
       tearFunk: "Har du en fallenhet för att sabba, demolera och allmänt röja? Som rivfunkis får du chansen att få utlopp för ditt förödelsebehov! Riv ner allt från barer till boende!",
       nightFunkTitle: "Nattvakt",
-      nightFunk: "Är du något av en nattuggla? Hjälp oss vaka över SOFs eminenta område!"
+      nightFunk: "Är du något av en nattuggla? Hjälp oss vaka över SOFs eminenta område!",
+
+      errors: {
+        english: 'The funkis application is only open to swedish speaking participants, sorry!'
+      }
     }
   }
 };

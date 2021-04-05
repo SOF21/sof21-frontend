@@ -18,4 +18,4 @@ $outer-grid-margins: (
 
 $page-grid-max-width: map-get($mdc-layout-grid-breakpoints, desktop) - map-get($mdc-layout-grid-default-margin, desktop) * 2 - map-get($outer-grid-margins, desktop) * 2;
 
-$administrative-page-grid-max-width: 1200px;
+$administrative-page-grid-max-width: 1260px;

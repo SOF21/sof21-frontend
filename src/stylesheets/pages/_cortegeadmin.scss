@@ -15,7 +15,12 @@
   }
 }
 
+.filterContainer .filterSelect:not(:first-child){
+    margin: 0 10px;
+}
+
+
 .cortegeSearch {
   width: 100%;
   max-width: 100%;
-}
+  }

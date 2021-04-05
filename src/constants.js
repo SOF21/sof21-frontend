@@ -17,7 +17,8 @@ export const images = {
 }
 
 export const info = {
-  SOFYear: 21
+  SOFYear: 21,
+  adminPassword: 'PutTutten2021!'
 }
 
 export const orchestraTypes = {
@@ -25,4 +26,5 @@ export const orchestraTypes = {
   1: "ballet",
   2: "balchestra",
   3: "band"
+
 }
