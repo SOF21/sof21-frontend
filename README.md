@@ -26,7 +26,6 @@ The page is heavily influenced by [Material Design](https://material.io/design/)
 #### Stylesheets
 * [/stylesheets](src/stylesheets) contains all SASS stylesheets
 
-
 ## Payment
 The way purchases and payments work in the application is as follows ([more about the API calls](src/api)):
 1. A user adds things to [their cart](src/components/shop/ShopPopup.js) from [the store page](src/pages/base_pages/Shop.js).
@@ -34,3 +33,8 @@ The way purchases and payments work in the application is as follows ([more abou
 This page, and the [Card form](src/components/shop/CheckoutForm.js) uses [stripes React components](https://stripe.com/docs/stripe-js/react) to handle payments.
 3. When the payment information has been inputted, a request is sent to stripes API, which return a payment token.
 4. The token is sent to the backend, which charges the card and adds the purchased items to the users account.
+
+## .env file
+In case the file disappears, it should contain:
+SASS_PATH=./node_modules
+REACT_APP_API_ENDPOINT="http://localhost:3000/api/v1/"
