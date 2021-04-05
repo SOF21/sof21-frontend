@@ -147,7 +147,7 @@ const FunkisTypeData = ({
             <h4 style={{ margin: '0px', display: 'inline' }}> <b>{funkisType.title}</b></h4>
             <IconButton 
               icon="edit"
-              onClick={() => history.push('/account/admin/funkistypes/' + funkisType.id + '/update')}
+              onClick={() => history.push(`/account/admin/funkistypes/${funkisType.id}/update`)}
             />
             <br />
             <h6 style={{ margin: '0px' }}> Antal: {funkisType.current} / {funkisType.needed}</h6>
@@ -167,7 +167,7 @@ const FunkisTypeData = ({
             <Button 
               raised 
               style={{ width: '100%' }}
-              onClick={() => history.push('/account/admin/funkistypes/' + funkisType.id + '/newshift')}
+              onClick={() => history.push(`/account/admin/funkistypes/${funkisType.id}/newshift`)}
             >
               + Lägg till pass
           </Button>

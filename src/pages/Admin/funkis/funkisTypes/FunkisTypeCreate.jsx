@@ -46,7 +46,10 @@ export const FunkisTypeCreate = ({
       initialValues={ match.params.id ? { name: funkisType.title, amount: funkisType.needed} : { name: '', amount: '' }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required("Funkistypen behöver ett namn"),
-        amount: Yup.number().positive("Du måste ange ett positivt antal").typeError("Du kan bara ange en siffra").required("Du måste ange ett antal, du kan ändra det senare")
+        amount: Yup.number()
+          .positive("Du måste ange ett positivt antal")
+          .typeError("Du kan bara ange en siffra")
+          .required("Du måste ange ett antal, du kan ändra det senare")
       })}
       onSubmit={handleSubmit}
       render={({ values, handleChange, handleBlur, errors, touched, isValid, isSubmitting }) => (
