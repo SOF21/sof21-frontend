@@ -258,7 +258,7 @@ const FunkisCheckInOverviewComponent = (
 
 const mapStateToProps = (state) => ({
   funkisar: state.funkis.funkisar,
-  positions: state.funkis.positions,
+  positions: state.funkis.positionTitles,
   idTimeslots: state.funkis.idTimeslots,
 })
 
