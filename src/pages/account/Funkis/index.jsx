@@ -227,7 +227,7 @@ const FunkisComponent = ({
           </h5>
         </GridCell>
       </GridInner>}
-      {!loading && !success && !hasPrevApp && !error && !isOpen && lang === 'sv' && <Formik
+      {!loading && !success && !hasPrevApp && !error && isOpen && lang === 'sv' && <Formik
       initialValues={initialInput}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -560,7 +560,7 @@ const FunkisComponent = ({
 
 const mapStateToProps = state => ({
   loading: state.funkis.loading,
-  funkisPositions: state.funkis.positions,
+  funkisPositions: state.funkis.positionTitles,
   success: state.funkis.success,
   error: state.funkis.error,
   hasPrevApp: state.funkis.hasPrevApp,

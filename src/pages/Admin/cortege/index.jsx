@@ -32,8 +32,6 @@ import {
   DialogActions,
   DialogButton
 } from '@rmwc/dialog';
-import cortege from '../../account/cortege';
-
 
 const isFlagSet = (flags, flag) => {
   return parseInt(flags, 2) &  flag

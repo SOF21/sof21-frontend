@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { defaultFunkis } from './constants';
+import { defaultFunkis } from '../constants';
 import {
   DataTableRow,
   DataTableCell,

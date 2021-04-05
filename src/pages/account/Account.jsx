@@ -10,6 +10,7 @@ import { PrivateRoute, isAnyAdmin  } from '../../components/admin/PermissionHand
 
 import Profile from './Profile';
 import Cortege from './cortege';
+import Funkis from './Funkis'
 import Admin from '../Admin/AccountAdmin';
 import Orchestra from './orchestra/AccountOrchestra';
 import Purchases from './Purchases';
@@ -30,7 +31,6 @@ import {connect} from 'react-redux';
 
 import { setTitle, mapTabToIndex, setActiveTab } from '../../actions/title';
 import ChangePassword from '../../components/forms/ChangePassword';
-import Funkis from './Funkis';
 
 const mapStateToProps = state => ({
   adminPriv: state.reduxTokenAuth.currentUser.attributes.adminPermissions,

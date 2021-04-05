@@ -24,9 +24,9 @@ import {
   bookFunkis,
   unbookFunkis,
   updateFunkis,
- } from '../../../actions/funkis';
+ } from '../../../../actions/funkis';
 
-import {defaultFunkis} from './constants'
+import {defaultFunkis} from '../constants'
 import { FunkisDayItem } from './FunkisDayItem';
 
 // TODO: Bryt ut till intl
@@ -219,7 +219,7 @@ const FunkisModal = ({
                 <ListItemPrimaryText>
                   <FormattedMessage id='Funkis.admin.fieldLabels.preferedTimeSlots'/>
                 </ListItemPrimaryText>
-                {preferedDates.map(ts => <ListItemSecondaryText>{ts}</ListItemSecondaryText>)}
+                {preferedDates.map(ts => <ListItemSecondaryText key={ts}>{ts}</ListItemSecondaryText>)}
                 
               </ListItemText>
             </ListItem>
@@ -234,7 +234,7 @@ const FunkisModal = ({
             const start = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].start_time);
             const end = new Intl.DateTimeFormat('sv', options).format(idTimeslots[t].end_time);
             return (
-              <ListItem ripple={false}>
+              <ListItem key={t} ripple={false}>
               <ListItemSecondaryText>
                 <span>{`${start} -  ${end}`}</span>
               </ListItemSecondaryText>
@@ -253,7 +253,7 @@ const FunkisModal = ({
           options={[
           {
             label: 'Önskade',
-            options: funkisAlts.reduce((obj, alt) => ({
+            options: funkisAlts.filter(alt => positions[alt] !== undefined ).reduce((obj, alt) => ({
               ...obj,
               [alt]: positions[alt]
             }), {})
@@ -261,14 +261,15 @@ const FunkisModal = ({
           {
             label: 'Övriga',
             options: Object.keys(positions)
-              .filter(p => funkisAlts.includes(p))
-              .reduce((obj, alt) => ({
-                ...obj,
-                [alt]: positions[alt]
-              }),{})
+            .map((i) => parseInt(i))
+            .filter(p => !funkisAlts.includes(p))
+            .reduce((obj, alt) => ({
+              ...obj,
+              [alt]: positions[alt]
+            }),{})
           }
           ]}
-          value={selectedFunkisAlt}
+          value={selectedFunkisAlt || ''}
           onChange={onChange}
           disabled={selectedTimeSlots.length > 0}
         />
@@ -276,11 +277,11 @@ const FunkisModal = ({
       {selectedFunkisAlt && <GridCell desktop='12' tablet='8' phone='4'>
         <Select
           id='funkisDay'
-          options={Object.keys(funkisTimeSlots).reduce((obj, date) => ({
+          options={funkisTimeSlots ? Object.keys(funkisTimeSlots).reduce((obj, date) => ({
             ...obj,
             [date]: date
           }), {})
-          }
+          : ''}
           value={selectedDay}
           onChange={onChange}
         />
@@ -338,7 +339,7 @@ const mapStateToProps = (state) => ({
   funkisar: state.funkis.funkisar,
   loading: state.funkis.loading,
   timeslots: state.funkis.timeslots,
-  positions: state.funkis.positions,
+  positions: state.funkis.positionTitles,
   idTimeslots: state.funkis.idTimeslots,
 })
 
