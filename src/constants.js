@@ -20,3 +20,11 @@ export const info = {
   SOFYear: 21,
   adminPassword: 'PutTutten2021!'
 }
+
+export const orchestraTypes = {
+  0: "orchestra",
+  1: "ballet",
+  2: "balchestra",
+  3: "band"
+
+}

@@ -17,12 +17,10 @@ import { CircularProgress } from '@rmwc/circular-progress';
 import { Button } from '@rmwc/button';
 
 import { getOrchestraCSV } from '../../../api/csvCalls';
+import { orchestraTypes } from '../../../constants'
 import { CSVLink } from "react-csv";
+import { FormattedMessage } from 'react-intl';
 
-const orchestraTypes = {
-  0: 'Orkester',
-  1: 'Band',
-};
 
 class AllOrchestras extends Component{
   constructor(props){
@@ -94,7 +92,7 @@ class AllOrchestras extends Component{
                 style={{cursor: 'pointer'}}
               >
                 <DataTableCell>{orchestra.name}</DataTableCell>
-                <DataTableCell>{orchestraTypes[orchestra.orchestra_type]}</DataTableCell>
+                <DataTableCell><FormattedMessage id={`OrchestraMemReg.${orchestraTypes[orchestra.orchestra_type]}`}/></DataTableCell>
                 <DataTableCell>{orchestra.members_count}</DataTableCell>
                 <DataTableCell>{(new Date(orchestra.created_at)).toISOString().substring(0, 10)}</DataTableCell>
                 <DataTableCell>

@@ -14,7 +14,6 @@ import PriceSummary from '../account/orchestra/PriceSummary'
 import { connect } from 'react-redux';
 import { setTitle } from '../../actions/title';
 
-
 class OrchestraMemReg extends Component{
   constructor(props) {
     super(props);
@@ -110,8 +109,10 @@ class OrchestraMemReg extends Component{
               validationSchema={Yup.object().shape({
                 arriveWith: Yup.bool()
                   .required(<FormattedMessage id='OrchestraMemReg.required' />),
-                arriveDay: Yup.number().when('arriveWith', { is: false,
-                  then: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />)}),
+                arriveDay: Yup.number().when('arriveWith', {
+                  is: false,
+                  then: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />)
+                }),
                 festivalPackage: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 foodTickets: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 oldOrActive: Yup.bool().required(<FormattedMessage id='OrchestraMemReg.required' />),
@@ -121,16 +122,21 @@ class OrchestraMemReg extends Component{
                 instrSize: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 dorm: Yup.bool().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 otherPerformancesTrue: Yup.bool().required(<FormattedMessage id='OrchestraMemReg.required' />),
-                otherPerformances: Yup.string().when('otherPerformancesTrue', { is: true,
-                  then: Yup.string().required(<FormattedMessage id='OrchestraMemReg.required' />)}),
-                orchestraType: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
+                otherPerformances: Yup.string().when('otherPerformancesTrue', {
+                  is: true,
+                  then: Yup.string().required(<FormattedMessage id='OrchestraMemReg.required' />)
+                }),
+                orchestraType: Yup.number().when('this.props.orchestraType', {
+                  is: true,
+                  then: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
+                }),
                 numTshirt: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 // /* TO DO: Fix so that sizeTshirt is required when numTshirt != 0 */}
 
                 sizeTshirt: Yup.number(),
                 numMedal: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 numPatch: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />)
-            })}
+              })}
 
               onSubmit={this.formSubmit}
               render={ ({values, handleChange, handleBlur, errors, touched, isValid, setFieldValue, setFieldTouched, isSubmitting}) => (
@@ -165,7 +171,7 @@ class OrchestraMemReg extends Component{
                     <FormSelect
                         label={
                           <span>
-                            <FormattedMessage id='OrchestraMemReg.arrive'/>
+                            <FormattedMessage id={`OrchestraMemReg.arrive.${this.props.orchestraType}`}/>
                             {" "}({this.Days[this.props.day] })
                           </span>
                         }
@@ -319,9 +325,7 @@ class OrchestraMemReg extends Component{
                       />
                     </GridCell>
 
-
-
-
+                    {this.props.signupOrchestra.orchestra.orchestra_type === 2 &&
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
                         label={<FormattedMessage id='OrchestraMemReg.balletOrOrchestra'/>}
@@ -344,7 +348,7 @@ class OrchestraMemReg extends Component{
                           },
                         ]}
                       />
-                    </GridCell>
+                    </GridCell>}
                     <GridCell desktop='12' tablet='8' phone='4'>
                     <FormSelect
                         label={<FormattedMessage id='OrchestraMemReg.otherOrchestra'/>}
