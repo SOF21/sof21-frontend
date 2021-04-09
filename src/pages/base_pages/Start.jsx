@@ -24,6 +24,7 @@ const festivalAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react
 const cortegeAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/cortege_about/cortege1.jpg';
 const orchestraAboutIm = 'https://s3-eu-west-1.amazonaws.com/lintek-sof/sof-react-page/pages/orchestra_about/orkester1.jpg';
 const HistoryIm = 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Bilder/Guldbrallor.jpg';
+const digitalEdition = 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Digital-SOF-05.png'
 
 class Start extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class Start extends Component {
 
     return (
       <React.Fragment>
-        {/* <Grid className="base-outer-grid base-outer-grid--first" style={{ paddingBottom: '1.5rem' }}>
+        <Grid className="base-outer-grid base-outer-grid--first" style={{ paddingBottom: '1.5rem' }}>
           <GridInner>
             <GridCell phone="4" tablet="8" desktop='12' >
               <img
@@ -62,61 +63,82 @@ class Start extends Component {
                 alt='The SOF logo next to the date of the festival'
               />
             </GridCell>
-          </GridInner>
-        </Grid> */}
 
-        {/*  THIS YEARS FESTIVAL
-            
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
                 <FormattedMessage id='Start.festivalTitle' />
               </Header>
             </GridCell>
-            <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
+            <GridCell phone="4" tablet="4" desktop='12'>
+              <GridInner>
+                <GridCell phone="4" tablet="8" desktop='8' >
+                  På grund av den rådande epidemin kan tyvärr inte SOF genomföras fysiskt i år,
+                  men det ska inte hindra oss. För första gången i SOF:s historia presenterar vi:
+                  SOF - Digital Edition! 
+                  <br /><br />
+                  Under helgen 13-15 maj bjuder vi härmed in dig till
+                  livesändningar med tävlingar, aktiviteter och medryckande orkestermusik i
+                  våra olika kanaler. <br /> Utöver det kommer du få möjlighet att beställa hem servicepaket
+                  bestående av mat, dryck och några exklusiva presenter från oss i SOF-organisationen!
+                  Vi är ännu inte färdiga med planeringen av det digitala upplägget,
+                  men vi återkommer med mer information närmare inpå festivalen.
+                  <br /><br />
+                  Vi ses på SOF21, fast på lite avstånd!
+                </GridCell>
+                <GridCell phone="4" tablet="8" desktop='4' >
+                  <img
+                    style={{ width: '100%' }}
+                    src={digitalEdition}
+                    alt='The SOF logo next to the date of the festival'
+                  />
+                </GridCell>
+              </GridInner>
+            </GridCell>
+            {/*   <GridCell phone="4" tablet="4" desktop='6' >
+              <AboutCard
                 background={scheduleIm}
-                title={<FormattedMessage id='ScheduleFestival.navTitle'/>}
+                title={<FormattedMessage id='ScheduleFestival.navTitle' />}
                 desc={
                   <React.Fragment>
-                    <FormattedMessage id='ScheduleFestival.text'/>
-                    <br/>
-                    <FormattedMessage id='ScheduleFestival.text2'/>
+                    <FormattedMessage id='ScheduleFestival.text' />
+                    <br />
+                    <FormattedMessage id='ScheduleFestival.text2' />
                   </React.Fragment>
                 }
-                onClickProp={() =>this.props.history.push('/festival_schedule')}
+                onClickProp={() => this.props.history.push('/festival_schedule')}
               />
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
-                background={areaIm} 
-                title={<FormattedMessage id='AreaFestival.navTitle'/>}
-                desc={<FormattedMessage id='AreaFestival.text'/>}
-                onClickProp={()=>this.props.history.push('/festival_area')}
+              <AboutCard
+                background={areaIm}
+                title={<FormattedMessage id='AreaFestival.navTitle' />}
+                desc={<FormattedMessage id='AreaFestival.text' />}
+                onClickProp={() => this.props.history.push('/festival_area')}
               />
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
+              <AboutCard
                 background={cortegeFestivalIm}
-                title={<FormattedMessage id='CortegeFestival.navTitle'/>}
+                title={<FormattedMessage id='CortegeFestival.navTitle' />}
                 desc={
                   <React.Fragment>
-                    <FormattedMessage id='CortegeFestival.time'/>
-                    <br/>
-                    <FormattedMessage id='CortegeFestival.route'/>
+                    <FormattedMessage id='CortegeFestival.time' />
+                    <br />
+                    <FormattedMessage id='CortegeFestival.route' />
                   </React.Fragment>
                 }
-                onClickProp={()=>this.props.history.push('/festival_cortege')}
+                onClickProp={() => this.props.history.push('/festival_cortege')}
               />
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' >
-              <AboutCard 
+              <AboutCard
                 background={eventIm}
-                title={<FormattedMessage id='EventFestival.navTitle'/>}
-                desc={<FormattedMessage id='EventFestival.activitiesT'/>}
+                title={<FormattedMessage id='EventFestival.navTitle' />}
+                desc={<FormattedMessage id='EventFestival.activitiesT' />}
                 onClickProp={() => this.props.history.push('/festival_activities')}
               />
             </GridCell> */}
-        {/* <HighlightedArea className='countdown-inner' color='yellow'
+            {/* <HighlightedArea className='countdown-inner' color='yellow'
         >
           <GridCell phone="4" tablet="8" desktop='12' className='h-center'>
             {!this.props.isMobile ?
@@ -135,15 +157,6 @@ class Start extends Component {
           </GridCell>
         </HighlightedArea> */}
 
-        <Grid className="base-outer-grid">
-          <GridInner>
-            <GridCell phone="4" tablet="8" desktop='12' >
-              <img
-                className='full-width-grid-image'
-                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Header-hemsida-vit.png'
-                alt='The SOF logo next to the date of the festival'
-              />
-            </GridCell>
             <GridCell phone="4" tablet="8" desktop='12' >
               <Header>
                 <FormattedMessage id='Start.moreInfo' />
