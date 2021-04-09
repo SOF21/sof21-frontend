@@ -77,7 +77,7 @@ class Start extends Component {
                   SOF - Digital Edition! 
                   <br /><br />
                   Under helgen 13-15 maj bjuder vi härmed in dig till
-                  livesändningar med tävlingar, aktiviteter och medryckande orkestermusik i
+                  livesändningar med tävlingar, aktiviteter, medryckande orkestermusik och dans i
                   våra olika kanaler. <br /> Utöver det kommer du få möjlighet att beställa hem servicepaket
                   bestående av mat, dryck och några exklusiva presenter från oss i SOF-organisationen!
                   Vi är ännu inte färdiga med planeringen av det digitala upplägget,
