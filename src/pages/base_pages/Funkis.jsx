@@ -37,7 +37,7 @@ class Funkis extends Component {
   }
 
   handleFormClick = () => {
-    window.open('https://podio.com/webforms/25540968/1953117', '_blank');
+    window.open('https://podio.com/webforms/26047632/1954641', '_blank');
   }
 
   static pageTitle() {
