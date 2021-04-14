@@ -104,6 +104,7 @@ const CortegeModal = ({
     reservContactPerson,
     reservMail,
     invoiceAddress,
+    material,
   } = cortegeData;
 
   return (
@@ -132,6 +133,14 @@ const CortegeModal = ({
                     <FormattedMessage id='Cortege.admin.fieldLabels.amountPartaking'/>
                   </ListItemPrimaryText>
                   <ListItemSecondaryText>{amountPartaking}</ListItemSecondaryText>
+                </ListItemText>
+              </ListItem>
+              <ListItem ripple={false}>
+                <ListItemText>
+                  <ListItemPrimaryText>
+                    <FormattedMessage id='Cortege.admin.fieldLabels.material'/>
+                  </ListItemPrimaryText>
+                  <ListItemSecondaryText>{material? 'Ja' : 'Nej'}</ListItemSecondaryText>
                 </ListItemText>
               </ListItem>
               <ListItem ripple={false}>
@@ -190,7 +199,7 @@ const CortegeModal = ({
                   <ListItemSecondaryText>{invoiceAddress}</ListItemSecondaryText>
                 </ListItemText>
               </ListItem>
-              <ListItem ripple={false}>
+              <ListItem ripple={false} style={{height: 'auto'}}>
                 <ListItemText>
                   <ListItemPrimaryText>
                     <FormattedMessage id='Cortege.admin.fieldLabels.contribMotivation'/>
@@ -198,15 +207,15 @@ const CortegeModal = ({
                   <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{contribMotivation}</ListItemSecondaryText>
                 </ListItemText>
               </ListItem>
-              <ListItem ripple={false}>
+              <ListItem ripple={false} style={{height: 'auto'}}>
                 <ListItemText>
                   <ListItemPrimaryText>
                     <FormattedMessage id='Cortege.admin.fieldLabels.themeMotivation'/>
                   </ListItemPrimaryText>
-                  <ListItemSecondaryText style={{whiteSpace: 'break-spaces'}}>{themeMotivation}</ListItemSecondaryText>
+                  <ListItemSecondaryText style={{whiteSpace: 'break-spaces',}}>{themeMotivation}</ListItemSecondaryText>
                 </ListItemText>
               </ListItem>
-              <ListItem ripple={false}>
+              <ListItem ripple={false} style={{height: 'auto'}}>
                 <ListItemText>
                   <ListItemPrimaryText>
                     <FormattedMessage id='Cortege.admin.fieldLabels.image'/>

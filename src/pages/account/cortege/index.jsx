@@ -38,6 +38,7 @@ const initialInput = {
   amountPartaking: '',
   image: '',
   gdpr: false,
+  material: false,
 }
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -96,6 +97,9 @@ const validationSchema = Yup.object().shape({
   ).required(
     <FormattedMessage id='Cortege.form.errors.req.invoiceAddress' />
   ),
+  material: Yup.bool().required(
+    <FormattedMessage id='Cortege.form.errors.req.material'/>
+  )
 })
 
 const CortegeComponent = ({
@@ -161,49 +165,39 @@ const CortegeComponent = ({
           </DialogTitle>
           <DialogContent style={{ maxHeight: '70vh' }}>
             <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p1' />
+            <FormattedMessage id='Cortege.info.coronaModal.p1' /><b> fantasivärldar. </b><FormattedMessage id='Cortege.info.coronaModal.p2' />
             </p>
             <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p2' />
+              <FormattedMessage id='Cortege.info.coronaModal.p3.header' />
             </p>
+            <ul>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p3.i1' /></li>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p3.i2' /></li>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p3.i3' /></li>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p3.i4' /></li>
+            </ul>
             <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p3' />
+              <FormattedMessage id='Cortege.info.coronaModal.p4.header' />
             </p>
-            <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p4' />
-            </p>
+            <ul>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p4.i1' /></li>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p4.i2' /></li>
+              <li><FormattedMessage id='Cortege.info.coronaModal.p4.i3' /></li>
+            </ul>
             <p>
               <FormattedMessage id='Cortege.info.coronaModal.p5' />
             </p>
             <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p7.header' />
-            </p>
-            <ul>
-              <li><FormattedMessage id='Cortege.info.coronaModal.p7.i1' /></li>
-              <li><FormattedMessage id='Cortege.info.coronaModal.p7.i2' /></li>
-              <li><FormattedMessage id='Cortege.info.coronaModal.p7.i3' /></li>
-            </ul>
-            <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p8' />
+              <b>Tips! </b><FormattedMessage id='Cortege.info.coronaModal.p6' />
             </p>
             <p>
-              <b>Tips! </b><FormattedMessage id='Cortege.info.coronaModal.p9' />
+              <FormattedMessage id='Cortege.info.coronaModal.p7' />
             </p>
             <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p10' />
-            </p>
-            <p>
+              <FormattedMessage id='Cortege.info.coronaModal.p8' /><br></br>
+              <FormattedMessage id='Cortege.info.coronaModal.p9' /><br></br>
+              <FormattedMessage id='Cortege.info.coronaModal.p10' /><br></br>
               <FormattedMessage id='Cortege.info.coronaModal.p11' />
-            </p>
-            <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p12' />
-              <br></br>
-              <b>OBS! </b><FormattedMessage id='Cortege.info.coronaModal.p13' />
-            </p>
-            <p>
-              <FormattedMessage id='Cortege.info.coronaModal.p14.a' />
-              <br></br>
-              <FormattedMessage id='Cortege.info.coronaModal.p14.b' />
             </p>
 
           </DialogContent>
@@ -286,8 +280,6 @@ const CortegeComponent = ({
                 </p>
                 <p>
                   <span><FormattedMessage id='Cortege.info.outro1' /></span>
-                  <br></br>
-                  <span><FormattedMessage id='Cortege.info.outro2' /></span>
                 </p>
                 <p>
                   <span><FormattedMessage id='Cortege.info.corona' /> <Button dense outlined onClick={(e) => {
@@ -449,6 +441,17 @@ const CortegeComponent = ({
                     value={values.amountPartaking}
                   />
                 </InformativeInputWrapper>
+              </GridCell>
+              <GridCell>
+                <FormCheckbox
+                  label={intl.formatMessage({id: 'Cortege.form.fieldLabels.material'})}
+                  name='material'
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  touched={touched.material}
+                  error={errors.material}
+                  value={values.material}
+                />
               </GridCell>
               <GridCell desktop='12' tablet='4' phone='4'>
                 <InformativeInputWrapper
