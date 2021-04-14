@@ -37,6 +37,7 @@ export const sendCortegeApplication = ({
   reservContactPerson,
   reservMail,
   invoiceAddress,
+  material,
 }) => {
   return async dispatch => {
     dispatch(sendCortegeAppBegin());
@@ -56,6 +57,7 @@ export const sendCortegeApplication = ({
         secondary_name: reservContactPerson,
         secondary_mail: reservMail,
         invoice_address: invoiceAddress,
+        material: material,
       }
     })
       .then(() => {
@@ -115,7 +117,8 @@ export const getCorteges = () => {
             reservPhonenumber: c.secondary_phone,
             reservContactPerson: c.secondary_name,
             reservMail: c.secondary_mail,
-            invoiceAddress: c.invoice_address
+            invoiceAddress: c.invoice_address,
+            material: c.material,
           }
         }), {})
         dispatch(getCortegesSuccess(cFixed));
