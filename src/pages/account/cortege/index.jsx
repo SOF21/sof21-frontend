@@ -124,8 +124,8 @@ const CortegeComponent = ({
     setTitle(intl.formatMessage({ id: 'Account.cortege' }));
   }, [loadCortegeId, setTitle, intl])
 
-  const openApp = new Date("Mar 15, 2021").getTime()
-  const closeApp = new Date("Apr 5, 01:00:00 2021").getTime()
+  const openApp = new Date("Apr 14, 2021").getTime()
+  const closeApp = new Date("Apr 26, 01:00:00 2021").getTime()
   const currentTime = new Date().getTime()
 
   const [coronaDialogOpen, setCoronaDialogOpen] = useState(false)
