@@ -32,8 +32,6 @@ import {
   DialogActions,
   DialogButton
 } from '@rmwc/dialog';
-import cortege from '../../account/cortege';
-
 
 const isFlagSet = (flags, flag) => {
   return parseInt(flags, 2) &  flag
@@ -61,6 +59,7 @@ const CortegeAdminRow = ({
     securityFeedback,
     otherComments,
     flags,
+    material,
   } = cortegeData;
   // TODO: Move select and list to separate modal instead. Accessed by clicking the item
   return(
@@ -85,6 +84,9 @@ const CortegeAdminRow = ({
       </DataTableCell>
       <DataTableCell>
         {amountPartaking}
+      </DataTableCell>
+      <DataTableCell>
+        {material? 'Ja' : 'Nej'}
       </DataTableCell>
       <DataTableCell className='feedbackText'>
         {feedback}
@@ -366,6 +368,7 @@ const CortegeAdminComponent = ({
                 <DataTableHeadCell>E-mail</DataTableHeadCell>
                 <DataTableHeadCell>Telefon</DataTableHeadCell>
                 <DataTableHeadCell>Antal personer</DataTableHeadCell>
+                <DataTableHeadCell>Behöver material</DataTableHeadCell>
                 <DataTableHeadCell>Feedback</DataTableHeadCell>
                 <DataTableHeadCell>Säkerhet</DataTableHeadCell>
                 <DataTableHeadCell>Övrigt</DataTableHeadCell>
