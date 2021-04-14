@@ -122,7 +122,13 @@ class CortegeAbout extends Component{
                 <FormattedMessage id='CortegeAbout.h1' />
               </Header>
               <p>
-                <FormattedMessage id='CortegeAbout.p1' />
+                <FormattedMessage id='Cortege.info.coronaModal.p2' />
+              </p>
+              <p>
+                <FormattedMessage id='Cortege.info.coronaModal.p3' />
+              </p>
+              <p>
+                <FormattedMessage id='Cortege.info.coronaModal.p5' />
               </p>
             </GridCell>
             <GridCell phone="4" tablet="4" desktop='6' className='h-center'>
@@ -149,7 +155,10 @@ class CortegeAbout extends Component{
                 <FormattedMessage id='CortegeAbout.h2' />
               </Header>
               <p>
-                <FormattedMessage id='CortegeAbout.p2' />
+                <FormattedMessage id='Cortege.info.coronaModal.p4' />
+              </p>
+              <p>
+                <FormattedMessage id='Cortege.info.coronaModal.p6' />
               </p>
             </GridCell>
             <GridCell phone="4" tablet="8" desktop='8' className='h-center'>

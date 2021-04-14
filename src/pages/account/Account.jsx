@@ -109,12 +109,12 @@ class Account extends Component{
                       <FormattedMessage id='Account.cortege'/>
                     </h4>
                   </ListItem>
-                  <ListItem tag={Link} to='/account/funkis'>
+{/*                   <ListItem tag={Link} to='/account/funkis'>
                     <ListItemGraphic icon={sofHeart}/>
                     <h4>
                       <FormattedMessage id='Account.funkis'/>
                     </h4>
-                  </ListItem>
+                  </ListItem> */}
                 {isAnyAdmin(this.props.adminPriv) ? <ListItem tag={Link} to='/account/admin'>
                     <ListItemGraphic icon={sofHeart}/>
                     <h4>
@@ -196,14 +196,14 @@ class Account extends Component{
                     key = {'/account/purchases'}
 
                   />
-                  <PrivateRoute
+{/*                   <PrivateRoute
                     path = {'/account/funkis'}
                     render={(props) => (
                       <Funkis {...props} />
                     )}
                     key = {'/account/funkis'}
 
-                  />
+                  /> */}
                   <PrivateRoute
                     render={(props) => (
                       <Redirect to='/account/account' />

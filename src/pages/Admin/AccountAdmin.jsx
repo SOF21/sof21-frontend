@@ -203,7 +203,7 @@ class AccountAdmin extends Component {
           }}
           key={'/admin/cortege'}
         />
-        <PrivateRoute
+{/*         <PrivateRoute
           admin
           requiredAccess={2}
           exact
@@ -226,7 +226,7 @@ class AccountAdmin extends Component {
             );
           }}
           key={'/admin/funkisar'}
-        />
+        /> */}
         <PrivateRoute
           admin
           requiredAccess={AdminPriv.FUNKIS}
