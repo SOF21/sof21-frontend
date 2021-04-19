@@ -265,7 +265,7 @@ class DesktopTopAppBar extends React.PureComponent{
               {pageButtons}
             </TopAppBarSection>
             <TopAppBarSection alignEnd >
-              {/* <DesktopCartPopup/> */}
+              <DesktopCartPopup/>
               <DesktopAccountPopup/>
               <Ripple disabled={!this.state.hoverLang}>
                 <PosedLangSelectContainer
@@ -571,7 +571,7 @@ class MobileTopAppBar extends React.PureComponent{
               </TopAppBarTitle>
             </TopAppBarSection>
             <TopAppBarSection alignEnd >
-             {/*  <MobileCartPopup/> */}
+              <MobileCartPopup/>
               <MobileAccountPopup/>
               <TopAppBarNavigationIcon
                 icon="menu"

@@ -20,3 +20,13 @@ export const addLiUCardCode = code => {
 export const getOrderFromLiUCardCode = code => {
   return api.get('/collect/liu_card/' + code, {timeout : 1000 * 10});
 }
+
+export const addExtraWebshopData = data => {
+  return api.put(`/users/${data.id}`, {
+    user: {
+      invoice_address: data.adress,
+      phone: data.phone,
+      allergies: data.allergies
+    }
+  }) 
+}
