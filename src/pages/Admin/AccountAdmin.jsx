@@ -5,12 +5,20 @@ import PermissionModifier from './../../components/admin/PermissionModifier';
 import TicketPickup from '../../components/admin/TicketPickup';
 import { AdminPriv, isAdmin } from '../../components/admin/PermissionHandler';
 import SoldSeparately from '../../components/admin/SoldSeparately';
-import FunkisAdmin from '../Admin/funkis'
-import FunkisCheckInOverview from '../Admin/funkis/funkisCheckIn'
+import CortegeAdmin from './cortege';
+import FunkisAdmin from './funkis/funkisApplications'
+import FunkisCheckIn from './funkis/funkisCheckIn'
+import FunkisTypes from './funkis/funkisTypes'
+import FunkisTypeData from './funkis/funkisTypes/FunkisTypeData';
+import FunkisTypeCreate from './funkis/funkisTypes/FunkisTypeCreate'
+import FunkisTimeslotCreate from './funkis/funkisTypes/FunkisTimeslotCreate';
+
+
+import Header from '../../components/page_components/NiceHeader';
+
 import { GridCell, GridInner } from '@rmwc/grid';
 import { Button } from '@rmwc/button';
-
-// import { ListDivider } from '@rmwc/list';
+import { ListDivider } from '@rmwc/list';
 
 // import { SimpleDataTable } from '@rmwc/data-table';
 
@@ -21,9 +29,6 @@ import { connect } from 'react-redux';
 import { PrivateRoute } from '../../components/admin/PermissionHandler';
 
 import { setTitle, setActiveTab, mapTabToIndex } from '../../actions/title';
-import CortegeAdmin from './CortegeAdmin';
-import FunkisCheckIn from './funkis/funkisCheckIn/FunkisCheckIn';
-
 class AccountAdmin extends Component {
   static pageTitle() {
     //return <FormattedMessage id='CortegeAbout.title' />
@@ -217,19 +222,85 @@ class AccountAdmin extends Component {
           path='/account/admin/funkischeckin'
           render={(props) => {
             return (
-              <FunkisCheckInOverview />
+              <FunkisCheckIn />
             );
           }}
           key={'/admin/funkisar'}
         /> */}
         <PrivateRoute
           admin
-          requiredAccess={AdminPriv.Funkis}
+          requiredAccess={AdminPriv.FUNKIS}
           exact
           path='/account/admin/funkischeckin/checkin'
           render={(props) => {
             return (
               <FunkisCheckIn />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes'
+          render={(props) => {
+            return (
+              <FunkisTypes />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/new'
+          render={(props) => {
+            return (
+              <FunkisTypeCreate {...props} />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/:id/update'
+          render={(props) => {
+            return (
+              <FunkisTypeCreate {...props} />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/:id'
+          render={(props) => {
+            return (
+              <FunkisTypeData {...props} />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/:id/newshift'
+          render={(props) => {
+            return (
+              <FunkisTimeslotCreate {...props} />
+            )
+          }}
+        />
+        <PrivateRoute
+          admin
+          requiredAccess={AdminPriv.FUNKIS}
+          exact
+          path='/account/admin/funkistypes/:id/updateshift/:shiftId'
+          render={(props) => {
+            return (
+              <FunkisTimeslotCreate {...props} />
             )
           }}
         />
@@ -269,26 +340,48 @@ class UNCBaseAdminPage extends Component {
   render() {
     return (
       <GridInner>
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Orkester
+          </Header>
+        </GridCell>
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           {(isAdmin(this.props.adminPriv, AdminPriv.ORCHESTRA_ADMIN)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/orchestras')}> Orkestrar </Button>
             : null
           }
         </GridCell>
-{/*         <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Funkis
+          </Header>
+        </GridCell>
+        <GridCell desktop='4' tablet='8' phone='4' className='h-center'>
+
+          {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkistypes')}> Hantera funkistyper </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='4' tablet='4' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkisar')}> Hantera funkisar </Button>
             : null
           }
         </GridCell>
-        <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
+        <GridCell desktop='4' tablet='4' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.FUNKIS)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/funkischeckin')}> Checka in funkisar </Button>
             : null
           }
-        </GridCell> */}
+        </GridCell>
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Kårtege
+          </Header>
+        </GridCell>
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
@@ -296,11 +389,10 @@ class UNCBaseAdminPage extends Component {
             : null
           }
         </GridCell>
-        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-          {(isAdmin(this.props.adminPriv, AdminPriv.MODIFY_USERS)) ?
-            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/modifypermissions')}> Behörigheter </Button>
-            : null
-          }
+        <GridCell phone="4" tablet="8" desktop='12' >
+          <Header tag="h6">
+            Biljetter
+          </Header>
         </GridCell>
         <GridCell desktop='6' tablet='4' phone='4' className='h-center'>
 
@@ -313,6 +405,15 @@ class UNCBaseAdminPage extends Component {
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/soldseparately')}> Biljetter utanför hemsidan </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+          <ListDivider style={{ width: '100%' }} />
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+          {(isAdmin(this.props.adminPriv, AdminPriv.MODIFY_USERS)) ?
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/modifypermissions')}> Behörigheter </Button>
             : null
           }
         </GridCell>

@@ -2,6 +2,8 @@ import React, { Component} from 'react';
 
 import { SimpleDataTable } from '@rmwc/data-table';
 
+import { orchestraTypes } from '../../../constants'
+
 import { injectIntl } from 'react-intl';
 
 class AnswerSummary extends Component{
@@ -90,7 +92,7 @@ class AnswerSummarySmall extends Component{
                 this.props.intl.formatMessage({id :'OrchestraMemReg.old'}) 
             ],
             [
-              this.props.intl.formatMessage({id :'OrchestraMemReg.arrive'}), 
+              this.props.intl.formatMessage({id :`OrchestraMemReg.arrive.${orchestraTypes[this.props.signup.orchestra.orchestra_type]}`}), 
               //Checks if arrive with orchestra
               this.props.signup.arrival_date === this.props.signup.orchestra.arrival_date || this.props.signup.arrival_date === null?
                 this.props.intl.formatMessage({id :'Orchestra.yes'}) :
@@ -100,12 +102,14 @@ class AnswerSummarySmall extends Component{
               this.props.intl.formatMessage({id :'OrchestraMemReg.whatDay'}), 
               this.props.Dates[this.props.signup.arrival_date !== null ? this.props.signup.arrival_date : this.props.signup.orchestra.arrival_date]
             ] ,
-            [
-              this.props.intl.formatMessage({id :'OrchestraMemReg.balletOrOrchestra'}),
-              this.props.signup.orchestra_role === 0 ?
-                this.props.intl.formatMessage({id: 'OrchestraMemReg.ballet'}) : 
-                this.props.intl.formatMessage({id: 'OrchestraMemReg.orchestra'})
-            ],
+            (
+              this.props.signup.orchestra_role !== null ? [
+                this.props.intl.formatMessage({ id: 'OrchestraMemReg.balletOrOrchestra' }),
+                this.props.signup.orchestra_role === 0 ?
+                  this.props.intl.formatMessage({ id: 'OrchestraMemReg.orchestra' }) :
+                  this.props.intl.formatMessage({ id: 'OrchestraMemReg.balett' })
+              ] : []
+            ),
             [
               this.props.intl.formatMessage({id :'OrchestraMemReg.otherOrchestra'}) + " (tänkt på att detta fält är pranked, ska lägga till så man ser flera anmälningar asap)",
               this.props.signup.other_performances !== null && this.props.signup.other_performances !== ""?

@@ -128,9 +128,19 @@ class OrchestraCreation extends Component{
                             key: 0
                           },
                           {
-                            label: "Band",
+                            label: "Ballet",
                             key: 1,
                             value: 1,
+                          },
+                          {
+                            label: "Ballkester",
+                            key: 2,
+                            value: 2,
+                          },
+                          {
+                            label: "Band",
+                            key: 3,
+                            value: 3,
                           }
                         ]}
                       />

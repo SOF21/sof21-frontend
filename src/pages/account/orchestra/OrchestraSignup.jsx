@@ -11,9 +11,11 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { fetchSignupOrchestra } from '../../../actions/orchestraSignups'
 import { createOrchestraSignup } from '../../../api/orchestraCalls';
+import { orchestraTypes } from '../../../constants'
 import { Redirect} from 'react-router-dom';
 
 import {connect} from 'react-redux';
+
 
 class OrchestraSignup extends Component{
   constructor(props) {
@@ -21,7 +23,7 @@ class OrchestraSignup extends Component{
     this.state = {
       failedFetchCode: false,
       successRegister: false,
-      pickupTicket: false,
+      pickupTicket: undefined,
     }
   }
 
@@ -96,16 +98,20 @@ class OrchestraSignup extends Component{
         + signupOrchestra.orchestra.name 
       }} />
     }
+
     const MemRegType =  this.state.pickupTicket ? OrchestraMemReg: OrchestraMemRegShort
+    const orchestraType = orchestraTypes[this.props.signupOrchestra.orchestra.orchestra_type]
+
     return(
       <GridInner>
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
-          <h5> <FormattedMessage id='OrchestraMemReg.registerTo' /> <b>{signupOrchestra.orchestra.name}</b> </h5>
+          <h5> <FormattedMessage id={`OrchestraMemReg.registerTo.${orchestraType}`} /> <b>{signupOrchestra.orchestra.name}</b> </h5>
         </GridCell>
+        {console.log(signupOrchestra.has_ticket_pickup)}
         { signupOrchestra.has_ticket_pickup ?
         <GridCell desktop='12' tablet='8' phone='4'>
           <Select
-            label={this.props.intl.formatMessage({id: 'OrchestraMemReg.ticketPickupWithWho'})}
+            label={this.props.intl.formatMessage({id: `OrchestraMemReg.ticketPickupWithWho.${orchestraType}`})}
             options={[
               {
                 label: this.props.intl.formatMessage({id :'OrchestraMemReg.yes'}),
@@ -126,14 +132,17 @@ class OrchestraSignup extends Component{
         {/* <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           <h6 style={{marginTop: '-40px'}}> <b> <FormattedMessage id='OrchestraMemReg.closed' /> </b> </h6>
         </GridCell>  */}
+        {this.state.pickupTicket !== undefined && 
         <GridCell desktop='12' tablet='8' phone='4'>
           <MemRegType 
             late={signupOrchestra.late_signup}
             submitCallback={this.formSubmit} 
             code={this.props.match.params.id} 
             day={signupOrchestra.orchestra.arrival_date}
-            pickupTicket={this.state.pickupTicket}/> 
-        </GridCell>
+            pickupTicket={this.state.pickupTicket}
+            orchestraType={orchestraType}  
+          /> 
+        </GridCell>}
       </GridInner>
     );
   }

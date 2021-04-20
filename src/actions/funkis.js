@@ -39,11 +39,13 @@ export const sendFunkisApplication = ({
   thirdPrefferedDate,
   shirtSize,
   allergies,
-  otherAllergy,
+  otherFoodPreference,
   gdpr,
   liuCard,
   userId,
-}) => { // TODO: UPDATE
+  extraDesc,
+  requestedPartner,
+}) => {
   return async dispatch => {
     dispatch(sendFunkisAppBegin());
     return api.post('funkis', {
@@ -55,16 +57,18 @@ export const sendFunkisApplication = ({
         post_address: `${address} ${postcode} ${city}`,
         tshirt_size: shirtSize,
         allergies,
-        allergies_other: otherAllergy,
+        allergies_other: otherFoodPreference,
         gdpr,
         liu_card: liuCard,
         first_post_id: funkisOne,
         second_post_id: funkisTwo,
         third_post_id: funkisThree,
-        first_day: new Date(2021, firstPrefferedDate.split('/')[0], firstPrefferedDate.split('/')[1]),
-        second_day: new Date(2021, secondPrefferedDate.split('/')[0], secondPrefferedDate.split('/')[1]),
-        third_day: new Date(2021, thirdPrefferedDate.split('/')[0], thirdPrefferedDate.split('/')[1]),
+        first_day: new Date(2021, parseInt(firstPrefferedDate.split('/')[1]) - 1, firstPrefferedDate.split('/')[0], 12, 12),
+        second_day: new Date(2021, parseInt(secondPrefferedDate.split('/')[1]) - 1, secondPrefferedDate.split('/')[0], 12, 12),
+        third_day: new Date(2021, parseInt(thirdPrefferedDate.split('/')[1]) - 1, thirdPrefferedDate.split('/')[0], 12, 12),
         user_id: userId,
+        share_info: extraDesc,
+        partner_id: requestedPartner,
       }
     })
       .then(() => {
@@ -84,30 +88,167 @@ export const GET_FUNKIS_TYPES = {
 
 export const getFunkisTypesBegin = (data) => ({
   type: GET_FUNKIS_TYPES.BEGIN,
-  payload: {positions: data}
+  payload: { positions: data }
 });
 
 export const getFunkisTypesSuccess = (positions) => ({
   type: GET_FUNKIS_TYPES.SUCCESS,
-  payload: {positions}
+  payload: { positions }
 });
 
-export const getFunkisTypesFailure = ({err}) => ({
+export const getFunkisTypesFailure = ({ err }) => ({
   type: GET_FUNKIS_TYPES.FAILURE,
   payload: err
 });
 
 
-export const getFunkisTypes = () => {
+export const getFunkisTypes = (type) => {
   return async dispatch => {
     dispatch(getFunkisTypesBegin())
-    api.get('funkis_category') // TODO: UPDATE
+    api.get('funkis_category')
       .then((json) => dispatch(getFunkisTypesSuccess(json.data)))
       .catch((err) => dispatch(getFunkisTypesFailure(err)))
   }
 }
 
+export const GET_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}GET_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}GET_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}GET_FUNKIS_TYPE_SUCCESS`,
+};
 
+export const getFunkisTypeBegin = (data) => ({
+  type: GET_FUNKIS_TYPE.BEGIN,
+  payload: { positions: data }
+});
+
+export const getFunkisTypeSuccess = (positions) => ({
+  type: GET_FUNKIS_TYPE.SUCCESS,
+  payload: { positions }
+});
+
+export const getFunkisTypeFailure = ({ err }) => ({
+  type: GET_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const getFunkisType = (id) => {
+  return async dispatch => {
+    dispatch(getFunkisTypeBegin())
+    api.get('funkis_category/' + id)
+      .then((json) => dispatch(getFunkisTypeSuccess(json.data)))
+      .catch((err) => dispatch(getFunkisTypeFailure(err)))
+  }
+}
+
+export const ADD_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}ADD_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}ADD_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}ADD_FUNKIS_TYPE_SUCCESS`,
+};
+
+export const addFunkisTypeBegin = (data) => ({
+  type: ADD_FUNKIS_TYPE.BEGIN,
+  payload: { funkisType: data }
+});
+
+export const addFunkisTypeSuccess = (funkisType) => ({
+  type: ADD_FUNKIS_TYPE.SUCCESS,
+  payload: { funkisType }
+});
+
+export const addFunkisTypeFailure = ({ err }) => ({
+  type: ADD_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const addFunkisType = ({
+  name,
+  amount
+}) => {
+  return async dispatch => {
+    dispatch(addFunkisTypeBegin())
+    api.post('funkis_category/', {
+      item: {
+        title: name,
+        amount_needed: amount,
+      }
+    })
+      .then((json) => dispatch(addFunkisTypeSuccess(json.data)))
+      .catch((err) => dispatch(addFunkisTypeFailure(err)))
+  }
+}
+
+export const DELETE_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}DELETE_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}DELETE_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}DELETE_FUNKIS_TYPE_SUCCESS`,
+};
+
+export const deleteFunkisTypeBegin = (data) => ({
+  type: DELETE_FUNKIS_TYPE.BEGIN,
+  payload: data
+});
+
+export const deleteFunkisTypeSuccess = (funkisType) => ({
+  type: DELETE_FUNKIS_TYPE.SUCCESS,
+  payload: {}
+});
+
+export const deleteFunkisTypeFailure = ({ err }) => ({
+  type: DELETE_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const deleteFunkisType = ({
+  id
+}) => {
+  return async dispatch => {
+    dispatch(deleteFunkisTypeBegin({ id }))
+    api.delete('funkis_category/' + id)
+      .then(() => dispatch(deleteFunkisTypeSuccess()))
+      .catch((err) => dispatch(deleteFunkisTypeFailure(err)))
+  }
+}
+
+export const UPDATE_FUNKIS_TYPE = {
+  BEGIN: `${funkisActionBase}UPDATE_FUNKIS_TYPE_BEGIN`,
+  FAILURE: `${funkisActionBase}UPDATE_FUNKIS_TYPE_FAILURE`,
+  SUCCESS: `${funkisActionBase}UPDATE_FUNKIS_TYPE_SUCCESS`,
+};
+
+export const updateFunkisTypeBegin = (funkisType) => ({
+  type: UPDATE_FUNKIS_TYPE.BEGIN,
+  payload: funkisType
+});
+
+export const updateFunkisTypeSuccess = () => ({
+  type: UPDATE_FUNKIS_TYPE.SUCCESS,
+  payload: {}
+});
+
+export const updateFunkisTypeFailure = ({ err }) => ({
+  type: UPDATE_FUNKIS_TYPE.FAILURE,
+  payload: err
+});
+
+
+export const updateFunkisType = (funkis) => {
+  return async dispatch => {
+    dispatch(updateFunkisTypeBegin(funkis))
+    api.put('funkis_category/' + funkis.id, {
+      item: {
+        title: funkis.name,
+        amount_needed: funkis.amount,
+      }
+    })
+      .then(() => dispatch(updateFunkisTypeSuccess()))
+      .catch((err) => dispatch(updateFunkisTypeFailure(err)))
+  }
+}
 
 export const GET_FUNKIS_TIME_SLOTS = {
   BEGIN: `${funkisActionBase}GET_FUNKIS_TIME_SLOTS_BEGIN`,
@@ -122,7 +263,7 @@ export const getFunkisTimeSlotsBegin = () => ({
 
 export const getFunkisTimeSlotsSuccess = (timeslots) => ({
   type: GET_FUNKIS_TIME_SLOTS.SUCCESS,
-  payload: {timeslots}
+  payload: { timeslots }
 });
 
 export const getFunkisTimeSlotsFailure = (err) => ({
@@ -133,7 +274,7 @@ export const getFunkisTimeSlotsFailure = (err) => ({
 export const getFunkisTimeSlots = () => {
   return async dispatch => {
     dispatch(getFunkisTimeSlotsBegin())
-    api.get('funkis_timeslots') // TODO: UPDATE
+    api.get('funkis_timeslots')
       .then((json) => {
         dispatch(getFunkisTimeSlotsSuccess(json.data))
       })
@@ -142,6 +283,72 @@ export const getFunkisTimeSlots = () => {
 }
 
 
+export const ADD_FUNKIS_TIME_SLOT = {
+  BEGIN: `${funkisActionBase}ADD_FUNKIS_TIME_SLOT_BEGIN`,
+  FAILURE: `${funkisActionBase}ADD_FUNKIS_TIME_SLOT_FAILURE`,
+  SUCCESS: `${funkisActionBase}ADD_FUNKIS_TIME_SLOT_SUCCESS`,
+};
+
+export const addFunkisTimeSlotBegin = (timeSlot) => ({
+  type: ADD_FUNKIS_TIME_SLOT.BEGIN,
+  payload: { timeSlot }
+});
+
+export const addFunkisTimeSlotSuccess = (timeSlot) => ({
+  type: ADD_FUNKIS_TIME_SLOT.SUCCESS,
+  payload: { timeSlot }
+});
+
+export const addFunkisTimeSlotFailure = (err) => ({
+  type: ADD_FUNKIS_TIME_SLOT.FAILURE,
+  payload: err
+});
+
+export const addFunkisTimeSlot = (timeSlot) => {
+  return async dispatch => {
+    dispatch(addFunkisTimeSlotBegin())
+    api.post('funkis_timeslots/', {
+      item: {
+        start_time: timeSlot.start,
+        end_time: timeSlot.end,
+        funkis_category_id: timeSlot.funkisTypeId
+      }
+    })
+      .then((json) => dispatch(addFunkisTimeSlotSuccess(json.data)))
+      .catch((err) => dispatch(addFunkisTimeSlotFailure(err)))
+  }
+}
+
+
+export const DELETE_FUNKIS_TIME_SLOT = {
+  BEGIN: `${funkisActionBase}DELETE_FUNKIS_TIME_SLOT_BEGIN`,
+  FAILURE: `${funkisActionBase}DELETE_FUNKIS_TIME_SLOT_FAILURE`,
+  SUCCESS: `${funkisActionBase}DELETE_FUNKIS_TIME_SLOT_SUCCESS`,
+};
+
+export const deleteFunkisTimeSlotBegin = (id) => ({
+  type: DELETE_FUNKIS_TIME_SLOT.BEGIN,
+  payload: id
+});
+
+export const deleteFunkisTimeSlotSuccess = (timeSlot) => ({
+  type: DELETE_FUNKIS_TIME_SLOT.SUCCESS,
+  payload: { }
+});
+
+export const deleteFunkisTimeSlotFailure = (err) => ({
+  type: DELETE_FUNKIS_TIME_SLOT.FAILURE,
+  payload: err
+});
+
+export const deleteFunkisTimeSlot = (id) => {
+  return async dispatch => {
+    dispatch(deleteFunkisTimeSlotBegin(id))
+    api.delete(`funkis_timeslots/${id}`)
+      .then((json) => dispatch(deleteFunkisTimeSlotSuccess()))
+      .catch((err) => dispatch(deleteFunkisTimeSlotFailure(err)))
+  }
+}
 
 
 export const GET_FUNKISAR = {
@@ -157,7 +364,7 @@ export const getFunkisarBegin = () => ({
 
 export const getFunkisarSuccess = (funkisar) => ({
   type: GET_FUNKISAR.SUCCESS,
-  payload: {funkisar}
+  payload: { funkisar }
 });
 
 export const getFunkisarFailure = (err) => ({
@@ -182,38 +389,38 @@ export const getFunkisar = () => {
             email: cur.mail,
             phonenumber: cur.phone_number,
             allergy: cur.allergies,
-            allergyOther: cur.allergies_other,
+            otherFoodPreference: cur.allergies_other,
             tshirtSize: cur.tshirt_size,
             markedAsDone: cur.marked_done,
             checkedIn: cur.checked_in,
             postAddress: cur.post_address,
             selectedFunkisAlt: cur.funkis_category_id,
-            selectedTimeSlots: cur.timeslots? cur.timeslots.map(t => t.funkis_timeslot_id) : []
+            selectedTimeSlots: cur.timeslots ? cur.timeslots.map(t => t.funkis_timeslot_id) : [],
+            extraDesc: cur.share_info,
+            requestedPartner: cur.partner_id,
           }
         }), {});
-        console.log(funkisarObject);
         api.get('funkis_applications')
-        .then(appJson => {
-          const apps = appJson.data;
-          const appsObj = apps.reduce((obj, cur) => ({
-            ...obj,
-            [cur.funkis_id]: {
-              ...obj[cur.funkis_id],
-              funkisAlts: [
-                cur.first_post_id,
-                cur.second_post_id,
-                cur.third_post_id
-              ],
-              preferedDates: [
-                cur.first_day,
-                cur.second_day,
-                cur.third_day,
-              ],
-            }
-          }), funkisarObject);
-          console.log(appsObj);
-          dispatch(getFunkisarSuccess(appsObj))
-        }).catch((err) => dispatch(getFunkisarFailure(err)))
+          .then(appJson => {
+            const apps = appJson.data;
+            const appsObj = apps.reduce((obj, cur) => ({
+              ...obj,
+              [cur.funkis_id]: {
+                ...obj[cur.funkis_id],
+                funkisAlts: [
+                  cur.first_post_id,
+                  cur.second_post_id,
+                  cur.third_post_id
+                ],
+                preferedDates: [
+                  cur.first_day,
+                  cur.second_day,
+                  cur.third_day,
+                ],
+              }
+            }), funkisarObject);
+            dispatch(getFunkisarSuccess(appsObj))
+          }).catch((err) => dispatch(getFunkisarFailure(err)))
       })
       .catch((err) => dispatch(getFunkisarFailure(err)))
   }
@@ -245,13 +452,12 @@ export const updateFunkis = (funkis) => {
   return async dispatch => {
     dispatch(updateFunkisBegin(funkis))
     dispatch(setFunkisData(funkis))
-    console.log(funkis);
     api.put(`funkis/${funkis.id}`, {
       item: {
         funkis_category_id: funkis.selectedFunkisAlt,
         marked_done: funkis.markedAsDone
       }
-    }) // TODO: UPDATE
+    }) 
       .then((json) => {
         dispatch(updateFunkisSuccess())
       })
@@ -283,14 +489,14 @@ export const checkInFunkisFailure = (err) => ({
 
 export const checkInFunkis = (liuCardOrLiuID, code) => {
 
-    return async dispatch => {
-      dispatch(checkInFunkisBegin())
-      api.put(`/funkis/check_in/${liuCardOrLiuID}/${code}`)
-        .then((json) => {
-          dispatch(checkInFunkisSuccess(json))
-        })
-        .catch((err) => dispatch(checkInFunkisFailure(err)))
-    }
+  return async dispatch => {
+    dispatch(checkInFunkisBegin())
+    api.put(`/funkis/check_in/${liuCardOrLiuID}/${code}`)
+      .then((json) => {
+        dispatch(checkInFunkisSuccess(json))
+      })
+      .catch((err) => dispatch(checkInFunkisFailure(err)))
+  }
 };
 
 export const SET_FUNKIS_DATA = `${funkisActionBase}SET_FUNKIS_DATA`;
@@ -334,7 +540,7 @@ export const bookFunkis = ({
         funkis_id: funkisId,
         funkis_timeslot_id: timeslotId
       }
-    }) // TODO: UPDATE
+    }) 
       .then((json) => {
         dispatch(bookFunkisSuccess())
       })
@@ -372,7 +578,7 @@ export const unbookFunkis = ({
 
   return async dispatch => {
     dispatch(unbookFunkisBegin())
-    api.delete(`funkis_bookings/destroy_by_ids/${funkisId}/${timeslotId}`) // TODO: UPDATE
+    api.delete(`funkis_bookings/destroy_by_ids/${funkisId}/${timeslotId}`)
       .then((json) => {
         dispatch(unbookFunkisSuccess())
       })
@@ -408,7 +614,7 @@ export const getFunkisAppStatus = () => {
     return api.get(`users/get_user`)
       .then((res) => {
         const json = res.data;
-        dispatch(getFunkisAppStatusSuccess( {
+        dispatch(getFunkisAppStatusSuccess({
           hasApp: 'funkis_application' in json,
           userId: json.id,
         }));
