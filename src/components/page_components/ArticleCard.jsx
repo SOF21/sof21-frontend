@@ -111,14 +111,14 @@ class ArticleCard extends Component{
                 {(!isSelection || this.state.type !== null) ? this.props.intl.locale === 'sv' ? ' Kr' : " SEK" : null}
               </b>
               </h6>
-                {(!isSelection || this.state.type !== null)?
+{/*                 {(!isSelection || this.state.type !== null)?
                   <div 
                     style={{fontSize: '0.75rem', marginBottom: '-8px', color: '#F00'}}
                   >
                       {getAmtText(amount, this.props.intl) + (enabled ? this.props.intl.formatMessage({id: 'Cart.left'}) : '')} 
                   </div> :
                   null
-                }
+                } */}
             </div>
             {/*<h6 style={{margin: '0px'}}>
               <b>

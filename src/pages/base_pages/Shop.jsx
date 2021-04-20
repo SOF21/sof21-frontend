@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, setState } from 'react';
 
 import ArticleCard from '../../components/page_components/ArticleCard';
 
@@ -14,48 +14,56 @@ import { connect } from 'react-redux'
 
 import Header from '../../components/page_components/NiceHeader';
 
-class Shop extends Component{
+import { getCurrentUser } from '../../api/userCalls'
+
+class Shop extends Component {
   constructor(props) {
     super(props);
     this.intl = this.props.intl;
+
+    this.state = {
+      hasShippingInfo: false,
+    }
   };
 
-  componentDidMount(){
-    // this.props.fetchProducts();
+  componentDidMount() {
+    getCurrentUser().then(response => {
+      if (response.data.phone !== null && response.data.invoice_address !== null)
+        this.setState({ hasShippingInfo: true })
+    })
   };
 
-  static pageTitle(){
+  static pageTitle() {
     return <FormattedMessage id='Shop.title' />
   }
 
-  static pageNavTitle(){
+  static pageNavTitle() {
     return <FormattedMessage id='Shop.navTitle' />
   }
 
   render() {
-
-    console.log(this.props);
     var articles = null;
-    if (!this.props.isLoading && this.props.products){
+    if (!this.props.isLoading && this.props.products && this.state.hasShippingInfo) {
       articles = this.props.products.map(article => (
         <GridCell phone='4' tablet='4' desktop='6'>
           <ArticleCard
             article={article}
             addCallback={(id) => this.props.addProductToCart(id)}
           />
-      </GridCell>
+        </GridCell>
       ));
     }
-    return(
+    return (
       <React.Fragment>
         <Grid className="base-outer-grid base-outer-grid--first">
           <GridInner>
-            <GridCell phone='4' tablet='8' desktop='12' style={{textAlign:'center'}}>
-                Alla biljetter kommer att kunna hämtas ut i biljettältet:
-              <br/>Mån-Ons 11:30-15:00
-              <br/>Tors/Fre 11:30-02:30
-              <br/>Lör 15:00-02:30
-              <br/>mot uppvisande av QR-kod, eller om du lägger till ditt koden till ditt liu-id på ditt konto, med blipp.
+            <GridCell phone='4' tablet='8' desktop='12' style={{ textAlign: 'center' }}>
+              ALLMÄN TEXT OM HUR LEVERANS KOMMER SKE
+              {!this.state.hasShippingInfo &&
+                <p style={{ color: 'red' }}>För att handla i webshopen behöver du lägga till adress, mobilnummer på ditt konto.
+                Det gör du genom att gå in på 'Mitt konto' och trycka på knappen den röda knappen längst ner på sidan.
+                </p>
+              }
             </GridCell>
             <GridCell phone='4' tablet='8' desktop='12'>
               <Header>
@@ -73,8 +81,10 @@ class Shop extends Component{
 const mapStateToProps = (state) => {
   return {
     products: state.shop.products,
-    isLoading: state.shop.loading
+    isLoading: state.shop.loading,
+    user: state
+
   };
 }
 
-export default connect(mapStateToProps, {fetchProducts, addProductToCart})(withRouter(injectIntl(Shop, { forwardRef: true })));
+export default connect(mapStateToProps, { fetchProducts, addProductToCart })(withRouter(injectIntl(Shop, { forwardRef: true })));
