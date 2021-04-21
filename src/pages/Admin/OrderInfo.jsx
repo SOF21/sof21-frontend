@@ -36,7 +36,7 @@ const OrderComponent = ({ products }) => {
         <DataTableBody>
           {users && Object.values(users).filter(user => user.owned_items.length > 0).map((user) => {
             return (
-              <DataTableRow>
+              <DataTableRow key={user.id}>
                 <DataTableCell>
                   {user.email}
                 </DataTableCell>
@@ -55,7 +55,7 @@ const OrderComponent = ({ products }) => {
                     const baseProduct = products.products[baseProductIds['base_id']];
                     const product = baseProduct.products[baseProductIds['prod_id']];
                     return (
-                      <p style={{backgroundColor: item.collected === 1 ? 'lightgreen' : null }}>
+                      <p style={{backgroundColor: item.collected === 1 ? 'lightgreen' : null }} key={item.id}>
                         {item.amount}x {baseProduct.name} {product.kind ? `- ${product.kind}` : null}
                       </p>
                     )
