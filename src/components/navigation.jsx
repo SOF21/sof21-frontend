@@ -571,6 +571,7 @@ class MobileTopAppBar extends React.PureComponent{
               </TopAppBarTitle>
             </TopAppBarSection>
             <TopAppBarSection alignEnd >
+              {/* Makes the url reset for some reason */}
               <MobileCartPopup/>
               <MobileAccountPopup/>
               <TopAppBarNavigationIcon
