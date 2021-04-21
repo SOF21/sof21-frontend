@@ -12,7 +12,7 @@ import FunkisTypes from './funkis/funkisTypes'
 import FunkisTypeData from './funkis/funkisTypes/FunkisTypeData';
 import FunkisTypeCreate from './funkis/funkisTypes/FunkisTypeCreate'
 import FunkisTimeslotCreate from './funkis/funkisTypes/FunkisTimeslotCreate';
-
+import OrderInfo from './OrderInfo'
 
 import Header from '../../components/page_components/NiceHeader';
 
@@ -193,6 +193,18 @@ class AccountAdmin extends Component {
         />
         <PrivateRoute
           admin
+          requiredAccess={AdminPriv.TICKETER}
+          exact
+          path='/account/admin/orderinfo'
+          render={() => {
+            return (
+              <OrderInfo />
+            );
+          }}
+          key={'/admin/funkisar'}
+        />
+        <PrivateRoute
+          admin
           requiredAccess={2}
           exact
           path='/account/admin/cortege'
@@ -203,7 +215,7 @@ class AccountAdmin extends Component {
           }}
           key={'/admin/cortege'}
         />
-{/*         <PrivateRoute
+        <PrivateRoute
           admin
           requiredAccess={2}
           exact
@@ -226,7 +238,7 @@ class AccountAdmin extends Component {
             );
           }}
           key={'/admin/funkisar'}
-        /> */}
+        />
         <PrivateRoute
           admin
           requiredAccess={AdminPriv.FUNKIS}
@@ -405,6 +417,13 @@ class UNCBaseAdminPage extends Component {
 
           {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
             <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/soldseparately')}> Biljetter utanför hemsidan </Button>
+            : null
+          }
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+
+          {(isAdmin(this.props.adminPriv, AdminPriv.TICKETER)) ?
+            <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('admin/orderinfo')}> Ordrar </Button>
             : null
           }
         </GridCell>

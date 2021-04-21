@@ -17,8 +17,17 @@ export const addLiUCardCode = code => {
   }, { timeout:1000 * 10});
 }
 
+export const getOrders = () => {
+  return api.get('/collect/get_orders')
+}
+
 export const getOrderFromLiUCardCode = code => {
+  console.log(code)
   return api.get('/collect/liu_card/' + code, {timeout : 1000 * 10});
+}
+
+export const getOrderFromEmail = email => {
+  return api.get(`/collect/get_user/${email}`, {timeout : 1000 * 10});
 }
 
 export const addExtraWebshopData = data => {

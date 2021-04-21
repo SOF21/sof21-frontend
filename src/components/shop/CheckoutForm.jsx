@@ -59,6 +59,7 @@ class CheckoutForm extends Component {
 
     }
     else
+      // During testing use a test token from stripe website
       this.props.dispatch(stripePurchase(token.id));
 
 
