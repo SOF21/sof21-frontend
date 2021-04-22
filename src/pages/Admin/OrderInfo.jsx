@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { GridCell, Grid } from '@rmwc/grid';
+import { Button } from '@rmwc/button';
 import {
   DataTable,
   DataTableBody,
@@ -12,10 +13,12 @@ import {
 } from '@rmwc/data-table';
 
 import { getOrders } from '../../api/ticketPickupCalls';
+import { useHistory } from 'react-router-dom'
 
 const OrderComponent = ({ products }) => {
 
   const [users, setUsers] = useState(undefined)
+  const history = useHistory()
 
   useEffect(() => {
     getOrders().then(response => setUsers(response.data))
@@ -73,6 +76,9 @@ const OrderComponent = ({ products }) => {
   return ( // TODO: Fix in-line text
     <>
       <Grid>
+        <GridCell desktop='12' tablet='8' phone='4'>
+          <Button raised style={{ width: '100%' }} onClick={() => history.push('/account/admin/ticketpickup')}> Biljettuthämtning </Button>
+        </GridCell>
         <GridCell desktop='12' tablet='8' phone='4'>
           {funkisTable}
         </GridCell>

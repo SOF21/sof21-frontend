@@ -14,6 +14,8 @@ import ShowTickets from './ShowTickets';
 import { Formik, Form } from 'formik/dist/index';
 import * as Yup from 'yup';
 
+import { withRouter } from 'react-router-dom'
+
 
 const focusUsernameInputField = input => {
   if (input) {
@@ -84,6 +86,9 @@ class TicketPickup extends Component {
         <GridInner>
           {(this.state.currUser === null) ?
             <React.Fragment>
+              <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+                <Button raised style={{ width: '100%' }} onClick={() => this.props.history.push('/account/admin/orderinfo')}> Ordrar </Button>
+              </GridCell >
               <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
                 <LoadButton raised onClick={() => this.setState({ qrRead: !this.state.qrRead, loading: true, showCollect: false })} loading={this.state.loading} style={{ width: '100%' }}>
                   Scanna QR
@@ -161,4 +166,4 @@ class TicketPickup extends Component {
 
 };
 
-export default connect(null, { openDialog })(TicketPickup);
+export default withRouter(connect(null, { openDialog })(TicketPickup));
