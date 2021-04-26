@@ -52,9 +52,10 @@ class OrchestraCreation extends Component{
   render() {
     return(<React.Fragment>
             <Formik
-              initialValues={{name: '', email: '', dormitory: '', orchestra_type:'' , arrival_date:'', allow_signup: true }}
+              initialValues={{name: '', email: '', invoice_address: '', dormitory: '', orchestra_type:'' , arrival_date:'', allow_signup: true }}
               validationSchema={Yup.object().shape({
                 name: Yup.string().required("Orkesternamn krävs för att skapa"),
+                invoice_address: Yup.string().required("Fakturaadress krävs för att skapa"),
                 email: Yup.string().email().required("Kontaktmail till Orkester behövs för att kunna skapa en"),
                 dormitory: Yup.bool().required("Ange om boende behövs för orkestern"),
                 orchestra_type: Yup.number().required("Orkestertyp krävs"),
@@ -84,6 +85,18 @@ class OrchestraCreation extends Component{
                         value={values.email}
                         error={errors.email}
                         touched={touched.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </GridCell>
+
+                    <GridCell desktop='12' tablet='8' phone='4'>
+                      <FormTextInput
+                        name='invoice_address'
+                        label={"Faktura adress"}
+                        value={values.invoice_address}
+                        error={errors.invoice_address}
+                        touched={touched.invoice_address}
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />

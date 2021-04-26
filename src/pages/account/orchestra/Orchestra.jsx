@@ -133,14 +133,16 @@ class Orchestra extends Component{
           </GridCell>)
       } else{
         const ticketPickupOrc = getTicketPickupOrchestra(this.props.orchestras.list);
-        const sortedArticles = ticketPickupOrc !== null ? ticketPickupOrc.orchestra_articles.sort((a, b) => a.kind - b.kind) : [{id: 0}]
-        
+        const articles = [{id: 0}].concat(ticketPickupOrc.orchestra_articles)
+        //Removed because digital editionconst sortedArticles = ticketPickupOrc !== null ? ticketPickupOrc.orchestra_articles.sort((a, b) => a.kind - b.kind) : [{id: 0}]
+        const sortedArticles = ticketPickupOrc !== null ? articles.sort((a, b) => a.kind - b.kind) : [{id: 0}]
+        console.log(sortedArticles)
         // Check if has no t-shirt size
-        if( sortedArticles[0].data > 0 && (sortedArticles[0].size === null || sortedArticles[0].size === '')){
+        /*if( sortedArticles[0].data > 0 && (sortedArticles[0].size === null || sortedArticles[0].size === '')){
           shirtId=sortedArticles[0].id;
           orchId=ticketPickupOrc.id;
           noSize=true;
-        }
+        }*/
 
         orchestraContent =  ticketPickupOrc !== null ? 
           (
@@ -175,6 +177,7 @@ class Orchestra extends Component{
                   ]]}
                   data={
                     [
+                      /*Removed because digital edition
                       [
                         this.props.intl.formatMessage({id :'OrchestraMemReg.festivalPackage'}), 
                         Package[ticketPickupOrc.orchestra_ticket.kind]
@@ -218,7 +221,7 @@ class Orchestra extends Component{
                           this.props.intl.formatMessage({id :'OrchestraMemReg.sizeTshirt'}) + ':',
                           ShirtSizes[sortedArticles[0].size]
                         ]: []
-                      ),
+                      ),*/
                       [
                         this.props.intl.formatMessage({id :'Orchestra.medal'}),
                         sortedArticles[1].data
@@ -238,6 +241,7 @@ class Orchestra extends Component{
                 <PriceSummary
                   data={
                     [
+                      /* REmoved because digital edition
                       [Package[ticketPickupOrc.orchestra_ticket.kind],
                         1,
                         PackagePrices[ticketPickupOrc.orchestra_ticket.kind],
@@ -258,7 +262,7 @@ class Orchestra extends Component{
                         sortedArticles[0].data,
                         100,
                         100 * sortedArticles[0].data,
-                      ] : [],
+                      ] : [], */
                       sortedArticles[1].data ? [ this.props.intl.formatMessage({id: 'Prices.Medal'}),
                         sortedArticles[1].data,
                         40,

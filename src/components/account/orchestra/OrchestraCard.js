@@ -45,12 +45,13 @@ class OrchestraCard extends Component{
                    +  orchestra.orchestra.members_count}
               </Typography>
             </div>
+            {/*Removed because of digital edition
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
               <Typography use="body1" tag="p" theme="textSecondaryOnBackground" style={{margin: '0px'}}>
                 {this.props.intl.formatMessage({id: 'Orchestra.arrives'})
                   + arrivalDays[orchestra.orchestra.arrival_date]}
               </Typography>
-            </div>
+            </div>*/}
           </div>
         </Card>
       </React.Fragment>
