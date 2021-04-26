@@ -44,7 +44,8 @@ class OrchestraMemReg extends Component {
   }
 
   formSubmit(values, bag) {
-    this.fixArrive(values);
+    /* Removed because digital edition
+    this.fixArrive(values);*/
     if (this.props.submitCallback) {
       this.props.submitCallback({ ...values, code: this.code }, bag);
     }

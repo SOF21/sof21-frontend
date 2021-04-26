@@ -99,7 +99,7 @@ class OrchestraSignup extends Component{
       }} />
     }
 
-    const MemRegType =  this.state.pickupTicket ? OrchestraMemReg: OrchestraMemRegShort
+    const MemRegType =  OrchestraMemReg // Removed because digital this.state.pickupTicket ? OrchestraMemReg: OrchestraMemRegShort
     const orchestraType = orchestraTypes[this.props.signupOrchestra.orchestra.orchestra_type]
 
     return(
