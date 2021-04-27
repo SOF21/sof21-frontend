@@ -133,7 +133,8 @@ class AnswerSummarySmall extends Component{
 
 class AnswerSummaryFull extends Component{
   render() {
-    const sortedArticles = this.props.signup.orchestra_articles.sort((a, b) => a.kind - b.kind)
+    // Removed because digital edition const sortedArticles = this.props.signup.orchestra_articles.sort((a, b) => a.kind - b.kind)
+    const sortedArticles = [{id:0}].concat(this.props.signup.orchestra_articles.sort((a, b) => a.kind - b.kind))
     return(
       <SimpleDataTable
         className='full-width-table rmwc-table-uninteractive'
@@ -149,6 +150,7 @@ class AnswerSummaryFull extends Component{
         ]]}
         data={
           [
+            /* Removed because digital edition
             [
               this.props.intl.formatMessage({id :'OrchestraMemReg.newOrOld'}), 
               this.props.signup.active_member ? 
@@ -226,7 +228,7 @@ class AnswerSummaryFull extends Component{
             [
               this.props.intl.formatMessage({id :'OrchestraMemReg.sizeTshirt'}),
               this.props.ShirtSizes[sortedArticles[0].size]
-            ],
+            ], */
             [
               this.props.intl.formatMessage({id :'Orchestra.medal'}),
               sortedArticles[1].data

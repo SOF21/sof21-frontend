@@ -42,7 +42,8 @@ class OrchestraMemReg extends Component{
   }
 
   formSubmit(values, bag) {
-    this.fixArrive(values);
+    /* Removed because digital edition
+    this.fixArrive(values);*/
     if (this.props.submitCallback){
       if(this.props.code){
         this.props.submitCallback({...values, code: this.props.code}, bag);
@@ -86,6 +87,7 @@ class OrchestraMemReg extends Component{
           <GridCell desktop='12' tablet='8' phone='4' className='account-orchestra-signup'>
             <Formik
               initialValues={{
+                /* Removed because digital edition
                 pickupTicket: this.props.pickupTicket,
                 arriveWith: (answers && answers.arriveWith !== null) ? answers.arriveWith : '',
                 arriveDay: (answers && answers.arriveDay !== null) ? answers.arriveDay : '',
@@ -101,12 +103,13 @@ class OrchestraMemReg extends Component{
                 otherPerformances: (answers && answers.otherPerformances !== null) ? answers.otherPerformances : '',
                 orchestraType: (answers && answers.orchestraType !== null) ? answers.orchestraType : '',
                 numTshirt: (answers && answers.numTshirt !== null) ? answers.numTshirt : '',
-                sizeTshirt: (answers && answers.sizeTshirt !== null) ? answers.sizeTshirt : '',
+                sizeTshirt: (answers && answers.sizeTshirt !== null) ? answers.sizeTshirt : '', */
                 numMedal: (answers && answers.numMedal !== null) ? answers.numMedal : '',
                 numPatch: (answers && answers.numPatch !== null) ? answers.numPatch : '',
             }}
 
               validationSchema={Yup.object().shape({
+                /* Removed because digital edition
                 arriveWith: Yup.bool()
                   .required(<FormattedMessage id='OrchestraMemReg.required' />),
                 arriveDay: Yup.number().when('arriveWith', {
@@ -130,10 +133,10 @@ class OrchestraMemReg extends Component{
                   is: true,
                   then: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 }),
-                numTshirt: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
+                numTshirt: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),*/
                 // /* TO DO: Fix so that sizeTshirt is required when numTshirt != 0 */}
 
-                sizeTshirt: Yup.number(),
+                //sizeTshirt: Yup.number(),
                 numMedal: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />),
                 numPatch: Yup.number().required(<FormattedMessage id='OrchestraMemReg.required' />)
               })}
@@ -142,7 +145,7 @@ class OrchestraMemReg extends Component{
               render={ ({values, handleChange, handleBlur, errors, touched, isValid, setFieldValue, setFieldTouched, isSubmitting}) => (
                 <Form style={{width: '100%'}} >
                   <GridInner>
-
+                    {/* Removed because Digital Edition
                     <GridCell desktop='12' tablet='8' phone='4'>
                       <FormSelect
                         label={<FormattedMessage id='OrchestraMemReg.newOrOld'/>}
@@ -579,6 +582,8 @@ class OrchestraMemReg extends Component{
                         ]}
                       />
                     </GridCell> : null}
+
+                    */}
                     <GridCell desktop='12' tablet='8' phone='4'>
 
                       <FormSelect
@@ -663,7 +668,8 @@ class OrchestraMemReg extends Component{
                     <GridCell desktop='12' tablet='8' phone='4'>
                         <PriceSummary
                           data={
-                            [
+                            [ 
+                              /* Removed because digital edition
                               values.festivalPackage !== '' ?
                                 [this.PackagePricesStr[values.festivalPackage],
                                 1,
@@ -685,7 +691,7 @@ class OrchestraMemReg extends Component{
                                 values.numTshirt,
                                 100,
                                 100 * values.numTshirt,
-                            ] : [],
+                            ] : [],*/
                               values.numMedal ? [ this.props.intl.formatMessage({id: 'Prices.Medal'}),
                                 values.numMedal,
                                 40,

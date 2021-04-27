@@ -316,8 +316,9 @@ class UNCOrchestraSignupChange extends Component{
 
 
   submitCallback = (values, bag) => {
-    const sortedArticles = this.state.signup.orchestra_articles.sort((a, b) => a.kind - b.kind)
-
+    // Removed because digital edition const sortedArticles = this.state.signup.orchestra_articles.sort((a, b) => a.kind - b.kind)
+    const sortedArticles = [{id: 0}].concat(this.state.signup.orchestra_articles.sort((a, b) => a.kind - b.kind))
+    console.log(sortedArticles)
     values.TshirtID = sortedArticles[0].id;
     values.MedalID = sortedArticles[1].id;
     values.PatchID = sortedArticles[2].id;
@@ -363,7 +364,8 @@ class UNCOrchestraSignupChange extends Component{
 
     const signup = this.state.signup;
 
-    const sortedArticles = signup.orchestra_articles.sort((a, b) => a.kind - b.kind);
+    // Removed beause digital edition const sortedArticles = signup.orchestra_articles.sort((a, b) => a.kind - b.kind);
+    const sortedArticles = [{id: 0}].concat(signup.orchestra_articles.sort((a, b) => a.kind - b.kind));
 
     const isTicketPickupOrc = !(sortedArticles === undefined || sortedArticles.length === 0);
 
@@ -373,6 +375,7 @@ class UNCOrchestraSignupChange extends Component{
     if(isTicketPickupOrc){
       MemRegType =  OrchestraMemReg;
       answers = {
+        /* Removed because digital edition
         arriveWith: (signup.arrival_date === signup.orchestra.arrival_date || signup.arrival_date === null),
         arriveDay: signup.arrival_date !== null ? signup.arrival_date : signup.orchestra.arrival_date,
         festivalPackage: signup.orchestra_ticket.kind,
@@ -387,7 +390,7 @@ class UNCOrchestraSignupChange extends Component{
         otherPerformances: signup.other_performances,
         orchestraType: signup.orchestra_role,
         numTshirt: sortedArticles[0].data,
-        sizeTshirt: sortedArticles[0].size,
+        sizeTshirt: sortedArticles[0].size,*/
         numMedal: sortedArticles[1].data,
         numPatch: sortedArticles[2].data
       }
@@ -483,6 +486,7 @@ class UNCOrchestraList extends Component{
             <h4 style={{margin: '0px'}}> <b>{this.state.orchestra.name}</b></h4>
             <br/>
             <h6 style={{margin: '0px'}}> Medlemmar: {this.state.orchestra.members_count}</h6>
+            <h6 style={{margin: '0px'}}> Fakturaadress: {this.state.orchestra.invoice_address}</h6>
           </GridCell>
           <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
             <ListDivider style={{width: '100%'}}/>
