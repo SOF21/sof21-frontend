@@ -1,5 +1,5 @@
 # StudentOrkesterFestivalen's front end website.
-This is the new front-end developed by SOF19 for SOF, written in React.
+This is the new front-end developed by SOF21 for SOF, written in React.
 The page is heavily influenced by [Material Design](https://material.io/design/) with focus on animations to both give clear intentions of the webpage, as well as giving it some visual flair.
 
 ## Frameworks
