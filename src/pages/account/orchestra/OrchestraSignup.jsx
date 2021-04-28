@@ -107,8 +107,7 @@ class OrchestraSignup extends Component{
         <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           <h5> <FormattedMessage id={`OrchestraMemReg.registerTo.${orchestraType}`} /> <b>{signupOrchestra.orchestra.name}</b> </h5>
         </GridCell>
-        {console.log(signupOrchestra.has_ticket_pickup)}
-        { signupOrchestra.has_ticket_pickup ?
+{/*         { signupOrchestra.has_ticket_pickup ?
         <GridCell desktop='12' tablet='8' phone='4'>
           <Select
             label={this.props.intl.formatMessage({id: `OrchestraMemReg.ticketPickupWithWho.${orchestraType}`})}
@@ -128,11 +127,11 @@ class OrchestraSignup extends Component{
             style={{ width: '100%' }}
           />
         </GridCell>
-        : null }
+        : null } */}
         {/* <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
           <h6 style={{marginTop: '-40px'}}> <b> <FormattedMessage id='OrchestraMemReg.closed' /> </b> </h6>
         </GridCell>  */}
-        {this.state.pickupTicket !== undefined && 
+        {/* this.state.pickupTicket !== undefined &&  */
         <GridCell desktop='12' tablet='8' phone='4'>
           <MemRegType 
             late={signupOrchestra.late_signup}
