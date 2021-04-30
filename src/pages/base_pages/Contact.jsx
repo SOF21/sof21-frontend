@@ -18,7 +18,8 @@ const generalContact = [
 
 const festivalContacts = [
   {name: 'Julia Ohlin', title: 'Festivalchef', email: 'festival', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Festival.jpg', id: 2},
-  {name: 'Emma Green', title: 'Serveringsansvarig', email: 'servering', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Servering.jpg', id: 4},
+  {name: 'Emma Green', title: 'Serveringsansvarig', email: 'servering', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Servering.jpg', id: 3},
+  {name: 'Jesper Andersson', title: 'Områdesansvarig - Festival', email: 'omrade-festival', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Omrade-F.jpg', id: 4},
   {name: 'Kasper Landgren', title: 'Områdesansvarig - Uppbyggnad', email: 'omrade-uppbyggnad', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Omrade-U.jpg', id: 5},
   {name: 'Sara Wågman', title: 'Personalansvarig', email: 'personal', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Personal.jpg', id: 6},
   {name: 'Joel H Nilsson', title: 'Orkesteransvarig', email: 'orkester', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Orkester.jpg', id: 7},
