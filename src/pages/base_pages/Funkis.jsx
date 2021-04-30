@@ -16,8 +16,8 @@ import { SimpleDataTable } from '@rmwc/data-table';
 import { isIOS } from 'react-device-detect';
 
 
-const contactSara = { name: 'Sara Wågman', title: 'Personal', email: 'personal', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/SaraW.jpg' };
-const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Ingrid.jpg' };
+const contactSara = { name: 'Sara Wågman', title: 'Personal', email: 'personal', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Personal.jpg' };
+const contactIngrid = { name: 'Ingrid Rylander', title: 'Kommunikationschef', email: 'kommunikation', image: 'https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Kommiten/Bilder2021/Kommunikation.jpg' };
 
 
 class Funkis extends Component {

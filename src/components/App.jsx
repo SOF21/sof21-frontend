@@ -58,7 +58,7 @@ const pages = intl =>{
     //'/shop': Shop,
     '/contact': Contact,
     //'/putte': Putte,
-    '/funkis': Funkis,
+    //'/funkis': Funkis,
   }
 };
 
