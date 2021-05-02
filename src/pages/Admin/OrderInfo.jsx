@@ -25,32 +25,33 @@ const OrderComponent = ({ products }) => {
   }, [])
 
   const funkisTable = (
-    <DataTable>
+    <DataTable style={{width: '100%'}}>
       <DataTableContent>
         <DataTableHead>
           <DataTableRow>
             <DataTableHeadCell>Namn</DataTableHeadCell>
             <DataTableHeadCell>Mobil</DataTableHeadCell>
             <DataTableHeadCell>Adress</DataTableHeadCell>
-            <DataTableHeadCell>Allergier</DataTableHeadCell>
             <DataTableHeadCell>Ordrar</DataTableHeadCell>
           </DataTableRow>
         </DataTableHead>
         <DataTableBody>
           {users && Object.values(users).filter(user => user.owned_items.length > 0).map((user) => {
+            console.log(user)
             return (
               <DataTableRow key={user.id}>
                 <DataTableCell>
-                  {user.email}
+                  <Button
+                    style={{fontSize: '12px'}} 
+                    onClick={(e) => {e.stopPropagation(); navigator.clipboard.writeText(user.email)}}>
+                    {user.email}
+                  </Button>
                 </DataTableCell>
                 <DataTableCell>
                   {user.phone}
                 </DataTableCell>
-                <DataTableCell>
-                  {user.invoice_address}
-                </DataTableCell>
                 <DataTableCell style={{whiteSpace: 'normal'}}>
-                  {user.allergies}
+                  {user.pick_up_point}
                 </DataTableCell>
                 <DataTableCell>
                   {user.owned_items !== [] && user.owned_items.map(item => {
@@ -77,8 +78,16 @@ const OrderComponent = ({ products }) => {
     <>
       <Grid>
         <GridCell desktop='12' tablet='8' phone='4'>
+          Grön markering innebär att ordern blivit packad. 
+          <br/><br/>
+          Du kan inte checka av en order i taget, utan bara en <i>person</i> i taget. 
+          Det gör du genom att kopiera mailen, gå in i biljettuthämtning och klistra 
+          in mailen i kodfältet. Du har då möjligheten att hämta ut alla varor. 
+        </GridCell>
+        <GridCell desktop='12' tablet='8' phone='4'>
           <Button raised style={{ width: '100%' }} onClick={() => history.push('/account/admin/ticketpickup')}> Biljettuthämtning </Button>
         </GridCell>
+
         <GridCell desktop='12' tablet='8' phone='4'>
           {funkisTable}
         </GridCell>

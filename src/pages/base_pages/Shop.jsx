@@ -28,7 +28,7 @@ class Shop extends Component {
 
   componentDidMount() {
     getCurrentUser().then(response => {
-      if (response.data.phone !== null && response.data.invoice_address !== null)
+      if (response.data.phone !== null && response.data.pick_up_point !== null)
         this.setState({ hasShippingInfo: true })
     })
   };
@@ -53,17 +53,35 @@ class Shop extends Component {
         </GridCell>
       ));
     }
+
+    console.log(this.props.user)
     return (
       <React.Fragment>
         <Grid className="base-outer-grid base-outer-grid--first">
           <GridInner>
             <GridCell phone='4' tablet='8' desktop='12' style={{ textAlign: 'center' }}>
-              ALLMÄN TEXT OM HUR LEVERANS KOMMER SKE
+              Dina produkter kommer att levereras till den plats du valde i din profil.
               {!this.state.hasShippingInfo &&
                 <p style={{ color: 'red' }}>För att handla i webshopen behöver du lägga till adress, mobilnummer på ditt konto.
                 Det gör du genom att gå in på 'Mitt konto' och trycka på knappen den röda knappen längst ner på sidan.
                 </p>
               }
+            </GridCell>
+            <GridCell phone='4' tablet='4' desktop='6'>
+              <p style={{ textAlign: 'center' }}><b>Linköping</b></p>
+              <ul>
+                <li>Ryd [HG]</li>
+                <li>Colonia</li>
+                <li>Irrblosset</li>
+                <li>Flamman</li>
+                <li>Katedralskolan, norra parkeringen</li>
+              </ul>
+            </GridCell>
+            <GridCell phone='4' tablet='4' desktop='6'>
+              <p style={{ textAlign: 'center' }}><b>Norrköping</b></p>
+              <ul>
+                <li>Trappan</li>
+              </ul>
             </GridCell>
             <GridCell phone='4' tablet='8' desktop='12'>
               <Header>
