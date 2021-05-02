@@ -33,9 +33,8 @@ export const getOrderFromEmail = email => {
 export const addExtraWebshopData = data => {
   return api.put(`/users/${data.id}`, {
     user: {
-      invoice_address: data.adress,
+      pick_up_point: data.adress,
       phone: data.phone,
-      allergies: data.allergies
     }
   }) 
 }
