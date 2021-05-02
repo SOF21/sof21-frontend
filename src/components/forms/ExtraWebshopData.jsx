@@ -34,7 +34,6 @@ const extraWebshopDataComponent = (props) => {
         ...values
       })
     })
-    console.log(values)
   }
 
   return (

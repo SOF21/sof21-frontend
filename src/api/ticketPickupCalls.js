@@ -22,7 +22,6 @@ export const getOrders = () => {
 }
 
 export const getOrderFromLiUCardCode = code => {
-  console.log(code)
   return api.get('/collect/liu_card/' + code, {timeout : 1000 * 10});
 }
 
