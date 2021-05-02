@@ -24,8 +24,11 @@ import FormTextInput from '../../components/forms/components/FormTextInput';
 import { Formik, Form } from 'formik/dist/index';
 import * as Yup from 'yup';
 
+import ExtraWebshopData from '../../components/forms/ExtraWebshopData'
+
 const mapStateToProps = state => ({
   name: state.reduxTokenAuth.currentUser.attributes.displayName,
+  id: state
 });
 
 
@@ -57,6 +60,7 @@ class Profile extends Component{
       this.setState({uuid: response.data.uuid});
     })
   }
+
 
   handleLiUCardClicked = () => {
     this.setState({ dialogOpen: true })
@@ -182,6 +186,10 @@ class Profile extends Component{
               <Button raised onClick={() => this.handleLiUCardClicked()}>
                 <FormattedMessage id='Account.codePopupTitle'/>
               </Button>
+            </GridCell>
+
+            <GridCell desktop='12' tablet='8' phone='4' className='h-center'>
+              <ExtraWebshopData open={this.state.open}/>
             </GridCell>
      
            
