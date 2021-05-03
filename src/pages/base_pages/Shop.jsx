@@ -75,7 +75,7 @@ class Shop extends Component {
                 <p style={{ color: "red" }}>
                   För att handla i webshopen behöver du lägga till adress,
                   mobilnummer på ditt konto. Det gör du genom att gå in på 'Mitt
-                  konto' och trycka på knappen den röda knappen längst ner på
+                  konto' och trycka på den röda knappen längst ner på
                   sidan.
                 </p>
               )}
