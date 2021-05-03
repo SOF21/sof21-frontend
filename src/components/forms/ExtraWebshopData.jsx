@@ -73,6 +73,7 @@ const extraWebshopDataComponent = (props) => {
                 <DialogContent>
                   <GridInner>
                     <GridCell desktop='12' tablet='8' phone='4'>
+                      <p>Alla leveranser sker på lördag den 15/5. </p>
                       <p><b>Tider för upphämtning:</b></p>
                       <ul style={{ textAlign: "left", fontSize: "14px" }}>
                         <li>Ryd [HG] (10:00 - 13:00)</li>

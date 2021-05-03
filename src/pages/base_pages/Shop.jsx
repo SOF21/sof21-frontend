@@ -70,7 +70,7 @@ class Shop extends Component {
               style={{ textAlign: "center" }}
             >
               Dina produkter kommer att levereras till den plats du valde i din
-              profil.
+              profil. Alla leveranser sker på lördag den 15/5. 
               {!this.state.hasShippingInfo && (
                 <p style={{ color: "red" }}>
                   För att handla i webshopen behöver du lägga till adress,
