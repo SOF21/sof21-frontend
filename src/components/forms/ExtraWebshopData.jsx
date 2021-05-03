@@ -84,7 +84,7 @@ const extraWebshopDataComponent = (props) => {
                         <li>
                           Katedralskolan, norra parkeringen (12.25 - 12:55)
                         </li>
-                        <li>Trappan (13:35 - 14:05)</li>
+                        <li>Trappan/Skvaller (13:35 - 14:05)</li>
                       </ul>
                       <p>Om ingen av dessa tider fungerar går det att hämta paketet i Ryd vid 15:00, välj 'Ryd [hg] (15:00)' i listan</p>
                     </GridCell>
@@ -124,7 +124,7 @@ const extraWebshopDataComponent = (props) => {
                           },
                           {
                             label: "Norrköping",
-                            options: ["Trappan (13:35 - 14:05)"],
+                            options: ["Trappan/Skvaller (13:35 - 14:05)"],
                           },
                         ]}
                         value={values.adress || ""}

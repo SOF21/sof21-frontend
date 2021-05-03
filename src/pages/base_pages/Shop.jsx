@@ -98,7 +98,7 @@ class Shop extends Component {
                 <b>Norrköping</b>
               </p>
               <ul>
-                <li>Trappan (13:35 - 14:05)</li>
+                <li>Trappan/Skvaller (13:35 - 14:05)</li>
               </ul>
             </GridCell>
             <GridCell phone='4' tablet='8' desktop='12' style={{ textAlign: "center" }}>
