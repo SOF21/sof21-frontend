@@ -9,6 +9,10 @@ export const getUserFromEmail = data => {
   });
 }
 
+export const getCurrentUser = () => {
+  return api.get('/users/get_user');
+}
+
 export const getUser = id => {
   return api.get('/users/' + id );
 }

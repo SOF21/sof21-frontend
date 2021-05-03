@@ -55,7 +55,7 @@ const pages = intl =>{
       '/about_history': History,
     },
     //'/about': Om,
-    //'/shop': Shop,
+    '/shop': Shop,
     '/contact': Contact,
     //'/putte': Putte,
     //'/funkis': Funkis,
