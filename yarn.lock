@@ -12494,13 +12494,6 @@ react-spinners@^0.9.0:
   dependencies:
     "@emotion/core" "^10.0.15"
 
-react-stripe-elements@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-3.0.1.tgz#e6897e3047b65a63737495bf2d28a93bb3064045"
-  integrity sha512-zGY/Oc8KmI175cCrV+9VXY2wPJeo2l9t53XGnvqknfO3X+dJyvQi2+xS3Tv/lSPB26aDMD6Jor68YB2KXHcDMA==
-  dependencies:
-    prop-types "^15.5.10"
-
 react-swipeable@^5.2.0:
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-5.5.1.tgz#48ae6182deaf62f21d4b87469b60281dbd7c4a76"
