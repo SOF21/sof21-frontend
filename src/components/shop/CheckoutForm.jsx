@@ -60,10 +60,9 @@ class CheckoutForm extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.stripe_complete)
-      api
-        .get("/store/secret")
-        .then((response) => this.setState({ secret: response.data }))
+    api
+      .get("/store/secret")
+      .then((response) => this.setState({ secret: response.data }))
   }
 
   componentWillUnmount() {
@@ -115,12 +114,6 @@ class CheckoutForm extends Component {
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === "succeeded") {
-        // Show a success message to your customer
-        // There's a risk of the customer closing the window before callback
-        // execution. Set up a webhook or plugin to listen for the
-        // payment_intent.succeeded event that handles any business critical
-        // post-payment actions.
-        console.log(result)
         this.props.dispatch(stripePurchase(result.paymentIntent.id))
       }
     }
@@ -139,7 +132,6 @@ class CheckoutForm extends Component {
 
   onDateChangeHandler = (event) => {
     if (event.error) {
-      console.log("eror")
       this.setState({ dateError: event.error.message })
     } else {
       this.setState({ dateError: null })
@@ -156,8 +148,6 @@ class CheckoutForm extends Component {
 
   render() {
     if (this.props.stripe_complete) return <Redirect to='/account/purchases' />
-
-    console.log(this.props.stripe_loading)
 
     return (
       <React.Fragment>

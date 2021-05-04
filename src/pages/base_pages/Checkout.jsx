@@ -15,7 +15,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm  from '../../components/shop/CheckoutForm';
 import CheckoutItems from '../../components/shop/CheckoutItems';
 import Header from '../../components/page_components/NiceHeader';
-import { stripePublicKey, frontEndPath, authUrl } from '../../constants';
+import { stripePublicKey } from '../../constants';
 
 import { connect } from 'react-redux';
 
