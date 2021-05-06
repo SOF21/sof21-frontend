@@ -72,7 +72,7 @@ class Shop extends Component {
               Dina produkter kommer att levereras till den plats du valde i din
               profil. Alla leveranser sker på lördag den 15/5. 
               {!this.state.hasShippingInfo && (
-                <p style={{ color: "red" }}>
+                <p style={{ color: "red", fontSize: '25px' }}>
                   För att handla i webshopen behöver du lägga till adress,
                   mobilnummer på ditt konto. Det gör du genom att gå in på 'Mitt
                   konto' och trycka på den röda knappen längst ner på
