@@ -53,16 +53,14 @@ class FridayEventInfo extends Component {
             </GridCell>
           </Grid>
         )}
-        {
-          /* this.state.open && */ <Grid className='base-outer-grid '>
-            <GridInner>
-              <GridCell
-                phone='4'
-                tablet='8'
-                desktop='12'
-                style={{ padding: "1.2em" }}
-              >
-                <p>
+        {this.state.open && (
+          <Grid className='base-outer-grid '>
+            <GridInner style={{ padding: "1.2em" }}>
+              <GridCell phone='4' tablet='8' desktop='12'>
+                <Header>Mångkamp</Header>
+              </GridCell>
+              <GridCell phone='4' tablet='8' desktop='12'>
+                <p style={{ marginTop: 0 }}>
                   Mångkampen är en tävling som hålls under SOF-Fredagen mellan
                   kl 10:00-16:00. Vinnaren kommer sedan att presenteras under
                   sittningen. För att delta skapar du ett lag med en eller flera
@@ -171,7 +169,7 @@ class FridayEventInfo extends Component {
               </GridCell>
             </GridInner>
           </Grid>
-        }
+        )}
       </React.Fragment>
     )
   }
