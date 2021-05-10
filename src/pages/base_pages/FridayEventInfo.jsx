@@ -53,8 +53,8 @@ class FridayEventInfo extends Component {
             </GridCell>
           </Grid>
         )}
-        {this.state.open && (
-          <Grid className='base-outer-grid '>
+        {
+          /* this.state.open && */ <Grid className='base-outer-grid '>
             <GridInner>
               <GridCell
                 phone='4'
@@ -68,7 +68,11 @@ class FridayEventInfo extends Component {
                   sittningen. För att delta skapar du ett lag med en eller flera
                   personer genom att skapa ett öppet instagramkonto eller
                   använda ett redan existerande. Laget ska sedan anmäla sig i
-                  <a href='https://forms.gle/9QewKDZJAHV7FgXy8'>
+                  <a
+                    href='https://forms.gle/9QewKDZJAHV7FgXy8'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
                     {" "}
                     detta formulär{" "}
                   </a>
@@ -76,7 +80,11 @@ class FridayEventInfo extends Component {
                   När laget är anmält kommer lagnamn och länk till
                   instagramkontot läggas upp på hemsidan under SOF-Fredag ->
                   Laginfo. Glöm inte att följa
-                  <a href='https://www.instagram.com/studentorkesterfestivalen/'>
+                  <a
+                    href='https://www.instagram.com/studentorkesterfestivalen/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
                     {" "}
                     @studentorkesterfestivalen{" "}
                   </a>
@@ -110,14 +118,22 @@ class FridayEventInfo extends Component {
                   </li>
                   <li>
                     Följ{" "}
-                    <a href='https://www.instagram.com/studentorkesterfestivalen/'>
+                    <a
+                      href='https://www.instagram.com/studentorkesterfestivalen/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
                       {" "}
                       @studentorkesterfestivalen{" "}
                     </a>{" "}
                     på instagram
                   </li>
                   <li>
-                    <a href='https://forms.gle/9QewKDZJAHV7FgXy8'>
+                    <a
+                      href='https://forms.gle/9QewKDZJAHV7FgXy8'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
                       Anmäl laget
                     </a>
                   </li>
@@ -132,8 +148,22 @@ class FridayEventInfo extends Component {
                 <p style={{ marginTop: 0 }}>
                   Dag: 14 maj <br />
                   Tid: 10:00 - 16:00 <br />
-                  Uppdragen: ??? <br />
-                  Hitta lag: ??? <br />
+                  <a
+                    href='https://www.sof.lintek.liu.se/friday_tasks'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Uppdragen
+                  </a>
+                  <br />
+                  <a
+                    href='https://www.instagram.com/studentorkesterfestivalen/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Hitta lag
+                  </a>
+                  <br />
                   Vinnaren prsenteras på sittningarna. <br />
                   Pris: En högtalare och lite annat smått och gott.
                 </p>
@@ -141,7 +171,7 @@ class FridayEventInfo extends Component {
               </GridCell>
             </GridInner>
           </Grid>
-        )}
+        }
       </React.Fragment>
     )
   }

@@ -7,7 +7,8 @@ import strings from "../locale/index"
 import PropTypes from "prop-types"
 import Start from "../pages/base_pages/Start"
 import FridayEventInfo from "../pages/base_pages/FridayEventInfo"
-import FridayEvenetCompetition from "../pages/base_pages/FridayEventCompetition"
+import FridayEventCompetition from "../pages/base_pages/FridayEventCompetition"
+import FridayEventTeams from "../pages/base_pages/FridayEventTeams"
 
 import CortegeFestival from "../pages/base_pages/CortegeFestival"
 import ScheduleFestival from "../pages/base_pages/ScheduleFestival"
@@ -60,7 +61,8 @@ const pages = (intl) => {
     "/shop": Shop,
     "SOF-Fredag": {
       "/friday_info": FridayEventInfo,
-      "/friday_competition": FridayEvenetCompetition,
+      "/friday_tasks": FridayEventCompetition,
+      "/friday_teams": FridayEventTeams,
     },
     "/contact": Contact,
     //'/putte': Putte,
