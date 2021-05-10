@@ -6,6 +6,8 @@ import {IntlProvider} from 'react-intl';
 import strings from '../locale/index';
 import PropTypes from 'prop-types';
 import Start from '../pages/base_pages/Start';
+import FridayEventInfo from '../pages/base_pages/FridayEventInfo'
+import FridayEvenetCompetition from '../pages/base_pages/FridayEventCompetition'
 
 import CortegeFestival from '../pages/base_pages/CortegeFestival';
 import ScheduleFestival from '../pages/base_pages/ScheduleFestival';
@@ -56,6 +58,10 @@ const pages = intl =>{
     },
     //'/about': Om,
     '/shop': Shop,
+    [intl({id: 'FridayEvent.navTitle'})] : {
+      '/friday_info': FridayEventInfo,
+      '/friday_competition' : FridayEvenetCompetition,
+    },
     '/contact': Contact,
     //'/putte': Putte,
     //'/funkis': Funkis,
