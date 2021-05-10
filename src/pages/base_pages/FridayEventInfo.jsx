@@ -74,10 +74,10 @@ class FridayEventInfo extends Component {
                     {" "}
                     detta formulär{" "}
                   </a>
-                  och utföra uppdragen som står på under SOF-Fredag -> Uppdrag.
+                  och utföra uppdragen som står på under SOF-Fredag - Uppdrag.
                   När laget är anmält kommer lagnamn och länk till
-                  instagramkontot läggas upp på hemsidan under SOF-Fredag ->
-                  Laginfo. Glöm inte att följa
+                  instagramkontot läggas upp på hemsidan under SOF-Fredag - Lag.
+                  Glöm inte att följa
                   <a
                     href='https://www.instagram.com/studentorkesterfestivalen/'
                     target='_blank'
