@@ -91,6 +91,8 @@ class FridayEventCompInfo extends Component {
     this.state = {
       code: "",
       open: false,
+      showInfo:
+        new Date().getTime() > new Date("May 14, 09:59:59 2021").getTime(),
     }
   }
 
@@ -112,7 +114,22 @@ class FridayEventCompInfo extends Component {
   render() {
     return (
       <React.Fragment>
-        {!this.state.open && (
+        {!this.state.showInfo && (
+          <Grid className='base-outer-grid '>
+            <GridCell
+              desktop='12'
+              tablet='8'
+              phone='4'
+              style={{ textAlign: "center" }}
+            >
+              <h5>
+                Du kan inte kolla på uppdragen än, vänta tills mångkampen
+                börjar!
+              </h5>
+            </GridCell>
+          </Grid>
+        )}
+        {!this.state.open && this.state.showInfo && (
           <Grid className='base-outer-grid '>
             <GridCell desktop='12' tablet='8' phone='4'>
               <form onSubmit={this.handlePasscode}>
@@ -131,7 +148,7 @@ class FridayEventCompInfo extends Component {
             </GridCell>
           </Grid>
         )}
-        {this.state.open && (
+        {this.state.open && this.state.showInfo && (
           <Grid className='base-outer-grid '>
             <GridInner>
               <GridCell phone='4' tablet='8' desktop='12'>

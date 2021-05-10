@@ -108,8 +108,16 @@ class FridayEventInfo extends Component {
                 <p>Att göra:</p>
                 <ol>
                   <li>
-                    Hitta lag, Behöver du hjälp att hitta lagkamrater gå in här:
-                    ???
+                    Hitta lag, behöver du hjälp att hitta lagkamrater gå in på
+                    SOF:s
+                    <a
+                      href='https://www.instagram.com/studentorkesterfestivalen/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {" "}
+                      instagram
+                    </a>{" "}
                   </li>
                   <li>
                     Skapa ett publikt instagramkonto eller använd ett befintligt
