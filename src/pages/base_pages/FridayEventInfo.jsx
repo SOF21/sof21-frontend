@@ -13,6 +13,7 @@ class FridayEventInfo extends Component {
     this.state = {
       code: "",
       open: false,
+      showInfo: new Date().getTime() > new Date("May 13 2021").getTime(),
     }
   }
 
@@ -34,7 +35,25 @@ class FridayEventInfo extends Component {
   render() {
     return (
       <React.Fragment>
-        {!this.state.open && (
+        {!this.state.showInfo && (
+          <Grid className='base-outer-grid '>
+            <GridCell
+              desktop='12'
+              tablet='8'
+              phone='4'
+              style={{ textAlign: "center" }}
+            >
+              <h5>Mer information kommer senare!</h5>
+              <img
+                className='full-width-grid-image'
+                style={{ maxWidth: "200px", padding: "1em" }}
+                src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Logo-kvadrat-512px.png'
+                alt='SOF logo'
+              />
+            </GridCell>
+          </Grid>
+        )}
+        {!this.state.open && this.state.showInfo && (
           <Grid className='base-outer-grid '>
             <GridCell desktop='12' tablet='8' phone='4'>
               <form onSubmit={this.handlePasscode}>
@@ -53,7 +72,7 @@ class FridayEventInfo extends Component {
             </GridCell>
           </Grid>
         )}
-        {this.state.open && (
+        {this.state.open && this.state.showInfo && (
           <Grid className='base-outer-grid '>
             <GridInner style={{ padding: "1.2em" }}>
               <GridCell phone='4' tablet='8' desktop='12'>
