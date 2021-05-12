@@ -38,6 +38,7 @@ import {
 } from '@rmwc/dialog';
 
 import { Snackbar, SnackbarAction } from '@rmwc/snackbar';
+import Stream from '../pages/base_pages/Stream';
 
 const pages = intl =>{
   return{
@@ -57,6 +58,9 @@ const pages = intl =>{
     //'/about': Om,
     '/shop': Shop,
     '/contact': Contact,
+    [intl({id: 'Start.saturdayTitle'})]: {
+      '/stream': Stream,
+    }
     //'/putte': Putte,
     //'/funkis': Funkis,
   }
