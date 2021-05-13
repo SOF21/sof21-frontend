@@ -9,6 +9,7 @@ import Start from "../pages/base_pages/Start"
 import FridayEventInfo from "../pages/base_pages/FridayEventInfo"
 import FridayEventCompetition from "../pages/base_pages/FridayEventCompetition"
 import FridayEventTeams from "../pages/base_pages/FridayEventTeams"
+import SaturdaySchedule from "../pages/base_pages/SaturdaySchedule"
 
 import CortegeFestival from "../pages/base_pages/CortegeFestival"
 import ScheduleFestival from "../pages/base_pages/ScheduleFestival"
@@ -40,7 +41,8 @@ import {
   DialogButton,
 } from "@rmwc/dialog"
 
-import { Snackbar, SnackbarAction } from "@rmwc/snackbar"
+import { Snackbar, SnackbarAction } from '@rmwc/snackbar';
+import Stream from '../pages/base_pages/Stream';
 
 const pages = (intl) => {
   return {
@@ -58,13 +60,17 @@ const pages = (intl) => {
       "/about_history": History,
     },
     //'/about': Om,
-    "/shop": Shop,
+    '/shop': Shop,
     "SOF-Fredag": {
       "/friday_info": FridayEventInfo,
       "/friday_tasks": FridayEventCompetition,
       //"/friday_teams": FridayEventTeams,
     },
-    "/contact": Contact,
+    [intl({id: 'Start.saturdayTitle'})]: {
+      '/saturday_info': SaturdaySchedule,
+      '/stream': Stream,
+    },
+    '/contact': Contact,
     //'/putte': Putte,
     //'/funkis': Funkis,
   }
