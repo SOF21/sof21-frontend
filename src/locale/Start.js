@@ -11,7 +11,7 @@ export default {
       funkis: "Vill du ha en GRATIS helhelgsbiljett (värde 400kr) samt massa andra godsaker? Då kan du söka funkis och jobba 6-8 timmar och få allt detta. Vill du veta mer?",
       funkisButton: "Klicka då HÄR!",
       instagram: "Instagram",
-      saturdayTitle: "SOF21-lördag",
+      saturdayTitle: "SOF-Lördag",
     }
   },
 

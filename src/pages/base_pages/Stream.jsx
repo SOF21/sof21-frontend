@@ -102,11 +102,11 @@ class Stream extends Component {
             </div>
           </GridCell>
 
-          <GridCell desktop='12' tablet='8' phone='4'>
+{/*           <GridCell desktop='12' tablet='8' phone='4'>
             <div className='iframe-container'>
               <iframe title='twitch' className='responsive-iframe' src="https://player.twitch.tv/?channel=studentorkesterfestivalen&parent=localhost&autoplay=false" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
             </div>
-          </GridCell>
+          </GridCell> */}
           </GridInner>
         </Grid>
       </React.Fragment>
