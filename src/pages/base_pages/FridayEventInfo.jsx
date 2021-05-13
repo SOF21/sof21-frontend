@@ -13,7 +13,7 @@ class FridayEventInfo extends Component {
     this.state = {
       code: "",
       open: false,
-      showInfo: new Date().getTime() > new Date("May 13 2021").getTime(),
+      showInfo: new Date().getTime() > new Date("May 14 2021").getTime(),
     }
   }
 

@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 
-import { TopAppBarFixedAdjust } from '@rmwc/top-app-bar';
+import { TopAppBarFixedAdjust } from "@rmwc/top-app-bar"
 
-import posed from 'react-pose';
+import posed from "react-pose"
 
 const PosedHeaderTitle = posed.div({
-  enter: { y: 0, opacity: 1},
-  exit: { y: -100, opacity: 0, transition:{ opacity: {duration: 250}}}
-});
+  enter: { y: 0, opacity: 1 },
+  exit: { y: -100, opacity: 0, transition: { opacity: { duration: 250 } } },
+})
 
-const PosedHeaderImage= posed.div({
-  enter: {opacity: 1},
-  exit: {opacity: 0 }
-});
+const PosedHeaderImage = posed.div({
+  enter: { opacity: 1 },
+  exit: { opacity: 0 },
+})
 
-export default class BasePageHeader extends Component{
-
+export default class BasePageHeader extends Component {
   render() {
-    return(
+    return (
       <React.Fragment>
         <div className='base-page-header'>
-          <TopAppBarFixedAdjust/>
+          <TopAppBarFixedAdjust />
           <PosedHeaderImage className='base-page-header-image'>
             {/* <img 
               async='on'
@@ -37,13 +36,11 @@ export default class BasePageHeader extends Component{
           </PosedHeaderImage>
           <PosedHeaderTitle className='base-page-header-content'>
             <div className='base-page-header-title'>
-              <h1>
-                {this.props.title}
-              </h1>
+              <h1>{this.props.title}</h1>
             </div>
           </PosedHeaderTitle>
         </div>
       </React.Fragment>
-    );
+    )
   }
 }
