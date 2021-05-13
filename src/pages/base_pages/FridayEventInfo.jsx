@@ -54,8 +54,8 @@ class FridayEventInfo extends Component {
             </GridCell>
           </Grid>
         )}
-        {
-          this.state.open && this.state.showInfo && <Grid className='base-outer-grid '>
+        {this.state.open && this.state.showInfo && (
+          <Grid className='base-outer-grid '>
             <GridInner style={{ padding: "1.2em" }}>
               <GridCell phone='4' tablet='8' desktop='12'>
                 <Header>SOF-Fredag</Header>
@@ -341,12 +341,21 @@ class FridayEventInfo extends Component {
                   SOF15: Jesper Lehtonen (Öl- och matputte)
                 </p>
                 <p>
+                  Tips till provningen är att ha fyra glas redo då takten på
+                  provningen kanske är snabbare än er konsumeringstakt. I övrigt
+                  kommer provningen att ske på Zoom där varje öl kommer
+                  presenteras i helgrupp, därefter kommer alla att skickas ut i
+                  breakout-rooms så att ni kan mingla. Provningsledarna kommer
+                  även att hoppa mellan rummen så att ni får chansen att ställa
+                  frågor om ölen.
+                </p>
+                <p>
                   <a
                     href='https://liu-se.zoom.us/j/65436180091'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    Föreläsningen kommer att sändas här (Zoom)
+                    Här hålls ölprovingen (Zoom)
                   </a>
                 </p>
               </GridCell>
@@ -535,7 +544,7 @@ class FridayEventInfo extends Component {
               </GridCell>
             </GridInner>
           </Grid>
-        }
+        )}
       </React.Fragment>
     )
   }
