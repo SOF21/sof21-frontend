@@ -61,7 +61,7 @@ const pages = (intl) => {
     "/shop": Shop,
     "SOF-Fredag": {
       "/friday_info": FridayEventInfo,
-      //"/friday_tasks": FridayEventCompetition,
+      "/friday_tasks": FridayEventCompetition,
       //"/friday_teams": FridayEventTeams,
     },
     "/contact": Contact,
