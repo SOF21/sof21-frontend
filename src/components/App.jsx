@@ -9,6 +9,7 @@ import Start from "../pages/base_pages/Start"
 import FridayEventInfo from "../pages/base_pages/FridayEventInfo"
 import FridayEventCompetition from "../pages/base_pages/FridayEventCompetition"
 import FridayEventTeams from "../pages/base_pages/FridayEventTeams"
+import SaturdaySchedule from "../pages/base_pages/SaturdaySchedule"
 
 import CortegeFestival from "../pages/base_pages/CortegeFestival"
 import ScheduleFestival from "../pages/base_pages/ScheduleFestival"
@@ -66,6 +67,7 @@ const pages = (intl) => {
       //"/friday_teams": FridayEventTeams,
     },
     [intl({id: 'Start.saturdayTitle'})]: {
+      '/saturday_info': SaturdaySchedule,
       '/stream': Stream,
     },
     '/contact': Contact,
