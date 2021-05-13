@@ -1,128 +1,137 @@
-import React from 'react';
-import Navbar from './navigation';
-import PageRouter from './PageRouter';
-import {ThemeProvider} from '@rmwc/theme';
-import {IntlProvider} from 'react-intl';
-import strings from '../locale/index';
-import PropTypes from 'prop-types';
-import Start from '../pages/base_pages/Start';
+import React from "react"
+import Navbar from "./navigation"
+import PageRouter from "./PageRouter"
+import { ThemeProvider } from "@rmwc/theme"
+import { IntlProvider } from "react-intl"
+import strings from "../locale/index"
+import PropTypes from "prop-types"
+import Start from "../pages/base_pages/Start"
+import FridayEventInfo from "../pages/base_pages/FridayEventInfo"
+import FridayEventCompetition from "../pages/base_pages/FridayEventCompetition"
+import FridayEventTeams from "../pages/base_pages/FridayEventTeams"
 
-import CortegeFestival from '../pages/base_pages/CortegeFestival';
-import ScheduleFestival from '../pages/base_pages/ScheduleFestival';
-import AreaFestival from '../pages/base_pages/AreaFestival';
-import EventFestival from '../pages/base_pages/EventFestival';
+import CortegeFestival from "../pages/base_pages/CortegeFestival"
+import ScheduleFestival from "../pages/base_pages/ScheduleFestival"
+import AreaFestival from "../pages/base_pages/AreaFestival"
+import EventFestival from "../pages/base_pages/EventFestival"
 
-import Om from '../pages/base_pages/About';
-import CortegeAbout from '../pages/base_pages/CortegeAbout';
-import OrchestraAbout from '../pages/base_pages/OrchestraAbout';
-import History from '../pages/base_pages/History';
+import Om from "../pages/base_pages/About"
+import CortegeAbout from "../pages/base_pages/CortegeAbout"
+import OrchestraAbout from "../pages/base_pages/OrchestraAbout"
+import History from "../pages/base_pages/History"
 
-import Contact from '../pages/base_pages/Contact';
-import Funkis from '../pages/base_pages/Funkis';
-import Putte from '../pages/base_pages/Putte'
-import Shop from '../pages/base_pages/Shop';
+import Contact from "../pages/base_pages/Contact"
+import Funkis from "../pages/base_pages/Funkis"
+import Putte from "../pages/base_pages/Putte"
+import Shop from "../pages/base_pages/Shop"
 
-import { connect } from 'react-redux';
-import { setLocaleAndStore } from '../actions/locale';
-import { setMobile } from '../actions/mobile';
-import { setTitle } from '../actions/title';
-import { closeDialog, closeSnackbar } from '../actions/dialog';
-import { fetchProducts } from '../actions/shop';
+import { connect } from "react-redux"
+import { setLocaleAndStore } from "../actions/locale"
+import { setMobile } from "../actions/mobile"
+import { setTitle } from "../actions/title"
+import { closeDialog, closeSnackbar } from "../actions/dialog"
+import { fetchProducts } from "../actions/shop"
 
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogButton
-} from '@rmwc/dialog';
+  DialogButton,
+} from "@rmwc/dialog"
 
 import { Snackbar, SnackbarAction } from '@rmwc/snackbar';
 import Stream from '../pages/base_pages/Stream';
 
-const pages = intl =>{
-  return{
-    '/':  Start,
+const pages = (intl) => {
+  return {
+    "/": Start,
     /*[intl({id: 'Start.festivalTitle'})]: {
       '/festival_schedule': ScheduleFestival,
       '/festival_area': AreaFestival,
       '/festival_cortege': CortegeFestival,
       '/festival_activities': EventFestival
     },*/
-    [intl({id: 'Start.aboutTitle'})]: {
-      '/about_festival': Om,
-      '/about_cortege': CortegeAbout,
-      '/about_orchestra': OrchestraAbout,
-      '/about_history': History,
+    [intl({ id: "Start.aboutTitle" })]: {
+      "/about_festival": Om,
+      "/about_cortege": CortegeAbout,
+      "/about_orchestra": OrchestraAbout,
+      "/about_history": History,
     },
     //'/about': Om,
     '/shop': Shop,
-    '/contact': Contact,
+    "SOF-Fredag": {
+      "/friday_info": FridayEventInfo,
+      "/friday_tasks": FridayEventCompetition,
+      //"/friday_teams": FridayEventTeams,
+    },
     [intl({id: 'Start.saturdayTitle'})]: {
       '/stream': Stream,
-    }
+    },
+    '/contact': Contact,
     //'/putte': Putte,
     //'/funkis': Funkis,
   }
-};
+}
 
 class App extends React.PureComponent {
-  constructor(props){
+  constructor(props) {
     super(props)
 
-    this.cookies = this.props.cookies;
-    this.handleResize = this.handleResize.bind(this);
-    this.changeLanguage = this.changeLanguage.bind(this);
-    this.state = {isMobile: false, isTablet: false};
+    this.cookies = this.props.cookies
+    this.handleResize = this.handleResize.bind(this)
+    this.changeLanguage = this.changeLanguage.bind(this)
+    this.state = { isMobile: false, isTablet: false }
   }
 
-
   handleResize() {
-    if(!this.state.isMobile && window.innerWidth < 480){
-      this.props.setMobile(true);
-    } else if(this.state.isMobile && window.innerWidth >= 480){
-      this.props.setMobile(false);
+    if (!this.state.isMobile && window.innerWidth < 480) {
+      this.props.setMobile(true)
+    } else if (this.state.isMobile && window.innerWidth >= 480) {
+      this.props.setMobile(false)
     }
   }
 
   componentDidMount() {
-    this.props.fetchProducts();
-    this.handleResize();
-    window.addEventListener('resize', this.handleResize)
-    this.changeLanguage = this.changeLanguage.bind(this);
-    this.props.fetchProducts();
+    this.props.fetchProducts()
+    this.handleResize()
+    window.addEventListener("resize", this.handleResize)
+    this.changeLanguage = this.changeLanguage.bind(this)
+    this.props.fetchProducts()
   }
 
-  changeLanguage(){
-    this.props.setLocaleAndStore(this.props.lang === 'sv' ? 'en' : 'sv');
+  changeLanguage() {
+    this.props.setLocaleAndStore(this.props.lang === "sv" ? "en" : "sv")
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener("resize", this.handleResize)
   }
 
   render() {
-    const { lang, isMobile } = this.props;
+    const { lang, isMobile } = this.props
 
     return (
       <IntlProvider locale={lang} messages={strings[lang]}>
-        <div className="App">
-
-          <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"/>
+        <div className='App'>
+          <link
+            href='https://fonts.googleapis.com/icon?family=Material+Icons'
+            rel='stylesheet'
+          />
 
           <img
             className='app-sof-logo'
-            src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/SOF_logga_kvadratisk_vit.png'
+            src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Logo-kvadrat-vit-512px.png'
             alt='SOF21 kvadratisk logga'
           />
-          <ThemeProvider options={{
-            primary: '#C20E1A',
-            secondary: '#F1CC0D'
-          }}
-            style={{height: '100%'}}
+          <ThemeProvider
+            options={{
+              primary: "#C20E1A",
+              secondary: "#F1CC0D",
+            }}
+            style={{ height: "100%" }}
           >
-            <div id='modal-root'/>
+            <div id='modal-root' />
             <Dialog
               open={this.props.dialog.open}
               onClose={() => this.props.closeDialog()}
@@ -130,7 +139,9 @@ class App extends React.PureComponent {
               <DialogTitle>{this.props.dialog.title}</DialogTitle>
               <DialogContent> {this.props.dialog.text} </DialogContent>
               <DialogActions>
-                <DialogButton action="accept" isDefaultAction>OK</DialogButton>
+                <DialogButton action='accept' isDefaultAction>
+                  OK
+                </DialogButton>
               </DialogActions>
             </Dialog>
 
@@ -147,15 +158,11 @@ class App extends React.PureComponent {
               isMobile={isMobile}
             />
 
-            <PageRouter
-              isMobile={isMobile}
-              pages={pages}
-            />
-
-        </ThemeProvider>
+            <PageRouter isMobile={isMobile} pages={pages} />
+          </ThemeProvider>
         </div>
       </IntlProvider>
-    );
+    )
   }
 }
 
@@ -164,7 +171,7 @@ App.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   setLocaleAndStore: PropTypes.func.isRequired,
   setMobile: PropTypes.func.isRequired,
-};
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -172,7 +179,14 @@ const mapStateToProps = (state) => {
     isMobile: state.mobile.isMobile,
     dialog: state.dialog,
     //isTablet: state.tablet.isTablet,
-  };
+  }
 }
 
-export default connect(mapStateToProps, { closeDialog, closeSnackbar, setLocaleAndStore, setMobile, setTitle, fetchProducts })(App);
+export default connect(mapStateToProps, {
+  closeDialog,
+  closeSnackbar,
+  setLocaleAndStore,
+  setMobile,
+  setTitle,
+  fetchProducts,
+})(App)

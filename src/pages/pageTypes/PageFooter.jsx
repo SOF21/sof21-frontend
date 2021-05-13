@@ -122,7 +122,7 @@ class PageFooter extends Component{
                 {/* #############################
                     #       SPONSORS            #
                     ############################# */}
-              <GridCell phone='4' tablet='8' desktop='12' className='h-center v-center'>
+              <GridCell phone='4' tablet='4' desktop='4' className='h-center v-center'>
                 <a
                   target="_blank" 
                   rel="noopener noreferrer" 
@@ -130,7 +130,31 @@ class PageFooter extends Component{
                 >
                   <img
                     src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/Nybryggt+logotyp+2020+ny.png'
-                    style={{width: '40%'}}
+                    style={{width: '90%'}}
+                  />
+                </a>
+              </GridCell>
+              <GridCell phone='4' tablet='4' desktop='4' className='h-center v-center'>
+                <a
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href="https://nybryggt.nu/" 
+                >
+                  <img
+                    src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/Storytel_PrimaryLogo_RGB_Sangria.png'
+                    style={{width: '90%'}}
+                  />
+                </a>
+              </GridCell>
+              <GridCell phone='4' tablet='4' desktop='4' className='h-center v-center'>
+                <a
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href="https://nybryggt.nu/" 
+                >
+                  <img
+                    src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/TS.jpg'
+                    style={{width: '90%'}}
                   />
                 </a>
               </GridCell>

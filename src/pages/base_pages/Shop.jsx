@@ -48,14 +48,16 @@ class Shop extends Component {
       this.props.products &&
       this.state.hasShippingInfo
     ) {
-      articles = this.props.products.map((article) => (
-        <GridCell phone='4' tablet='4' desktop='6'>
-          <ArticleCard
-            article={article}
-            addCallback={(id) => this.props.addProductToCart(id)}
-          />
-        </GridCell>
-      ))
+      articles = this.props.products
+        .filter((article) => article.enabled)
+        .map((article) => (
+          <GridCell phone='4' tablet='4' desktop='6'>
+            <ArticleCard
+              article={article}
+              addCallback={(id) => this.props.addProductToCart(id)}
+            />
+          </GridCell>
+        ))
     }
 
     console.log(this.props.user)
@@ -70,13 +72,12 @@ class Shop extends Component {
               style={{ textAlign: "center" }}
             >
               Dina produkter kommer att levereras till den plats du valde i din
-              profil. Alla leveranser sker på lördag den 15/5. 
+              profil. Alla leveranser sker på lördag den 15/5.
               {!this.state.hasShippingInfo && (
-                <p style={{ color: "red" }}>
+                <p style={{ color: "red", fontSize: "25px" }}>
                   För att handla i webshopen behöver du lägga till adress,
                   mobilnummer på ditt konto. Det gör du genom att gå in på 'Mitt
-                  konto' och trycka på den röda knappen längst ner på
-                  sidan.
+                  konto' och trycka på den röda knappen längst ner på sidan.
                 </p>
               )}
             </GridCell>
@@ -101,7 +102,12 @@ class Shop extends Component {
                 <li>Trappan/Skvaller (13:35 - 14:05)</li>
               </ul>
             </GridCell>
-            <GridCell phone='4' tablet='8' desktop='12' style={{ textAlign: "center" }}>
+            <GridCell
+              phone='4'
+              tablet='8'
+              desktop='12'
+              style={{ textAlign: "center" }}
+            >
               <p>Möjlighet för sen upphämtning finns i Ryd vid 15:00</p>
             </GridCell>
             <GridCell phone='4' tablet='8' desktop='12'>
