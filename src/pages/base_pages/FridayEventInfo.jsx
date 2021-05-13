@@ -416,7 +416,7 @@ class FridayEventInfo extends Component {
                   <a
                     target='_blank'
                     rel='noopener noreferrer'
-                    href='https://discord.gg/VdS949Uc '
+                    href='https://discord.gg/uKcuZuHw'
                   >
                     Här finner du spelhänget (Discord)
                   </a>
