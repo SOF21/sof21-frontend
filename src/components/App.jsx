@@ -117,7 +117,7 @@ class App extends React.PureComponent {
 
           <img
             className='app-sof-logo'
-            src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/logotyper/Logo-kvadrat-vit-512px.png'
+            src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Logo-kvadrat-vit-512px.png'
             alt='SOF21 kvadratisk logga'
           />
           <ThemeProvider
