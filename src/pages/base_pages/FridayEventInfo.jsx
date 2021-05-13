@@ -13,7 +13,7 @@ class FridayEventInfo extends Component {
     this.state = {
       code: "",
       open: false,
-      showInfo: new Date().getTime() > new Date("May 14 2021").getTime(),
+      showInfo: new Date().getTime() > new Date("May 13 2021").getTime(),
     }
   }
 
@@ -55,7 +55,7 @@ class FridayEventInfo extends Component {
           </Grid>
         )}
         {
-          /* this.state.open && this.state.showInfo && */ <Grid className='base-outer-grid '>
+          this.state.open && this.state.showInfo && <Grid className='base-outer-grid '>
             <GridInner style={{ padding: "1.2em" }}>
               <GridCell phone='4' tablet='8' desktop='12'>
                 <Header>SOF-Fredag</Header>
