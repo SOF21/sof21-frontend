@@ -13,6 +13,10 @@ const teams = [
     name: "Luhrarne SOF21",
     link: "https://www.instagram.com/luhrarne_sof21/",
   },
+  {
+    name: "Misty-lury",
+    link: "https://www.instagram.com/misty_lury/?igshid=19ycd82sa5u7r",
+  },
 ]
 
 class FridayEventTeams extends Component {
