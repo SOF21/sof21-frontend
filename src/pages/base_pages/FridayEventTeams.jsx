@@ -9,6 +9,10 @@ const teams = [
     name: "Saxofonsektionen i LiTHe Blås",
     link: "https://www.instagram.com/saxsekten/",
   },
+  {
+    name: "Luhrarne SOF21",
+    link: "https://www.instagram.com/luhrarne_sof21/",
+  },
 ]
 
 class FridayEventTeams extends Component {
