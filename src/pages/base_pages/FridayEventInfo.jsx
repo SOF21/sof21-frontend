@@ -133,7 +133,7 @@ class FridayEventInfo extends Component {
                   <a
                     target='_blank'
                     rel='noopener noreferrer'
-                    href='https://discord.gg/uKcuZuHw'
+                    href='https://discord.gg/QctpRrvu'
                   >
                     16:00 - 18:00 Spelhäng
                   </a>
@@ -151,9 +151,9 @@ class FridayEventInfo extends Component {
                   <a
                     target='_blank'
                     rel='noopener noreferrer'
-                    href='https://discord.gg/e357FUg9'
+                    href='https://discord.gg/b4gyuQjF '
                   >
-                    21:30 - sent Eftersläpp
+                    21:30 - ?? Eftersläpp
                   </a>
                 </p>
               </GridCell>
@@ -416,7 +416,7 @@ class FridayEventInfo extends Component {
                   <a
                     target='_blank'
                     rel='noopener noreferrer'
-                    href='https://discord.gg/uKcuZuHw'
+                    href='https://discord.gg/QctpRrvu'
                   >
                     Här finner du spelhänget (Discord)
                   </a>
@@ -536,7 +536,7 @@ class FridayEventInfo extends Component {
                   <a
                     target='_blank'
                     rel='noopener noreferrer'
-                    href='https://discord.gg/e357FUg9'
+                    href='https://discord.gg/b4gyuQjF'
                   >
                     Här finner du aftonens aftersläpp (Discord)
                   </a>
