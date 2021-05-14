@@ -1,31 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 
-import { Grid, GridCell, GridInner } from '@rmwc/grid';
+import { Grid, GridCell, GridInner } from "@rmwc/grid"
 
-import { ListDivider } from '@rmwc/list';
+import { ListDivider } from "@rmwc/list"
 
-import { Ripple } from '@rmwc/ripple';
+import { Ripple } from "@rmwc/ripple"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookSquare, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faFacebookSquare,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons"
 
-import posed from 'react-pose';
+import posed from "react-pose"
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from "react-intl"
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux"
 
-const PosedFooter= posed.div({
-  enter: { y: 0, opacity: 1},
-  exit: { y: -100, opacity: 0, transition:{ opacity: {duration: 250}}}
-});
+const PosedFooter = posed.div({
+  enter: { y: 0, opacity: 1 },
+  exit: { y: -100, opacity: 0, transition: { opacity: { duration: 250 } } },
+})
 
-class PageFooter extends Component{
-
+class PageFooter extends Component {
   render() {
-    return(
+    return (
       <React.Fragment>
-
         {/*For when content doesn't fill screen, footer still att bottom
         <div className='page-footer-margin'/> */}
 
@@ -33,27 +34,35 @@ class PageFooter extends Component{
           <div className='page-footer-content'>
             <Grid>
               <GridInner>
-                <GridCell phone='4' tablet='8' desktop='12' >
-                  <ListDivider/>
+                <GridCell phone='4' tablet='8' desktop='12'>
+                  <ListDivider />
                 </GridCell>
 
                 <GridCell phone='4' tablet='5' desktop='8'>
                   <h6>
-                      <b>&copy;<FormattedMessage id='Footer.SOF'/></b>
+                    <b>
+                      &copy;
+                      <FormattedMessage id='Footer.SOF' />
+                    </b>
                   </h6>
                 </GridCell>
-                <GridCell phone='4' tablet='3' desktop='4' className='page-footer-ra-text v-center'>
-                  <div className='v-center' style={{flexWrap: 'wrap'}}>
-                    <a 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      href="https://lintek.liu.se/" 
-                      style={{color: 'white'}}
+                <GridCell
+                  phone='4'
+                  tablet='3'
+                  desktop='4'
+                  className='page-footer-ra-text v-center'
+                >
+                  <div className='v-center' style={{ flexWrap: "wrap" }}>
+                    <a
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      href='https://lintek.liu.se/'
+                      style={{ color: "white" }}
                     >
                       <h6>
-                        <FormattedMessage id="Footer.LinTek"/>
+                        <FormattedMessage id='Footer.LinTek' />
                       </h6>
-                              {/*<img 
+                      {/*<img 
                         style={{height: '20px'}}
                         async='on'
                         src='https://lintek.liu.se/wp-content/uploads/2018/04/logo-mobile3x.png'
@@ -65,39 +74,38 @@ class PageFooter extends Component{
                 </GridCell>
 
                 <GridCell span='1' desktop='2'>
-                  <Ripple unbounded >
-                    <a 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      href="https://www.facebook.com/Studentorkesterfestivalen/" 
+                  <Ripple unbounded>
+                    <a
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      href='https://www.facebook.com/Studentorkesterfestivalen/'
                       className='fa-ripple'
                     >
-                      <FontAwesomeIcon icon={faFacebookSquare} size='3x'/>
+                      <FontAwesomeIcon icon={faFacebookSquare} size='3x' />
                     </a>
                   </Ripple>
                 </GridCell>
                 <GridCell span='1' desktop='2'>
-                  <Ripple unbounded >
-                    <a 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      href="https://www.instagram.com/studentorkesterfestivalen/" 
+                  <Ripple unbounded>
+                    <a
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      href='https://www.instagram.com/studentorkesterfestivalen/'
                       className='fa-ripple'
                     >
-                      <FontAwesomeIcon icon={faInstagram} size='3x'/>
+                      <FontAwesomeIcon icon={faInstagram} size='3x' />
                     </a>
                   </Ripple>
                 </GridCell>
-                <GridCell span='2'>
-                </GridCell>
+                <GridCell span='2'></GridCell>
                 <GridCell span='4' desktop='6'>
                   <div
-                    style={this.props.isMobile ? {} : {textAlign: 'right'}}
+                    style={this.props.isMobile ? {} : { textAlign: "right" }}
                   >
-                    <FormattedMessage id='Footer.contact' /> 
-                    <a 
+                    <FormattedMessage id='Footer.contact' />
+                    <a
                       href='mailto:support@sof.lintek.nu'
-                      style={{color: 'white', fontWeight: 'bold'}}
+                      style={{ color: "white", fontWeight: "bold" }}
                     >
                       support@sof.lintek.nu
                     </a>
@@ -106,64 +114,73 @@ class PageFooter extends Component{
               </GridInner>
             </Grid>
           </div>
-          <Grid style={{width: '100%', paddingTop: '0px', backgroundColor: 'white'}}>
+          <Grid
+            style={{
+              width: "100%",
+              paddingTop: "0px",
+              backgroundColor: "white",
+            }}
+          >
             <GridInner>
-              <GridCell phone='4' tablet='8' desktop='12' >
-                <div
-                  style={{display: 'flex', alignItems: 'center'}}
-                >
-                  <ListDivider style={{width: '100%'}}/>
-                  <h6 style={{flexGrow: '2', flexShrink: '0', margin: '0px 12px'}}>
-                    <b> <FormattedMessage id='Footer.sponsors'/> </b>
+              <GridCell phone='4' tablet='8' desktop='12'>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ListDivider style={{ width: "100%" }} />
+                  <h6
+                    style={{
+                      flexGrow: "2",
+                      flexShrink: "0",
+                      margin: "0px 12px",
+                    }}
+                  >
+                    <b>
+                      {" "}
+                      <FormattedMessage id='Footer.sponsors' />{" "}
+                    </b>
                   </h6>
-                  <ListDivider style={{width: '100%'}}/>
+                  <ListDivider style={{ width: "100%" }} />
                 </div>
               </GridCell>
-                {/* #############################
+              {/* #############################
                     #       SPONSORS            #
                     ############################# */}
-              <GridCell phone='4' tablet='4' desktop='4' className='h-center v-center'>
-                <a
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  href="https://nybryggt.nu/" 
-                >
-                  <img
-                    src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/Nybryggt+logotyp+2020+ny.png'
-                    style={{width: '90%'}}
-                  />
-                </a>
+              <GridCell
+                phone='4'
+                tablet='4'
+                desktop='4'
+                className='h-center v-center'
+              >
+                <img
+                  src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/Storytel_PrimaryLogo_RGB_Sangria.png'
+                  style={{ width: "90%" }}
+                />
               </GridCell>
-              <GridCell phone='4' tablet='4' desktop='4' className='h-center v-center'>
-                <a
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  href="https://nybryggt.nu/" 
-                >
-                  <img
-                    src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/Storytel_PrimaryLogo_RGB_Sangria.png'
-                    style={{width: '90%'}}
-                  />
-                </a>
+              <GridCell
+                phone='4'
+                tablet='4'
+                desktop='4'
+                className='h-center v-center'
+              >
+                <img
+                  src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/TS.jpg'
+                  style={{ width: "90%" }}
+                />
               </GridCell>
-              <GridCell phone='4' tablet='4' desktop='4' className='h-center v-center'>
-                <a
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  href="https://nybryggt.nu/" 
-                >
-                  <img
-                    src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/TS.jpg'
-                    style={{width: '90%'}}
-                  />
-                </a>
+              <GridCell
+                phone='4'
+                tablet='4'
+                desktop='4'
+                className='h-center v-center'
+              >
+                <img
+                  src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/Bosch.jpg'
+                  style={{ width: "90%" }}
+                />
               </GridCell>
             </GridInner>
           </Grid>
-         
         </PosedFooter>
       </React.Fragment>
-    );
+    )
   }
 }
 
@@ -171,7 +188,7 @@ const mapStateToProps = (state) => {
   return {
     isMobile: state.mobile.isMobile,
     //isTablet: state.tablet.isTablet,
-  };
+  }
 }
 
-export default connect(mapStateToProps)(PageFooter);
+export default connect(mapStateToProps)(PageFooter)
