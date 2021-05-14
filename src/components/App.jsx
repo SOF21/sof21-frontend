@@ -41,8 +41,8 @@ import {
   DialogButton,
 } from "@rmwc/dialog"
 
-import { Snackbar, SnackbarAction } from '@rmwc/snackbar';
-import Stream from '../pages/base_pages/Stream';
+import { Snackbar, SnackbarAction } from "@rmwc/snackbar"
+import Stream from "../pages/base_pages/Stream"
 
 const pages = (intl) => {
   return {
@@ -60,17 +60,17 @@ const pages = (intl) => {
       "/about_history": History,
     },
     //'/about': Om,
-    '/shop': Shop,
+    "/shop": Shop,
     "SOF-Fredag": {
       "/friday_info": FridayEventInfo,
       "/friday_tasks": FridayEventCompetition,
-      //"/friday_teams": FridayEventTeams,
+      "/friday_teams": FridayEventTeams,
     },
-    [intl({id: 'Start.saturdayTitle'})]: {
-      '/saturday_info': SaturdaySchedule,
-      '/stream': Stream,
+    [intl({ id: "Start.saturdayTitle" })]: {
+      "/saturday_info": SaturdaySchedule,
+      "/stream": Stream,
     },
-    '/contact': Contact,
+    "/contact": Contact,
     //'/putte': Putte,
     //'/funkis': Funkis,
   }

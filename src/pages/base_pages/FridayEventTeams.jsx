@@ -7,11 +7,7 @@ import Button from "@rmwc/button"
 import { info } from "../../constants"
 
 const teams = [
-  { name: "test", link: "/#" },
-  { name: "test", link: "/#" },
-  { name: "test", link: "/#" },
-  { name: "test", link: "/#" },
-  { name: "test", link: "/#" },
+  { name: "Komp1", link: "https://www.instagram.com/lithe_komp/", points: 0 },
 ]
 
 class FridayEventTeams extends Component {
@@ -43,8 +39,10 @@ class FridayEventTeams extends Component {
                 desktop='3'
                 style={{ textAlign: "center" }}
               >
-                <h5>
-                  <a href={team.link}>{team.name}</a>
+                <h5 style={{ marginBottom: 0 }}>
+                  <a target='_blank' rel='noopener noreferrer' href={team.link}>
+                    {team.name}
+                  </a>
                 </h5>
               </GridCell>
             ))}
