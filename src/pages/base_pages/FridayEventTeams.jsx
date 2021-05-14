@@ -5,6 +5,10 @@ import { Grid, GridCell, GridInner } from "@rmwc/grid"
 const teams = [
   { name: "Komp1", link: "https://www.instagram.com/lithe_komp/" },
   { name: "Horn Balun", link: "https://www.instagram.com/hornbalun/" },
+  {
+    name: "Saxofonsektionen i LiTHe Blås",
+    link: "https://www.instagram.com/saxsekten/",
+  },
 ]
 
 class FridayEventTeams extends Component {
@@ -33,8 +37,8 @@ class FridayEventTeams extends Component {
             {teams.map((team) => (
               <GridCell
                 phone='4'
-                tablet='2'
-                desktop='3'
+                tablet='4'
+                desktop='4'
                 style={{ textAlign: "center" }}
               >
                 <h5 style={{ marginBottom: 0 }}>
