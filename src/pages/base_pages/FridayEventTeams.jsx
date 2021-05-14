@@ -1,13 +1,10 @@
 import React, { Component } from "react"
 
 import { Grid, GridCell, GridInner } from "@rmwc/grid"
-import FormTextInput from "../../components/forms/components/FormTextInput"
-import Button from "@rmwc/button"
-
-import { info } from "../../constants"
 
 const teams = [
-  { name: "Komp1", link: "https://www.instagram.com/lithe_komp/", points: 0 },
+  { name: "Komp1", link: "https://www.instagram.com/lithe_komp/" },
+  { name: "Horn Balun", link: "https://www.instagram.com/hornbalun/" },
 ]
 
 class FridayEventTeams extends Component {
@@ -28,6 +25,7 @@ class FridayEventTeams extends Component {
   }
 
   render() {
+    console.log(teams)
     return (
       <React.Fragment>
         <Grid className='base-outer-grid '>
