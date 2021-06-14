@@ -145,8 +145,8 @@ class PageFooter extends Component {
                     ############################# */}
               <GridCell
                 phone='4'
-                tablet='4'
-                desktop='4'
+                tablet='3'
+                desktop='3'
                 className='h-center v-center'
               >
                 <img
@@ -156,8 +156,8 @@ class PageFooter extends Component {
               </GridCell>
               <GridCell
                 phone='4'
-                tablet='4'
-                desktop='4'
+                tablet='3'
+                desktop='3'
                 className='h-center v-center'
               >
                 <img
@@ -167,12 +167,23 @@ class PageFooter extends Component {
               </GridCell>
               <GridCell
                 phone='4'
-                tablet='4'
-                desktop='4'
+                tablet='3'
+                desktop='3'
                 className='h-center v-center'
               >
                 <img
                   src='https://lintek-sof.s3-eu-west-1.amazonaws.com/sof21/Sponsorer/Bosch.jpg'
+                  style={{ width: "90%" }}
+                />
+              </GridCell>
+              <GridCell
+                phone='4'
+                tablet='3'
+                desktop='3'
+                className='h-center v-center'
+              >
+                <img
+                  src='https://lintek-sof.s3.eu-west-1.amazonaws.com/sof21/Sponsorer/Bowl_logo_2020.png'
                   style={{ width: "90%" }}
                 />
               </GridCell>
