@@ -20,7 +20,7 @@
     "paymentfont": "^1.2.5",
     "prop-types": "^15.6.2",
     "qrcode.react": "^0.9.3",
-    "qs": "^6.6.0",
+    "qs": "^6.9.7",
     "react": "16.8",
     "react-cookie": "^3.0.8",
     "react-csv": "^2.0.3",
